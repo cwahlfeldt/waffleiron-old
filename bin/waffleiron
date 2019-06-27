@@ -22,7 +22,7 @@ _link() {
 
 clean() {
   cd $DIR
-  rm -rfv vendor node_modules web/cms
+  rm -rfv vendor web/cms
   find . -maxdepth 1 ! -name util ! -name index.php -name plugins/. -delete
   printf 'clean dat ish up'
 }
@@ -85,37 +85,38 @@ _rebuild() {
 
 install() {
   composer install
-  pnpm install
+  # pnpm install
 }
 
 # init function... used to be all the commands in composer.json but thats ugly dude
 init() {
-  center 'clean' 12 16
-  clean
+  # center 'clean' 12 16
+  # clean
 
-  center 'remove submods' 12 16
-  rm_submodules
+  # center 'remove submods' 12 16
+  # rm_submodules
+  _rebuild
 
   center 'install' 12 16
   install
 
-  sleep 1
+  sleep 1s
 
-  center 'syms and cp' 12 16
-  _links
+  # center 'syms and cp' 12 16
+  # _links
 
   center 'pull' 12 16
   pull
 
   # center 'restart' 12 16
-  # _restart
+  lando restart
 
   center 'clear/flush cache' 12 16
   cc
 }
 
 cc() {
-  lando ssh -c "wp cache flush --path=/app/web/cms"
+  lando wp cache flush
 }
 
 _help() {
