@@ -58,22 +58,22 @@ pull() {
   site="$(./bin/env 'SITE_NAME')" || site="$(lando ssh -s appserver -c env | grep TERMINUS_SITE | cut -d '=' --complement -f 1)"
   env="$(./bin/env 'SITE_ENV')" || env="$(lando ssh -s appserver -c env | grep TERMINUS_ENV | cut -d '=' --complement -f 1)"
   
-  printf "\npulling from $site.$env\n"
+  printf "\npulling from $site.$env\n" && lando pull --code=none --database=dev --files=dev
 
-  lando ssh -c "rm -f /app/database.sql.gz"
-  lando terminus backup:create $site.$env --element=db
-  lando terminus backup:get $site.$env --element=db --to=/app/database.sql.gz
-  lando db-import database.sql.gz && \
-  lando ssh -c "rm -f /app/database.sql.gz"
-  printf "imported db"
+#   lando ssh -c "rm -f /app/database.sql.gz"
+#   lando terminus backup:create $site.$env --element=db
+#   lando terminus backup:get $site.$env --element=db --to=/app/database.sql.gz
+#   lando db-import database.sql.gz && \
+#   lando ssh -c "rm -f /app/database.sql.gz"
+#   printf "imported db"
 
-  lando ssh -c "rm -f /tmp/files.sql.gz"
-  lando terminus backup:create $site.$env --element=files
-  lando terminus backup:get $site.$env --element=files --to=/tmp/files.tar.gz
-  lando ssh -c "mkdir -p /app/wp-content/uploads"
-  lando ssh -c "tar -xzvf /tmp/files.tar.gz -C /app/wp-content/uploads --strip-components 1"
-  lando ssh -c "rm -f /tmp/files.sql.gz"
-  printf "imported files"
+#   lando ssh -c "rm -f /tmp/files.sql.gz"
+#   lando terminus backup:create $site.$env --element=files
+#   lando terminus backup:get $site.$env --element=files --to=/tmp/files.tar.gz
+#   lando ssh -c "mkdir -p /app/wp-content/uploads"
+#   lando ssh -c "tar -xzvf /tmp/files.tar.gz -C /app/wp-content/uploads --strip-components 1"
+#   lando ssh -c "rm -f /tmp/files.sql.gz"
+#   printf "imported files"
 }
 
 _rebuild() {

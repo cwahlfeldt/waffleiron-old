@@ -1615,27 +1615,27 @@
     },
     {
         "name": "pantheon-systems/wordpress-composer",
-        "version": "4.x-dev",
-        "version_normalized": "4.9999999.9999999.9999999-dev",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
         "source": {
             "type": "git",
             "url": "https://github.com/pantheon-systems/wordpress-composer.git",
-            "reference": "2b13d79e331571530f30f522dc457bbfbdb4cfff"
+            "reference": "2a41a60bb25a4879c1b94c4c3c5b244e9135dbca"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/pantheon-systems/wordpress-composer/zipball/2b13d79e331571530f30f522dc457bbfbdb4cfff",
-            "reference": "2b13d79e331571530f30f522dc457bbfbdb4cfff",
+            "url": "https://api.github.com/repos/pantheon-systems/wordpress-composer/zipball/2a41a60bb25a4879c1b94c4c3c5b244e9135dbca",
+            "reference": "2a41a60bb25a4879c1b94c4c3c5b244e9135dbca",
             "shasum": ""
         },
         "require": {
             "johnpbloch/wordpress-core-installer": "~0.1"
         },
-        "time": "2018-08-03T01:46:12+00:00",
+        "time": "2019-06-18T19:34:32+00:00",
         "type": "wordpress-core",
         "extra": {
             "branch-alias": {
-                "dev-master": "4.x-dev"
+                "dev-master": "5.x-dev"
             },
             "wordpress-install-dir": "web/wp"
         },
@@ -1645,7 +1645,7 @@
         ],
         "description": "WordPress for Pantheon with a composer.json file.",
         "support": {
-            "source": "https://github.com/pantheon-systems/wordpress-composer/tree/4.9.8",
+            "source": "https://github.com/pantheon-systems/wordpress-composer/tree/5.2.2",
             "issues": "https://github.com/pantheon-systems/wordpress-composer/issues"
         }
     },

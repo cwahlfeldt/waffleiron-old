@@ -20,7 +20,7 @@ final class Versions
   'eftec/bladeone' => 'dev-master@b499bfa27feaae81932c7a874cd42eefa4397967',
   'johnpbloch/wordpress-core-installer' => '0.2.1@a04c2c383ef13aae077f36799ed2eafdebd618d2',
   'pantheon-systems/quicksilver-pushback' => '1.0.1@32c65effd6802bdf829f1c68fb75ade2bd5894a0',
-  'pantheon-systems/wordpress-composer' => '4.x-dev@2b13d79e331571530f30f522dc457bbfbdb4cfff',
+  'pantheon-systems/wordpress-composer' => 'dev-master@2a41a60bb25a4879c1b94c4c3c5b244e9135dbca',
   'philippbaschke/acf-pro-installer' => 'v1.0.2@f18e537183958159ef5f6cb1f5b684f59d55f3eb',
   'roots/wp-password-bcrypt' => '1.0.0@5cecd2e98ccc3193443cc5c5db9b3bc7abed5ffa',
   'rvtraveller/qs-composer-installer' => '1.1@20d6f4397e4b77599646767ad030092a60f5f92a',
@@ -108,7 +108,7 @@ final class Versions
   'wp-coding-standards/wpcs' => 'dev-master@bd9c33152115e6741e3510ff7189605b35167908',
   'zendframework/zend-code' => '3.1.0@2899c17f83a7207f2d7f53ec2f421204d3beea27',
   'zendframework/zend-eventmanager' => 'dev-develop@627f3e821fbfd6cebf9cccaa017b7fe7ae13c05b',
-  'mckenziewagner/waffleiron' => 'dev-master@817187a7ac6046515ad0566b865d5a00ae60a2f4',
+  'mckenziewagner/waffleiron' => 'dev-master@f374b082086102bdba0d39eab521bd5da8b9bde6',
 );
 
     private function __construct()
