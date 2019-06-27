@@ -48,22 +48,6 @@ define( 'WP_POST_REVISIONS', 3 );
  */
 if ( ! isset( $_ENV['PANTHEON_ENVIRONMENT'] ) ):
 	/**
-	 * Define site and home URLs
-	 */
-	// HTTP is still the default scheme for now.
-	$scheme = 'http';
-	// If we have detected that the end use is HTTPS, make sure we pass that
-	// through here, so <img> tags and the like don't generate mixed-mode
-	// content warnings.
-	if ( isset( $_SERVER['HTTP_USER_AGENT_HTTPS'] ) && $_SERVER['HTTP_USER_AGENT_HTTPS'] == 'ON' ) {
-		$scheme = 'https';
-	}
-	/* $site_url = getenv( 'WP_HOME' ) !== false ? getenv( 'WP_HOME' ) : $scheme . '://' . $_SERVER['HTTP_HOST'] . '/'; */
-	$site_url = $scheme.'://'.$_SERVER['HTTP_HOST'].'/';
-	define( 'WP_HOME', $site_url );
-	define( 'WP_SITEURL', $site_url . 'wp/' );
-
-	/**
 	 * Set Database Details
 	 */
 	define( 'DB_NAME', getenv( 'DB_NAME' ) );
@@ -153,8 +137,8 @@ if ( isset( $_ENV['PANTHEON_ENVIRONMENT'] ) ):
 		if ( isset( $_SERVER['HTTP_USER_AGENT_HTTPS'] ) && $_SERVER['HTTP_USER_AGENT_HTTPS'] == 'ON' ) {
 			$scheme = 'https';
 		}
-		define( 'WP_HOME', $scheme . '://' . $_SERVER['HTTP_HOST'] );
-		define( 'WP_SITEURL', $scheme . '://' . $_SERVER['HTTP_HOST'] . '/wp' );
+		/* define( 'WP_HOME', $scheme . '://' . $_SERVER['HTTP_HOST'] ); */
+		/* define( 'WP_SITEURL', $scheme . '://' . $_SERVER['HTTP_HOST'] . '/wp' ); */
 
 	}
 	// Don't show deprecations; useful under PHP 5.5
@@ -171,11 +155,21 @@ if ( isset( $_ENV['PANTHEON_ENVIRONMENT'] ) ):
 
 endif;
 
+if ( isset( $_SERVER['HTTP_HOST'] ) ) {
+  $scheme = 'http';
+  if ( isset( $_SERVER['HTTP_USER_AGENT_HTTPS'] ) && $_SERVER['HTTP_USER_AGENT_HTTPS'] == 'ON' ) {
+    $scheme = 'https';
+  }
+  $site_url = $scheme.'://'.$_SERVER['HTTP_HOST'].'/';
+
+  define( 'WP_HOME', $scheme . '://' . $_SERVER['HTTP_HOST'] );
+  define( 'WP_SITEURL', $site_url . 'wp/' );
+}
 /*
 * Define wp-content directory outside of WordPress core directory
 */
 define( 'WP_CONTENT_DIR', dirname( __FILE__ ) . '/wp-content' );
-define( 'WP_CONTENT_URL', WP_HOME . '/wp-content' );
+define( 'WP_CONTENT_URL', getenv('WP_HOME').'/wp-content' );
 
 /**
  * WordPress Database Table prefix.

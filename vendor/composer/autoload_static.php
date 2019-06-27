@@ -4,20 +4,20 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitaf62837d9151d5f7867ff57bd6d3845b
+class ComposerStaticInit649212b706533be51875b9949ac202ba
 {
     public static $files = array (
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
-        'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
+        'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         '1d1b89d124cc9cb8219922c9d5569199' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
-        '0db8ebcefc9116b9e0f2d17e560b7547' => __DIR__ . '/..' . '/paulgibbs/behat-wordpress-extension/src/Util/functions.php',
         '841f98c5d948ce534a6f87abe5b50614' => __DIR__ . '/..' . '/roots/wp-password-bcrypt/wp-password-bcrypt.php',
+        '0db8ebcefc9116b9e0f2d17e560b7547' => __DIR__ . '/..' . '/paulgibbs/behat-wordpress-extension/src/Util/functions.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -111,8 +111,8 @@ class ComposerStaticInitaf62837d9151d5f7867ff57bd6d3845b
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
         ),
         'eftec\\bladeone\\' => 
         array (
@@ -2899,10 +2899,10 @@ class ComposerStaticInitaf62837d9151d5f7867ff57bd6d3845b
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitaf62837d9151d5f7867ff57bd6d3845b::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitaf62837d9151d5f7867ff57bd6d3845b::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitaf62837d9151d5f7867ff57bd6d3845b::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitaf62837d9151d5f7867ff57bd6d3845b::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit649212b706533be51875b9949ac202ba::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit649212b706533be51875b9949ac202ba::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit649212b706533be51875b9949ac202ba::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit649212b706533be51875b9949ac202ba::$classMap;
 
         }, null, ClassLoader::class);
     }
