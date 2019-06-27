@@ -7,20 +7,20 @@
  * @license https://opensource.org/licenses/MIT MIT
  */
 
-namespace WordPress\Sniffs\Arrays;
+namespace WordPressCS\WordPress\Sniffs\Arrays;
 
-use WordPress\Sniff;
+use WordPressCS\WordPress\Sniff;
 
 /**
  * Check for proper spacing in array key references.
  *
- * @link    http://make.wordpress.org/core/handbook/coding-standards/php/#space-usage
+ * @link    https://make.wordpress.org/core/handbook/best-practices/coding-standards/php/#space-usage
  *
  * @package WPCS\WordPressCodingStandards
  *
  * @since   0.3.0
  * @since   0.7.0  This sniff now has the ability to fix a number of the issues it flags.
- * @since   0.12.0 This class now extends WordPress_Sniff.
+ * @since   0.12.0 This class now extends the WordPressCS native `Sniff` class.
  * @since   0.13.0 Class name changed: this class is now namespaced.
  */
 class ArrayKeySpacingRestrictionsSniff extends Sniff {
@@ -32,9 +32,8 @@ class ArrayKeySpacingRestrictionsSniff extends Sniff {
 	 */
 	public function register() {
 		return array(
-			T_OPEN_SQUARE_BRACKET,
+			\T_OPEN_SQUARE_BRACKET,
 		);
-
 	}
 
 	/**
@@ -53,14 +52,14 @@ class ArrayKeySpacingRestrictionsSniff extends Sniff {
 		}
 
 		$need_spaces = $this->phpcsFile->findNext(
-			array( T_CONSTANT_ENCAPSED_STRING, T_LNUMBER, T_WHITESPACE, T_MINUS ),
+			array( \T_CONSTANT_ENCAPSED_STRING, \T_LNUMBER, \T_WHITESPACE, \T_MINUS ),
 			( $stackPtr + 1 ),
 			$token['bracket_closer'],
 			true
 		);
 
-		$spaced1 = ( T_WHITESPACE === $this->tokens[ ( $stackPtr + 1 ) ]['code'] );
-		$spaced2 = ( T_WHITESPACE === $this->tokens[ ( $token['bracket_closer'] - 1 ) ]['code'] );
+		$spaced1 = ( \T_WHITESPACE === $this->tokens[ ( $stackPtr + 1 ) ]['code'] );
+		$spaced2 = ( \T_WHITESPACE === $this->tokens[ ( $token['bracket_closer'] - 1 ) ]['code'] );
 
 		// It should have spaces unless if it only has strings or numbers as the key.
 		if ( false !== $need_spaces && ! ( $spaced1 && $spaced2 ) ) {
@@ -86,7 +85,6 @@ class ArrayKeySpacingRestrictionsSniff extends Sniff {
 				}
 			}
 		}
+	}
 
-	} // End process().
-
-} // End class.
+}

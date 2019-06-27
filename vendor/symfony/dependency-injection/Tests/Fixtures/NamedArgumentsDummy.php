@@ -14,4 +14,12 @@ class NamedArgumentsDummy
     public function setApiKey($apiKey)
     {
     }
+
+    public function setSensitiveClass(CaseSensitiveClass $c)
+    {
+    }
+
+    public function setAnotherC($c)
+    {
+    }
 }

@@ -7,9 +7,9 @@
  * @license https://opensource.org/licenses/MIT MIT
  */
 
-namespace WordPress\Sniffs\PHP;
+namespace WordPressCS\WordPress\Sniffs\PHP;
 
-use WordPress\Sniff;
+use WordPressCS\WordPress\Sniff;
 
 /**
  * Enforces Strict Comparison checks, based upon Squiz code.
@@ -33,10 +33,9 @@ class StrictComparisonsSniff extends Sniff {
 	 */
 	public function register() {
 		return array(
-			T_IS_EQUAL,
-			T_IS_NOT_EQUAL,
+			\T_IS_EQUAL,
+			\T_IS_NOT_EQUAL,
 		);
-
 	}
 
 	/**
@@ -49,10 +48,9 @@ class StrictComparisonsSniff extends Sniff {
 	public function process_token( $stackPtr ) {
 
 		if ( ! $this->has_whitelist_comment( 'loose comparison', $stackPtr ) ) {
-			$error  = 'Found: ' . $this->tokens[ $stackPtr ]['content'] . '. Use strict comparisons (=== or !==).';
+			$error = 'Found: ' . $this->tokens[ $stackPtr ]['content'] . '. Use strict comparisons (=== or !==).';
 			$this->phpcsFile->addWarning( $error, $stackPtr, 'LooseComparison' );
 		}
-
 	}
 
-} // End class.
+}

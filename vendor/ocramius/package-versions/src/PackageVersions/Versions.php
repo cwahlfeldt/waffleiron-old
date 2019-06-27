@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PackageVersions;
 
 /**
@@ -10,89 +12,103 @@ namespace PackageVersions;
  */
 final class Versions
 {
-    const VERSIONS = array (
-  'composer/installers' => 'v1.4.0@9ce17fb70e9a38dd8acff0636a29f5cf4d575c1b',
+    public const ROOT_PACKAGE_NAME = 'waffleiron-dude';
+    public const VERSIONS          = array (
+  'advanced-custom-fields/advanced-custom-fields-pro' => '5.8.1@',
+  'altorouter/altorouter' => 'v1.2.0@39c50092470128c12284d332bb57f306bb5b58e4',
+  'composer/installers' => 'v1.6.0@cfcca6b1b60bc4974324efb5783c13dca6932b5b',
+  'eftec/bladeone' => 'dev-master@b499bfa27feaae81932c7a874cd42eefa4397967',
   'johnpbloch/wordpress-core-installer' => '0.2.1@a04c2c383ef13aae077f36799ed2eafdebd618d2',
   'pantheon-systems/quicksilver-pushback' => '1.0.1@32c65effd6802bdf829f1c68fb75ade2bd5894a0',
-  'pantheon-systems/wordpress-composer' => '4.8.2@5f0725b3cdbeeb53fa49e1afcfc8237cbfba3355',
+  'pantheon-systems/wordpress-composer' => '4.x-dev@2b13d79e331571530f30f522dc457bbfbdb4cfff',
+  'philippbaschke/acf-pro-installer' => 'v1.0.2@f18e537183958159ef5f6cb1f5b684f59d55f3eb',
   'roots/wp-password-bcrypt' => '1.0.0@5cecd2e98ccc3193443cc5c5db9b3bc7abed5ffa',
   'rvtraveller/qs-composer-installer' => '1.1@20d6f4397e4b77599646767ad030092a60f5f92a',
-  'vlucas/phpdotenv' => 'v2.4.0@3cc116adbe4b11be5ec557bf1d24dc5e3a21d18c',
+  'spatie/server-side-rendering' => '0.2.5@fb646f07be18e83324d7e32773c19ccf06a78530',
+  'symfony/polyfill-ctype' => 'dev-master@82ebae02209c21113908c229e9883c419720738a',
+  'symfony/process' => '4.4.x-dev@c89a858a34e08a13fe60a925f1af07401baa9608',
+  'upstatement/routes' => '0.5@3267d28be0a73f197087d58384e1a358d85671b6',
+  'vlucas/phpdotenv' => '2.6.x-dev@2a7dcf7e3e02dc5e701004e51a6f304b713107d5',
+  'wpackagist-plugin/acf-to-rest-api' => '3.1.0@tags/3.1.0',
+  'wpackagist-plugin/classic-editor' => '1.5@tags/1.5',
   'wpackagist-plugin/pantheon-advanced-page-cache' => '0.1.5@tags/0.1.5',
-  'wpackagist-plugin/wp-native-php-sessions' => '0.6.2@tags/0.6.2',
-  'wpackagist-theme/twentyseventeen' => '1.3@1.3',
+  'wpackagist-plugin/woo-permalink-manager' => '2.1.11@tags/2.1.11',
+  'wpackagist-plugin/woocommerce' => '3.6.4@tags/3.6.4',
+  'wpackagist-plugin/wp-native-php-sessions' => '0.7.0@tags/0.7.0',
   'antecedent/patchwork' => '2.0.9@cab3be4865e47f1dc447715e76c7b616e48b005d',
-  'behat/behat' => 'v3.4.1@cb51d4b0b11ea6d3897f3589a871a63a33632692',
-  'behat/gherkin' => 'v4.5.1@74ac03d52c5e23ad8abd5c5cce4ab0e8dc1b530a',
-  'behat/mink' => 'v1.7.1@e6930b9c74693dff7f4e58577e1b1743399f3ff9',
-  'behat/mink-browserkit-driver' => 'v1.3.2@10e67fb4a295efcd62ea0bf16025a85ea19534fb',
-  'behat/mink-extension' => 'v2.2@5b4bda64ff456104564317e212c823e45cad9d59',
-  'behat/mink-goutte-driver' => 'v1.2.1@8b9ad6d2d95bc70b840d15323365f52fcdaea6ca',
-  'behat/mink-selenium2-driver' => 'v1.3.1@473a9f3ebe0c134ee1e623ce8a9c852832020288',
-  'behat/transliterator' => 'v1.2.0@826ce7e9c2a6664c0d1f381cbb38b1fb80a7ee2c',
-  'brain/monkey' => '1.5.0@44b2ea87147803227154c990fa01fd5e82a6bb61',
+  'behat/behat' => 'dev-master@eb6c5d39420a47c08344598b58ec5f8d26a75b9b',
+  'behat/gherkin' => 'v4.6.0@ab0a02ea14893860bca00f225f5621d351a3ad07',
+  'behat/mink' => 'dev-master@6d637f7af4816c26ad8a943da2e3f7eef1231bea',
+  'behat/mink-browserkit-driver' => 'dev-master@4a0b453c8da1f6035f526a8532c293bba742d00d',
+  'behat/mink-extension' => '2.3.1@80f7849ba53867181b7e412df9210e12fba50177',
+  'behat/mink-goutte-driver' => 'dev-master@7a4b2d49511865e23d61463514fa2754d42ec658',
+  'behat/mink-selenium2-driver' => 'dev-master@8684ee4e634db7abda9039ea53545f86fc1e105a',
+  'behat/transliterator' => 'dev-master@826ce7e9c2a6664c0d1f381cbb38b1fb80a7ee2c',
+  'brain/monkey' => 'dev-version/1@44b2ea87147803227154c990fa01fd5e82a6bb61',
   'container-interop/container-interop' => '1.2.0@79cbf1341c22ec75643d841642dd5d6acd83bdb8',
-  'doctrine/instantiator' => '1.0.5@8e884e78f9f0eb1329e445619e04456e64d8051d',
-  'fabpot/goutte' => 'v3.2.1@db5c28f4a010b4161d507d5304e28a7ebf211638',
-  'guzzlehttp/guzzle' => '6.3.0@f4db5a78a5ea468d4831de7f0bf9d9415e348699',
-  'guzzlehttp/promises' => 'v1.3.1@a59da6cf61d80060647ff4d3eb2c03a2bc694646',
-  'guzzlehttp/psr7' => '1.4.2@f5b8a8512e2b58b0071a7280e39f14f72e05d87c',
-  'hamcrest/hamcrest-php' => 'v1.2.2@b37020aa976fa52d3de9aa904aa2522dc518f79c',
+  'doctrine/instantiator' => 'dev-master@fb21dea73761426178f8665f6b567c58fee488ff',
+  'fabpot/goutte' => 'dev-master@3f0eaf0a40181359470651f1565b3e07e3dd31b8',
+  'guzzlehttp/guzzle' => 'dev-master@ca2892a8c2778c1821899fd2c79932e3b895f2ad',
+  'guzzlehttp/promises' => 'dev-master@e6d006f1ced100d81755966f09625d71ce6a7dca',
+  'guzzlehttp/psr7' => 'dev-master@e113254d23b24c548f0b4d8f671828c4eeb876d2',
+  'hamcrest/hamcrest-php' => '1.2.x-dev@26968e9810ff0d1aa48f6d67a862559d92a51884',
   'instaclick/php-webdriver' => '1.4.5@6fa959452e774dcaed543faad3a9d1a37d803327',
-  'mockery/mockery' => '0.9.9@6fdb61243844dc924071d3404bb23994ea0b6856',
-  'myclabs/deep-copy' => '1.6.1@8e6e04167378abf1ddb4d3522d8755c5fd90d102',
-  'ocramius/package-versions' => '1.1.3@72b226d2957e9e6a9ed09aeaa29cabd840d1a3b7',
+  'mockery/mockery' => '0.9.x-dev@f356e061d8ae815cd283fdc8f4412b635044be3c',
+  'myclabs/deep-copy' => '1.x-dev@e6828efaba2c9b79f4499dae1d66ef8bfa7b2b72',
+  'ocramius/package-versions' => '1.4.0@a4d4b60d0e60da2487bd21a2c6ac089f85570dbb',
   'ocramius/proxy-manager' => '2.0.4@a55d08229f4f614bf335759ed0cf63378feeb2e6',
   'paulgibbs/behat-wordpress-extension' => 'v0.8.0@04aaa4e2262f3678c4cf76829331b99051bf0ff9',
   'phar-io/manifest' => '1.0.1@2df402786ab5368a0169091f61a7c1e0eb6852d0',
   'phar-io/version' => '1.0.1@a70c0ced4be299a63d32fa96d9281d03e94041df',
   'phpdocumentor/reflection-common' => '1.0.1@21bdeb5f65d7ebf9f43b1b25d404f87deab5bfb6',
-  'phpdocumentor/reflection-docblock' => '4.1.1@2d3d238c433cf69caeb4842e97a3223a116f94b2',
+  'phpdocumentor/reflection-docblock' => '4.3.1@bdd9f737ebc2a01c06ea7ff4308ec6697db9b53c',
   'phpdocumentor/type-resolver' => '0.4.0@9c977708995954784726e25d0cd1dddf4e65b0f7',
-  'phpspec/prophecy' => 'v1.7.2@c9b8c6088acd19d769d4cc0ffa60a9fe34344bd6',
-  'phpunit/php-code-coverage' => '5.2.2@8ed1902a57849e117b5651fc1a5c48110946c06b',
-  'phpunit/php-file-iterator' => '1.4.2@3cc8f69b3028d0f96a9078e6295d86e9bf019be5',
+  'phpspec/prophecy' => 'dev-master@1927e75f4ed19131ec9bcc3b002e07fb1173ee76',
+  'phpunit/php-code-coverage' => '5.3.x-dev@83f09c29758c52e71bdb81ad2cc9124b85b5a4ef',
+  'phpunit/php-file-iterator' => '1.4.x-dev@730b01bc3e867237eaac355e06a36b85dd93a8b4',
   'phpunit/php-text-template' => '1.2.1@31f8b717e51d9a2afca6c9f046f5d69fc27c8686',
-  'phpunit/php-timer' => '1.0.9@3dcf38ca72b158baf0bc245e9184d3fdffa9c46f',
-  'phpunit/php-token-stream' => '2.0.1@9a02332089ac48e704c70f6cefed30c224e3c0b0',
-  'phpunit/phpunit' => '6.3.0@9501bab711403a1ab5b8378a8adb4ec3db3debdb',
-  'phpunit/phpunit-mock-objects' => '4.0.4@2f789b59ab89669015ad984afa350c4ec577ade0',
-  'psr/container' => '1.0.0@b7ce3b176482dbbc1245ebf52b181af44c2cf55f',
-  'psr/http-message' => '1.0.1@f6561bf28d520154e4b0ec72be95418abe6d9363',
-  'psr/log' => '1.0.2@4ebe3a8bf773a19edfe0a84b6585ba3d401b724d',
-  'roave/security-advisories' => 'dev-master@140175d0d4a71950b045fb87cc7d979340b9f16e',
-  'sebastian/code-unit-reverse-lookup' => '1.0.1@4419fcdb5eabb9caa61a27c7a1db532a6b55dd18',
-  'sebastian/comparator' => '2.0.2@ae068fede81d06e7bb9bb46a367210a3d3e1fe6a',
-  'sebastian/diff' => '2.0.1@347c1d8b49c5c3ee30c7040ea6fc446790e6bddd',
+  'phpunit/php-timer' => '1.0.x-dev@9513098641797ce5f459dbc1de5a54c29b0ec1fb',
+  'phpunit/php-token-stream' => '2.0.x-dev@13eb9aba9626b1a3811c6a492acc9669d24bb85a',
+  'phpunit/phpunit' => '6.5.14@bac23fe7ff13dbdb461481f706f0e9fe746334b7',
+  'phpunit/phpunit-mock-objects' => '5.0.x-dev@13862f9c620ffbc8895792abe2a9e473326fb905',
+  'psr/container' => 'dev-master@014d250daebff39eba15ba990eeb2a140798e77c',
+  'psr/http-message' => 'dev-master@f6561bf28d520154e4b0ec72be95418abe6d9363',
+  'ralouphie/getallheaders' => '3.0.3@120b605dfeb996808c31b6477290a714d356e822',
+  'roave/security-advisories' => 'dev-master@a53a6f855cbff7edb078f87c72bb808c89443a00',
+  'sebastian/code-unit-reverse-lookup' => 'dev-master@aa169192fe98c7270af0ec5c57e631094ad930df',
+  'sebastian/comparator' => '2.1.3@34369daee48eafb2651bea869b4b15d75ccc35f9',
+  'sebastian/diff' => '2.0.x-dev@abcc70409ddfb310a8cb41ef0c2e857425438cf4',
   'sebastian/environment' => '3.1.0@cd0871b3975fb7fc44d11314fd1ee20925fce4f5',
-  'sebastian/exporter' => '3.1.0@234199f4528de6d12aaa58b612e98f7d36adb937',
+  'sebastian/exporter' => 'dev-master@cf3a70cdc3af7b80ad571adae1ab718eb578be2b',
   'sebastian/global-state' => '2.0.0@e8ba02eed7bbbb9e59e43dedd3dddeff4a56b0c4',
-  'sebastian/object-enumerator' => '3.0.3@7cfd9e65d11ffb5af41198476395774d4c8a84c5',
-  'sebastian/object-reflector' => '1.1.1@773f97c67f28de00d397be301821b06708fca0be',
-  'sebastian/recursion-context' => '3.0.0@5b0cd723502bac3b006cbf3dbf7a1e3fcefe4fa8',
+  'sebastian/object-enumerator' => 'dev-master@eb45b4b8fd5f845d36851767a6fe00ee15cb8952',
+  'sebastian/object-reflector' => 'dev-master@a2539861984780016bb3d75420452d95f798e25d',
+  'sebastian/recursion-context' => 'dev-master@b6a7e76741fee33ec10ccb55772e65d817a8f2fd',
   'sebastian/resource-operations' => '1.0.0@ce990bb21759f94aeafd30209e8cfcdfa8bc3f52',
   'sebastian/version' => '2.0.1@99732be0ddb3361e16ad77b68ba41efc8e979019',
   'sensiolabs/behat-page-object-extension' => 'v2.1.0@bd2a34221ba65ea8c86d8e693992d718de03dbae',
-  'squizlabs/php_codesniffer' => '2.9.1@dcbed1074f8244661eecddfc2a675430d8d33f62',
-  'symfony/browser-kit' => 'v3.3.6@8079a6b3668ef15cdbf73a4c7d31081abb8bb5f0',
-  'symfony/class-loader' => 'v3.3.6@386a294d621576302e7cc36965d6ed53b8c73c4f',
-  'symfony/config' => 'v3.3.6@54ee12b0dd60f294132cabae6f5da9573d2e5297',
-  'symfony/console' => 'v3.3.6@b0878233cb5c4391347e5495089c7af11b8e6201',
-  'symfony/css-selector' => 'v3.3.6@4d882dced7b995d5274293039370148e291808f2',
-  'symfony/debug' => 'v3.3.6@7c13ae8ce1e2adbbd574fc39de7be498e1284e13',
-  'symfony/dependency-injection' => 'v3.3.6@8d70987f991481e809c63681ffe8ce3f3fde68a0',
-  'symfony/dom-crawler' => 'v3.3.6@fc2c588ce376e9fe04a7b8c79e3ec62fe32d95b1',
-  'symfony/event-dispatcher' => 'v3.3.6@67535f1e3fd662bdc68d7ba317c93eecd973617e',
-  'symfony/filesystem' => 'v3.3.6@427987eb4eed764c3b6e38d52a0f87989e010676',
-  'symfony/polyfill-mbstring' => 'v1.5.0@7c8fae0ac1d216eb54349e6a8baa57d515fe8803',
-  'symfony/translation' => 'v3.3.6@35dd5fb003c90e8bd4d8cabdf94bf9c96d06fdc3',
-  'symfony/yaml' => 'v3.3.6@ddc23324e6cfe066f3dd34a37ff494fa80b617ed',
-  'theseer/tokenizer' => '1.1.0@cb2f008f3f05af2893a87208fe6a6c4985483f8b',
-  'webmozart/assert' => '1.2.0@2db61e59ff05fe5126d152bd0655c9ea113e550f',
-  'wp-coding-standards/wpcs' => 'dev-master@1f64b1a0b5b789822d0303436ee4e30e0135e4dc',
+  'squizlabs/php_codesniffer' => 'dev-master@0a42dba4afea02087255e4f9d5f04c47e91ddad7',
+  'symfony/browser-kit' => '4.4.x-dev@6520d2eb393e329038988960a81de5a8034095aa',
+  'symfony/config' => '4.4.x-dev@e034269a63c4ef7c4f0ae29a9e16174b3ff0382d',
+  'symfony/console' => '4.4.x-dev@a2e6f67b286cf6735437b6e88f38cfee72405d36',
+  'symfony/css-selector' => '4.4.x-dev@9ed158c52af88c6befa7dd00c8e6dfc273a52ab4',
+  'symfony/dependency-injection' => '4.4.x-dev@27e6861458c8dfd3609ab9853ee1d2e02c532e5a',
+  'symfony/dom-crawler' => '4.4.x-dev@2d379ba4a7be0f157e63e0c1934fcaf76640b0e3',
+  'symfony/event-dispatcher' => '4.4.x-dev@3f1bdf9140159fb5442b79072230a4d5f1306532',
+  'symfony/event-dispatcher-contracts' => 'dev-master@c61766f4440ca687de1084a5c00b08e167a2575c',
+  'symfony/filesystem' => '4.4.x-dev@77502841a93f7efcadda60f384211c1690136367',
+  'symfony/polyfill-mbstring' => 'dev-master@fe5e94c604826c35a32fa832f35bd036b6799609',
+  'symfony/polyfill-php73' => 'dev-master@d1fb4abcc0c47be136208ad9d68bf59f1ee17abd',
+  'symfony/service-contracts' => 'dev-master@f391a00de78ec7ec8cf5cdcdae59ec7b883edb8d',
+  'symfony/translation' => '4.4.x-dev@43dc8460dc5ba5543927309177075e43db51778d',
+  'symfony/translation-contracts' => 'dev-master@cb4b18ad7b92a26e83b65dde940fab78339e6f3c',
+  'symfony/yaml' => '4.4.x-dev@b4d262d40ed43dd77ff3bd1fdc9919d8e237a3b5',
+  'theseer/tokenizer' => '1.1.3@11336f6f84e16a720dae9d8e6ed5019efa85a0f9',
+  'webmozart/assert' => '1.4.0@83e253c8e0be5b0257b881e1827274667c5c17a9',
+  'wp-coding-standards/wpcs' => 'dev-master@bd9c33152115e6741e3510ff7189605b35167908',
   'zendframework/zend-code' => '3.1.0@2899c17f83a7207f2d7f53ec2f421204d3beea27',
-  'zendframework/zend-eventmanager' => '3.2.0@9d72db10ceb6e42fb92350c0cb54460da61bd79c',
-  'pantheon-systems/example-wordpress-composer' => '1.0.1.0@',
+  'zendframework/zend-eventmanager' => 'dev-develop@627f3e821fbfd6cebf9cccaa017b7fe7ae13c05b',
+  'waffleiron-dude' => 'dev-master@7bf85dcd4f3e9140cbbfe275d281f2b1b567b117',
 );
 
     private function __construct()
@@ -100,16 +116,16 @@ final class Versions
     }
 
     /**
-     * @throws \OutOfBoundsException if a version cannot be located
+     * @throws \OutOfBoundsException If a version cannot be located.
      */
     public static function getVersion(string $packageName) : string
     {
-        if (! isset(self::VERSIONS[$packageName])) {
-            throw new \OutOfBoundsException(
-                'Required package "' . $packageName . '" is not installed: cannot detect its version'
-            );
+        if (isset(self::VERSIONS[$packageName])) {
+            return self::VERSIONS[$packageName];
         }
 
-        return self::VERSIONS[$packageName];
+        throw new \OutOfBoundsException(
+            'Required package "' . $packageName . '" is not installed: cannot detect its version'
+        );
     }
 }

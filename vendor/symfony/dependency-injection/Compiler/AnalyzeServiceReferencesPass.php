@@ -12,11 +12,10 @@
 namespace Symfony\Component\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\Argument\ArgumentInterface;
-use Symfony\Component\DependencyInjection\Definition;
-use Symfony\Component\DependencyInjection\ExpressionLanguage;
-use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\ExpressionLanguage\Expression;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * Run this pass before passes that need to know more about the relation of
@@ -26,22 +25,28 @@ use Symfony\Component\ExpressionLanguage\Expression;
  * retrieve the graph in other passes from the compiler.
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
+ * @author Nicolas Grekas <p@tchwork.com>
  */
 class AnalyzeServiceReferencesPass extends AbstractRecursivePass implements RepeatablePassInterface
 {
     private $graph;
     private $currentDefinition;
-    private $repeatedPass;
     private $onlyConstructorArguments;
+    private $hasProxyDumper;
     private $lazy;
     private $expressionLanguage;
+    private $byConstructor;
+    private $definitions;
+    private $aliases;
 
     /**
      * @param bool $onlyConstructorArguments Sets this Service Reference pass to ignore method calls
      */
-    public function __construct($onlyConstructorArguments = false)
+    public function __construct(bool $onlyConstructorArguments = false, bool $hasProxyDumper = true)
     {
-        $this->onlyConstructorArguments = (bool) $onlyConstructorArguments;
+        $this->onlyConstructorArguments = $onlyConstructorArguments;
+        $this->hasProxyDumper = $hasProxyDumper;
+        $this->enableExpressionProcessing();
     }
 
     /**
@@ -49,13 +54,11 @@ class AnalyzeServiceReferencesPass extends AbstractRecursivePass implements Repe
      */
     public function setRepeatedPass(RepeatedPass $repeatedPass)
     {
-        $this->repeatedPass = $repeatedPass;
+        @trigger_error(sprintf('The "%s()" method is deprecated since Symfony 4.2.', __METHOD__), E_USER_DEPRECATED);
     }
 
     /**
      * Processes a ContainerBuilder object to populate the service reference graph.
-     *
-     * @param ContainerBuilder $container
      */
     public function process(ContainerBuilder $container)
     {
@@ -63,17 +66,26 @@ class AnalyzeServiceReferencesPass extends AbstractRecursivePass implements Repe
         $this->graph = $container->getCompiler()->getServiceReferenceGraph();
         $this->graph->clear();
         $this->lazy = false;
+        $this->byConstructor = false;
+        $this->definitions = $container->getDefinitions();
+        $this->aliases = $container->getAliases();
 
-        foreach ($container->getAliases() as $id => $alias) {
-            $this->graph->connect($id, $alias, (string) $alias, $this->getDefinition((string) $alias), null);
+        foreach ($this->aliases as $id => $alias) {
+            $targetId = $this->getDefinitionId((string) $alias);
+            $this->graph->connect($id, $alias, $targetId, null !== $targetId ? $this->container->getDefinition($targetId) : null, null);
         }
 
-        parent::process($container);
+        try {
+            parent::process($container);
+        } finally {
+            $this->aliases = $this->definitions = [];
+        }
     }
 
     protected function processValue($value, $isRoot = false)
     {
         $lazy = $this->lazy;
+        $inExpression = $this->inExpression();
 
         if ($value instanceof ArgumentInterface) {
             $this->lazy = true;
@@ -82,22 +94,32 @@ class AnalyzeServiceReferencesPass extends AbstractRecursivePass implements Repe
 
             return $value;
         }
-        if ($value instanceof Expression) {
-            $this->getExpressionLanguage()->compile((string) $value, array('this' => 'container'));
-
-            return $value;
-        }
         if ($value instanceof Reference) {
-            $targetDefinition = $this->getDefinition((string) $value);
+            $targetId = $this->getDefinitionId((string) $value);
+            $targetDefinition = null !== $targetId ? $this->container->getDefinition($targetId) : null;
 
             $this->graph->connect(
                 $this->currentId,
                 $this->currentDefinition,
-                $this->getDefinitionId((string) $value),
+                $targetId,
                 $targetDefinition,
                 $value,
-                $this->lazy || ($targetDefinition && $targetDefinition->isLazy())
+                $this->lazy || ($this->hasProxyDumper && $targetDefinition && $targetDefinition->isLazy()),
+                ContainerInterface::IGNORE_ON_UNINITIALIZED_REFERENCE === $value->getInvalidBehavior(),
+                $this->byConstructor
             );
+
+            if ($inExpression) {
+                $this->graph->connect(
+                    '.internal.reference_in_expression',
+                    null,
+                    $targetId,
+                    $targetDefinition,
+                    $value,
+                    $this->lazy || ($targetDefinition && $targetDefinition->isLazy()),
+                    true
+               );
+            }
 
             return $value;
         }
@@ -109,15 +131,50 @@ class AnalyzeServiceReferencesPass extends AbstractRecursivePass implements Repe
                 return $value;
             }
             $this->currentDefinition = $value;
+        } elseif ($this->currentDefinition === $value) {
+            return $value;
         }
         $this->lazy = false;
 
+        $byConstructor = $this->byConstructor;
+        $this->byConstructor = true;
         $this->processValue($value->getFactory());
         $this->processValue($value->getArguments());
 
+        $properties = $value->getProperties();
+        $setters = $value->getMethodCalls();
+
+        // Any references before a "wither" are part of the constructor-instantiation graph
+        $lastWitherIndex = null;
+        foreach ($setters as $k => $call) {
+            if ($call[2] ?? false) {
+                $lastWitherIndex = $k;
+            }
+        }
+
+        if (null !== $lastWitherIndex) {
+            $this->processValue($properties);
+            $setters = $properties = [];
+
+            foreach ($value->getMethodCalls() as $k => $call) {
+                if (null === $lastWitherIndex) {
+                    $setters[] = $call;
+                    continue;
+                }
+
+                if ($lastWitherIndex === $k) {
+                    $lastWitherIndex = null;
+                }
+
+                $this->processValue($call);
+            }
+        }
+
+        $this->byConstructor = $byConstructor;
+
         if (!$this->onlyConstructorArguments) {
-            $this->processValue($value->getProperties());
-            $this->processValue($value->getMethodCalls());
+            $this->processValue($properties);
+            $this->processValue($setters);
             $this->processValue($value->getConfigurator());
         }
         $this->lazy = $lazy;
@@ -125,53 +182,12 @@ class AnalyzeServiceReferencesPass extends AbstractRecursivePass implements Repe
         return $value;
     }
 
-    /**
-     * Returns a service definition given the full name or an alias.
-     *
-     * @param string $id A full id or alias for a service definition
-     *
-     * @return Definition|null The definition related to the supplied id
-     */
-    private function getDefinition($id)
+    private function getDefinitionId(string $id): ?string
     {
-        $id = $this->getDefinitionId($id);
-
-        return null === $id ? null : $this->container->getDefinition($id);
-    }
-
-    private function getDefinitionId($id)
-    {
-        while ($this->container->hasAlias($id)) {
-            $id = (string) $this->container->getAlias($id);
+        while (isset($this->aliases[$id])) {
+            $id = (string) $this->aliases[$id];
         }
 
-        if (!$this->container->hasDefinition($id)) {
-            return;
-        }
-
-        return $id;
-    }
-
-    private function getExpressionLanguage()
-    {
-        if (null === $this->expressionLanguage) {
-            $providers = $this->container->getExpressionLanguageProviders();
-            $this->expressionLanguage = new ExpressionLanguage(null, $providers, function ($arg) {
-                if ('""' === substr_replace($arg, '', 1, -1)) {
-                    $id = stripcslashes(substr($arg, 1, -1));
-
-                    $this->graph->connect(
-                        $this->currentId,
-                        $this->currentDefinition,
-                        $this->getDefinitionId($id),
-                        $this->getDefinition($id)
-                    );
-                }
-
-                return sprintf('$this->get(%s)', $arg);
-            });
-        }
-
-        return $this->expressionLanguage;
+        return isset($this->definitions[$id]) ? $id : null;
     }
 }

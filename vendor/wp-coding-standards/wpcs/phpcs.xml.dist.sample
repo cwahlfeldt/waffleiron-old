@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<ruleset name="Example Project">
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Example Project" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/squizlabs/PHP_CodeSniffer/master/phpcs.xsd">
+
 	<description>A custom set of rules to check for a WPized WordPress project</description>
 
 	<!-- Exclude WP Core folders and files from being checked. -->
@@ -28,10 +29,15 @@
 		see the names of the sniffs reporting errors.
 		Once we know the sniff names, we can opt to exclude sniffs which don't
 		suit our project like so.
+
+		The below two examples just show how you can exclude rules.
+		They are not intended as advice about which sniffs to exclude.
 		-->
 
+		<!--
 		<exclude name="WordPress.WhiteSpace.ControlStructureSpacing"/>
-		<exclude name="WordPress.XSS.EscapeOutput"/>
+		<exclude name="WordPress.Security.EscapeOutput"/>
+		-->
 	</rule>
 
 	<!-- Let's also check that everything is properly documented. -->
@@ -43,14 +49,16 @@
 
 	<!-- Check for PHP cross-version compatibility. -->
 	<!--
-	To enable this, the PHPCompatibility standard needs
+	To enable this, the PHPCompatibilityWP standard needs
 	to be installed.
 	See the readme for installation instructions:
-	https://github.com/wimg/PHPCompatibility
+	https://github.com/PHPCompatibility/PHPCompatibilityWP
+	For more information, also see:
+	https://github.com/PHPCompatibility/PHPCompatibility
 	-->
 	<!--
-	<config name="testVersion" value="5.2-99.0"/>
-	<rule ref="PHPCompatibility"/>
+	<config name="testVersion" value="5.2-"/>
+	<rule ref="PHPCompatibilityWP"/>
 	-->
 
 	<!--
@@ -62,33 +70,22 @@
 	the wiki:
 	https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/wiki/Customizable-sniff-properties
 	-->
+	<config name="minimum_supported_wp_version" value="4.9"/>
+
 	<rule ref="WordPress.WP.I18n">
 		<properties>
-			<property name="text_domain" type="array" value="my-textdomain,library-textdomain"/>
+			<property name="text_domain" type="array">
+				<element value="my-textdomain"/>
+				<element value="library-textdomain"/>
+			</property>
 		</properties>
 	</rule>
 
 	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
 		<properties>
-			<property name="prefixes" type="array" value="my_prefix"/>
-		</properties>
-	</rule>
-
-	<rule ref="WordPress.WP.DeprecatedClasses">
-		<properties>
-			<property name="minimum_supported_version" value="4.5"/>
-		</properties>
-	</rule>
-
-	<rule ref="WordPress.WP.DeprecatedFunctions">
-		<properties>
-			<property name="minimum_supported_version" value="4.5"/>
-		</properties>
-	</rule>
-
-	<rule ref="WordPress.WP.DeprecatedParameters">
-		<properties>
-			<property name="minimum_supported_version" value="4.5"/>
+			<property name="prefixes" type="array">
+				<element value="my_prefix"/>
+			</property>
 		</properties>
 	</rule>
 

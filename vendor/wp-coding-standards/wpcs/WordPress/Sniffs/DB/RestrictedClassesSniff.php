@@ -7,9 +7,9 @@
  * @license https://opensource.org/licenses/MIT MIT
  */
 
-namespace WordPress\Sniffs\DB;
+namespace WordPressCS\WordPress\Sniffs\DB;
 
-use WordPress\AbstractClassRestrictionsSniff;
+use WordPressCS\WordPress\AbstractClassRestrictionsSniff;
 
 /**
  * Verifies that no database related PHP classes are used.
@@ -45,8 +45,8 @@ class RestrictedClassesSniff extends AbstractClassRestrictionsSniff {
 		return array(
 
 			'mysql' => array(
-				'type'      => 'error',
-				'message'   => 'Accessing the database directly should be avoided. Please use the $wpdb object and associated functions instead. Found: %s.',
+				'type'    => 'error',
+				'message' => 'Accessing the database directly should be avoided. Please use the $wpdb object and associated functions instead. Found: %s.',
 				'classes' => array(
 					'mysqli',
 					'PDO',
@@ -57,4 +57,4 @@ class RestrictedClassesSniff extends AbstractClassRestrictionsSniff {
 		);
 	}
 
-} // End class.
+}

@@ -6,6 +6,31 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [3.5.0] - 2018-08-10
+### Added
+  * [#1144](https://github.com/Behat/Behat/pull/1144): Allow to use arrays as context parameters 
+  * [#1081](https://github.com/Behat/Behat/pull/1081): Allow passing null as a named context parameter
+  * [#1083](https://github.com/Behat/Behat/pull/1083): Time attribute in JUnit output
+ 
+### Changed
+  * [#1153](https://github.com/Behat/Behat/pull/1153): Cache pattern to regex transformations 
+  * [#1155](https://github.com/Behat/Behat/pull/1155): Remove composer suggestions
+ 
+### Fixed
+  * Custom container must be public for symfony 4 
+  * [#1160](https://github.com/Behat/Behat/pull/1160): Register CLI services as synthetic
+  * [#1163](https://github.com/Behat/Behat/pull/1163): Allow for new-style symfony serialisation
+  * [#1130](https://github.com/Behat/Behat/pull/1130): Fix quoteless definition arguments matching with unicode characters
+
+## [3.4.3] - 2017-11-27
+### Fixed
+  * BC break due to parameters resolution in Dependency Injection Container
+
+## [3.4.2] - 2017-11-20
+### Added
+  * [#1095](https://github.com/Behat/Behat/pull/1095): Support for Symfony 4.x
+  * [#1096](https://github.com/Behat/Behat/pull/1096): Allow to use latest PHPUnit
+
 ## [3.4.1] - 2017-09-18
 ### Fixed
   * PHP 5.3 style cleanup.
@@ -862,7 +887,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
   * Initial release
 
-[Unreleased]: https://github.com/Behat/Behat/compare/v3.4.1...HEAD
+[Unreleased]: https://github.com/Behat/Behat/compare/v3.5.0...master
+[3.5.0]: https://github.com/Behat/Behat/compare/v3.4.3...v3.5.0
+[3.4.3]: https://github.com/Behat/Behat/compare/v3.4.2...v3.4.3
+[3.4.2]: https://github.com/Behat/Behat/compare/v3.4.1...v3.4.2
 [3.4.1]: https://github.com/Behat/Behat/compare/v3.4.0...v3.4.1
 [3.4.0]: https://github.com/Behat/Behat/compare/v3.3.1...v3.4.0
 [3.3.1]: https://github.com/Behat/Behat/compare/v3.3.0...v3.3.1

@@ -41,19 +41,19 @@ class BuildInformation
         $driverNode = $this->getNodeByName('driver');
         if ($runtime->isHHVM()) {
             $driverNode->setAttribute('name', 'hhvm');
-            $driverNode->setAttribute('version', constant('HHVM_VERSION'));
+            $driverNode->setAttribute('version', \constant('HHVM_VERSION'));
 
             return;
         }
 
         if ($runtime->hasPHPDBGCodeCoverage()) {
             $driverNode->setAttribute('name', 'phpdbg');
-            $driverNode->setAttribute('version', constant('PHPDBG_VERSION'));
+            $driverNode->setAttribute('version', \constant('PHPDBG_VERSION'));
         }
 
         if ($runtime->hasXdebug()) {
             $driverNode->setAttribute('name', 'xdebug');
-            $driverNode->setAttribute('version', phpversion('xdebug'));
+            $driverNode->setAttribute('version', \phpversion('xdebug'));
         }
     }
 
@@ -65,14 +65,14 @@ class BuildInformation
     private function getNodeByName($name)
     {
         $node = $this->contextNode->getElementsByTagNameNS(
-            'http://schema.phpunit.de/coverage/1.0',
+            'https://schema.phpunit.de/coverage/1.0',
             $name
         )->item(0);
 
         if (!$node) {
             $node = $this->contextNode->appendChild(
                 $this->contextNode->ownerDocument->createElementNS(
-                    'http://schema.phpunit.de/coverage/1.0',
+                    'https://schema.phpunit.de/coverage/1.0',
                     $name
                 )
             );

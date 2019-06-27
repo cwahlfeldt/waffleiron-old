@@ -7,9 +7,9 @@
  * @license https://opensource.org/licenses/MIT MIT
  */
 
-namespace WordPress\Sniffs\PHP;
+namespace WordPressCS\WordPress\Sniffs\PHP;
 
-use WordPress\AbstractFunctionRestrictionsSniff;
+use WordPressCS\WordPress\AbstractFunctionRestrictionsSniff;
 
 /**
  * Discourages the use of various native PHP functions and suggests alternatives.
@@ -18,6 +18,7 @@ use WordPress\AbstractFunctionRestrictionsSniff;
  *
  * @since   0.11.0
  * @since   0.13.0 Class name changed: this class is now namespaced.
+ * @since   0.14.0 `create_function` was moved to the PHP.RestrictedFunctions sniff.
  */
 class DiscouragedPHPFunctionsSniff extends AbstractFunctionRestrictionsSniff {
 
@@ -36,14 +37,6 @@ class DiscouragedPHPFunctionsSniff extends AbstractFunctionRestrictionsSniff {
 	 */
 	public function getGroups() {
 		return array(
-			'create_function' => array(
-				'type'      => 'warning',
-				'message'   => '%s() is discouraged, please use anonymous functions instead.',
-				'functions' => array(
-					'create_function',
-				),
-			),
-
 			'serialize' => array(
 				'type'      => 'warning',
 				'message'   => '%s() found. Serialized data has known vulnerability problems with Object Injection. JSON is generally a better approach for serializing data. See https://www.owasp.org/index.php/PHP_Object_Injection',
@@ -63,12 +56,10 @@ class DiscouragedPHPFunctionsSniff extends AbstractFunctionRestrictionsSniff {
 
 			'runtime_configuration' => array(
 				'type'      => 'warning',
-				'message'   => '%s() found. Changing configuration at runtime is rarely necessary.',
+				'message'   => '%s() found. Changing configuration values at runtime is strongly discouraged.',
 				'functions' => array(
 					'error_reporting',
-					'ini_alter',
 					'ini_restore',
-					'ini_set',
 					'apache_setenv',
 					'putenv',
 					'set_include_path',
@@ -106,8 +97,7 @@ class DiscouragedPHPFunctionsSniff extends AbstractFunctionRestrictionsSniff {
 					'str_rot13',
 				),
 			),
-
 		);
-	} // end getGroups()
+	}
 
-} // End class.
+}

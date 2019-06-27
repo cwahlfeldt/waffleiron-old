@@ -12,6 +12,11 @@
  * @return true
  */
 function _pantheon_session_open() {
+	// Session is opened before WP is loaded in unit tests.
+	if ( defined( 'WPNPS_RUNNING_TESTS' ) && WPNPS_RUNNING_TESTS ) {
+		session_id( md5( mt_rand() ) );
+		return true;
+	}
 	// We use !empty() in the following check to ensure that blank session IDs are not valid.
 	if ( ! empty( $_COOKIE[ session_name() ] ) || ( is_ssl() && ! empty( $_COOKIE[ substr(session_name(), 1) ] ) ) ) {
 		// If a session cookie exists, initialize the session. Otherwise the
@@ -87,7 +92,7 @@ function _pantheon_session_read( $sid ) {
  *
  * @param $sid The session ID of the session to write to.
  * @param $value Session data to write as a serialized string.
- * @return true
+ * @return boolean
  */
 function _pantheon_session_write( $sid, $value ) {
 
@@ -95,6 +100,11 @@ function _pantheon_session_write( $sid, $value ) {
 
 	if ( ! $session ) {
 		$session = \Pantheon_Sessions\Session::create_for_sid( $sid );
+	}
+
+	if ( ! $session ) {
+		trigger_error( 'Could not write session to the database. Please check MySQL configuration.', E_USER_WARNING );
+		return false;
 	}
 
 	$session->set_data( $value );
@@ -118,6 +128,7 @@ function _pantheon_session_destroy( $sid ) {
 
 	$session->destroy();
 
+	return true;
 }
 
 /**

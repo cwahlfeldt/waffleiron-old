@@ -9,8 +9,6 @@ use Symfony\Component\DependencyInjection\Exception\RuntimeException;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 
 /**
- * ProjectServiceContainer.
- *
  * This class has been auto-generated
  * by the Symfony Dependency Injection Component.
  *
@@ -19,49 +17,36 @@ use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 class ProjectServiceContainer extends Container
 {
     private $parameters;
-    private $targetDirs = array();
+    private $targetDirs = [];
 
-    /**
-     * Constructor.
-     */
     public function __construct()
     {
-        $this->services = array();
-        $this->methodMap = array(
-            'private_foo' => 'getPrivateFooService',
+        $this->services = $this->privates = [];
+        $this->methodMap = [
             'public_foo' => 'getPublicFooService',
-        );
-        $this->privates = array(
-            'private_foo' => true,
-        );
+        ];
 
-        $this->aliases = array();
+        $this->aliases = [];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function compile()
     {
         throw new LogicException('You cannot compile a dumped container that was already compiled.');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isCompiled()
     {
         return true;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function isFrozen()
+    public function getRemovedIds()
     {
-        @trigger_error(sprintf('The %s() method is deprecated since version 3.3 and will be removed in 4.0. Use the isCompiled() method instead.', __METHOD__), E_USER_DEPRECATED);
-
-        return true;
+        return [
+            'Psr\\Container\\ContainerInterface' => true,
+            'Symfony\\Component\\DependencyInjection\\ContainerInterface' => true,
+            'private_bar' => true,
+            'private_foo' => true,
+        ];
     }
 
     /**
@@ -71,16 +56,6 @@ class ProjectServiceContainer extends Container
      */
     protected function getPublicFooService()
     {
-        return $this->services['public_foo'] = new \stdClass(${($_ = isset($this->services['private_foo']) ? $this->services['private_foo'] : $this->getPrivateFooService()) && false ?: '_'});
-    }
-
-    /**
-     * Gets the private 'private_foo' shared service.
-     *
-     * @return \stdClass
-     */
-    protected function getPrivateFooService()
-    {
-        return $this->services['private_foo'] = new \stdClass();
+        return $this->services['public_foo'] = new \stdClass((new \stdClass())->bar);
     }
 }

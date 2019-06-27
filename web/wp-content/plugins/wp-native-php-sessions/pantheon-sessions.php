@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Native PHP Sessions for WordPress
- * Version: 0.6.2
+ * Version: 0.7.0
  * Description: Offload PHP's native sessions to your database for multi-server compatibility.
  * Author: Pantheon
  * Author URI: https://www.pantheon.io/
@@ -11,6 +11,8 @@
  **/
 
 use Pantheon_Sessions\Session;
+
+define( 'PANTHEON_SESSIONS_VERSION', '0.7.0' );
 
 class Pantheon_Sessions {
 
@@ -30,10 +32,15 @@ class Pantheon_Sessions {
 	 */
 	private function load() {
 
+		if ( defined( 'WP_INSTALLING' ) && WP_INSTALLING ) {
+			return;
+		}
+
 		$this->define_constants();
 		$this->require_files();
 
 		if ( PANTHEON_SESSIONS_ENABLED ) {
+
 			$this->setup_database();
 			$this->set_ini_values();
 			$this->initialize_session_override();
@@ -46,8 +53,6 @@ class Pantheon_Sessions {
 	 * Define our constants
 	 */
 	private function define_constants() {
-
-		define( 'PANTHEON_SESSIONS_VERSION', '0.6.2' );
 
 		if ( ! defined( 'PANTHEON_SESSIONS_ENABLED' ) ) {
 			define( 'PANTHEON_SESSIONS_ENABLED', 1 );
@@ -79,6 +84,10 @@ class Pantheon_Sessions {
 	 * Largely adopted from Drupal 7's implementation
 	 */
 	private function set_ini_values() {
+
+		if ( headers_sent() ) {
+			return;
+		}
 
 		// If the user specifies the cookie domain, also use it for session name.
 		if ( defined( 'COOKIE_DOMAIN' ) && constant( 'COOKIE_DOMAIN' ) ) {
@@ -133,7 +142,9 @@ class Pantheon_Sessions {
 	 * Largely adopted from Drupal 7's implementation
 	 */
 	private function initialize_session_override() {
-		session_set_save_handler( '_pantheon_session_open', '_pantheon_session_close', '_pantheon_session_read', '_pantheon_session_write', '_pantheon_session_destroy', '_pantheon_session_garbage_collection' );
+		if ( ! headers_sent() ) {
+			session_set_save_handler( '_pantheon_session_open', '_pantheon_session_close', '_pantheon_session_read', '_pantheon_session_write', '_pantheon_session_destroy', '_pantheon_session_garbage_collection' );
+		}
 		// Close the session before $wpdb destructs itself
 		add_action( 'shutdown', 'session_write_close', 999, 0 );
 		require_once dirname( __FILE__ ) . '/inc/class-session.php';

@@ -19,19 +19,19 @@ class EnumNodeDefinitionTest extends TestCase
     public function testWithOneValue()
     {
         $def = new EnumNodeDefinition('foo');
-        $def->values(array('foo'));
+        $def->values(['foo']);
 
         $node = $def->getNode();
-        $this->assertEquals(array('foo'), $node->getValues());
+        $this->assertEquals(['foo'], $node->getValues());
     }
 
     public function testWithOneDistinctValue()
     {
         $def = new EnumNodeDefinition('foo');
-        $def->values(array('foo', 'foo'));
+        $def->values(['foo', 'foo']);
 
         $node = $def->getNode();
-        $this->assertEquals(array('foo'), $node->getValues());
+        $this->assertEquals(['foo'], $node->getValues());
     }
 
     /**
@@ -51,15 +51,27 @@ class EnumNodeDefinitionTest extends TestCase
     public function testWithNoValues()
     {
         $def = new EnumNodeDefinition('foo');
-        $def->values(array());
+        $def->values([]);
     }
 
     public function testGetNode()
     {
         $def = new EnumNodeDefinition('foo');
-        $def->values(array('foo', 'bar'));
+        $def->values(['foo', 'bar']);
 
         $node = $def->getNode();
-        $this->assertEquals(array('foo', 'bar'), $node->getValues());
+        $this->assertEquals(['foo', 'bar'], $node->getValues());
+    }
+
+    public function testSetDeprecated()
+    {
+        $def = new EnumNodeDefinition('foo');
+        $def->values(['foo', 'bar']);
+        $def->setDeprecated('The "%path%" node is deprecated.');
+
+        $node = $def->getNode();
+
+        $this->assertTrue($node->isDeprecated());
+        $this->assertSame('The "foo" node is deprecated.', $def->getNode()->getDeprecationMessage($node->getName(), $node->getPath()));
     }
 }

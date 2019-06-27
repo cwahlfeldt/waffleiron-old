@@ -5,10 +5,10 @@
 # https://blog.madewithlove.be/post/gitattributes/
 #
 /.travis.yml export-ignore
+/.phpcs.xml.dist export-ignore
 /phpunit.xml.dist export-ignore
 /.github export-ignore
 /bin export-ignore
-/Test export-ignore
 /WordPress/Tests export-ignore
 
 #

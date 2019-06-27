@@ -13,6 +13,7 @@ namespace Symfony\Component\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
@@ -28,15 +29,13 @@ class ReplaceAliasByActualDefinitionPass extends AbstractRecursivePass
     /**
      * Process the Container to replace aliases with service definitions.
      *
-     * @param ContainerBuilder $container
-     *
      * @throws InvalidArgumentException if the service definition does not exist
      */
     public function process(ContainerBuilder $container)
     {
         // First collect all alias targets that need to be replaced
-        $seenAliasTargets = array();
-        $replacements = array();
+        $seenAliasTargets = [];
+        $replacements = [];
         foreach ($container->getAliases() as $definitionId => $target) {
             $targetId = (string) $target;
             // Special case: leave this target alone
@@ -45,7 +44,7 @@ class ReplaceAliasByActualDefinitionPass extends AbstractRecursivePass
             }
             // Check if target needs to be replaces
             if (isset($replacements[$targetId])) {
-                $container->setAlias($definitionId, $replacements[$targetId]);
+                $container->setAlias($definitionId, $replacements[$targetId])->setPublic($target->isPublic())->setPrivate($target->isPrivate());
             }
             // No need to process the same target twice
             if (isset($seenAliasTargets[$targetId])) {
@@ -55,14 +54,19 @@ class ReplaceAliasByActualDefinitionPass extends AbstractRecursivePass
             $seenAliasTargets[$targetId] = true;
             try {
                 $definition = $container->getDefinition($targetId);
-            } catch (InvalidArgumentException $e) {
-                throw new InvalidArgumentException(sprintf('Unable to replace alias "%s" with actual definition "%s".', $definitionId, $targetId), null, $e);
+            } catch (ServiceNotFoundException $e) {
+                if ('' !== $e->getId() && '@' === $e->getId()[0]) {
+                    throw new ServiceNotFoundException($e->getId(), $e->getSourceId(), null, [substr($e->getId(), 1)]);
+                }
+
+                throw $e;
             }
             if ($definition->isPublic()) {
                 continue;
             }
             // Remove private definition and schedule for replacement
-            $definition->setPublic(true);
+            $definition->setPublic(!$target->isPrivate());
+            $definition->setPrivate($target->isPrivate());
             $container->setDefinition($definitionId, $definition);
             $container->removeDefinition($targetId);
             $replacements[$targetId] = $definitionId;
@@ -70,7 +74,7 @@ class ReplaceAliasByActualDefinitionPass extends AbstractRecursivePass
         $this->replacements = $replacements;
 
         parent::process($container);
-        $this->replacements = array();
+        $this->replacements = [];
     }
 
     /**

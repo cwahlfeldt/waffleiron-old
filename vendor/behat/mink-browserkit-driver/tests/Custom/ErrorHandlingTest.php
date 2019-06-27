@@ -3,10 +3,11 @@
 namespace Behat\Mink\Tests\Driver\Custom;
 
 use Behat\Mink\Driver\BrowserKitDriver;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\BrowserKit\Client;
 use Symfony\Component\BrowserKit\Response;
 
-class ErrorHandlingTest extends \PHPUnit_Framework_TestCase
+class ErrorHandlingTest extends TestCase
 {
     /**
      * @var TestClient
@@ -26,6 +27,10 @@ class ErrorHandlingTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException \Behat\Mink\Exception\DriverException
      * @expectedExceptionMessage Unable to access the response before visiting a page
+     *
+     * Looks like we have to mark these tests as "legacy", otherwise we get deprecation errors.
+     * Although the deprecations are handled, there's no way to avoid the deprecation message here.
+     * @group legacy
      */
     public function testGetResponseHeaderWithoutVisit()
     {
@@ -35,6 +40,10 @@ class ErrorHandlingTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException \Behat\Mink\Exception\DriverException
      * @expectedExceptionMessage Unable to access the response content before visiting a page
+     *
+     * Looks like we have to mark these tests as "legacy", otherwise we get deprecation errors.
+     * Although the deprecations are handled, there's no way to avoid the deprecation message here.
+     * @group legacy
      */
     public function testFindWithoutVisit()
     {
@@ -44,6 +53,10 @@ class ErrorHandlingTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException \Behat\Mink\Exception\DriverException
      * @expectedExceptionMessage Unable to access the request before visiting a page
+     *
+     * Looks like we have to mark these tests as "legacy", otherwise we get deprecation errors.
+     * Although the deprecations are handled, there's no way to avoid the deprecation message here.
+     * @group legacy
      */
     public function testGetCurrentUrlWithoutVisit()
     {

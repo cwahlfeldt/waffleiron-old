@@ -1,6 +1,11 @@
 # Change Log
 
-## 0.9.4 (XXXX-XX-XX)
+## 0.9.11 (2019-02-12)
+
+* Set property values on all related mocks #944
+* Backported from master: Added possibility to add Constructor-Expectations on hard dependencies, read: Mockery::mock('overload:...')
+
+## 0.9.4 (2015-04-02)
 
 * `shouldIgnoreMissing` will respect global `allowMockingNonExistentMethods`
   config

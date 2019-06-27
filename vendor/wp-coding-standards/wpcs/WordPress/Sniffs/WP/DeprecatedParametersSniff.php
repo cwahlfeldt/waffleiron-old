@@ -7,9 +7,9 @@
  * @license https://opensource.org/licenses/MIT MIT
  */
 
-namespace WordPress\Sniffs\WP;
+namespace WordPressCS\WordPress\Sniffs\WP;
 
-use WordPress\AbstractFunctionParameterSniff;
+use WordPressCS\WordPress\AbstractFunctionParameterSniff;
 
 /**
  * Check for usage of deprecated parameters in WP functions and suggest alternative based on the parameter passed.
@@ -24,6 +24,11 @@ use WordPress\AbstractFunctionParameterSniff;
  *
  * @since   0.12.0
  * @since   0.13.0 Class name changed: this class is now namespaced.
+ * @since   0.14.0 Now has the ability to handle minimum supported WP version
+ *                 being provided via the command-line or as as <config> value
+ *                 in a custom ruleset.
+ *
+ * @uses    \WordPressCS\WordPress\Sniff::$minimum_supported_version
  */
 class DeprecatedParametersSniff extends AbstractFunctionParameterSniff {
 
@@ -35,25 +40,6 @@ class DeprecatedParametersSniff extends AbstractFunctionParameterSniff {
 	 * @var string
 	 */
 	protected $group_name = 'wp_deprecated_parameters';
-
-	/**
-	 * Minimum WordPress version.
-	 *
-	 * This variable allows changing the minimum supported WP version used by
-	 * this sniff by setting a property in a custom ruleset XML file.
-	 *
-	 * Example usage:
-	 * <rule ref="WordPress.WP.DeprecatedParameters">
-	 *  <properties>
-	 *   <property name="minimum_supported_version" value="4.5"/>
-	 *  </properties>
-	 * </rule>
-	 *
-	 * @since 0.12.0
-	 *
-	 * @var string WordPress version.
-	 */
-	public $minimum_supported_version = 4.5;
 
 	/**
 	 * Array of function, argument, and default value for deprecated argument.
@@ -267,7 +253,7 @@ class DeprecatedParametersSniff extends AbstractFunctionParameterSniff {
 		),
 		'wp_upload_bits' => array(
 			2 => array(
-				'value'   => '',
+				'value'   => null,
 				'version' => '2.0.0',
 			),
 		),
@@ -277,8 +263,7 @@ class DeprecatedParametersSniff extends AbstractFunctionParameterSniff {
 				'version' => '2.5.0',
 			),
 		),
-
-	); // End $target_functions.
+	);
 
 	/**
 	 * Process the parameters of a matched function.
@@ -293,7 +278,10 @@ class DeprecatedParametersSniff extends AbstractFunctionParameterSniff {
 	 * @return void
 	 */
 	public function process_parameters( $stackPtr, $group_name, $matched_content, $parameters ) {
-		$paramCount = count( $parameters );
+
+		$this->get_wp_version_from_cl();
+
+		$paramCount = \count( $parameters );
 		foreach ( $this->target_functions[ $matched_content ] as $position => $parameter_args ) {
 
 			// Check that number of parameters defined is not less than the position to check.
@@ -325,9 +313,9 @@ class DeprecatedParametersSniff extends AbstractFunctionParameterSniff {
 				continue;
 			}
 
-			$message = 'The parameter "%s" at position #%s of %s() has been deprecated since WordPress version %s.';
+			$message  = 'The parameter "%s" at position #%s of %s() has been deprecated since WordPress version %s.';
 			$is_error = version_compare( $parameter_args['version'], $this->minimum_supported_version, '<' );
-			$code = $this->string_to_errorcode( ucfirst( $matched_content ) . 'Param' . $position . 'Found' );
+			$code     = $this->string_to_errorcode( ucfirst( $matched_content ) . 'Param' . $position . 'Found' );
 
 			$data = array(
 				$parameters[ $position ]['raw'],

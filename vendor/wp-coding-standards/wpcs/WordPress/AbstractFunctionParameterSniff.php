@@ -7,9 +7,9 @@
  * @license https://opensource.org/licenses/MIT MIT
  */
 
-namespace WordPress;
+namespace WordPressCS\WordPress;
 
-use WordPress\AbstractFunctionRestrictionsSniff;
+use WordPressCS\WordPress\AbstractFunctionRestrictionsSniff;
 
 /**
  * Advises about parameters used in function calls.
@@ -109,4 +109,4 @@ abstract class AbstractFunctionParameterSniff extends AbstractFunctionRestrictio
 		return;
 	}
 
-} // End class.
+}
