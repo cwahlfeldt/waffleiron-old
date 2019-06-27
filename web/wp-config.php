@@ -58,7 +58,8 @@ if ( ! isset( $_ENV['PANTHEON_ENVIRONMENT'] ) ):
 	if ( isset( $_SERVER['HTTP_USER_AGENT_HTTPS'] ) && $_SERVER['HTTP_USER_AGENT_HTTPS'] == 'ON' ) {
 		$scheme = 'https';
 	}
-	$site_url = getenv( 'WP_HOME' ) !== false ? getenv( 'WP_HOME' ) : $scheme . '://' . $_SERVER['HTTP_HOST'] . '/';
+	/* $site_url = getenv( 'WP_HOME' ) !== false ? getenv( 'WP_HOME' ) : $scheme . '://' . $_SERVER['HTTP_HOST'] . '/'; */
+	$site_url = $scheme.'://'.$_SERVER['HTTP_HOST'].'/';
 	define( 'WP_HOME', $site_url );
 	define( 'WP_SITEURL', $site_url . 'wp/' );
 

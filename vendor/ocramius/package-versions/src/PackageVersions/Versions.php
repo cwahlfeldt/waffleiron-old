@@ -108,7 +108,7 @@ final class Versions
   'wp-coding-standards/wpcs' => 'dev-master@bd9c33152115e6741e3510ff7189605b35167908',
   'zendframework/zend-code' => '3.1.0@2899c17f83a7207f2d7f53ec2f421204d3beea27',
   'zendframework/zend-eventmanager' => 'dev-develop@627f3e821fbfd6cebf9cccaa017b7fe7ae13c05b',
-  'mckenziewagner/waffleiron' => 'dev-master@f374b082086102bdba0d39eab521bd5da8b9bde6',
+  'mckenziewagner/waffleiron' => 'dev-master@68ab0df27dc40cb853b7f9972d99b8b11c42381f',
 );
 
     private function __construct()
