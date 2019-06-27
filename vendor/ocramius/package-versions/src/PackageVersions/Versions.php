@@ -12,7 +12,7 @@ namespace PackageVersions;
  */
 final class Versions
 {
-    public const ROOT_PACKAGE_NAME = 'waffleiron-dude';
+    public const ROOT_PACKAGE_NAME = 'mckenziewagner/waffleiron';
     public const VERSIONS          = array (
   'advanced-custom-fields/advanced-custom-fields-pro' => '5.8.1@',
   'altorouter/altorouter' => 'v1.2.0@39c50092470128c12284d332bb57f306bb5b58e4',
@@ -90,7 +90,7 @@ final class Versions
   'squizlabs/php_codesniffer' => 'dev-master@0a42dba4afea02087255e4f9d5f04c47e91ddad7',
   'symfony/browser-kit' => '4.4.x-dev@6520d2eb393e329038988960a81de5a8034095aa',
   'symfony/config' => '4.4.x-dev@e034269a63c4ef7c4f0ae29a9e16174b3ff0382d',
-  'symfony/console' => '4.4.x-dev@a2e6f67b286cf6735437b6e88f38cfee72405d36',
+  'symfony/console' => '4.4.x-dev@4e3a7ad90654f30666e8343d88570071523ae64b',
   'symfony/css-selector' => '4.4.x-dev@9ed158c52af88c6befa7dd00c8e6dfc273a52ab4',
   'symfony/dependency-injection' => '4.4.x-dev@27e6861458c8dfd3609ab9853ee1d2e02c532e5a',
   'symfony/dom-crawler' => '4.4.x-dev@2d379ba4a7be0f157e63e0c1934fcaf76640b0e3',
@@ -108,7 +108,7 @@ final class Versions
   'wp-coding-standards/wpcs' => 'dev-master@bd9c33152115e6741e3510ff7189605b35167908',
   'zendframework/zend-code' => '3.1.0@2899c17f83a7207f2d7f53ec2f421204d3beea27',
   'zendframework/zend-eventmanager' => 'dev-develop@627f3e821fbfd6cebf9cccaa017b7fe7ae13c05b',
-  'waffleiron-dude' => 'dev-master@7bf85dcd4f3e9140cbbfe275d281f2b1b567b117',
+  'mckenziewagner/waffleiron' => 'dev-master@817187a7ac6046515ad0566b865d5a00ae60a2f4',
 );
 
     private function __construct()
