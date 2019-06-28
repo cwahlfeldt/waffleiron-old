@@ -35,13 +35,11 @@ _rm_submodules() {
 _deploy() {
   cd $DIR
   travis encrypt-file .env --add
-  clean
-  composer install --no-dev
-  p i
+  _clean
   lando push --code=none --database=dev --files=dev
   git add -A && git commit -m 'deployed from local to pantheon and github'
   git push origin master
-  git push upstream master
+  git push pantheon master
 }
 
 _restart() {
@@ -58,21 +56,30 @@ _pull () {
 }
 
 _create-post-type () {
+  cd $DIR
+
+  # lando scaffold plugin $1 \
+  #   --dir="$DIR/web/wp-content/plugins" \
+  #   --plugin_name=""
 }
 
 _rebuild() {
   cd $DIR
   lando destroy -y
   lando start
-  pull
+  _pull
 }
 
 _install() {
+  cd $DIR
+  arg1="$(tr '[:lower:]' '[:upper:]' <<< ${arg1:0:1})${arg1:1}"
+
   lando ssh -c "rm -rf /app/vendor && mkdir /app/vendor" && lando composer install --no-ansi --no-interaction --optimize-autoloader
 }
 
 # init function... used to be all the commands in composer.json but thats ugly dude
 _init() {
+  cd $DIR
   clean
   _rebuild
   install
@@ -83,10 +90,12 @@ _init() {
 }
 
 _cc() {
+  cd $DIR
   lando wp cache flush
 }
 
 _help() {
+  cd $DIR
   echo "help       waffleiron help"
   echo "init       waffleiron init"
   echo "install    waffleiron install"
@@ -116,64 +125,71 @@ while [[ $# -gt 0 ]]
     # init
     init)
       _init
-    shift # past argument
-    shift # past value
+      shift # past argument
+      shift # past value
     ;;
 
     # restart
     r|restart)
       _restart
-    shift # past argument
-    shift # past value
+      shift # past argument
+      shift # past value
     ;;
 
     # cc
     cc|clear|clear-cache)
       _cc
-    shift # past argument
-    shift # past value
+      shift # past argument
+      shift # past value
     ;;
 
     # restart
     rebuild)
       _rebuild
-    shift # past argument
-    shift # past value
+      shift # past argument
+      shift # past value
     ;;
 
     # restart
     pull|pull)
       _pull
-    shift # past argument
-    shift # past value
+      shift # past argument
+      shift # past value
     ;;
 
     # restart
     c|clean)
       _clean
-    shift # past argument
-    shift # past value
+      shift # past argument
+      shift # past value
+    ;;
+
+    # restart
+    pt|create-post-type)
+      _create-post-type $2
+      shift # past argument
+      shift # past value
     ;;
 
     # restart
     dep|deploy)
       _deploy
-    shift # past argument
-    shift # past value
+      shift # past argument
+      shift # past value
     ;;
 
     # paths
     path|paths)
       _paths
-    shift # past argument
-    shift # past value
+      shift # past argument
+      shift # past value
     ;;
 
     # env
     e|env)
       _env
-    shift # past argument
-    shift # past value
+      shift # past argument
+      shift # past value
     ;;
 
     # install
@@ -184,20 +200,29 @@ while [[ $# -gt 0 ]]
         then
           _clean && _install && _restart && lando wp plugin activate --all && _cc
       fi
-    shift
-    shift
+      shift
+      shift
+    ;;
+
+     # help
+    s|superpowers)
+      arr=(${_cc} ${_env})
+      echo ${arr[*]}
+
+      shift # past argument
+      shift
     ;;
 
     # help
     h|help)
       _help
-    shift # past argument
+      shift # past argument
     ;;
 
     # catch em all...
     *)
-    POSITIONAL+=("$1")
-    shift
+      POSITIONAL+=("$1")
+      shift
     ;;
   esac
 done
