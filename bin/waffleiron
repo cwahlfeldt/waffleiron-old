@@ -20,8 +20,8 @@ _env() {
 
 _clean() {
   cd $DIR
-  rm -rfv vendor web/wp
-  find . -maxdepth 1 ! -name util ! -name index.php -name web/wp-content/plugins/. -delete
+  rm -rf vendor web/wp
+  # find . -maxdepth 1 ! -name util ! -name index.php ! -name -name web/wp-content/plugins/. -delete
   printf 'clean dat ish up'
 }
 
@@ -30,8 +30,8 @@ _rm_submodules() {
   git submodule deinit --all
   git submodule | cut -c43- | while read -r line; do (git rm -f "$line"); done
   git config --local -l | grep submodule | sed -e 's/^\(submodule\.[^.]*\)\(.*\)/\1/g' | while read -r line; do (git config --local --remove-section "$line"); done
-  rm -fv .gitmodules
-  rm -rfv .git/modules
+  rm -f .gitmodules
+  rm -rf .git/modules
 }
 
 _deploy() {
@@ -45,7 +45,7 @@ _deploy() {
 }
 
 _restart() {
-  cd $DIR && lando poweroff && lando start 
+  cd $DIR && lando poweroff && sleep 60 && lando start
 }
 
 _pull () {
@@ -91,22 +91,35 @@ _install() {
   lando ssh -c "rm -rf /app/vendor && mkdir /app/vendor" && lando composer install --no-ansi --no-interaction --optimize-autoloader
 }
 
-# init function... used to be all the commands in composer.json but thats ugly dude
-_init() {
-  cd $DIR
-  _clean
-  _rebuild
-  _install
-  _pull
-  _restart
-
-  center 'waffles are done dude!' 12 16 && _cc
-}
-
 _cc() {
   cd $DIR
   lando wp cache flush
 }
+
+# init function... used to be all the commands in composer.json but thats ugly dude
+_init() {
+  cd $DIR
+
+  center 'burn it all down to build it back up baby!!' 2 2
+  lando destroy -y
+  sleep 30
+
+  _install
+  sleep 10
+
+  lando start
+  sleep 30
+
+  _pull
+  sleep 30
+
+  _restart
+  sleep 30
+
+  center 'waffles are done dude!' 12 16 && _cc
+  sleep 10
+}
+
 
 _help() {
   cd $DIR
