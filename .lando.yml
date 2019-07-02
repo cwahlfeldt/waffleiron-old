@@ -2,7 +2,7 @@ name: tm
 recipe: pantheon
 config:
   framework: wordpress
-  site: cec-6412
-  id: a9023c96-a7f1-41b1-a853-68105be09b1a
-  # site: waffleiron
-  # id: 937260c2-446f-4aa2-8a7b-fd76046e32fa
+  site: waffleiron
+  id: 937260c2-446f-4aa2-8a7b-fd76046e32fa
+  # site: cec-6412
+  # id: a9023c96-a7f1-41b1-a853-68105be09b1a
