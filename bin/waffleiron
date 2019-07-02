@@ -97,6 +97,8 @@ _rebuild() {
 _install() {
   cd $DIR
   lando ssh -c "rm -rf /app/vendor && mkdir /app/vendor" && lando composer install --no-ansi --no-interaction --optimize-autoloader
+  sleep 10
+  lando wp plugin activate --all
 }
 
 _cc() {
