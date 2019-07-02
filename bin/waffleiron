@@ -102,19 +102,19 @@ _init() {
 
   center 'burn it all down to build it back up baby!!' 2 2
   lando destroy -y
-  sleep 30
+  sleep 15
 
   _install
   sleep 10
 
   lando start
-  sleep 30
+  sleep 15
 
   _pull
-  sleep 30
+  sleep 15
 
   _restart
-  sleep 30
+  sleep 15
 
   center 'waffles are done dude!' 12 16 && _cc
   sleep 10
