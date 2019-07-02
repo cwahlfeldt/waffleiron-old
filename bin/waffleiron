@@ -1,6 +1,8 @@
-#!/usr/bin/env bash
+#!/usr/local/bin/bash
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && cd .. && pwd )"
+SITE="$($DIR/bin/env 'SITE_NAME')" || SITE="$(lando ssh -s appserver -c env | grep TERMINUS_SITE | cut -d '=' --complement -f 1)"
+SITE_ENV="$($DIR/bin/env 'SITE_ENV')" || SITE_ENV="$(lando ssh -s appserver -c env | grep TERMINUS_ENV | cut -d '=' --complement -f 1)"
 
 _ls() {
   cd $DIR
@@ -48,20 +50,35 @@ _restart() {
 
 _pull () {
   cd $DIR
-
-  site="$(./bin/env 'SITE_NAME')" || site="$(lando ssh -s appserver -c env | grep TERMINUS_SITE | cut -d '=' --complement -f 1)"
-  env="$(./bin/env 'SITE_ENV')" || env="$(lando ssh -s appserver -c env | grep TERMINUS_ENV | cut -d '=' --complement -f 1)"
-  
-  printf "\npulling from $site.$env\n" && lando pull --code=none --database=dev --files=dev
+  printf "\npulling from $SITE.$SITE_ENV\n" && lando pull --code=none --database=dev --files=dev
 }
 
 _create-post-type () {
   cd $DIR
-  arg1="$(tr '[:lower:]' '[:upper:]' <<< ${arg1:0:1})${arg1:1}"
+  name=${1:-"change-name"}
+  icon=${2:-"dashicons-text-page"}
 
-  # lando scaffold plugin $1 \
-  #   --dir="$DIR/web/wp-content/plugins" \
-  #   --plugin_name=""
+  printf "\n\nCreating plugin for post-type-$name\n"
+  lando wp scaffold plugin $name \
+    --dir="$DIR/web/wp-content/plugins" \
+    --plugin_name="post-type-$name" \
+    --plugin_description="$name's description" \
+    --plugin_author="cwahlfeldt" \
+    --plugin_author_uri="https://cwahlfeldt.github.io" \
+    --plugin_uri="https://github.com/mckenziewagner/waffleiron" \
+    --ci="circle" \
+    --skip-tests
+
+  sleep 10s
+
+  printf "\n\nCreating post type for $name\n"
+  lando wp scaffold post-type $name \
+    --label="$name" \
+    --textdomain="post-type-$name" \
+    --plugin="post-type-$name" \
+    --dashicon="$icon"
+
+  printf "\n\ncreation!\n"
 }
 
 _rebuild() {
@@ -71,20 +88,19 @@ _rebuild() {
 
 _install() {
   cd $DIR
-
   lando ssh -c "rm -rf /app/vendor && mkdir /app/vendor" && lando composer install --no-ansi --no-interaction --optimize-autoloader
 }
 
 # init function... used to be all the commands in composer.json but thats ugly dude
 _init() {
   cd $DIR
-  clean
+  _clean
   _rebuild
-  install
-  pull
-  lando restart
-  center 'clear/flush cache' 12 16
-  cc
+  _install
+  _pull
+  _restart
+
+  center 'waffles are done dude!' 12 16 && _cc
 }
 
 _cc() {
@@ -164,7 +180,7 @@ while [[ $# -gt 0 ]]
 
     # restart
     pt|create-post-type)
-      _create-post-type $2
+      _create-post-type $2 $3
       shift # past argument
       shift # past value
     ;;
