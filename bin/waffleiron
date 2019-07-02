@@ -4,18 +4,26 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && cd .. && pwd )"
 SITE="$($DIR/bin/env 'SITE_NAME')" || SITE="$(lando ssh -s appserver -c env | grep TERMINUS_SITE | cut -d '=' --complement -f 1)"
 SITE_ENV="$($DIR/bin/env 'SITE_ENV')" || SITE_ENV="$(lando ssh -s appserver -c env | grep TERMINUS_ENV | cut -d '=' --complement -f 1)"
 
+# list waffleiron project dir
 _ls() {
   cd $DIR
   printf "\n path: $DIR \n\n"
   ls -la
 }
 
+# list the apps path
 _paths() {
   lando ssh -s appserver -c env | grep "PATH" | cut -d '=' --complement -f 1 | tr ':' '\n'
 }
 
+#search env or list all
 _env() {
-  lando ssh -s appserver -c env | grep ""
+  if [ -z "$1" ]
+    then
+      lando ssh -s appserver -c env | grep "$1"
+    else
+      lando ssh -s appserver -c env
+  fi
 }
 
 _clean() {
