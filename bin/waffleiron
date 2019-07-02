@@ -57,6 +57,7 @@ _pull () {
 
 _create-post-type () {
   cd $DIR
+  arg1="$(tr '[:lower:]' '[:upper:]' <<< ${arg1:0:1})${arg1:1}"
 
   # lando scaffold plugin $1 \
   #   --dir="$DIR/web/wp-content/plugins" \
@@ -65,14 +66,11 @@ _create-post-type () {
 
 _rebuild() {
   cd $DIR
-  lando destroy -y
-  lando start
-  _pull
+  lando poweroff && lando destroy -y && lando start && _pull
 }
 
 _install() {
   cd $DIR
-  arg1="$(tr '[:lower:]' '[:upper:]' <<< ${arg1:0:1})${arg1:1}"
 
   lando ssh -c "rm -rf /app/vendor && mkdir /app/vendor" && lando composer install --no-ansi --no-interaction --optimize-autoloader
 }
