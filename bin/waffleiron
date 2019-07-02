@@ -8,7 +8,7 @@ _ls() {
   ls -la
 }
 
-paths() {
+_paths() {
   lando ssh -s appserver -c env | grep "PATH" | cut -d '=' --complement -f 1 | tr ':' '\n'
 }
 
@@ -16,18 +16,14 @@ _env() {
   lando ssh -s appserver -c env | grep ""
 }
 
-_link() {
-  cp -f "$DIR/wp-config.php" "$DIR/web/cms/wp-config.php"
-}
-
-clean() {
+_clean() {
   cd $DIR
-  rm -rfv vendor node_modules web/cms
-  find . -maxdepth 1 ! -name util ! -name index.php -name plugins/. -delete
+  rm -rfv vendor web/wp
+  find . -maxdepth 1 ! -name util ! -name index.php -name web/wp-content/plugins/. -delete
   printf 'clean dat ish up'
 }
 
-rm_submodules() {
+_rm_submodules() {
   cd $DIR
   git submodule deinit --all
   git submodule | cut -c43- | while read -r line; do (git rm -f "$line"); done
@@ -36,89 +32,70 @@ rm_submodules() {
   rm -rfv .git/modules
 }
 
-deploy() {
+_deploy() {
   cd $DIR
   travis encrypt-file .env --add
-  clean
-  composer install --no-dev
-  p i
+  _clean
   lando push --code=none --database=dev --files=dev
   git add -A && git commit -m 'deployed from local to pantheon and github'
   git push origin master
-  git push upstream master
+  git push pantheon master
 }
 
 _restart() {
   cd $DIR && lando poweroff && lando start 
 }
 
-pull() {
+_pull () {
   cd $DIR
 
   site="$(./bin/env 'SITE_NAME')" || site="$(lando ssh -s appserver -c env | grep TERMINUS_SITE | cut -d '=' --complement -f 1)"
   env="$(./bin/env 'SITE_ENV')" || env="$(lando ssh -s appserver -c env | grep TERMINUS_ENV | cut -d '=' --complement -f 1)"
   
-  printf "\npulling from $site.$env\n"
+  printf "\npulling from $site.$env\n" && lando pull --code=none --database=dev --files=dev
+}
 
-  lando ssh -c "rm -f /app/database.sql.gz"
-  lando terminus backup:create $site.$env --element=db
-  lando terminus backup:get $site.$env --element=db --to=/app/database.sql.gz
-  lando db-import database.sql.gz && \
-  lando ssh -c "rm -f /app/database.sql.gz"
-  printf "imported db"
+_create-post-type () {
+  cd $DIR
 
-  lando ssh -c "rm -f /tmp/files.sql.gz"
-  lando terminus backup:create $site.$env --element=files
-  lando terminus backup:get $site.$env --element=files --to=/tmp/files.tar.gz
-  lando ssh -c "mkdir -p /app/wp-content/uploads"
-  lando ssh -c "tar -xzvf /tmp/files.tar.gz -C /app/wp-content/uploads --strip-components 1"
-  lando ssh -c "rm -f /tmp/files.sql.gz"
-  printf "imported files"
+  # lando scaffold plugin $1 \
+  #   --dir="$DIR/web/wp-content/plugins" \
+  #   --plugin_name=""
 }
 
 _rebuild() {
   cd $DIR
   lando destroy -y
   lando start
-  pull
+  _pull
 }
 
-install() {
-  composer install
-  pnpm install
+_install() {
+  cd $DIR
+  arg1="$(tr '[:lower:]' '[:upper:]' <<< ${arg1:0:1})${arg1:1}"
+
+  lando ssh -c "rm -rf /app/vendor && mkdir /app/vendor" && lando composer install --no-ansi --no-interaction --optimize-autoloader
 }
 
 # init function... used to be all the commands in composer.json but thats ugly dude
-init() {
-  center 'clean' 12 16
+_init() {
+  cd $DIR
   clean
-
-  center 'remove submods' 12 16
-  rm_submodules
-
-  center 'install' 12 16
+  _rebuild
   install
-
-  sleep 1
-
-  center 'syms and cp' 12 16
-  _links
-
-  center 'pull' 12 16
   pull
-
-  # center 'restart' 12 16
-  # _restart
-
+  lando restart
   center 'clear/flush cache' 12 16
   cc
 }
 
-cc() {
-  lando ssh -c "wp cache flush --path=/app/web/cms"
+_cc() {
+  cd $DIR
+  lando wp cache flush
 }
 
 _help() {
+  cd $DIR
   echo "help       waffleiron help"
   echo "init       waffleiron init"
   echo "install    waffleiron install"
@@ -138,39 +115,116 @@ if [ "$#" -eq 0 ]
     printf "\nwaffleiron dir:\n$DIR\n\n"
     _help
 fi
-#
-## do your business here
-for var in "$@"
-do
-  case "$@" in
-    "help" )
-      _help ;;
-    "init" )
-      init ;;
-    "install" )
-      install ;;
-    "restart" )
-      _restart ;;
-    "cc" )
-      cc ;;
-    "rebuild" )
-      _rebuild ;;
-    "clean" )
-      clean ;;
-    "pull" )
-      pull ;;
-    "link" )
-      _link ;;
-    "deploy" )
-      _deploy ;;
-    "paths" )
-      paths ;;
-    "env" )
-      _env ;;
-    "ls" )
-      _ls ;;
-    * )    
-      printf "suh?\n$DIR" ;;
+
+POSITIONAL=()
+while [[ $# -gt 0 ]]
+  do
+  key="$1"
+
+  case $key in
+    # init
+    init)
+      _init
+      shift # past argument
+      shift # past value
+    ;;
+
+    # restart
+    r|restart)
+      _restart
+      shift # past argument
+      shift # past value
+    ;;
+
+    # cc
+    cc|clear|clear-cache)
+      _cc
+      shift # past argument
+      shift # past value
+    ;;
+
+    # restart
+    rebuild)
+      _rebuild
+      shift # past argument
+      shift # past value
+    ;;
+
+    # restart
+    pull|pull)
+      _pull
+      shift # past argument
+      shift # past value
+    ;;
+
+    # restart
+    c|clean)
+      _clean
+      shift # past argument
+      shift # past value
+    ;;
+
+    # restart
+    pt|create-post-type)
+      _create-post-type $2
+      shift # past argument
+      shift # past value
+    ;;
+
+    # restart
+    dep|deploy)
+      _deploy
+      shift # past argument
+      shift # past value
+    ;;
+
+    # paths
+    path|paths)
+      _paths
+      shift # past argument
+      shift # past value
+    ;;
+
+    # env
+    e|env)
+      _env
+      shift # past argument
+      shift # past value
+    ;;
+
+    # install
+    i|install)
+      _install
+      # do a harder install bro!
+      if [ [$2 == "-f"] ]
+        then
+          _clean && _install && _restart && lando wp plugin activate --all && _cc
+      fi
+      shift
+      shift
+    ;;
+
+     # help
+    s|superpowers)
+      arr=(${_cc} ${_env})
+      echo ${arr[*]}
+
+      shift # past argument
+      shift
+    ;;
+
+    # help
+    h|help)
+      _help
+      shift # past argument
+    ;;
+
+    # catch em all...
+    *)
+      POSITIONAL+=("$1")
+      shift
+    ;;
   esac
-  shift
 done
+
+set -- "${POSITIONAL[@]}" # restore positional parameters
