@@ -1,0 +1,31 @@
+.swiper-slide > div {
+  height: 450px;
+
+  @media screen and (max-width: config('screens.md')) {
+    height: 100%;
+  }
+}
+
+.slide-top,
+.slide-bottom {
+  background-size: 83% auto;
+}
+
+.slide-top {
+  background-position: left;
+}
+
+.slide-bottom {
+  background-position: right;
+}
+
+.quote {
+  width: 100%;
+  max-width: 17%;
+  height: 100%;
+  min-height: 250px;
+
+  @media screen and (max-width: config('screens.md')) {
+    max-width: 300px;
+  }
+}

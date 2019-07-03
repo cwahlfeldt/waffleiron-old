@@ -1,0 +1,327 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: FileBird\n"
+"POT-Creation-Date: 2019-06-11 10:14+0700\n"
+"PO-Revision-Date: 2019-06-11 10:16+0700\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: pt_PT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.1\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: filebird.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: admin/class-filebird-admin.php:87
+msgid "Go Pro"
+msgstr "Ir pro"
+
+#: admin/class-filebird-admin.php:239
+msgid "No media files found."
+msgstr "Não foram encontrados ficheiros multimédia."
+
+#: admin/class-filebird-admin.php:240
+msgid "item"
+msgstr "artigo"
+
+#: admin/class-filebird-admin.php:241
+msgid "items"
+msgstr "itens"
+
+#: admin/class-filebird-admin.php:288
+msgid "Folders"
+msgstr "Pastas"
+
+#: admin/class-filebird-admin.php:293
+msgid "New Folder"
+msgstr "Nova Pasta"
+
+#: admin/class-filebird-admin.php:297 admin/class-filebird-admin.php:299
+#: translation/filebird-js-translation.php:22
+msgid "Rename"
+msgstr "Renomear"
+
+#: admin/class-filebird-admin.php:300
+#: translation/filebird-js-translation.php:24
+msgid "Delete"
+msgstr "Excluir"
+
+#: admin/class-filebird-admin.php:315
+msgid "All files"
+msgstr "Todos os Ficheiros"
+
+#: admin/class-filebird-admin.php:325 admin/class-filebird-admin.php:722
+#: includes/class-filebird-topbar.php:221 includes/class-filebird.php:219
+msgid "Uncategorized"
+msgstr "Sem categoria"
+
+#: admin/class-filebird-admin.php:443 admin/class-filebird-admin.php:444
+msgid "Folder"
+msgstr "Pasta"
+
+#: admin/class-filebird-admin.php:445 admin/class-filebird-admin.php:447
+msgid "Add New Folder"
+msgstr "Adicionar nova pasta"
+
+#: admin/class-filebird-admin.php:446
+msgid "Edit Folder"
+msgstr "Editar pasta"
+
+#: admin/class-filebird-admin.php:448
+msgid "Search Folder"
+msgstr "Pasta de pesquisa"
+
+#: admin/class-filebird-admin.php:449
+msgid "Folder not found"
+msgstr "Pasta não encontrada"
+
+#: admin/class-filebird-admin.php:450
+msgid "Folder not found in trash"
+msgstr "Pasta não encontrada no lixo"
+
+#: admin/class-filebird-admin.php:719
+msgid "Select a folder and upload files (Optional)"
+msgstr "Selecionar uma pasta e carregar arquivos (opcional)"
+
+#: includes/class-filebird-feedback.php:24
+
+msgid "I do not need this plugin anymore."
+msgstr "Eu não preciso mais deste plugin."
+
+#: includes/class-filebird-feedback.php:27
+
+msgid "I have another plugin that do the job better"
+msgstr "Eu tenho um outro plugin que fazer o trabalho melhor"
+
+#: includes/class-filebird-feedback.php:28
+
+msgid "Please tell us which one"
+msgstr "Por favor, diga-nos qual"
+
+#: includes/class-filebird-feedback.php:31
+
+msgid "I don't know how to use it"
+msgstr "Eu não sei como usá-lo"
+
+#: includes/class-filebird-feedback.php:34
+
+msgid "This is temporary. I'll use it again soon."
+msgstr "Isto é temporário. Vou usá-lo novamente em breve."
+
+#: includes/class-filebird-feedback.php:37
+
+msgid "I have purchased FileBird Pro"
+msgstr "Eu comprei o FileBird pro"
+
+#: includes/class-filebird-feedback.php:40
+
+msgid "Other"
+msgstr "Outro"
+
+#: includes/class-filebird-feedback.php:41
+
+msgid "Please share a reason..."
+msgstr "Por favor, compartilhe uma razão..."
+
+#: includes/class-filebird-feedback.php:64
+
+msgid "Submit and Deactivate"
+msgstr "Enviar e desativar"
+
+#: includes/class-filebird-feedback.php:65
+
+msgid "Skip and Deactivate"
+msgstr "Ignorar e desativar"
+
+#: includes/class-filebird-topbar.php:221 includes/class-filebird.php:219
+msgid "All categories"
+msgstr "Todas as categorias"
+
+#: includes/class-filebird.php:293
+
+msgid "Create your first folder for media library now."
+msgstr "Crie sua primeira pasta para a biblioteca de mídia agora."
+
+#: includes/class-filebird.php:295
+
+msgid "Get Started"
+msgstr "Iniciar"
+
+#: translation/filebird-js-translation.php:13
+msgid "Move 1 file"
+msgstr "Mover 1 arquivo"
+
+#: translation/filebird-js-translation.php:14
+msgid "Oops"
+msgstr "Oops"
+
+#: translation/filebird-js-translation.php:15
+msgid "Error"
+msgstr "Erro"
+
+#: translation/filebird-js-translation.php:16
+msgid "Folder Limit Reached"
+msgstr "Limite de pasta atingido"
+
+#: translation/filebird-js-translation.php:17
+msgid "This folder already exists. Please type another name."
+msgstr "Esta pasta já existe. Por favor, digite outro nome."
+
+#: translation/filebird-js-translation.php:18
+msgid "Sorry! An error occurred while processing your request."
+msgstr "Desculpa! Ocorreu um erro ao processar sua solicitação."
+
+#: translation/filebird-js-translation.php:19
+msgid "This folder cannot be deleted."
+msgstr "Esta pasta não pode ser excluída."
+
+#: translation/filebird-js-translation.php:20
+msgid "Add sub folder"
+msgstr "Adicionar pasta secundária"
+
+#: translation/filebird-js-translation.php:21
+msgid "New folder"
+msgstr "Nový priečinok"
+
+#: translation/filebird-js-translation.php:23
+msgid "Remove"
+msgstr "Remover"
+
+#: translation/filebird-js-translation.php:25
+msgid "Refresh"
+msgstr "Atualizar"
+
+#: translation/filebird-js-translation.php:26
+msgid "Something isn't correct here."
+msgstr "Algo não está correto aqui."
+
+#: translation/filebird-js-translation.php:27
+msgid "This page will be reloaded now."
+msgstr "Esta página será recarregada agora."
+
+#: translation/filebird-js-translation.php:28
+msgid "This folder contains subfolders, please delete them first!"
+msgstr "Esta pasta contém subpastas, por favor, excluí-los primeiro!"
+
+#: translation/filebird-js-translation.php:29
+msgid "Are you sure?"
+msgstr "Tem a certeza?"
+
+#: translation/filebird-js-translation.php:30
+msgid ""
+"You will not be able to recover this folder! But files in this folder are "
+"all safe, they are moved to Uncategorized folder."
+msgstr ""
+"Você não será capaz de recuperar esta pasta! Mas os arquivos nesta pasta são "
+"todos seguros, eles são movidos para Uncategorized pasta."
+
+#: translation/filebird-js-translation.php:31
+msgid "Yes, delete it!"
+msgstr "Sim, apague!"
+
+#: translation/filebird-js-translation.php:32
+msgid "Deleted"
+msgstr "Apagado"
+
+#: translation/filebird-js-translation.php:33
+msgid "Move"
+msgstr "Mover"
+
+#: translation/filebird-js-translation.php:34
+msgid "files"
+msgstr "ficheiros"
+
+#: translation/filebird-js-translation.php:35
+
+msgid ""
+"The FileBird Lite version allows you to manage up to 10 folders.<br>To have "
+"unlimited folders, please upgrade to PRO version.</br>\r\n"
+"\t\t    \t<p class=\"upgrade-description\">✅ Unlimited Folders</br>\r\n"
+"\t\t    \t✅ Compatible with WP Bakery Page Builder</br>\r\n"
+"\t\t    \t✅ Compatible with Divi Page Builder</br>\r\n"
+"\t\t    \t✅ Get Fast Updates</br>\r\n"
+"\t\t    \t✅ Live Chat Support 24/7</br>\r\n"
+"\t\t    \t✅ 30-day Refund Guarantee</p>"
+msgstr ""
+"A versão FileBird Lite permite-lhe gerir até 10 pastas. <br> para ter pastas "
+"ilimitadas, por favor, atualize para a versão PRO. </br>\r\n"
+"\t\t    \t< p class = \"upgrade-description\" > ✅ pastas ilimitadas </br>\r\n"
+"\t\t    \t✅ Compatível com WP Bakery Page Builder </br>\r\n"
+"\t\t    \t✅ Compatível com Divi Page Builder </br>\r\n"
+"\t\t    \t✅ Obter atualizações rápidas </br>\r\n"
+"\t\t    \t✅ Suporte ao chat ao vivo 24/7 </br>\r\n"
+"\t\t    \t✅ Garantia de reembolso de 30 dias </p>"
+
+#: translation/filebird-js-translation.php:42
+msgid "Your folder has been deleted."
+msgstr "Sua pasta foi excluída."
+
+#: translation/filebird-js-translation.php:43
+
+msgid "Upgrade to FileBird Pro now"
+msgstr "Atualize para o FileBird pro agora"
+
+#: translation/filebird-js-translation.php:44
+msgid "No, thanks."
+msgstr "Não, obrigado."
+
+#: translation/filebird-js-translation.php:45
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. Plugin Name of the plugin/theme
+msgid "FileBird"
+msgstr "FileBird"
+
+#. Plugin URI of the plugin/theme
+msgid "https://media-folder.ninjateam.org"
+msgstr "https://media-folder.ninjateam.org"
+
+#. Description of the plugin/theme
+
+msgid ""
+"Organize thousands of WordPress media files into folders/ categories at ease."
+msgstr ""
+"Organize milhares de arquivos de mídia WordPress em pastas/categorias à "
+"vontade."
+
+#. Author of the plugin/theme
+msgid "Ninja Team"
+msgstr "Equipe ninja"
+
+#. Author URI of the plugin/theme
+msgid "https://ninjateam.org"
+msgstr "https://ninjateam.org"
+
+#~ msgid ""
+#~ "The FileBird Lite version allows you to manage up to 10 folders.<br>To "
+#~ "have unlimited folders, please upgrade to PRO version.</br></br>\r\n"
+#~ "\t\t    \t<p class=\"upgrade-description\">✅ Unlimited Folders</br>\r\n"
+#~ "\t\t    \t✅ Get Fast Updates</br>\r\n"
+#~ "\t\t    \t✅ Live Chat Support 24/7</br>\r\n"
+#~ "\t\t    \t✅ 30-day Refund Guarantee</p>"
+#~ msgstr ""
+#~ "A versão FileBird Lite permite que você gerencie até 10 pastas. <br> para "
+#~ "ter pastas ilimitadas, por favor, atualize para a versão PRO. </br> </br>"
+#~ "\r\n"
+#~ "\t\t    \t<p class=\"upgrade-description\">✔ Pastas ilimitadas </br>\r\n"
+#~ "\t\t    \t✔ Obtenha atualizações rápidas </br>\r\n"
+#~ "\t\t    \t✔ Suporte de chat ao vivo de 24/7 </br>\r\n"
+#~ "\t\t    \t✔ Garantia de reembolso de 30 dias </p>"
+
+#~ msgid "Upgrade to Pro version now"
+#~ msgstr "Atualize para a versão Pro agora"
+
+#~ msgid "Media Library Categories/Folders File Manager for WordPress."
+#~ msgstr ""
+#~ "Biblioteca de mídia categorias/pastas Gerenciador de arquivos para "
+#~ "WordPress."
