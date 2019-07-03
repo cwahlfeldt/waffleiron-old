@@ -12,9 +12,7 @@
  * @package         Waffleiron
  *
  *
- *
  * Utility functions and shite like that!
- *
  *
  */
 
@@ -50,7 +48,7 @@ add_filter( 'menu_order', function($menu_ord) {
 });
 
 add_action( 'admin_enqueue_scripts', function() {
-  wp_enqueue_style( 'admin_css', plugin_dir_url(__FILE__) . 'styles/admin.css', false, '1.0.0' );
+  wp_enqueue_style( 'admin_css', plugin_dir_url(__FILE__) . 'styles/mod.css', false, '1.0.0' );
 });
 
 add_filter( 'site_transient_update_plugins', function( $value ) {
@@ -60,7 +58,6 @@ add_filter( 'site_transient_update_plugins', function( $value ) {
 
 // Remove update notifications
 add_filter( 'site_transient_update_plugins', function( $value ) {
-
     if ( isset( $value ) && is_object( $value ) ) {
 		// remove for admin colmuns pro
         unset( $value->response[ 'admin-columns-pro/admin-columns-pro.php' ] );
@@ -70,9 +67,39 @@ add_filter( 'site_transient_update_plugins', function( $value ) {
 });
 
 //add SVG to allowed file uploads
-add_action('upload_mimes', function($file_types) {
-  $new_filetypes = array();
-  $new_filetypes['svg'] = 'image/svg+xml';
-  $file_types = array_merge($file_types, $new_filetypes );
-  return $file_types;
-});
+function mime_types( $mimes ) {
+	$mimes['svg'] = 'image/svg+xml';
+
+	return $mimes;
+}
+add_filter( 'upload_mimes', 'mime_types' );
+
+/**
+ * Enqueue SVG javascript and stylesheet in admin
+ * @author
+ * @TODO
+ */
+
+function svg_enqueue_scripts( $hook ) {
+	wp_enqueue_style( 'svg-style', get_plugin_file_uri( '/assets/css/svg.css' ) );
+	wp_enqueue_script( 'svg-script', get_theme_file_uri( '/assets/js/svg.js' ), 'jquery' );
+	wp_localize_script( 'svg-script', 'script_vars',
+		array( 'AJAXurl' => admin_url( 'admin-ajax.php' ) ) );
+}
+add_action( 'admin_enqueue_scripts', 'svg_enqueue_scripts' );
+
+/**
+ * Ajax get_attachment_url_media_library
+ * @author  */
+function get_attachment_url_media_library() {
+	$url          = '';
+	$attachmentID = isset( $_REQUEST['attachmentID'] ) ? $_REQUEST['attachmentID'] : '';
+	if ( $attachmentID ) {
+		$url = wp_get_attachment_url( $attachmentID );
+	}
+
+	echo $url;
+
+	die();
+}
+add_action( 'wp_ajax_svg_get_attachment_url', 'get_attachment_url_media_library' );
