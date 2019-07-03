@@ -44,12 +44,10 @@ _rm_submodules() {
 
 _deploy() {
   cd $DIR
-  travis encrypt-file .env --add
-  _clean
   lando push --code=none --database=dev --files=dev
-  git add -A && git commit -m 'deployed from local to pantheon and github'
-  git push origin master
-  git push pantheon master
+  git add -A && git commit -m 'deployed'
+  git push origin tm
+  git push tm master
 }
 
 _restart() {

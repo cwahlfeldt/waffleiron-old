@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6078856335669bd82384fc01a7f74f53",
+    "content-hash": "d0568af94d38036aa364c3ea961d5c31",
     "packages": [
         {
             "name": "advanced-custom-fields/advanced-custom-fields-pro",
@@ -802,6 +802,25 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/classic-editor/"
+        },
+        {
+            "name": "wpackagist-plugin/filebird",
+            "version": "dev-trunk",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/filebird/",
+                "reference": "trunk"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/filebird.zip?timestamp=1561716966"
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/filebird/",
+            "time": "2019-06-28T10:16:06+00:00"
         },
         {
             "name": "wpackagist-plugin/pantheon-advanced-page-cache",
@@ -5062,6 +5081,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "pantheon-systems/wordpress-composer": 20,
+        "wpackagist-plugin/filebird": 20,
         "roave/security-advisories": 20,
         "squizlabs/php_codesniffer": 20,
         "wp-coding-standards/wpcs": 20
