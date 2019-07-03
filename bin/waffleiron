@@ -44,10 +44,10 @@ _rm_submodules() {
 
 _deploy() {
   cd $DIR
-  lando push --code=none --database=dev --files=dev
+  _push $@
   git add -A && git commit -m 'deployed'
-  git push origin tm
-  git push tm master
+  git push origin $SITE
+  git push $SITE master
 }
 
 _restart() {
@@ -70,17 +70,8 @@ _pull () {
 
 _push () {
   cd $DIR
-  if [ -z $1 ]
-  then
-    lando ssh -c "rm -f /tmp/files.sql.gz"
-    lando terminus backup:create $SITE.$SITE_ENV --element=files
-    lando terminus backup:get $1 --element=files --to=/tmp/files.tar.gz
-    lando ssh -c "mkdir -p /app/wp-content/uploads"
-    lando ssh -c "tar -xzvf /tmp/files.tar.gz -C /app/wp-content/uploads --strip-components 1"
-    lando ssh -c "rm -f /tmp/files.sql.gz"
-  else
-    lando push --code=none --database=dev --files=dev
-  fi
+  lando db-export dump.sql
+  lando terminus import:database $1 dump.sql
 }
 
 _create-post-type () {
@@ -211,6 +202,13 @@ while [[ $# -gt 0 ]]
     # restart
     pull|pull)
       _pull $2
+      shift # past argument
+      shift # past value
+    ;;
+
+    # push
+    push)
+      _push $2
       shift # past argument
       shift # past value
     ;;
