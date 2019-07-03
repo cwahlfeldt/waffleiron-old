@@ -56,23 +56,32 @@ _restart() {
   cd $DIR && lando poweroff && sleep 60 && lando start
 }
 
-_pull () {
+_push () {
   cd $DIR
   if [ -z $1 ]
-    then
-    # Remove lingering DB dumps
+  then
     lando ssh -c "rm -f /app/database.sql.gz"
-
-    # Create a new backup of your database
-    # If you've created a db backup recently this step is not needed.
     lando terminus backup:create $1 --element=db
-
-    # Download and import backup of the database
     lando terminus backup:get $1 --element=db --to=/app/database.sql.gz
     lando db-import database.sql.gz
     lando ssh -c "rm -f /app/database.sql.gz"
   else
     lando pull --code=none --database=dev --files=dev
+  fi
+}
+
+_pull () {
+  cd $DIR
+  if [ -z $1 ]
+  then
+    lando ssh -c "rm -f /tmp/files.sql.gz"
+    lando terminus backup:create MYSITE.MYENV --element=files
+    lando terminus backup:get MYSITE.MYENV --element=files --to=/tmp/files.tar.gz
+    lando ssh -c "mkdir -p /app/wp-content/uploads"
+    lando ssh -c "tar -xzvf /tmp/files.tar.gz -C /app/wp-content/uploads --strip-components 1"
+    lando ssh -c "rm -f /tmp/files.sql.gz"
+  else
+    lando push --code=none --database=dev --files=dev
   fi
 }
 
