@@ -1,6 +1,6 @@
-name: tm
+name: waffleiron
 recipe: pantheon
 config:
   framework: wordpress
-  site: waffleiron-tm
-  id: 0c1f636e-eebb-4657-b96c-1f2f5ec9f1b8
+  site: waffleiron
+  id:  937260c2-446f-4aa2-8a7b-fd76046e32fa
