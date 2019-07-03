@@ -58,34 +58,48 @@ _restart() {
 
 _pull () {
   cd $DIR
-  printf "\npulling from $SITE.$SITE_ENV\n" && lando pull --code=none --database=dev --files=dev
+  if [ -z $1 ]
+    then
+    # Remove lingering DB dumps
+    lando ssh -c "rm -f /app/database.sql.gz"
+
+    # Create a new backup of your database
+    # If you've created a db backup recently this step is not needed.
+    lando terminus backup:create $1 --element=db
+
+    # Download and import backup of the database
+    lando terminus backup:get $1 --element=db --to=/app/database.sql.gz
+    lando db-import database.sql.gz
+    lando ssh -c "rm -f /app/database.sql.gz"
+  else
+    lando pull --code=none --database=dev --files=dev
+  fi
 }
 
 _create-post-type () {
   cd $DIR
+
   name=${1:-"change-name"}
   icon=${2:-"dashicons-text-page"}
 
-  printf "\n\nCreating plugin for post-type-$name\n"
-  lando wp scaffold plugin $name \
-    --dir="$DIR/web/wp-content/plugins" \
+  printf "\n\nCreating post type and plugin for $name\n\n"
+  lando wp scaffold plugin "post-type-$name" \
+    --dir="/app/web/wp-content/plugins" \
     --plugin_name="post-type-$name" \
     --plugin_description="$name's description" \
     --plugin_author="cwahlfeldt" \
     --plugin_author_uri="https://cwahlfeldt.github.io" \
     --plugin_uri="https://github.com/mckenziewagner/waffleiron" \
     --ci="circle" \
-    --skip-tests
-
-  sleep 10s
-
-  printf "\n\nCreating post type for $name\n"
+    --skip-tests \
+    --force && \
   lando wp scaffold post-type $name \
     --label="$name" \
     --textdomain="post-type-$name" \
     --plugin="post-type-$name" \
-    --dashicon="$icon"
-
+    --dashicon="$icon" \
+    --force && \
+  lando wp plugin activate post-type-$name && \
   printf "\n\ncreation!\n"
 }
 
@@ -189,7 +203,7 @@ while [[ $# -gt 0 ]]
 
     # restart
     pull|pull)
-      _pull
+      _pull $2
       shift # past argument
       shift # past value
     ;;
@@ -202,7 +216,7 @@ while [[ $# -gt 0 ]]
     ;;
 
     # restart
-    pt|create-post-type)
+    cpt|create-post-type)
       _create-post-type $2 $3
       shift # past argument
       shift # past value
