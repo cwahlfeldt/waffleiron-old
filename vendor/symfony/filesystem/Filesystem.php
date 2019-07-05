@@ -600,10 +600,6 @@ class Filesystem
      */
     public function isAbsolutePath($file)
     {
-        if (null === $file) {
-            @trigger_error(sprintf('Calling "%s()" with a null in the $file argument is deprecated since Symfony 4.4.', __METHOD__), E_USER_DEPRECATED);
-        }
-
         return strspn($file, '/\\', 0, 1)
             || (\strlen($file) > 3 && ctype_alpha($file[0])
                 && ':' === $file[1]
@@ -676,7 +672,7 @@ class Filesystem
     public function dumpFile($filename, $content)
     {
         if (\is_array($content)) {
-            @trigger_error(sprintf('Calling "%s()" with an array in the $content argument is deprecated since Symfony 4.3.', __METHOD__), E_USER_DEPRECATED);
+            throw new \TypeError(sprintf('Argument 2 passed to %s() must be string or resource, %s given.', __METHOD__, $content));
         }
 
         $dir = \dirname($filename);
@@ -713,7 +709,7 @@ class Filesystem
     public function appendToFile($filename, $content)
     {
         if (\is_array($content)) {
-            @trigger_error(sprintf('Calling "%s()" with an array in the $content argument is deprecated since Symfony 4.3.', __METHOD__), E_USER_DEPRECATED);
+            throw new \TypeError(sprintf('Argument 2 passed to %s() must be string or resource, %s given.', __METHOD__, $content));
         }
 
         $dir = \dirname($filename);

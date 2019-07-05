@@ -67,39 +67,17 @@ add_filter( 'site_transient_update_plugins', function( $value ) {
 });
 
 //add SVG to allowed file uploads
-function mime_types( $mimes ) {
-	$mimes['svg'] = 'image/svg+xml';
+add_action('upload_mimes', function($file_types) {
+  $new_filetypes = array();
+  $new_filetypes['svg'] = 'image/svg+xml';
+  $file_types = array_merge($file_types, $new_filetypes );
+  return $file_types;
+});
 
-	return $mimes;
-}
-add_filter( 'upload_mimes', 'mime_types' );
-
-/**
- * Enqueue SVG javascript and stylesheet in admin
- * @author
- * @TODO
- */
-
-function svg_enqueue_scripts( $hook ) {
-	wp_enqueue_style( 'svg-style', get_plugin_file_uri( '/assets/css/svg.css' ) );
-	wp_enqueue_script( 'svg-script', get_theme_file_uri( '/assets/js/svg.js' ), 'jquery' );
-	wp_localize_script( 'svg-script', 'script_vars',
-		array( 'AJAXurl' => admin_url( 'admin-ajax.php' ) ) );
-}
-add_action( 'admin_enqueue_scripts', 'svg_enqueue_scripts' );
-
-/**
- * Ajax get_attachment_url_media_library
- * @author  */
-function get_attachment_url_media_library() {
-	$url          = '';
-	$attachmentID = isset( $_REQUEST['attachmentID'] ) ? $_REQUEST['attachmentID'] : '';
-	if ( $attachmentID ) {
-		$url = wp_get_attachment_url( $attachmentID );
-	}
-
-	echo $url;
-
-	die();
-}
-add_action( 'wp_ajax_svg_get_attachment_url', 'get_attachment_url_media_library' );
+// allowed_block_types has 1 arg: $allowed_blocks
+add_filter( 'allowed_block_types', function() {
+  return array(
+    'core/paragraph',
+    'core/heading',
+  );
+});

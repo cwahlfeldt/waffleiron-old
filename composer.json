@@ -33,16 +33,21 @@
   "require": {
     "advanced-custom-fields/advanced-custom-fields-pro": "^5.7",
     "composer/installers": "^1.3.0",
+    "doctrine/instantiator": "1.0.5",
     "eftec/bladeone": "^3.23",
     "pantheon-systems/quicksilver-pushback": "^1.0",
     "pantheon-systems/wordpress-composer": "5.x-dev",
     "philippbaschke/acf-pro-installer": "^1.0",
     "roots/wp-password-bcrypt": "^1.0.0",
     "rvtraveller/qs-composer-installer": "^1.1",
+    "samrap/acf-fluent": "dev-master",
     "spatie/server-side-rendering": "^0.2.5",
+    "stoutlogic/acf-builder": "dev-master",
     "upstatement/routes": "^0.5.0",
     "vlucas/phpdotenv": "^2.4.0",
+    "wpackagist-plugin/acf-archive": "dev-trunk",
     "wpackagist-plugin/acf-to-rest-api": "^3.1",
+    "wpackagist-plugin/advanced-forms": "dev-trunk",
     "wpackagist-plugin/classic-editor": "^1.4",
     "wpackagist-plugin/filebird": "dev-trunk",
     "wpackagist-plugin/pantheon-advanced-page-cache": "^0.1.4",
@@ -62,10 +67,7 @@
     "vendor-dir": "vendor",
     "preferred-install": "dist",
     "optimize-autoloader": true,
-    "sort-packages": true,
-    "platform": {
-      "php": "7.2"
-    }
+    "sort-packages": true
   },
   "extra": {
     "wordpress-install-dir": "web/wp",

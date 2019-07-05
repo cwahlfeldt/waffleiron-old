@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit06b76ca5a873af64e25540bdb7760ea7
+class ComposerStaticInit377fc140778e93ea9e1a66403974d6d4
 {
     public static $files = array (
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
@@ -61,7 +61,9 @@ class ComposerStaticInit06b76ca5a873af64e25540bdb7760ea7
             'Symfony\\Component\\Console\\' => 26,
             'Symfony\\Component\\Config\\' => 25,
             'Symfony\\Component\\BrowserKit\\' => 29,
+            'StoutLogic\\AcfBuilder\\' => 22,
             'Spatie\\Ssr\\' => 11,
+            'Samrap\\Acf\\' => 11,
         ),
         'P' => 
         array (
@@ -87,6 +89,7 @@ class ComposerStaticInit06b76ca5a873af64e25540bdb7760ea7
         array (
             'Dotenv\\' => 7,
             'Doctrine\\Instantiator\\' => 22,
+            'Doctrine\\Common\\Inflector\\' => 26,
             'DeepCopy\\' => 9,
         ),
         'C' => 
@@ -198,9 +201,17 @@ class ComposerStaticInit06b76ca5a873af64e25540bdb7760ea7
         array (
             0 => __DIR__ . '/..' . '/symfony/browser-kit',
         ),
+        'StoutLogic\\AcfBuilder\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/stoutlogic/acf-builder/src',
+        ),
         'Spatie\\Ssr\\' => 
         array (
             0 => __DIR__ . '/..' . '/spatie/server-side-rendering/src',
+        ),
+        'Samrap\\Acf\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/samrap/acf-fluent/src',
         ),
         'Psr\\Http\\Message\\' => 
         array (
@@ -253,6 +264,10 @@ class ComposerStaticInit06b76ca5a873af64e25540bdb7760ea7
         'Doctrine\\Instantiator\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/instantiator/src/Doctrine/Instantiator',
+        ),
+        'Doctrine\\Common\\Inflector\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Common/Inflector',
         ),
         'DeepCopy\\' => 
         array (
@@ -1041,6 +1056,7 @@ class ComposerStaticInit06b76ca5a873af64e25540bdb7760ea7
         'DeepCopy\\TypeFilter\\Spl\\SplDoublyLinkedListFilter' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/TypeFilter/Spl/SplDoublyLinkedListFilter.php',
         'DeepCopy\\TypeFilter\\TypeFilter' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/TypeFilter/TypeFilter.php',
         'DeepCopy\\TypeMatcher\\TypeMatcher' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/TypeMatcher/TypeMatcher.php',
+        'Doctrine\\Common\\Inflector\\Inflector' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Common/Inflector/Inflector.php',
         'Doctrine\\Instantiator\\Exception\\ExceptionInterface' => __DIR__ . '/..' . '/doctrine/instantiator/src/Doctrine/Instantiator/Exception/ExceptionInterface.php',
         'Doctrine\\Instantiator\\Exception\\InvalidArgumentException' => __DIR__ . '/..' . '/doctrine/instantiator/src/Doctrine/Instantiator/Exception/InvalidArgumentException.php',
         'Doctrine\\Instantiator\\Exception\\UnexpectedValueException' => __DIR__ . '/..' . '/doctrine/instantiator/src/Doctrine/Instantiator/Exception/UnexpectedValueException.php',
@@ -1998,6 +2014,14 @@ class ComposerStaticInit06b76ca5a873af64e25540bdb7760ea7
         'Psr\\Http\\Message\\UploadedFileInterface' => __DIR__ . '/..' . '/psr/http-message/src/UploadedFileInterface.php',
         'Psr\\Http\\Message\\UriInterface' => __DIR__ . '/..' . '/psr/http-message/src/UriInterface.php',
         'Routes' => __DIR__ . '/..' . '/upstatement/routes/Routes.php',
+        'Samrap\\Acf\\Acf' => __DIR__ . '/..' . '/samrap/acf-fluent/src/Acf.php',
+        'Samrap\\Acf\\Behaviors\\BehaviorInterface' => __DIR__ . '/..' . '/samrap/acf-fluent/src/Behaviors/BehaviorInterface.php',
+        'Samrap\\Acf\\Behaviors\\FieldBehavior' => __DIR__ . '/..' . '/samrap/acf-fluent/src/Behaviors/FieldBehavior.php',
+        'Samrap\\Acf\\Behaviors\\SubFieldBehavior' => __DIR__ . '/..' . '/samrap/acf-fluent/src/Behaviors/SubFieldBehavior.php',
+        'Samrap\\Acf\\Exceptions\\BuilderException' => __DIR__ . '/..' . '/samrap/acf-fluent/src/Exceptions/BuilderException.php',
+        'Samrap\\Acf\\Exceptions\\RunnerException' => __DIR__ . '/..' . '/samrap/acf-fluent/src/Exceptions/RunnerException.php',
+        'Samrap\\Acf\\Fluent\\Builder' => __DIR__ . '/..' . '/samrap/acf-fluent/src/Fluent/Builder.php',
+        'Samrap\\Acf\\Fluent\\Runner' => __DIR__ . '/..' . '/samrap/acf-fluent/src/Fluent/Runner.php',
         'SebastianBergmann\\CodeCoverage\\CodeCoverage' => __DIR__ . '/..' . '/phpunit/php-code-coverage/src/CodeCoverage.php',
         'SebastianBergmann\\CodeCoverage\\CoveredCodeNotExecutedException' => __DIR__ . '/..' . '/phpunit/php-code-coverage/src/Exception/CoveredCodeNotExecutedException.php',
         'SebastianBergmann\\CodeCoverage\\Driver\\Driver' => __DIR__ . '/..' . '/phpunit/php-code-coverage/src/Driver/Driver.php',
@@ -2114,6 +2138,30 @@ class ComposerStaticInit06b76ca5a873af64e25540bdb7760ea7
         'Spatie\\Ssr\\Exceptions\\EngineError' => __DIR__ . '/..' . '/spatie/server-side-rendering/src/Exceptions/EngineError.php',
         'Spatie\\Ssr\\Exceptions\\ServerScriptDoesNotExist' => __DIR__ . '/..' . '/spatie/server-side-rendering/src/Exceptions/ServerScriptDoesNotExist.php',
         'Spatie\\Ssr\\Renderer' => __DIR__ . '/..' . '/spatie/server-side-rendering/src/Renderer.php',
+        'StoutLogic\\AcfBuilder\\AccordionBuilder' => __DIR__ . '/..' . '/stoutlogic/acf-builder/src/AccordionBuilder.php',
+        'StoutLogic\\AcfBuilder\\Builder' => __DIR__ . '/..' . '/stoutlogic/acf-builder/src/Builder.php',
+        'StoutLogic\\AcfBuilder\\ChoiceFieldBuilder' => __DIR__ . '/..' . '/stoutlogic/acf-builder/src/ChoiceFieldBuilder.php',
+        'StoutLogic\\AcfBuilder\\ConditionalBuilder' => __DIR__ . '/..' . '/stoutlogic/acf-builder/src/ConditionalBuilder.php',
+        'StoutLogic\\AcfBuilder\\FieldBuilder' => __DIR__ . '/..' . '/stoutlogic/acf-builder/src/FieldBuilder.php',
+        'StoutLogic\\AcfBuilder\\FieldManager' => __DIR__ . '/..' . '/stoutlogic/acf-builder/src/FieldManager.php',
+        'StoutLogic\\AcfBuilder\\FieldNameCollisionException' => __DIR__ . '/..' . '/stoutlogic/acf-builder/src/FieldNameCollisionException.php',
+        'StoutLogic\\AcfBuilder\\FieldNotFoundException' => __DIR__ . '/..' . '/stoutlogic/acf-builder/src/FieldNotFoundException.php',
+        'StoutLogic\\AcfBuilder\\FieldsBuilder' => __DIR__ . '/..' . '/stoutlogic/acf-builder/src/FieldsBuilder.php',
+        'StoutLogic\\AcfBuilder\\FlexibleContentBuilder' => __DIR__ . '/..' . '/stoutlogic/acf-builder/src/FlexibleContentBuilder.php',
+        'StoutLogic\\AcfBuilder\\GroupBuilder' => __DIR__ . '/..' . '/stoutlogic/acf-builder/src/GroupBuilder.php',
+        'StoutLogic\\AcfBuilder\\LocationBuilder' => __DIR__ . '/..' . '/stoutlogic/acf-builder/src/LocationBuilder.php',
+        'StoutLogic\\AcfBuilder\\ModifyFieldReturnTypeException' => __DIR__ . '/..' . '/stoutlogic/acf-builder/src/ModifyFieldReturnTypeException.php',
+        'StoutLogic\\AcfBuilder\\NamedBuilder' => __DIR__ . '/..' . '/stoutlogic/acf-builder/src/NamedBuilder.php',
+        'StoutLogic\\AcfBuilder\\ParentDelegationBuilder' => __DIR__ . '/..' . '/stoutlogic/acf-builder/src/ParentDelegationBuilder.php',
+        'StoutLogic\\AcfBuilder\\RepeaterBuilder' => __DIR__ . '/..' . '/stoutlogic/acf-builder/src/RepeaterBuilder.php',
+        'StoutLogic\\AcfBuilder\\TabBuilder' => __DIR__ . '/..' . '/stoutlogic/acf-builder/src/TabBuilder.php',
+        'StoutLogic\\AcfBuilder\\Transform\\ConditionalField' => __DIR__ . '/..' . '/stoutlogic/acf-builder/src/Transform/ConditionalField.php',
+        'StoutLogic\\AcfBuilder\\Transform\\ConditionalLogic' => __DIR__ . '/..' . '/stoutlogic/acf-builder/src/Transform/ConditionalLogic.php',
+        'StoutLogic\\AcfBuilder\\Transform\\FlexibleContentLayout' => __DIR__ . '/..' . '/stoutlogic/acf-builder/src/Transform/FlexibleContentLayout.php',
+        'StoutLogic\\AcfBuilder\\Transform\\IterativeTransform' => __DIR__ . '/..' . '/stoutlogic/acf-builder/src/Transform/IterativeTransform.php',
+        'StoutLogic\\AcfBuilder\\Transform\\NamespaceFieldKey' => __DIR__ . '/..' . '/stoutlogic/acf-builder/src/Transform/NamespaceFieldKey.php',
+        'StoutLogic\\AcfBuilder\\Transform\\RecursiveTransform' => __DIR__ . '/..' . '/stoutlogic/acf-builder/src/Transform/RecursiveTransform.php',
+        'StoutLogic\\AcfBuilder\\Transform\\Transform' => __DIR__ . '/..' . '/stoutlogic/acf-builder/src/Transform/Transform.php',
         'Symfony\\Component\\BrowserKit\\AbstractBrowser' => __DIR__ . '/..' . '/symfony/browser-kit/AbstractBrowser.php',
         'Symfony\\Component\\BrowserKit\\Client' => __DIR__ . '/..' . '/symfony/browser-kit/Client.php',
         'Symfony\\Component\\BrowserKit\\Cookie' => __DIR__ . '/..' . '/symfony/browser-kit/Cookie.php',
@@ -2899,10 +2947,10 @@ class ComposerStaticInit06b76ca5a873af64e25540bdb7760ea7
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit06b76ca5a873af64e25540bdb7760ea7::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit06b76ca5a873af64e25540bdb7760ea7::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit06b76ca5a873af64e25540bdb7760ea7::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit06b76ca5a873af64e25540bdb7760ea7::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit377fc140778e93ea9e1a66403974d6d4::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit377fc140778e93ea9e1a66403974d6d4::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit377fc140778e93ea9e1a66403974d6d4::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit377fc140778e93ea9e1a66403974d6d4::$classMap;
 
         }, null, ClassLoader::class);
     }
