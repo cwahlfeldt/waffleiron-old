@@ -76,3 +76,11 @@ add_action('upload_mimes', function($file_types) {
   $file_types = array_merge($file_types, $new_filetypes );
   return $file_types;
 });
+
+// allowed_block_types has 1 arg: $allowed_blocks
+add_filter( 'allowed_block_types', function() {
+  return array(
+    'core/paragraph',
+    'core/heading',
+  );
+});

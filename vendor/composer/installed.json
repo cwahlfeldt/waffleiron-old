@@ -158,7 +158,7 @@
                 "dev-master": "3.5.x-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-4": {
                 "Behat\\Behat\\": "src/Behat/Behat/",
@@ -290,7 +290,7 @@
                 "dev-master": "1.7.x-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-4": {
                 "Behat\\Mink\\": "src/"
@@ -347,7 +347,7 @@
                 "dev-master": "1.3.x-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-4": {
                 "Behat\\Mink\\Driver\\": "src/"
@@ -464,7 +464,7 @@
                 "dev-master": "1.2.x-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-4": {
                 "Behat\\Mink\\Driver\\": "src/"
@@ -520,7 +520,7 @@
                 "dev-master": "1.3.x-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-4": {
                 "Behat\\Mink\\Driver\\": "src/"
@@ -582,7 +582,7 @@
                 "dev-master": "1.2-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-0": {
                 "Behat\\Transliterator": "src/"
@@ -630,7 +630,7 @@
                 "dev-version/1": "1.x-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-4": {
                 "Brain\\": "src/"
@@ -818,37 +818,104 @@
         "homepage": "https://github.com/container-interop/container-interop"
     },
     {
-        "name": "doctrine/instantiator",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
+        "name": "doctrine/inflector",
+        "version": "1.3.x-dev",
+        "version_normalized": "1.3.9999999.9999999-dev",
         "source": {
             "type": "git",
-            "url": "https://github.com/doctrine/instantiator.git",
-            "reference": "7c71fc2932158d00f24f10635bf3b3b8b6ee5b68"
+            "url": "https://github.com/doctrine/inflector.git",
+            "reference": "45d9b132b262c1d03835cdeefd42938d881556fa"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/doctrine/instantiator/zipball/7c71fc2932158d00f24f10635bf3b3b8b6ee5b68",
-            "reference": "7c71fc2932158d00f24f10635bf3b3b8b6ee5b68",
+            "url": "https://api.github.com/repos/doctrine/inflector/zipball/45d9b132b262c1d03835cdeefd42938d881556fa",
+            "reference": "45d9b132b262c1d03835cdeefd42938d881556fa",
             "shasum": ""
         },
         "require": {
             "php": "^7.1"
         },
         "require-dev": {
-            "doctrine/coding-standard": "^6.0",
-            "ext-pdo": "*",
-            "ext-phar": "*",
-            "phpbench/phpbench": "^0.13",
-            "phpstan/phpstan-phpunit": "^0.11",
-            "phpstan/phpstan-shim": "^0.11",
-            "phpunit/phpunit": "^7.0"
+            "phpunit/phpunit": "^6.2"
         },
-        "time": "2019-07-02T13:37:32+00:00",
+        "time": "2018-06-15T19:03:38+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "1.2.x-dev"
+                "dev-master": "1.3.x-dev"
+            }
+        },
+        "installation-source": "source",
+        "autoload": {
+            "psr-4": {
+                "Doctrine\\Common\\Inflector\\": "lib/Doctrine/Common/Inflector"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Roman Borschel",
+                "email": "roman@code-factory.org"
+            },
+            {
+                "name": "Benjamin Eberlei",
+                "email": "kontakt@beberlei.de"
+            },
+            {
+                "name": "Guilherme Blanco",
+                "email": "guilhermeblanco@gmail.com"
+            },
+            {
+                "name": "Jonathan Wage",
+                "email": "jonwage@gmail.com"
+            },
+            {
+                "name": "Johannes Schmitt",
+                "email": "schmittjoh@gmail.com"
+            }
+        ],
+        "description": "Common String Manipulations with regard to casing and singular/plural rules.",
+        "homepage": "http://www.doctrine-project.org",
+        "keywords": [
+            "inflection",
+            "pluralize",
+            "singularize",
+            "string"
+        ]
+    },
+    {
+        "name": "doctrine/instantiator",
+        "version": "1.0.5",
+        "version_normalized": "1.0.5.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/doctrine/instantiator.git",
+            "reference": "8e884e78f9f0eb1329e445619e04456e64d8051d"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/doctrine/instantiator/zipball/8e884e78f9f0eb1329e445619e04456e64d8051d",
+            "reference": "8e884e78f9f0eb1329e445619e04456e64d8051d",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3,<8.0-DEV"
+        },
+        "require-dev": {
+            "athletic/athletic": "~0.1.8",
+            "ext-pdo": "*",
+            "ext-phar": "*",
+            "phpunit/phpunit": "~4.0",
+            "squizlabs/php_codesniffer": "~2.0"
+        },
+        "time": "2015-06-14T21:17:01+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0.x-dev"
             }
         },
         "installation-source": "dist",
@@ -869,7 +936,7 @@
             }
         ],
         "description": "A small, lightweight utility to instantiate objects in PHP without invoking their constructors",
-        "homepage": "https://www.doctrine-project.org/projects/instantiator.html",
+        "homepage": "https://github.com/doctrine/instantiator",
         "keywords": [
             "constructor",
             "instantiate"
@@ -967,7 +1034,7 @@
                 "dev-master": "3.2-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-4": {
                 "Goutte\\": "Goutte"
@@ -1028,7 +1095,7 @@
                 "dev-master": "6.3-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-4": {
                 "GuzzleHttp\\": "src/"
@@ -1088,7 +1155,7 @@
                 "dev-master": "1.4-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-4": {
                 "GuzzleHttp\\Promise\\": "src/"
@@ -1150,7 +1217,7 @@
                 "dev-master": "1.6-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-4": {
                 "GuzzleHttp\\Psr7\\": "src/"
@@ -1221,7 +1288,7 @@
                 "dev-master": "1.2-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "classmap": [
                 "hamcrest"
@@ -1380,7 +1447,7 @@
                 "dev-master": "0.9.x-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-0": {
                 "Mockery": "library/"
@@ -1445,7 +1512,7 @@
         },
         "time": "2019-04-07T13:18:21+00:00",
         "type": "library",
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-4": {
                 "DeepCopy\\": "src/DeepCopy/"
@@ -2069,7 +2136,7 @@
                 "dev-master": "1.8.x-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-4": {
                 "Prophecy\\": "src/Prophecy"
@@ -2141,7 +2208,7 @@
                 "dev-master": "5.3.x-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "classmap": [
                 "src/"
@@ -2191,7 +2258,7 @@
                 "dev-master": "1.4.x-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "classmap": [
                 "src/"
@@ -2286,7 +2353,7 @@
                 "dev-master": "1.0-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "classmap": [
                 "src/"
@@ -2338,7 +2405,7 @@
                 "dev-master": "2.0-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "classmap": [
                 "src/"
@@ -2483,7 +2550,7 @@
                 "dev-master": "5.0.x-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "classmap": [
                 "src/"
@@ -2533,7 +2600,7 @@
                 "dev-master": "1.0.x-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-4": {
                 "Psr\\Container\\": "src/"
@@ -2584,7 +2651,7 @@
                 "dev-master": "1.0.x-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-4": {
                 "Psr\\Http\\Message\\": "src/"
@@ -2969,6 +3036,55 @@
         "homepage": "https://github.com/rvtraveller/qs-composer-installer"
     },
     {
+        "name": "samrap/acf-fluent",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/samrap/acf-fluent.git",
+            "reference": "fb612e9f99fcdc2ee042bc915d9de90b83ff1d52"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/samrap/acf-fluent/zipball/fb612e9f99fcdc2ee042bc915d9de90b83ff1d52",
+            "reference": "fb612e9f99fcdc2ee042bc915d9de90b83ff1d52",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=7.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "^6.0"
+        },
+        "time": "2019-01-29T00:03:20+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Samrap\\Acf\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Sam Rapaport",
+                "email": "me@samrapdev.com"
+            }
+        ],
+        "description": "A fluent interface for the Advanced Custom Fields WordPress plugin",
+        "keywords": [
+            "acf",
+            "fluent",
+            "helper",
+            "interface",
+            "wordpress",
+            "wrapper"
+        ]
+    },
+    {
         "name": "sebastian/code-unit-reverse-lookup",
         "version": "dev-master",
         "version_normalized": "9999999-dev",
@@ -2996,7 +3112,7 @@
                 "dev-master": "1.0.x-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "classmap": [
                 "src/"
@@ -3109,7 +3225,7 @@
                 "dev-master": "2.0-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "classmap": [
                 "src/"
@@ -3217,7 +3333,7 @@
                 "dev-master": "3.1.x-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "classmap": [
                 "src/"
@@ -3339,7 +3455,7 @@
                 "dev-master": "3.0.x-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "classmap": [
                 "src/"
@@ -3386,7 +3502,7 @@
                 "dev-master": "1.1-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "classmap": [
                 "src/"
@@ -3433,7 +3549,7 @@
                 "dev-master": "3.0.x-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "classmap": [
                 "src/"
@@ -3675,12 +3791,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-            "reference": "0a42dba4afea02087255e4f9d5f04c47e91ddad7"
+            "reference": "f6fd84859659ab25d74646e7eff7397f009e258e"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/0a42dba4afea02087255e4f9d5f04c47e91ddad7",
-            "reference": "0a42dba4afea02087255e4f9d5f04c47e91ddad7",
+            "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/f6fd84859659ab25d74646e7eff7397f009e258e",
+            "reference": "f6fd84859659ab25d74646e7eff7397f009e258e",
             "shasum": ""
         },
         "require": {
@@ -3692,7 +3808,7 @@
         "require-dev": {
             "phpunit/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0"
         },
-        "time": "2019-06-26T01:59:29+00:00",
+        "time": "2019-07-04T06:00:06+00:00",
         "bin": [
             "bin/phpcs",
             "bin/phpcbf"
@@ -3703,7 +3819,7 @@
                 "dev-master": "3.x-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "notification-url": "https://packagist.org/downloads/",
         "license": [
             "BSD-3-Clause"
@@ -3720,6 +3836,51 @@
             "phpcs",
             "standards"
         ]
+    },
+    {
+        "name": "stoutlogic/acf-builder",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/StoutLogic/acf-builder.git",
+            "reference": "68e3705505bc85b2d75e8e8d7fbb31181004b4cb"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/StoutLogic/acf-builder/zipball/68e3705505bc85b2d75e8e8d7fbb31181004b4cb",
+            "reference": "68e3705505bc85b2d75e8e8d7fbb31181004b4cb",
+            "shasum": ""
+        },
+        "require": {
+            "doctrine/inflector": "~1.1",
+            "doctrine/instantiator": "~1.0.0",
+            "php": ">=5.4.0"
+        },
+        "require-dev": {
+            "phpdocumentor/reflection-docblock": "2.*",
+            "phpunit/phpunit": "4.*",
+            "squizlabs/php_codesniffer": "^2.6"
+        },
+        "time": "2018-09-14T16:55:15+00:00",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "psr-4": {
+                "StoutLogic\\AcfBuilder\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "GPL-2.0+"
+        ],
+        "authors": [
+            {
+                "name": "Steve Pfisterer",
+                "email": "steve@stoutlogic.com"
+            }
+        ],
+        "description": "An Advanced Custom Field Configuration Builder"
     },
     {
         "name": "symfony/browser-kit",
@@ -3756,7 +3917,7 @@
                 "dev-master": "4.4-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-4": {
                 "Symfony\\Component\\BrowserKit\\": ""
@@ -3789,12 +3950,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/config.git",
-            "reference": "e034269a63c4ef7c4f0ae29a9e16174b3ff0382d"
+            "reference": "8f5bef5f5a42e347991f3f6d7582214e431ac28f"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/config/zipball/e034269a63c4ef7c4f0ae29a9e16174b3ff0382d",
-            "reference": "e034269a63c4ef7c4f0ae29a9e16174b3ff0382d",
+            "url": "https://api.github.com/repos/symfony/config/zipball/8f5bef5f5a42e347991f3f6d7582214e431ac28f",
+            "reference": "8f5bef5f5a42e347991f3f6d7582214e431ac28f",
             "shasum": ""
         },
         "require": {
@@ -3815,14 +3976,14 @@
         "suggest": {
             "symfony/yaml": "To use the yaml reference dumper"
         },
-        "time": "2019-06-17T18:49:26+00:00",
+        "time": "2019-07-05T04:53:43+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
                 "dev-master": "4.4-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-4": {
                 "Symfony\\Component\\Config\\": ""
@@ -3899,7 +4060,7 @@
                 "dev-master": "4.4-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-4": {
                 "Symfony\\Component\\Console\\": ""
@@ -3950,7 +4111,7 @@
                 "dev-master": "4.4-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-4": {
                 "Symfony\\Component\\CssSelector\\": ""
@@ -3987,12 +4148,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/dependency-injection.git",
-            "reference": "27e6861458c8dfd3609ab9853ee1d2e02c532e5a"
+            "reference": "b524c1e13f837c9c620f18102b4c47635ad8bfad"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/27e6861458c8dfd3609ab9853ee1d2e02c532e5a",
-            "reference": "27e6861458c8dfd3609ab9853ee1d2e02c532e5a",
+            "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/b524c1e13f837c9c620f18102b4c47635ad8bfad",
+            "reference": "b524c1e13f837c9c620f18102b4c47635ad8bfad",
             "shasum": ""
         },
         "require": {
@@ -4022,14 +4183,14 @@
             "symfony/proxy-manager-bridge": "Generate service proxies to lazy load them",
             "symfony/yaml": ""
         },
-        "time": "2019-06-17T17:38:10+00:00",
+        "time": "2019-07-05T19:06:26+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
                 "dev-master": "4.4-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-4": {
                 "Symfony\\Component\\DependencyInjection\\": ""
@@ -4062,12 +4223,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/dom-crawler.git",
-            "reference": "2d379ba4a7be0f157e63e0c1934fcaf76640b0e3"
+            "reference": "3923e3068bec400ec2a65ab2a4be9bcea3b2df12"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/2d379ba4a7be0f157e63e0c1934fcaf76640b0e3",
-            "reference": "2d379ba4a7be0f157e63e0c1934fcaf76640b0e3",
+            "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/3923e3068bec400ec2a65ab2a4be9bcea3b2df12",
+            "reference": "3923e3068bec400ec2a65ab2a4be9bcea3b2df12",
             "shasum": ""
         },
         "require": {
@@ -4085,14 +4246,14 @@
         "suggest": {
             "symfony/css-selector": ""
         },
-        "time": "2019-06-17T01:42:58+00:00",
+        "time": "2019-07-04T06:46:07+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
                 "dev-master": "4.4-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-4": {
                 "Symfony\\Component\\DomCrawler\\": ""
@@ -4164,7 +4325,7 @@
                 "dev-master": "4.4-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-4": {
                 "Symfony\\Component\\EventDispatcher\\": ""
@@ -4219,7 +4380,7 @@
                 "dev-master": "1.1-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-4": {
                 "Symfony\\Contracts\\EventDispatcher\\": ""
@@ -4252,31 +4413,31 @@
     },
     {
         "name": "symfony/filesystem",
-        "version": "4.4.x-dev",
-        "version_normalized": "4.4.9999999.9999999-dev",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/filesystem.git",
-            "reference": "4e3b24f00ff07ff1a5a1571cc79e655f6d757c6d"
+            "reference": "47b07a0fd20ed0cc769ddf5d0c6db05f1b049838"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/filesystem/zipball/4e3b24f00ff07ff1a5a1571cc79e655f6d757c6d",
-            "reference": "4e3b24f00ff07ff1a5a1571cc79e655f6d757c6d",
+            "url": "https://api.github.com/repos/symfony/filesystem/zipball/47b07a0fd20ed0cc769ddf5d0c6db05f1b049838",
+            "reference": "47b07a0fd20ed0cc769ddf5d0c6db05f1b049838",
             "shasum": ""
         },
         "require": {
-            "php": "^7.1.3",
+            "php": "^7.2.9",
             "symfony/polyfill-ctype": "~1.8"
         },
-        "time": "2019-07-03T11:25:24+00:00",
+        "time": "2019-07-05T10:35:36+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "4.4-dev"
+                "dev-master": "5.0-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-4": {
                 "Symfony\\Component\\Filesystem\\": ""
@@ -4390,7 +4551,7 @@
                 "dev-master": "1.11-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-4": {
                 "Symfony\\Polyfill\\Mbstring\\": ""
@@ -4448,7 +4609,7 @@
                 "dev-master": "1.11-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-4": {
                 "Symfony\\Polyfill\\Php73\\": ""
@@ -4563,7 +4724,7 @@
                 "dev-master": "1.1-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-4": {
                 "Symfony\\Contracts\\Service\\": ""
@@ -4646,7 +4807,7 @@
                 "dev-master": "4.4-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-4": {
                 "Symfony\\Component\\Translation\\": ""
@@ -4700,7 +4861,7 @@
                 "dev-master": "1.1-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-4": {
                 "Symfony\\Contracts\\Translation\\": ""
@@ -4766,7 +4927,7 @@
                 "dev-master": "4.4-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-4": {
                 "Symfony\\Component\\Yaml\\": ""
@@ -5022,7 +5183,7 @@
         },
         "time": "2019-05-21T02:50:00+00:00",
         "type": "phpcodesniffer-standard",
-        "installation-source": "dist",
+        "installation-source": "source",
         "notification-url": "https://packagist.org/downloads/",
         "license": [
             "MIT"
@@ -5039,6 +5200,27 @@
             "standards",
             "wordpress"
         ]
+    },
+    {
+        "name": "wpackagist-plugin/acf-archive",
+        "version": "dev-trunk",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "svn",
+            "url": "https://plugins.svn.wordpress.org/acf-archive/",
+            "reference": "trunk"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://downloads.wordpress.org/plugin/acf-archive.zip?timestamp=1557215728"
+        },
+        "require": {
+            "composer/installers": "~1.0"
+        },
+        "time": "2019-05-07T07:55:28+00:00",
+        "type": "wordpress-plugin",
+        "installation-source": "dist",
+        "homepage": "https://wordpress.org/plugins/acf-archive/"
     },
     {
         "name": "wpackagist-plugin/acf-to-rest-api",
@@ -5059,6 +5241,27 @@
         "type": "wordpress-plugin",
         "installation-source": "dist",
         "homepage": "https://wordpress.org/plugins/acf-to-rest-api/"
+    },
+    {
+        "name": "wpackagist-plugin/advanced-forms",
+        "version": "dev-trunk",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "svn",
+            "url": "https://plugins.svn.wordpress.org/advanced-forms/",
+            "reference": "trunk"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://downloads.wordpress.org/plugin/advanced-forms.zip?timestamp=1558009226"
+        },
+        "require": {
+            "composer/installers": "~1.0"
+        },
+        "time": "2019-05-16T12:20:26+00:00",
+        "type": "wordpress-plugin",
+        "installation-source": "dist",
+        "homepage": "https://wordpress.org/plugins/advanced-forms/"
     },
     {
         "name": "wpackagist-plugin/classic-editor",
@@ -5098,7 +5301,7 @@
         },
         "time": "2019-06-28T10:16:06+00:00",
         "type": "wordpress-plugin",
-        "installation-source": "source",
+        "installation-source": "dist",
         "homepage": "https://wordpress.org/plugins/filebird/"
     },
     {
@@ -5233,7 +5436,7 @@
                 "dev-develop": "3.3-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-4": {
                 "Zend\\EventManager\\": "src/"
