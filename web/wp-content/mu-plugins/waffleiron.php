@@ -8,4 +8,4 @@
   Author URI: https://cwahlfeldt.github.io/
 */
 
-require_once( 'waffleiron/waffleiron.php' );
+/* require_once( 'waffleiron/waffleiron.php' ); */
