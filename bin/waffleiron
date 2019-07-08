@@ -1,8 +1,23 @@
 #!/usr/local/bin/bash
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && cd .. && pwd )"
-SITE="$($DIR/bin/env 'SITE_NAME')" || SITE="$(lando ssh -s appserver -c env | grep TERMINUS_SITE | cut -d '=' --complement -f 1)"
-SITE_ENV="$($DIR/bin/env 'SITE_ENV')" || SITE_ENV="$(lando ssh -s appserver -c env | grep TERMINUS_ENV | cut -d '=' --complement -f 1)"
+DIR="$( \
+  cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && \
+  cd .. && pwd \
+)"
+
+SITE="$( \
+  $DIR/bin/env 'SITE_NAME')" || \
+  SITE="$(lando ssh -s appserver -c env | \
+  grep TERMINUS_SITE | \
+  cut -d '=' --complement -f 1 \
+)"
+
+SITE_ENV="$( \
+  $DIR/bin/env 'SITE_ENV')" || \
+  SITE_ENV="$(lando ssh -s appserver -c env | \
+  grep TERMINUS_ENV | \
+  cut -d '=' --complement -f 1 \
+)"
 
 # list waffleiron project dir
 _ls() {
@@ -51,7 +66,9 @@ _deploy() {
 }
 
 _restart() {
-  cd $DIR && lando poweroff && sleep 60 && lando start
+  cd $DIR
+  lando poweroff && osascript -e \'quit app "Docker"\' && printf "\nstopping docker..."
+  open --background -a Docker && printf "starting docker...\n"
 }
 
 _pull () {
@@ -76,32 +93,17 @@ _push () {
 
 _create-post-type () {
   cd $DIR
-
   name=${1:-"change-name"}
   icon=${2:-"dashicons-text-page"}
 
   printf "\n\nCreating post type and plugin for $name\n\n"
-  
   lando wp scaffold post-type $name \
     --label="$name"                 \
     --textdomain="waffleiron"       \
     --plugin="waffleiron"           \
     --dashicon="$icon"              \
     --force &&                      \
-  
   printf "\n\ncreation!\n"
-
-  # lando wp scaffold plugin "post-type-$name" \
-  #   --dir="/app/web/wp-content/plugins" \
-  #   --plugin_name="post-type-$name" \
-  #   --plugin_description="$name's description" \
-  #   --plugin_author="cwahlfeldt" \
-  #   --plugin_author_uri="https://cwahlfeldt.github.io" \
-  #   --plugin_uri="https://github.com/mckenziewagner/waffleiron" \
-  #   --ci="circle" \
-  #   --skip-tests \
-  #   --force && \
-  # lando wp plugin activate post-type-$name && \
 }
 
 _rebuild() {
