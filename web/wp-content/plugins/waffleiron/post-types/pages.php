@@ -26,7 +26,6 @@ if( function_exists('acf_register_block_type') ) {
 			'icon'              => 'layout',
 			'keywords'          => array( 'header', 'heading', 'intro' ),
 			'post_types'		=> array('post', 'page'),
-			'align'				=> 'center',
 		));
 	});
 }
