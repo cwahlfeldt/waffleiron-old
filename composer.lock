@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ee9d2e54178115baeb566d694f887545",
+    "content-hash": "2068efab724696be94163194f82bcbaa",
     "packages": [
         {
             "name": "advanced-custom-fields/advanced-custom-fields-pro",
@@ -1017,22 +1017,21 @@
         },
         {
             "name": "wpackagist-plugin/advanced-forms",
-            "version": "dev-trunk",
+            "version": "1.6.4",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/advanced-forms/",
-                "reference": "trunk"
+                "reference": "tags/1.6.4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/advanced-forms.zip?timestamp=1558009226"
+                "url": "https://downloads.wordpress.org/plugin/advanced-forms.1.6.4.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
             },
             "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/advanced-forms/",
-            "time": "2019-05-16T12:20:26+00:00"
+            "homepage": "https://wordpress.org/plugins/advanced-forms/"
         },
         {
             "name": "wpackagist-plugin/classic-editor",
@@ -5277,7 +5276,6 @@
         "samrap/acf-fluent": 20,
         "stoutlogic/acf-builder": 20,
         "wpackagist-plugin/acf-archive": 20,
-        "wpackagist-plugin/advanced-forms": 20,
         "wpackagist-plugin/filebird": 20,
         "roave/security-advisories": 20,
         "squizlabs/php_codesniffer": 20,

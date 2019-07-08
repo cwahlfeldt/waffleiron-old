@@ -47,7 +47,7 @@
     "vlucas/phpdotenv": "^2.4.0",
     "wpackagist-plugin/acf-archive": "dev-trunk",
     "wpackagist-plugin/acf-to-rest-api": "^3.1",
-    "wpackagist-plugin/advanced-forms": "dev-trunk",
+    "wpackagist-plugin/advanced-forms": "^1.6.4",
     "wpackagist-plugin/classic-editor": "^1.4",
     "wpackagist-plugin/filebird": "dev-trunk",
     "wpackagist-plugin/pantheon-advanced-page-cache": "^0.1.4",

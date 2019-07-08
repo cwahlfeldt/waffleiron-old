@@ -6,27 +6,27 @@
  *
  */
 
+$header = new StoutLogic\AcfBuilder\FieldsBuilder('header');
+
 if( function_exists('acf_register_block_type') ) {
+	$header
+		->addText('heading')
+		->addText('sub_heading')
+		->addImage('image')
+		->setLocation('block', '==', 'acf/header');
 
-		$header = new StoutLogic\AcfBuilder\FieldsBuilder('header');
-		$header
-				->addText('title')
-				->addWysiwyg('content')
-				->addImage('background_image')
-				->setLocation('post_type', '==', 'page')
-					->or('post_type', '==', 'post');
-
-		add_action('acf/init', function () use ($header) {
-			acf_add_local_field_group($header->build());
-			acf_register_block_type(array(
-				'name'              => 'testimonial',
-				'title'             => __('Testimonial'),
-				'description'       => __('A custom testimonial block.'),
-				'render_template'   => 'template-parts/blocks/testimonial/testimonial.php',
-				'category'          => 'formatting',
-				'icon'              => 'admin-comments',
-				'keywords'          => array( 'testimonial', 'quote' ),
-			));
-		});
-
+	add_action('acf/init', function () use ($header) {
+		acf_add_local_field_group($header->build());
+		acf_register_block_type(array(
+			'name'              => 'header',
+			'title'             => __('Header'),
+			'description'       => __('Page header fields'),
+			'render_template'   => 'views/blocks/header.php',
+			'category'          => 'layout',
+			'icon'              => 'layout',
+			'keywords'          => array( 'header', 'heading', 'intro' ),
+			'post_types'		=> array('post', 'page'),
+			'align'				=> 'center',
+		));
+	});
 }
