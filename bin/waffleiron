@@ -102,18 +102,25 @@ _create-post-type () {
     --textdomain="waffleiron"       \
     --plugin="waffleiron"           \
     --dashicon="$icon"              \
-    --force &&                      \
-  printf "\n\ncreation!\n"
+    --force                &&       \               \
+  printf "\n\ncreation!\n" &&       \
+
 }
 
 _rebuild() {
   cd $DIR
-  lando poweroff && lando destroy -y && lando start && _pull
+  lando poweroff &&   \
+  lando destroy -y && \
+  lando start &&      \
+  _pull
 }
 
 _install() {
   cd $DIR
-  lando ssh -c "rm -rf /app/vendor && mkdir /app/vendor" && lando composer install --no-ansi --no-interaction --optimize-autoloader
+  lando ssh -c "          \
+    cd /app            && \
+    rm -rf ./vendor    && \
+    composer update --no-dev --no-ansi --no-interaction --optimize-autoloader"
   sleep 10
   lando wp plugin activate --all
 }
@@ -177,49 +184,49 @@ while [[ $# -gt 0 ]]
 
   case $key in
     # init
-    init)
+    --init|init)
       _init
       shift # past argument
       shift # past value
     ;;
 
     # restart
-    r|restart)
+    -r|r|restart)
       _restart
       shift # past argument
       shift # past value
     ;;
 
     # cc
-    cc|clear|clear-cache)
+    -cc|cc|--flush|--clear|--clear-cache)
       _cc
       shift # past argument
       shift # past value
     ;;
 
     # restart
-    rebuild)
+    --rebuild|rebuild)
       _rebuild
       shift # past argument
       shift # past value
     ;;
 
     # restart
-    pull|pull)
+    -pu|--pull|pu|pull)
       _pull $2
       shift # past argument
       shift # past value
     ;;
 
     # push
-    push)
+    -p|p|push)
       _push $2
       shift # past argument
       shift # past value
     ;;
 
     # restart
-    c|clean)
+    -c|--clean|c|clean)
       _clean
       shift # past argument
       shift # past value

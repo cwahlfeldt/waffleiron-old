@@ -5,6 +5,20 @@ if (function_exists( 'acf_add_options_page')) {
   acf_add_options_page();
 }
 
+$delete_menus = (
+	function (
+		$submenu_slugs = array(
+			array( 'customize.php', 'themes.php' ),
+			array( 'customize.php', 'themes.php' ),
+			array( 'customize.php', 'themes.php' ),
+		))
+	{
+		for ( $i=0; $i < $submenu_slugs.length; $i++ ) {
+
+		}
+	}
+)();
+
 add_action( 'admin_menu', function() {
   remove_menu_page( 'edit-comments.php');
 });
