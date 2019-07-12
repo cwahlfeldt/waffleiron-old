@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ee9d2e54178115baeb566d694f887545",
+    "content-hash": "2068efab724696be94163194f82bcbaa",
     "packages": [
         {
             "name": "advanced-custom-fields/advanced-custom-fields-pro",
@@ -1017,22 +1017,21 @@
         },
         {
             "name": "wpackagist-plugin/advanced-forms",
-            "version": "dev-trunk",
+            "version": "1.6.4",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/advanced-forms/",
-                "reference": "trunk"
+                "reference": "tags/1.6.4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/advanced-forms.zip?timestamp=1558009226"
+                "url": "https://downloads.wordpress.org/plugin/advanced-forms.1.6.4.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
             },
             "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/advanced-forms/",
-            "time": "2019-05-16T12:20:26+00:00"
+            "homepage": "https://wordpress.org/plugins/advanced-forms/"
         },
         {
             "name": "wpackagist-plugin/classic-editor",
@@ -1292,12 +1291,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/minkphp/Mink.git",
-                "reference": "6d637f7af4816c26ad8a943da2e3f7eef1231bea"
+                "reference": "7f7af8fc7649c4f74935ddd1a1fa82e205eeb25e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/Mink/zipball/6d637f7af4816c26ad8a943da2e3f7eef1231bea",
-                "reference": "6d637f7af4816c26ad8a943da2e3f7eef1231bea",
+                "url": "https://api.github.com/repos/minkphp/Mink/zipball/7f7af8fc7649c4f74935ddd1a1fa82e205eeb25e",
+                "reference": "7f7af8fc7649c4f74935ddd1a1fa82e205eeb25e",
                 "shasum": ""
             },
             "require": {
@@ -1343,7 +1342,7 @@
                 "testing",
                 "web"
             ],
-            "time": "2019-05-14T09:56:49+00:00"
+            "time": "2019-07-08T10:19:23+00:00"
         },
         {
             "name": "behat/mink-browserkit-driver",
@@ -4225,12 +4224,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "59606f15bd8bbc808eefb06519dc77cf9677e1e6"
+                "reference": "08fb59fb95644f5972c25d1461d11bdab884c766"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/59606f15bd8bbc808eefb06519dc77cf9677e1e6",
-                "reference": "59606f15bd8bbc808eefb06519dc77cf9677e1e6",
+                "url": "https://api.github.com/repos/symfony/console/zipball/08fb59fb95644f5972c25d1461d11bdab884c766",
+                "reference": "08fb59fb95644f5972c25d1461d11bdab884c766",
                 "shasum": ""
             },
             "require": {
@@ -4292,7 +4291,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2019-06-27T17:38:50+00:00"
+            "time": "2019-07-08T10:34:39+00:00"
         },
         {
             "name": "symfony/css-selector",
@@ -4615,12 +4614,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/filesystem.git",
-                "reference": "47b07a0fd20ed0cc769ddf5d0c6db05f1b049838"
+                "reference": "994120c755e6fca332fd54f322a86105540f938b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/filesystem/zipball/47b07a0fd20ed0cc769ddf5d0c6db05f1b049838",
-                "reference": "47b07a0fd20ed0cc769ddf5d0c6db05f1b049838",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/994120c755e6fca332fd54f322a86105540f938b",
+                "reference": "994120c755e6fca332fd54f322a86105540f938b",
                 "shasum": ""
             },
             "require": {
@@ -4657,7 +4656,7 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "https://symfony.com",
-            "time": "2019-07-05T10:35:36+00:00"
+            "time": "2019-07-08T06:31:25+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -4840,12 +4839,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "43dc8460dc5ba5543927309177075e43db51778d"
+                "reference": "425fecb2597fb20731accaaa8bc09dfc9141c69f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/43dc8460dc5ba5543927309177075e43db51778d",
-                "reference": "43dc8460dc5ba5543927309177075e43db51778d",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/425fecb2597fb20731accaaa8bc09dfc9141c69f",
+                "reference": "425fecb2597fb20731accaaa8bc09dfc9141c69f",
                 "shasum": ""
             },
             "require": {
@@ -4908,7 +4907,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "time": "2019-06-13T11:05:05+00:00"
+            "time": "2019-07-08T08:26:08+00:00"
         },
         {
             "name": "symfony/translation-contracts",
@@ -5277,7 +5276,6 @@
         "samrap/acf-fluent": 20,
         "stoutlogic/acf-builder": 20,
         "wpackagist-plugin/acf-archive": 20,
-        "wpackagist-plugin/advanced-forms": 20,
         "wpackagist-plugin/filebird": 20,
         "roave/security-advisories": 20,
         "squizlabs/php_codesniffer": 20,
