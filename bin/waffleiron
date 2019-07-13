@@ -102,24 +102,25 @@ _create-post-type () {
     --textdomain="waffleiron"       \
     --plugin="waffleiron"           \
     --dashicon="$icon"              \
-    --force                &&       \               \
-  printf "\n\ncreation!\n" &&       \
-
+    --force                  &&     \
+  printf "\n\ncreation!\n\n" &&     \
+  return 1
 }
 
 _rebuild() {
   cd $DIR
-  lando poweroff &&   \
+  lando poweroff   && \
   lando destroy -y && \
-  lando start &&      \
+  lando start      && \
   _pull
 }
 
+## _install install ins i
 _install() {
   cd $DIR
-  lando ssh -c "          \
-    cd /app            && \
-    rm -rf ./vendor    && \
+    lando ssh -c "          \
+      cd /app            && \
+      rm -rf ./vendor    && \
     composer update --no-dev --no-ansi --no-interaction --optimize-autoloader"
   sleep 10
   lando wp plugin activate --all
