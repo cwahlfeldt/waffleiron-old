@@ -1061,14 +1061,14 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/filebird.zip?timestamp=1561716966"
+                "url": "https://downloads.wordpress.org/plugin/filebird.zip?timestamp=1562582574"
             },
             "require": {
                 "composer/installers": "~1.0"
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/filebird/",
-            "time": "2019-06-28T10:16:06+00:00"
+            "time": "2019-07-08T10:42:54+00:00"
         },
         {
             "name": "wpackagist-plugin/pantheon-advanced-page-cache",
@@ -4224,12 +4224,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "08fb59fb95644f5972c25d1461d11bdab884c766"
+                "reference": "0a8153b7ec0b549a386d040278a0b6d6f18b5760"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/08fb59fb95644f5972c25d1461d11bdab884c766",
-                "reference": "08fb59fb95644f5972c25d1461d11bdab884c766",
+                "url": "https://api.github.com/repos/symfony/console/zipball/0a8153b7ec0b549a386d040278a0b6d6f18b5760",
+                "reference": "0a8153b7ec0b549a386d040278a0b6d6f18b5760",
                 "shasum": ""
             },
             "require": {
@@ -4251,7 +4251,7 @@
                 "symfony/config": "^3.4|^4.0|^5.0",
                 "symfony/dependency-injection": "^3.4|^4.0|^5.0",
                 "symfony/event-dispatcher": "^4.3",
-                "symfony/lock": "^3.4|^4.0|^5.0",
+                "symfony/lock": "^4.4|^5.0",
                 "symfony/process": "^3.4|^4.0|^5.0",
                 "symfony/var-dumper": "^4.3|^5.0"
             },
@@ -4291,7 +4291,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2019-07-08T10:34:39+00:00"
+            "time": "2019-07-10T18:47:17+00:00"
         },
         {
             "name": "symfony/css-selector",
@@ -4352,12 +4352,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dependency-injection.git",
-                "reference": "b524c1e13f837c9c620f18102b4c47635ad8bfad"
+                "reference": "38c6934cf8917010cd56fb55231bd696821d2ab1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/b524c1e13f837c9c620f18102b4c47635ad8bfad",
-                "reference": "b524c1e13f837c9c620f18102b4c47635ad8bfad",
+                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/38c6934cf8917010cd56fb55231bd696821d2ab1",
+                "reference": "38c6934cf8917010cd56fb55231bd696821d2ab1",
                 "shasum": ""
             },
             "require": {
@@ -4417,7 +4417,7 @@
             ],
             "description": "Symfony DependencyInjection Component",
             "homepage": "https://symfony.com",
-            "time": "2019-07-05T19:06:26+00:00"
+            "time": "2019-07-10T18:47:17+00:00"
         },
         {
             "name": "symfony/dom-crawler",
@@ -4839,12 +4839,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "425fecb2597fb20731accaaa8bc09dfc9141c69f"
+                "reference": "95d74f287b1d11a80c87e0383b2ca30feabdf1c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/425fecb2597fb20731accaaa8bc09dfc9141c69f",
-                "reference": "425fecb2597fb20731accaaa8bc09dfc9141c69f",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/95d74f287b1d11a80c87e0383b2ca30feabdf1c7",
+                "reference": "95d74f287b1d11a80c87e0383b2ca30feabdf1c7",
                 "shasum": ""
             },
             "require": {
@@ -4907,7 +4907,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "time": "2019-07-08T08:26:08+00:00"
+            "time": "2019-07-10T18:47:17+00:00"
         },
         {
             "name": "symfony/translation-contracts",

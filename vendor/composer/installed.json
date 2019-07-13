@@ -1101,12 +1101,12 @@
         },
         "dist": {
             "type": "zip",
-            "url": "https://downloads.wordpress.org/plugin/filebird.zip?timestamp=1561716966"
+            "url": "https://downloads.wordpress.org/plugin/filebird.zip?timestamp=1562582574"
         },
         "require": {
             "composer/installers": "~1.0"
         },
-        "time": "2019-06-28T10:16:06+00:00",
+        "time": "2019-07-08T10:42:54+00:00",
         "type": "wordpress-plugin",
         "installation-source": "dist",
         "homepage": "https://wordpress.org/plugins/filebird/"

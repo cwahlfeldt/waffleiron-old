@@ -30,7 +30,7 @@ $delete_menus = (
 	{
 		for ( $i=0; $i < $submenu_slugs->length; $i++ ) {
 			$submenu = $submenu_slugs[$i];
-			remove_submenu_page( $submenu[1], $submenu[2] );
+			remove_submenu_page( $submenu[0], $submenu[1] );
 		}
 		return $submenu_slugs;
 	}
@@ -38,7 +38,7 @@ $delete_menus = (
 
 add_action( 'admin_menu', function() {
   remove_menu_page( 'edit-comments.php');
-  echo ($delete_menus)();
+  echo (delete_menus)();
 });
 
 // reorder the menu
