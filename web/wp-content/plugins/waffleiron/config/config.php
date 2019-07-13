@@ -1,5 +1,4 @@
 <?php
-<<<<<<< HEAD:web/wp-content/mu-plugins/waffleiron/waffleiron.php
 /**
  * Plugin Name:     Waffleiron
  * Plugin URI:      PLUGIN SITE HERE
@@ -16,8 +15,6 @@
  * Utility functions and shite like that!
  *
  */
-=======
->>>>>>> e3e4b680d9ca62dd10804736e9c8f577fbc0b849:web/wp-content/plugins/waffleiron/config/config.php
 
 // set options page
 if (function_exists( 'acf_add_options_page')) {
@@ -27,19 +24,21 @@ if (function_exists( 'acf_add_options_page')) {
 $delete_menus = (
 	function (
 		$submenu_slugs = array(
-			array( 'customize.php', 'themes.php' ),
-			array( 'customize.php', 'themes.php' ),
-			array( 'customize.php', 'themes.php' ),
+			array( 'themes.php', 'customize.php' ),
+			array( 'themes.php', 'customize.php?return=%2Fwp%2Fwp-admin%2Fplugins.php%3Fplugin%3Dwaffleiron%252Fwaffleiron.php' ),
 		))
 	{
-		for ( $i=0; $i < $submenu_slugs.length; $i++ ) {
-
+		for ( $i=0; $i < $submenu_slugs->length; $i++ ) {
+			$submenu = $submenu_slugs[$i];
+			remove_submenu_page( $submenu[1], $submenu[2] );
 		}
+		return $submenu_slugs;
 	}
 )();
 
 add_action( 'admin_menu', function() {
   remove_menu_page( 'edit-comments.php');
+  echo ($delete_menus)();
 });
 
 // reorder the menu

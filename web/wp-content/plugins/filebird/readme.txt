@@ -20,63 +20,54 @@ Organize thousands of WordPress media files into folders/ categories at ease.
 Video Demo:
 [youtube https://www.youtube.com/watch?v=z0-nC-gVNIA]
 
-<h4>FEATURES</h4>
+== FEATURES ==
 
-<strong>FRIENDLY USER INTERFACE</strong><br>
+**Friendly User Interface**
 Drag and drop to upload/move files into folders. Drag and drop to rearrange folders.
 
-<strong>SMART CONTEXT MENU</strong><br>
+**Smart Context Menu**
 Right click your mouse to quickly create, rename or delete folders like what you do on your computer.
 
-<strong>FULL CONTROL IN ONE TOOLBAR</strong><br>
+**Full Control In One Toolbar**
 The toolbar on the left allows you control all of your folders/ files. You can create, rearrange, rename or delete folders.
 
-<strong>UNLIMITED FOLDERS/ SUBFOLDERS (PRO)</strong><br>
+**Unlimited Folders/ Subfolders (PRO)**
 You can create unlimited folders/subfolders for all your media files. Lite version support 10 folders/subfolders.
 
-<strong>MANY FILE TYPES SUPPORTED</strong><br>
+**Many File Types Supported**
 As WordPress default, you are allowed to only upload the most commonly used file types. With this plugin, you can manually manage most of allowed file types.
 
-<strong>RTL SUPPORTED</strong><br>
+**RTL Supported**
 FileBird supports RTL languages including Hebrew, Arabic, etc.
 
-<strong>COMPATIBLE WITH ELEMENTOR PAGE BUILDER</strong><br>
-Compatible with Elementor - Top #1 WordPress page builder.
-
-<strong>COMPATIBLE WITH BEAVER BUILDER</strong><br>
-Compatible with Beaver Builder - One of the popular page builder plugins for WordPress.
-
-<strong>COMPATIBLE WITH VISUAL COMPOSER PAGE BUILDER</strong><br>
-Compatible with Visual Composer page builder plugin.
-
-<strong>COMPATIBLE WITH DIVI THEME (PRO)</strong><br>
-Compatible with Divi theme from ElegantThemes.
-
-<strong>COMPATIBLE WITH DIVI BUILDER (PRO)</strong><br>
-Compatible with Divi Builder plugin from ElegantThemes.
-
-<strong>COMPATIBLE WITH WP BAKERY PAGE BUILDER (PRO)</strong><br>
-Compatible with WP Bakery page builder plugin, top #1 page builder selling on CodeCanyon.
-
-<strong>COMPATIBLE WITH WPML</strong><br>
-Best WP plugin to translate and display your website in any languages.
-
-<strong>COMPATIBLE WITH POLYLANG</strong><br>
-A plugin allows you to create a bilingual or multilingual WordPress site.
-
-<strong>COMPATIBLE WITH GUTENBERG</strong><br>
-Support new editor Gutenberg from WordPress 5.0.
-
-<strong>COMPATIBLE WITH CLASSIC EDITOR</strong><br>
-Support old WordPress editor to display tree view folders.
-
-<strong>3RD PARTY COMPATIBILITY</strong><br>
-This plugin is compatible with most of themes or plugins.
-
-<strong>MANY LANGUAGES SUPPORTED</strong><br>
+**Many Languages Supported**
 This plugin supports most popular languages such as English, Spanish, Italian, French, etc.
 
-<h4>HOW IT WORKS</h4>
+== COMPATIBLE WITH ==
+
+* Elementor – Top #1 WordPress page builder.
+
+* Beaver Builder – One of the popular page builder plugins for WordPress.
+
+* Visual Composer Page Builder.
+
+* Divi Theme from ElegantThemes (PRO).
+
+* Divi Builder plugin from ElegantThemes (PRO).
+
+* WP Bakery Page Builder - Top #1 page builder selling on CodeCanyon. (PRO)
+
+* WPML - Best WP plugin to translate and display your website in any languages.
+
+* Polylang - A plugin allows you to create a bilingual or multilingual WordPress site.
+
+* Gutenberg - New editor Gutenberg from WordPress 5.0.
+
+* Classic Editor - Old WordPress editor to display tree view folders.
+
+* Most of 3rd party themes or plugins.
+
+== HOW IT WORKS ==
 Are you a WordPress website administrator?
 
 Developing a site means that you’ll be adding tons of new media files such as images, videos, audios, PDF, txt, docx, .ect into your site database day by day.
@@ -93,9 +84,9 @@ In somes cases, your WordPress media library not loading, please chat with our s
 == Installation ==
 Manual installation is easy and takes fewer than one minute.
 
-1. Download the plugin from wordpress.org, unpack it and upload the <strong>[FileBird]</strong> folder to your <strong>wp-content/plugins/</strong> directory.
+1. Download the plugin from wordpress.org, unpack it and upload the **[FileBird]** folder to your **wp-content/plugins/** directory.
 2. Activate the plugin through the ‘Plugins‘ menu in WordPress.
-3. Go to your main <strong>WordPress menu > Media</strong> to start create folder to manage your files
+3. Go to your main **WordPress menu > Media** to start create folder to manage your files
 
 You’re done. Enjoy.
 
