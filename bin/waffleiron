@@ -11,17 +11,18 @@ SITE_ENV=$( cd $WAFFLEIRON_DIR && ./bin/env "SITE_ENV" ; ) ;
 
 _art () {
 ccat << "EOF"
-                   __________     _                
-   _      ______ _/ __/ __/ /__  (_)________  ____ 
-  | | /| / / __ `/ /_/ /_/ / _ \/ / ___/ __ \/ __ \
-  | |/ |/ / /_/ / __/ __/ /  __/ / /  / /_/ / / / /
-  |__/|__/\__,_/_/ /_/ /_/\___/_/_/   \____/_/ /_/ 
+                           ///
+                    ___ __///     
+   __     _____  _/ ___/___/___   ///__ __  ____ 
+  / | /| /// __ `/ /__/__// / __ \/ / __/ _ \ __ \
+  | |/ |/ / /_/ / __/__ // / __  / / / / /_/ / / /
+  |__/|__/\__,_/_/____///\____  __/  \_ __  ///_/
 
 EOF
 }
 
 # help me!
-_help () {
+_help () { 
   cd $WAFFLEIRON_DIR
   echo
   echo
@@ -51,19 +52,19 @@ _help () {
 }
 
 # list waffleiron project dir
-_ls() {
+_ls () {
   cd $WAFFLEIRON_DIR
   printf "\n path: $WAFFLEIRON_DIR \n\n"
   ls -la
 }
 
 # list the apps path
-_paths() {
+_paths () {
   lando ssh -s appserver -c env | grep "PATH" | cut -d '=' --complement -f 1 | tr ':' '\n'
 }
 
 # search env or list all
-_env() {
+_env () {
   echo "  ENV ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
   echo
   echo "      WAFFLEIRON_DIR : $WAFFLEIRON_DIR"
@@ -91,7 +92,7 @@ _createpost () {
 }
 
 # deploy your mom
-_deploy() {
+_deploy () {
   cd $WAFFLEIRON_DIR
   _push $@
   git add -A && git commit -m 'deployed'
@@ -100,7 +101,7 @@ _deploy() {
 }
 
 # and restart you're momm
-_restart() {
+_restart () {
   cd $WAFFLEIRON_DIR
   lando poweroff && osascript -e \'quit app "Docker"\' && printf "\nstopping docker..."
   open --background -a Docker && printf "starting docker...\n"
@@ -150,15 +151,16 @@ _create-post-type () {
 }
 
 # rebuild yo mom
-_rebuild() {
+_rebuild () {
   cd $WAFFLEIRON_DIR && \
+  lando start && \
   lando destroy -y && \
   lando poweroff && \
   sleep 15
 }
 
 # _install install i
-_install() {
+_install () {
   cd $WAFFLEIRON_DIR && \
     lando ssh -c " \
       cd /app && \
