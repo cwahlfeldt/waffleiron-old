@@ -78,17 +78,16 @@ _env() {
     else
       printf "      $(lando ssh -s appserver -c env)"
   fi
-  echo
+  echo ;
 }
 
-# rm sub modules i guess
-_rm_submodules() {
-  cd $WAFFLEIRON_DIR
-  git submodule deinit --all
-  git submodule | cut -c43- | while read -r line; do (git rm -f "$line"); done
-  git config --local -l | grep submodule | sed -e 's/^\(submodule\.[^.]*\)\(.*\)/\1/g' | while read -r line; do (git config --local --remove-section "$line"); done
-  rm -f .gitmodules
-  rm -rf .git/modules
+_createpost () {
+  POST_TYPE=${1:-page}
+  POST_TITLE=${2:-"$1-${RANDOM:0:2}"}
+
+  lando wp post create --post_type=$POST_TYPE --post_title=$POST_TITLE --post_status="published" && \
+
+  sleep 5 ;
 }
 
 # deploy your mom
@@ -260,11 +259,25 @@ while [[ $# -gt 0 ]]
       shift # past value
     ;;
 
-    # restart
+    # create post type with 
     cpt|create-post-type)
       _create-post-type $2 $3
       shift # past argument
       shift # past value
+    ;;
+
+    #
+    ## create post of $1 and name it with $2
+    -cp|cp|create-post )
+
+      POST_TYPE=${2:-page} && \
+      POST_TITLE=${3:-"${POST_TYPE}-${RANDOM:0:2}"} ;
+      lando wp post create --post_type=$POST_TYPE --post_title=$POST_TITLE --post_status="published" && \
+      sleep 5 ;
+
+      shift # past argument
+      shift # past value
+
     ;;
 
     # restart
