@@ -24,8 +24,8 @@ EOF
 _help () {
   cd $WAFFLEIRON_DIR
   echo
-  _art
   echo
+  _art
   echo
   echo "  ENV ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
   echo
@@ -125,8 +125,12 @@ _pull () {
 # push yo mom
 _push () {
   cd $WAFFLEIRON_DIR
+  branch=${}
+  git add -A
+  git commit -m "$1"
+  git push origin 
+  git push origin tm
   lando db-export dump.sql
-  lando terminus import:database $1 https://tm.lndo.site/dump.sql.gz
 }
 
 # create-post-type yo mom
@@ -149,8 +153,9 @@ _create-post-type () {
 # rebuild yo mom
 _rebuild() {
   cd $WAFFLEIRON_DIR && \
+  lando destroy -y && \
   lando poweroff && \
-  lando destroy -y
+  sleep 15
 }
 
 # _install install i
@@ -161,36 +166,42 @@ _install() {
       rm -rf ./vendor && \
       composer update --no-dev --no-ansi --no-interaction --optimize-autoloader
     "
-  sleep 10
+  sleep 15
   lando wp plugin activate --all
 }
 
 # cc yo ma
-_cc() {
+_cc () {
   cd $WAFFLEIRON_DIR
   lando wp cache flush
+}
+
+_start () {
+  cd $WAFFLEIRON_DIR && dockstart && sleep 30 && lando start
 }
 
 # init function... used to be all the commands in composer.json but thats ugly dude
 _init() {
   cd $WAFFLEIRON_DIR && \
-  center 'burn it all down to build it back up baby!!' 2 2 && \
-  _rebuild && \
+  center 'burn it all down to build it back up baby!!' 12 16 && \
+  _rebuild 
   sleep 60 && \
-  lando start && \
-  sleep 60 && \
+  _start && \
+  sleep 45 && \
   _install && \
   sleep 10 && \
   _pull && \
   sleep 60 && \
-  center 'waffles are done dude!' 12 16 && _cc && \
+  center 'waffles are done dude!' 12 16 && \
+  _cc && \
   sleep 10 && \
-  printf "\n\n...all done ...\n"
+  _art && \
+  printf "\n\n...all done...\n"
 }
 
 if [ "$#" -eq 0 ]
   then
-    printf "suh? no args supplied\n\n"
+    printf "suh? no args supplied"
     _help
 fi
 
