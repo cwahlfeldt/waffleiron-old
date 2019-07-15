@@ -1,5 +1,7 @@
 #!/usr/local/bin/bash
 
+#
+## waffleiron vars
 WAFFLEIRON_DIR="$( \
   cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && \
   cd .. && pwd ; \
@@ -7,20 +9,45 @@ WAFFLEIRON_DIR="$( \
 SITE_NAME=$( cd $WAFFLEIRON_DIR && ./bin/env "SITE_NAME" ; ) ;
 SITE_ENV=$( cd $WAFFLEIRON_DIR && ./bin/env "SITE_ENV" ; ) ;
 
-_help() {
+_art () {
+ccat << "EOF"
+                   __________     _                
+   _      ______ _/ __/ __/ /__  (_)________  ____ 
+  | | /| / / __ `/ /_/ /_/ / _ \/ / ___/ __ \/ __ \
+  | |/ |/ / /_/ / __/ __/ /  __/ / /  / /_/ / / / /
+  |__/|__/\__,_/_/ /_/ /_/\___/_/_/   \____/_/ /_/ 
+
+EOF
+}
+
+# help me!
+_help () {
   cd $WAFFLEIRON_DIR
-  echo "help       waffleiron help"
-  echo "init       waffleiron init"
-  echo "install    waffleiron i|install"
-  echo "restart    waffleiron restart"
-  echo "cc         waffleiron cc"
-  echo "rebuild    waffleiron rebuild"
-  echo "clean      waffleiron clean"
-  echo "push       waffleiron push"
-  echo "pull       waffleiron pull"
-  echo "link       waffleiron link"
-  echo "deploy     waffleiron deploy"
-  echo "ls         waffleiron ls"
+  echo
+  _art
+  echo
+  echo
+  echo "  ENV ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+  echo
+  echo "      WAFFLEIRON_DIR : $WAFFLEIRON_DIR"
+  echo "           SITE_NAME : $SITE_NAME"
+  echo "            SITE_ENV : $SITE_ENV"
+  echo
+  echo "  USAGE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+  echo
+  echo "      $ waffleiron help           "
+  echo "                   init           "
+  echo "                   i|install      "
+  echo "                   restart        "
+  echo "                   cc             "
+  echo "                   rebuild        "
+  echo "                   clean          "
+  echo "                   push           "
+  echo "                   pull           "
+  echo "                   link           "
+  echo "                   deploy         "
+  echo "                   ls             "
+  echo 
 }
 
 # list waffleiron project dir
@@ -35,31 +62,26 @@ _paths() {
   lando ssh -s appserver -c env | grep "PATH" | cut -d '=' --complement -f 1 | tr ':' '\n'
 }
 
-#search env or list all
+# search env or list all
 _env() {
+  echo "  ENV ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+  echo
+  echo "      WAFFLEIRON_DIR : $WAFFLEIRON_DIR"
+  echo "           SITE_NAME : $SITE_NAME"
+  echo "            SITE_ENV : $SITE_ENV"
+  echo
+  echo "  PANTHEON / LANDO ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+  echo
   if [ -z "$1" ]
     then
-      lando ssh -s appserver -c env | grep "$1"
-      printf "\n\n"
-      echo $WAFFLEIRON_DIR
-      echo $SITE_NAME
-      echo $SITE_ENV
+      printf "      $(lando ssh -s appserver -c env | grep "$1")"
     else
-      lando ssh -s appserver -c env
-      printf "\n\n"
-      echo $WAFFLEIRON_DIR
-      echo $SITE_NAME
-      echo $SITE_ENV
+      printf "      $(lando ssh -s appserver -c env)"
   fi
+  echo
 }
 
-_clean() {
-  cd $WAFFLEIRON_DIR
-  rm -rf vendor web/wp
-  # find . -maxdepth 1 ! -name util ! -name index.php ! -name -name web/wp-content/plugins/. -delete
-  printf 'clean dat ish up'
-}
-
+# rm sub modules i guess
 _rm_submodules() {
   cd $WAFFLEIRON_DIR
   git submodule deinit --all
@@ -69,6 +91,7 @@ _rm_submodules() {
   rm -rf .git/modules
 }
 
+# deploy your mom
 _deploy() {
   cd $WAFFLEIRON_DIR
   _push $@
@@ -77,12 +100,14 @@ _deploy() {
   git push $SITE_NAME master
 }
 
+# and restart you're momm
 _restart() {
   cd $WAFFLEIRON_DIR
   lando poweroff && osascript -e \'quit app "Docker"\' && printf "\nstopping docker..."
   open --background -a Docker && printf "starting docker...\n"
 }
 
+# pull yo mom
 _pull () {
   cd $WAFFLEIRON_DIR
   if [ -z $1 ]
@@ -97,12 +122,14 @@ _pull () {
   fi
 }
 
+# push yo mom
 _push () {
   cd $WAFFLEIRON_DIR
   lando db-export dump.sql
   lando terminus import:database $1 https://tm.lndo.site/dump.sql.gz
 }
 
+# create-post-type yo mom
 _create-post-type () {
   cd $WAFFLEIRON_DIR
   name=${1:-"change-name"}
@@ -119,13 +146,14 @@ _create-post-type () {
   return 1
 }
 
+# rebuild yo mom
 _rebuild() {
   cd $WAFFLEIRON_DIR && \
   lando poweroff && \
   lando destroy -y
 }
 
-## _install install ins i
+# _install install i
 _install() {
   cd $WAFFLEIRON_DIR && \
     lando ssh -c " \
@@ -137,6 +165,7 @@ _install() {
   lando wp plugin activate --all
 }
 
+# cc yo ma
 _cc() {
   cd $WAFFLEIRON_DIR
   lando wp cache flush
@@ -162,7 +191,6 @@ _init() {
 if [ "$#" -eq 0 ]
   then
     printf "suh? no args supplied\n\n"
-    _env
     _help
 fi
 
