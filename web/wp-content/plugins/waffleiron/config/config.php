@@ -21,20 +21,19 @@ if (function_exists( 'acf_add_options_page')) {
   acf_add_options_page();
 }
 
-$delete_menus = (
-	function (
-		$submenu_slugs = array(
-			array( 'themes.php', 'customize.php' ),
-			array( 'themes.php', 'customize.php?return=%2Fwp%2Fwp-admin%2Fplugins.php%3Fplugin%3Dwaffleiron%252Fwaffleiron.php' ),
-		))
-	{
-		for ( $i=0; $i < $submenu_slugs->length; $i++ ) {
-			$submenu = $submenu_slugs[$i];
-			remove_submenu_page( $submenu[0], $submenu[1] );
-		}
-		return $submenu_slugs;
-	}
-)();
+/* $delete_menus = ( */
+/* 	function ( */
+/* 		$submenu_slugs = array( */
+/* 			array( 'customize.php', 'themes.php' ), */
+/* 			array( 'customize.php', 'themes.php' ), */
+/* 			array( 'customize.php', 'themes.php' ), */
+/* 		)) */
+/* 	{ */
+/* 		for ( $i=0; $i < $submenu_slugs.length; $i++ ) { */
+
+/* 		} */
+/* 	} */
+/* )(); */
 
 add_action( 'admin_menu', function() {
   remove_menu_page( 'edit-comments.php');
