@@ -125,12 +125,23 @@ _pull () {
 # push yo mom
 _push () {
   cd $WAFFLEIRON_DIR
-  branch=${}
+  branch=$(git branch | grep \* | cut -d ' ' -f2 )
+  message=${1:-"$SITE_NAME.$SITE_ENV commit"}
+
+  cd web/wp-content/uploads
+  lando db-export dump.sql
+  cd $WAFFLEIRON_DIR
+
   git add -A
   git commit -m "$1"
   git push origin 
-  git push origin tm
-  lando db-export dump.sql
+  git push origin $branch && \
+
+  lando ssh -c "cd /app && terminus import:database $SITE_NAME.$SITE_ENV https://$SITE_ENV-$SITE_NAME.pantheonsite.io/wp-content/uploads/dump.sql.gz" && \
+
+  echo
+  echo "push it reaaal good!"
+  echo
 }
 
 # create-post-type yo mom
