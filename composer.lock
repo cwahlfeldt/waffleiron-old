@@ -321,12 +321,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/EFTEC/BladeOne.git",
-                "reference": "b499bfa27feaae81932c7a874cd42eefa4397967"
+                "reference": "2588829b8c90d9bb25999c1ad51335918f7e9a10"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/EFTEC/BladeOne/zipball/b499bfa27feaae81932c7a874cd42eefa4397967",
-                "reference": "b499bfa27feaae81932c7a874cd42eefa4397967",
+                "url": "https://api.github.com/repos/EFTEC/BladeOne/zipball/2588829b8c90d9bb25999c1ad51335918f7e9a10",
+                "reference": "2588829b8c90d9bb25999c1ad51335918f7e9a10",
                 "shasum": ""
             },
             "require": {
@@ -371,7 +371,7 @@
                 "templating",
                 "view"
             ],
-            "time": "2019-06-15T03:33:47+00:00"
+            "time": "2019-07-13T14:48:14+00:00"
         },
         {
             "name": "johnpbloch/wordpress-core-installer",
@@ -451,7 +451,7 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/pantheon-systems/wordpress-composer.git",
+                "url": "git@github.com:pantheon-systems/wordpress-composer.git",
                 "reference": "2a41a60bb25a4879c1b94c4c3c5b244e9135dbca"
             },
             "dist": {
@@ -474,11 +474,7 @@
                 "GPL-2.0+"
             ],
             "description": "WordPress for Pantheon with a composer.json file.",
-            "support": {
-                "source": "https://github.com/pantheon-systems/wordpress-composer/tree/5.2.2",
-                "issues": "https://github.com/pantheon-systems/wordpress-composer/issues"
-            },
-            "time": "2019-06-18T19:34:32+00:00"
+            "time": "2019-06-18T19:22:13+00:00"
         },
         {
             "name": "philippbaschke/acf-pro-installer",
@@ -1291,12 +1287,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/minkphp/Mink.git",
-                "reference": "7f7af8fc7649c4f74935ddd1a1fa82e205eeb25e"
+                "reference": "a534fe7dac9525e8e10ca68e737c3d7e5058ec83"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/Mink/zipball/7f7af8fc7649c4f74935ddd1a1fa82e205eeb25e",
-                "reference": "7f7af8fc7649c4f74935ddd1a1fa82e205eeb25e",
+                "url": "https://api.github.com/repos/minkphp/Mink/zipball/a534fe7dac9525e8e10ca68e737c3d7e5058ec83",
+                "reference": "a534fe7dac9525e8e10ca68e737c3d7e5058ec83",
                 "shasum": ""
             },
             "require": {
@@ -1304,7 +1300,7 @@
                 "symfony/css-selector": "^2.7|^3.0|^4.0"
             },
             "require-dev": {
-                "symfony/phpunit-bridge": "^3.3|^4.0"
+                "symfony/phpunit-bridge": "^4.2"
             },
             "suggest": {
                 "behat/mink-browserkit-driver": "extremely fast headless driver for Symfony\\Kernel-based apps (Sf2, Silex)",
@@ -1342,7 +1338,7 @@
                 "testing",
                 "web"
             ],
-            "time": "2019-07-08T10:19:23+00:00"
+            "time": "2019-07-15T12:45:29+00:00"
         },
         {
             "name": "behat/mink-browserkit-driver",

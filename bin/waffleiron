@@ -11,12 +11,12 @@ SITE_ENV=$( cd $WAFFLEIRON_DIR && ./bin/env "SITE_ENV" ; ) ;
 
 _art () {
 ccat << "EOF"
-                           ///
+                            
                    _ _____///     
-   __     __ ____ / ___/ __/____ ///__ ___ ____ 
+   __     __ ____ / ___/__//_/__  /._____ ____ 
   / | /| /// __  / /__/__/// __ / / __/ _ \ __ \
-  | |/ |/ / /_/ / __/__   / __ / / / / /_/ / / /
-  |__/|__/\__,_/_/___  ///\____/ __/ \_ __ / /_/
+  | |/ |/ / /_/ / __/__/  / __ / / / / /_/ / / /
+  |__/|__/\__,_/_/_____//-\___/ /_/ \_ __ / /_/
 
 EOF
 }
@@ -178,7 +178,7 @@ _cc () {
 }
 
 _start () {
-  cd $WAFFLEIRON_DIR && dockstart && sleep 30 && lando start
+  cd $WAFFLEIRON_DIR && lando start
 }
 
 # init function... used to be all the commands in composer.json but thats ugly dude

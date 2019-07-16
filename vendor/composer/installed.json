@@ -325,12 +325,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/EFTEC/BladeOne.git",
-            "reference": "b499bfa27feaae81932c7a874cd42eefa4397967"
+            "reference": "2588829b8c90d9bb25999c1ad51335918f7e9a10"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/EFTEC/BladeOne/zipball/b499bfa27feaae81932c7a874cd42eefa4397967",
-            "reference": "b499bfa27feaae81932c7a874cd42eefa4397967",
+            "url": "https://api.github.com/repos/EFTEC/BladeOne/zipball/2588829b8c90d9bb25999c1ad51335918f7e9a10",
+            "reference": "2588829b8c90d9bb25999c1ad51335918f7e9a10",
             "shasum": ""
         },
         "require": {
@@ -345,7 +345,7 @@
         "suggest": {
             "ext-mbstring": "This extension is used if it's active"
         },
-        "time": "2019-06-15T03:33:47+00:00",
+        "time": "2019-07-13T14:48:14+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -461,7 +461,7 @@
         "version_normalized": "9999999-dev",
         "source": {
             "type": "git",
-            "url": "https://github.com/pantheon-systems/wordpress-composer.git",
+            "url": "git@github.com:pantheon-systems/wordpress-composer.git",
             "reference": "2a41a60bb25a4879c1b94c4c3c5b244e9135dbca"
         },
         "dist": {
@@ -473,7 +473,7 @@
         "require": {
             "johnpbloch/wordpress-core-installer": "~0.1"
         },
-        "time": "2019-06-18T19:34:32+00:00",
+        "time": "2019-06-18T19:22:13+00:00",
         "type": "wordpress-core",
         "extra": {
             "branch-alias": {
@@ -485,11 +485,7 @@
         "license": [
             "GPL-2.0+"
         ],
-        "description": "WordPress for Pantheon with a composer.json file.",
-        "support": {
-            "source": "https://github.com/pantheon-systems/wordpress-composer/tree/5.2.2",
-            "issues": "https://github.com/pantheon-systems/wordpress-composer/issues"
-        }
+        "description": "WordPress for Pantheon with a composer.json file."
     },
     {
         "name": "philippbaschke/acf-pro-installer",
