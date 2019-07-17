@@ -202,11 +202,11 @@ _init() {
 
   printf "\n\n installing....\n\n"
   _install && \
-  sleep 10 && \
+  sleep 60 && \
 
   printf "\n\n pulling....\n\n"
   _pull && \
-  sleep 60 && \
+  sleep 10 && \
 
   printf "\n\n clearing cache....\n\n"
   _cc && \
