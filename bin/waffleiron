@@ -10,22 +10,23 @@ SITE_NAME=$( cd $WAFFLEIRON_DIR && ./bin/env "SITE_NAME" ; ) ;
 SITE_ENV=$( cd $WAFFLEIRON_DIR && ./bin/env "SITE_ENV" ; ) ;
 
 _art () {
-ccat << "EOF"
-                   __________     _                
-   _      ______ _/ __/ __/ /__  (_)________  ____ 
-  | | /| / / __ `/ /_/ /_/ / _ \/ / ___/ __ \/ __ \
-  | |/ |/ / /_/ / __/ __/ /  __/ / /  / /_/ / / / /
-  |__/|__/\__,_/_/ /_/ /_/\___/_/_/   \____/_/ /_/ 
+cat << "EOF"
+                            
+                   ________///   
+   __     _  __ __/ ___/___//__  /*/___ __ ____
+  | | /| /// __  /  __/__/// __ / / __/ _ \ __ \
+  | |/ |/ / /_/ / __/ _ /// __ / / / / /_/ / / /
+  |__/|__/\__,_/__/__/_///\___/ /_/  \____/ /_/
 
 EOF
 }
 
 # help me!
-_help () {
+_help () { 
   cd $WAFFLEIRON_DIR
   echo
-  _art
   echo
+  _art
   echo
   echo "  ENV ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
   echo
@@ -51,19 +52,19 @@ _help () {
 }
 
 # list waffleiron project dir
-_ls() {
+_ls () {
   cd $WAFFLEIRON_DIR
   printf "\n path: $WAFFLEIRON_DIR \n\n"
   ls -la
 }
 
 # list the apps path
-_paths() {
+_paths () {
   lando ssh -s appserver -c env | grep "PATH" | cut -d '=' --complement -f 1 | tr ':' '\n'
 }
 
 # search env or list all
-_env() {
+_env () {
   echo "  ENV ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
   echo
   echo "      WAFFLEIRON_DIR : $WAFFLEIRON_DIR"
@@ -78,21 +79,20 @@ _env() {
     else
       printf "      $(lando ssh -s appserver -c env)"
   fi
-  echo
+  echo ;
 }
 
-# rm sub modules i guess
-_rm_submodules() {
-  cd $WAFFLEIRON_DIR
-  git submodule deinit --all
-  git submodule | cut -c43- | while read -r line; do (git rm -f "$line"); done
-  git config --local -l | grep submodule | sed -e 's/^\(submodule\.[^.]*\)\(.*\)/\1/g' | while read -r line; do (git config --local --remove-section "$line"); done
-  rm -f .gitmodules
-  rm -rf .git/modules
+_createpost () {
+  POST_TYPE=${1:-page}
+  POST_TITLE=${2:-"$1-${RANDOM:0:2}"}
+
+  lando wp post create --post_type=$POST_TYPE --post_title=$POST_TITLE --post_status="published" && \
+
+  sleep 5 ;
 }
 
 # deploy your mom
-_deploy() {
+_deploy () {
   cd $WAFFLEIRON_DIR
   _push $@
   git add -A && git commit -m 'deployed'
@@ -101,7 +101,7 @@ _deploy() {
 }
 
 # and restart you're momm
-_restart() {
+_restart () {
   cd $WAFFLEIRON_DIR
   lando poweroff && osascript -e \'quit app "Docker"\' && printf "\nstopping docker..."
   open --background -a Docker && printf "starting docker...\n"
@@ -110,23 +110,35 @@ _restart() {
 # pull yo mom
 _pull () {
   cd $WAFFLEIRON_DIR
-  if [ -z $1 ]
-  then
-    lando ssh -c "rm -f /app/database.sql.gz"
-    lando terminus backup:create $1 --element=db
-    lando terminus backup:get $1 --element=db --to=/app/database.sql.gz
-    lando db-import database.sql.gz
-    lando ssh -c "rm -f /app/database.sql.gz"
-  else
-    lando pull --code=none --database=dev --files=dev
-  fi
+  site=${1:-"$SITE_NAME.$SITE_ENV"}
+  lando ssh -c "rm -rf /app/database.sql.gz"
+  lando terminus backup:create $site --element=db -y
+  lando terminus backup:get $site --element=db --to=/app/database.sql.gz -y
+  lando db-import database.sql.gz -y
 }
 
 # push yo mom
 _push () {
   cd $WAFFLEIRON_DIR
-  lando db-export dump.sql
-  lando terminus import:database $1 https://tm.lndo.site/dump.sql.gz
+  branch=$(git branch | grep \* | cut -d ' ' -f2)
+  message=${1:-"$SITE_NAME.$SITE_ENV commit"}
+
+  cd web/wp-content/uploads
+  lando db-export dump.sql -y ; \
+  cd $WAFFLEIRON_DIR && \
+
+  lando push --files=dev --code=none --database=none && \
+
+  git add -A
+  git commit -m "$message for branch: $branch"
+  git push origin $branch && \
+
+  lando ssh -c "cd /app && \
+      terminus import:database $SITE_NAME.$SITE_ENV https://$SITE_ENV-$SITE_NAME.pantheonsite.io/wp-content/uploads/dump.sql.gz && \
+    " && \
+  echo
+  echo "push it reaaal good!"
+  echo
 }
 
 # create-post-type yo mom
@@ -147,50 +159,66 @@ _create-post-type () {
 }
 
 # rebuild yo mom
-_rebuild() {
+_rebuild () {
   cd $WAFFLEIRON_DIR && \
+  lando start && \
+  lando destroy -y && \
   lando poweroff && \
-  lando destroy -y
+  sleep 15
 }
 
 # _install install i
-_install() {
+_install () {
   cd $WAFFLEIRON_DIR && \
     lando ssh -c " \
       cd /app && \
       rm -rf ./vendor && \
       composer update --no-dev --no-ansi --no-interaction --optimize-autoloader
     "
-  sleep 10
+  sleep 15
   lando wp plugin activate --all
 }
 
 # cc yo ma
-_cc() {
+_cc () {
   cd $WAFFLEIRON_DIR
   lando wp cache flush
+}
+
+_start () {
+  cd $WAFFLEIRON_DIR && lando start
 }
 
 # init function... used to be all the commands in composer.json but thats ugly dude
 _init() {
   cd $WAFFLEIRON_DIR && \
-  center 'burn it all down to build it back up baby!!' 2 2 && \
-  _rebuild && \
+  printf "\n\nburn it all down to build it back up baby!!\n\n"
+  _rebuild 
   sleep 60 && \
-  lando start && \
-  sleep 60 && \
+
+  printf "\n\n .....starting.....nowish\n\n" && \
+  _start && \
+  sleep 45 && \
+
+  printf "\n\n installing....\n\n"
   _install && \
   sleep 10 && \
+
+  printf "\n\n pulling....\n\n"
   _pull && \
   sleep 60 && \
-  center 'waffles are done dude!' 12 16 && _cc && \
+
+  printf "\n\n clearing cache....\n\n"
+  _cc && \
   sleep 10 && \
-  printf "\n\n...all done ...\n"
+
+  _art && \
+  printf "\n\n...all done...\n"
 }
 
 if [ "$#" -eq 0 ]
   then
-    printf "suh? no args supplied\n\n"
+    printf "suh? no args supplied"
     _help
 fi
 
@@ -249,14 +277,35 @@ while [[ $# -gt 0 ]]
       shift # past value
     ;;
 
-    # restart
+    # create post type with 
     cpt|create-post-type)
       _create-post-type $2 $3
       shift # past argument
       shift # past value
     ;;
 
-    # restart
+    #
+    ## create post of $1 and name it with $2
+    -cp|cp|create-post )
+      cd $DIR
+      POST_TYPE=${2:-page} && \
+      POST_TITLE=${3:-"${POST_TYPE}-${RANDOM:0:2}"} ;
+      lando wp post create --post_type=$POST_TYPE --post_title=$POST_TITLE --post_status="published" && \
+      sleep 5 ;
+
+      shift # past argument
+      shift # past value
+    ;;
+
+    # deploy
+    -c|c|config)
+      cd $DIR/bin
+      $EDITOR waffleiron ;
+      shift # past argument
+      shift # past value
+    ;;
+
+    # deploy
     dep|deploy)
       _deploy
       shift # past argument

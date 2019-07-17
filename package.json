@@ -1,0 +1,30 @@
+{
+  "name": "waffleiron",
+  "version": "0.0.1",
+  "description": "waffleiron is, (wordpress + pantheon = awesome)",
+  "main": "web/wp-content/themes/waffles-belgium/mod.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com-work-web:mckenziewagner/waffleiron"
+  },
+  "keywords": [
+    "wp",
+    "wordpress",
+    "themes",
+    "javascript",
+    "typescript",
+    "php",
+    "webassembly",
+    "deno",
+    "node",
+    "rust"
+  ],
+  "author": "cwahlfeldt",
+  "license": "ISC"
+}
