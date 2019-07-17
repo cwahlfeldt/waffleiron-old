@@ -96,7 +96,7 @@ _deploy () {
   cd $WAFFLEIRON_DIR
   message=${1:-'default message duh'}
 
-  _push $SITE_NAME.$SITE_ENV ;
+  # _push $SITE_NAME.$SITE_ENV ;
 
   git add -A && \
     git commit -m "$message" && \
