@@ -451,7 +451,7 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "git@github.com:pantheon-systems/wordpress-composer.git",
+                "url": "https://github.com/pantheon-systems/wordpress-composer.git",
                 "reference": "2a41a60bb25a4879c1b94c4c3c5b244e9135dbca"
             },
             "dist": {
@@ -474,7 +474,11 @@
                 "GPL-2.0+"
             ],
             "description": "WordPress for Pantheon with a composer.json file.",
-            "time": "2019-06-18T19:22:13+00:00"
+            "support": {
+                "source": "https://github.com/pantheon-systems/wordpress-composer/tree/5.2.2",
+                "issues": "https://github.com/pantheon-systems/wordpress-composer/issues"
+            },
+            "time": "2019-06-18T19:34:32+00:00"
         },
         {
             "name": "philippbaschke/acf-pro-installer",

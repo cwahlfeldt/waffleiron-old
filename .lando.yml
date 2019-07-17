@@ -1,4 +1,4 @@
-name: tm
+name: waffleiron-tm
 recipe: pantheon
 config:
   framework: wordpress

@@ -10,13 +10,13 @@ SITE_NAME=$( cd $WAFFLEIRON_DIR && ./bin/env "SITE_NAME" ; ) ;
 SITE_ENV=$( cd $WAFFLEIRON_DIR && ./bin/env "SITE_ENV" ; ) ;
 
 _art () {
-ccat << "EOF"
+cat << "EOF"
                             
-                   ________///     
-  __      __ _____/_ __/__///___ /-____  ______
+                   ________///   
+   __     _  __ __/ ___/___//__  /*/___ __ ____
   | | /| /// __  /  __/__/// __ / / __/ _ \ __ \
-  | |/ |/ / /_/ / _/ __//// __ / / / / /_/ / / /
-  |__/|__/\__,_/__/____///\___/ /_/ \_____/ /_/
+  | |/ |/ / /_/ / __/ _ /// __ / / / / /_/ / / /
+  |__/|__/\__,_/__/__/_///\___/ /_/  \____/ /_/
 
 EOF
 }
@@ -110,16 +110,11 @@ _restart () {
 # pull yo mom
 _pull () {
   cd $WAFFLEIRON_DIR
-  if [ -z $1 ]
-  then
-    lando ssh -c "rm -f /app/database.sql.gz"
-    lando terminus backup:create $1 --element=db
-    lando terminus backup:get $1 --element=db --to=/app/database.sql.gz
-    lando db-import database.sql.gz
-    lando ssh -c "rm -f /app/database.sql.gz"
-  else
-    lando pull --code=none --database=dev --files=dev
-  fi
+  site=${1:-"$SITE_NAME.$SITE_ENV"}
+  lando ssh -c "rm -rf /app/database.sql.gz"
+  lando terminus backup:create $site --element=db -y
+  lando terminus backup:get $site --element=db --to=/app/database.sql.gz -y
+  lando db-import database.sql.gz -y
 }
 
 # push yo mom
@@ -129,17 +124,18 @@ _push () {
   message=${1:-"$SITE_NAME.$SITE_ENV commit"}
 
   cd web/wp-content/uploads
-  lando db-export dump.sql ; \
+  lando db-export dump.sql -y ; \
   cd $WAFFLEIRON_DIR && \
 
   lando push --files=dev --code=none --database=none && \
 
   git add -A
-  git commit -m "$1"
+  git commit -m "$message for branch: $branch"
   git push origin $branch && \
 
-  lando ssh -c "cd /app && terminus import:database $SITE_NAME.$SITE_ENV https://$SITE_ENV-$SITE_NAME.pantheonsite.io/wp-content/uploads/dump.sql.gz" && \
-
+  lando ssh -c "cd /app && \
+      terminus import:database $SITE_NAME.$SITE_ENV https://$SITE_ENV-$SITE_NAME.pantheonsite.io/wp-content/uploads/dump.sql.gz && \
+    " && \
   echo
   echo "push it reaaal good!"
   echo
@@ -196,18 +192,26 @@ _start () {
 # init function... used to be all the commands in composer.json but thats ugly dude
 _init() {
   cd $WAFFLEIRON_DIR && \
-  center 'burn it all down to build it back up baby!!' 12 16 && \
+  printf "\n\nburn it all down to build it back up baby!!\n\n"
   _rebuild 
   sleep 60 && \
+
+  printf "\n\n .....starting.....nowish\n\n" && \
   _start && \
   sleep 45 && \
+
+  printf "\n\n installing....\n\n"
   _install && \
   sleep 10 && \
+
+  printf "\n\n pulling....\n\n"
   _pull && \
   sleep 60 && \
-  center 'waffles are done dude!' 12 16 && \
+
+  printf "\n\n clearing cache....\n\n"
   _cc && \
   sleep 10 && \
+
   _art && \
   printf "\n\n...all done...\n"
 }
@@ -283,7 +287,7 @@ while [[ $# -gt 0 ]]
     #
     ## create post of $1 and name it with $2
     -cp|cp|create-post )
-
+      cd $DIR
       POST_TYPE=${2:-page} && \
       POST_TITLE=${3:-"${POST_TYPE}-${RANDOM:0:2}"} ;
       lando wp post create --post_type=$POST_TYPE --post_title=$POST_TITLE --post_status="published" && \
@@ -291,10 +295,17 @@ while [[ $# -gt 0 ]]
 
       shift # past argument
       shift # past value
-
     ;;
 
-    # restart
+    # deploy
+    -c|c|config)
+      cd $DIR/bin
+      $EDITOR waffleiron ;
+      shift # past argument
+      shift # past value
+    ;;
+
+    # deploy
     dep|deploy)
       _deploy
       shift # past argument
