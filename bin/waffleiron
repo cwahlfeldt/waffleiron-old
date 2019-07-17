@@ -94,10 +94,13 @@ _createpost () {
 # deploy your mom
 _deploy () {
   cd $WAFFLEIRON_DIR
-  _push $@
-  git add -A && git commit -m 'deployed'
-  git push origin $SITE_NAME
-  git push $SITE_NAME master
+  message=${1:-'default message duh'}
+
+  _push $SITE_NAME.$SITE_ENV ;
+
+  git add -A && \
+    git commit -m "$message" && \
+    git push origin --all -u ;
 }
 
 # and restart you're momm
@@ -110,32 +113,34 @@ _restart () {
 # pull yo mom
 _pull () {
   cd $WAFFLEIRON_DIR
-  site=${1:-"$SITE_NAME.$SITE_ENV"}
-  lando ssh -c "rm -rf /app/database.sql.gz"
-  lando terminus backup:create $site --element=db -y
-  lando terminus backup:get $site --element=db --to=/app/database.sql.gz -y
-  lando db-import database.sql.gz -y
+  lando pull --code=none --database=dev --files=dev
+  # site=${1:-"$SITE_NAME.$SITE_ENV"}
+  # lando ssh -c "rm -rf /app/database.sql.gz"
+  # lando terminus backup:create $site --element=db -y
+  # lando terminus backup:get $site --element=db --to=/app/database.sql.gz -y
+  # lando db-import database.sql.gz -y
 }
 
 # push yo mom
 _push () {
   cd $WAFFLEIRON_DIR
-  branch=$(git branch | grep \* | cut -d ' ' -f2)
-  message=${1:-"$SITE_NAME.$SITE_ENV commit"}
+  lando push --code=none --database=dev --files=dev && \
+  # branch=$(git branch | grep \* | cut -d ' ' -f2)
+  # message=${1:-"$SITE_NAME.$SITE_ENV commit"}
 
-  cd web/wp-content/uploads
-  lando db-export dump.sql -y ; \
-  cd $WAFFLEIRON_DIR && \
+  # cd web/wp-content/uploads
+  # lando db-export dump.sql -y ; \
+  # cd $WAFFLEIRON_DIR && \
 
-  lando push --files=dev --code=none --database=none && \
+  # lando push --files=dev --code=none --database=none && \
 
-  git add -A
-  git commit -m "$message for branch: $branch"
-  git push origin $branch && \
+  # git add -A
+  # git commit -m "$message for branch: $branch"
+  # git push origin $branch && \
 
-  lando ssh -c "cd /app && \
-      terminus import:database $SITE_NAME.$SITE_ENV https://$SITE_ENV-$SITE_NAME.pantheonsite.io/wp-content/uploads/dump.sql.gz && \
-    " && \
+  # lando ssh -c "cd /app && \
+  #     terminus import:database $SITE_NAME.$SITE_ENV https://$SITE_ENV-$SITE_NAME.pantheonsite.io/wp-content/uploads/dump.sql.gz && \
+  #   " && \
   echo
   echo "push it reaaal good!"
   echo
