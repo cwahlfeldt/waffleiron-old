@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Web App Example</title>
+  <style>
+    body {
+      background-color: #222222;
+      color: #ebebeb;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Static pages and assets are distributed in the /app/web/public directory.</h1>
+  <main id="app"></main>
+  <p>
+    iron can build an app that uses the same data as your site but this is more for special features than anything else at this point<br>
+    <pre>
+      # use iron for building assets and allow the app
+      # to use the exact same theme and classes
+      $ iron build
+
+      # OR local server
+      $ iron start
+
+      # OR for production
+      $ iron deploy
+    </pre>
+  </p>
+</body>
+</html>
