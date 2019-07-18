@@ -289,6 +289,14 @@ while [[ $# -gt 0 ]]
       shift # past value
     ;;
 
+    # create post type with 
+    start|s)
+      cd $DIR
+      lando start
+      shift # past argument
+      shift # past value
+    ;;
+
     #
     ## create post of $1 and name it with $2
     -cp|cp|create-post )
@@ -344,7 +352,7 @@ while [[ $# -gt 0 ]]
     ;;
 
      # help
-    s|superpowers)
+    superpowers)
       arr=(${_cc} ${_env})
       echo ${arr[*]}
 

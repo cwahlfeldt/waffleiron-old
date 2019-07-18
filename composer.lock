@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2068efab724696be94163194f82bcbaa",
+    "content-hash": "a76739f453222f906d0e1870e2e6ea1a",
     "packages": [
         {
             "name": "advanced-custom-fields/advanced-custom-fields-pro",
@@ -833,12 +833,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "c89a858a34e08a13fe60a925f1af07401baa9608"
+                "reference": "f14afdf763309a744a59afe231eb7e10c87a00db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/c89a858a34e08a13fe60a925f1af07401baa9608",
-                "reference": "c89a858a34e08a13fe60a925f1af07401baa9608",
+                "url": "https://api.github.com/repos/symfony/process/zipball/f14afdf763309a744a59afe231eb7e10c87a00db",
+                "reference": "f14afdf763309a744a59afe231eb7e10c87a00db",
                 "shasum": ""
             },
             "require": {
@@ -874,7 +874,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-            "time": "2019-06-23T19:19:36+00:00"
+            "time": "2019-07-17T12:34:41+00:00"
         },
         {
             "name": "upstatement/routes",
@@ -1087,6 +1087,25 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/pantheon-advanced-page-cache/"
+        },
+        {
+            "name": "wpackagist-plugin/wedocs",
+            "version": "dev-trunk",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/wedocs/",
+                "reference": "trunk"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/wedocs.zip?timestamp=1562823199"
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/wedocs/",
+            "time": "2019-07-11T05:33:19+00:00"
         },
         {
             "name": "wpackagist-plugin/wp-native-php-sessions",
@@ -4161,12 +4180,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/config.git",
-                "reference": "8f5bef5f5a42e347991f3f6d7582214e431ac28f"
+                "reference": "864d387182ce69c62ec787bd7d67e6a44d1f5f21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/config/zipball/8f5bef5f5a42e347991f3f6d7582214e431ac28f",
-                "reference": "8f5bef5f5a42e347991f3f6d7582214e431ac28f",
+                "url": "https://api.github.com/repos/symfony/config/zipball/864d387182ce69c62ec787bd7d67e6a44d1f5f21",
+                "reference": "864d387182ce69c62ec787bd7d67e6a44d1f5f21",
                 "shasum": ""
             },
             "require": {
@@ -4217,7 +4236,7 @@
             ],
             "description": "Symfony Config Component",
             "homepage": "https://symfony.com",
-            "time": "2019-07-05T04:53:43+00:00"
+            "time": "2019-07-18T10:38:27+00:00"
         },
         {
             "name": "symfony/console",
@@ -4353,12 +4372,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dependency-injection.git",
-                "reference": "38c6934cf8917010cd56fb55231bd696821d2ab1"
+                "reference": "f6bd660e3ec35465c4ec81962fbf5951b3000ac7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/38c6934cf8917010cd56fb55231bd696821d2ab1",
-                "reference": "38c6934cf8917010cd56fb55231bd696821d2ab1",
+                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/f6bd660e3ec35465c4ec81962fbf5951b3000ac7",
+                "reference": "f6bd660e3ec35465c4ec81962fbf5951b3000ac7",
                 "shasum": ""
             },
             "require": {
@@ -4418,7 +4437,7 @@
             ],
             "description": "Symfony DependencyInjection Component",
             "homepage": "https://symfony.com",
-            "time": "2019-07-10T18:47:17+00:00"
+            "time": "2019-07-18T10:38:27+00:00"
         },
         {
             "name": "symfony/dom-crawler",
@@ -4840,12 +4859,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "95d74f287b1d11a80c87e0383b2ca30feabdf1c7"
+                "reference": "c5adfef935222e44dd6f5cdacce14239e9af5c38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/95d74f287b1d11a80c87e0383b2ca30feabdf1c7",
-                "reference": "95d74f287b1d11a80c87e0383b2ca30feabdf1c7",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/c5adfef935222e44dd6f5cdacce14239e9af5c38",
+                "reference": "c5adfef935222e44dd6f5cdacce14239e9af5c38",
                 "shasum": ""
             },
             "require": {
@@ -4908,7 +4927,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "time": "2019-07-10T18:47:17+00:00"
+            "time": "2019-07-18T10:38:27+00:00"
         },
         {
             "name": "symfony/translation-contracts",
@@ -5278,6 +5297,7 @@
         "stoutlogic/acf-builder": 20,
         "wpackagist-plugin/acf-archive": 20,
         "wpackagist-plugin/filebird": 20,
+        "wpackagist-plugin/wedocs": 20,
         "roave/security-advisories": 20,
         "squizlabs/php_codesniffer": 20,
         "wp-coding-standards/wpcs": 20
