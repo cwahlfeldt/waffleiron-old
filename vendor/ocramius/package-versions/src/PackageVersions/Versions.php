@@ -120,7 +120,7 @@ final class Versions
   'wp-coding-standards/wpcs' => 'dev-master@bd9c33152115e6741e3510ff7189605b35167908',
   'zendframework/zend-code' => '3.1.0@2899c17f83a7207f2d7f53ec2f421204d3beea27',
   'zendframework/zend-eventmanager' => 'dev-develop@627f3e821fbfd6cebf9cccaa017b7fe7ae13c05b',
-  'mckenziewagner/waffleiron' => 'dev-tm@b9bb92876e77931a99f5dfd7866a961d37d71e98',
+  'mckenziewagner/waffleiron' => 'dev-master@67f5fa2097ed656259586cfd804a3ff3be1ef19f',
 );
 
     private function __construct()
