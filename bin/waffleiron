@@ -190,6 +190,11 @@ _cc () {
   lando wp cache flush
 }
 
+_clean () {
+  cd $WAFFLEIRON_DIR
+  lando ssh -c "cd /app && rm -rf vendor node_modules ; rm -rf web/wp-content/uploads/cache/* ;"
+}
+
 _start () {
   cd $WAFFLEIRON_DIR && lando start
 }
@@ -206,6 +211,7 @@ _init() {
   sleep 45 && \
 
   printf "\n\n installing....\n\n"
+  _clean && \
   _install && \
   sleep 60 && \
 
