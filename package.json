@@ -4,10 +4,15 @@
   "description": "[![CircleCI](https://circleci.com/gh/mckenziewagner/waffleiron.svg?style=shield)](https://circleci.com/gh/mckenziewagner/waffleiron) [![Dashboard waffleiron](https://img.shields.io/badge/dashboard-waffleiron-yellow.svg)](https://dashboard.pantheon.io/sites/937260c2-446f-4aa2-8a7b-fd76046e32fa#dev/code) [![Dev Site waffleiron](https://img.shields.io/badge/site-waffleiron-blue.svg)](http://dev-waffleiron.pantheonsite.io/)",
   "main": "server.js",
   "directories": {
-    "test": "tests"
+    "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "tslint -c tslint.json",
+    "start": "concurrently \"pnpm run watch-typescript\" \"pnpm run build-tailwind\"",
+    "build": "concurrently \"pnpm run build-typescript\" \"pnpm run build-tailwind\"",
+    "watch-typescript": "tsc --watch tsconfig.json",
+    "build-typescript": "tsc --build tsconfig.json",
+    "build-tailwind": "tailwind build web/wp-content/themes/belgium/src/styles/tailwind.css -o web/public/styles.out.css"
   },
   "repository": {
     "type": "git",
@@ -29,8 +34,12 @@
   "homepage": "https://github.com/cwahlfeldt/waffleiron#readme",
   "dependencies": {
     "concurrently": "^4.1.1",
+    "http-proxy": "^1.17.0",
     "parcel-bundler": "^1.12.3",
     "tailwindcss": "^1.0.5",
     "typescript": "^3.5.3"
+  },
+  "devDependencies": {
+    "tslint": "^5.18.0"
   }
 }
