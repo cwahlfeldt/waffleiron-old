@@ -9,12 +9,6 @@
 $header = new StoutLogic\AcfBuilder\FieldsBuilder('header');
 
 if( function_exists('acf_register_block_type') ) {
-	$header
-		->addText('heading')
-		->addText('sub_heading')
-		->addImage('image')
-		->setLocation('block', '==', 'acf/header');
-
 	add_action('acf/init', function () use ($header) {
 		acf_add_local_field_group($header->build());
 		acf_register_block_type(array(
@@ -24,6 +18,9 @@ if( function_exists('acf_register_block_type') ) {
 			'render_template'   => 'views/blocks/header.php',
 			'category'          => 'layout',
 			'icon'              => 'layout',
+			'mode'              => 'edit',
+			'align'             => array( 'left', 'right', 'full', 'center' ),
+			'multiple'			=> true,
 			'keywords'          => array( 'header', 'heading', 'intro' ),
 			'post_types'		=> array('post', 'page'),
 		));

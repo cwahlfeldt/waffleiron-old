@@ -84,6 +84,5 @@ add_action('upload_mimes', function($file_types) {
 add_filter('allowed_block_types', function() {
   return array(
 	'core/paragraph',
-    'acf/header',
   );
 });
