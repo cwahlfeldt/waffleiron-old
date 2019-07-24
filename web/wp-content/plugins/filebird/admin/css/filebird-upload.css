@@ -128,7 +128,7 @@ html.wp-toolbar #vakata-dnd,html.wp-toolbar .vakata-context,html.wp-toolbar #jst
     background: #fff;
     color: #555;
     margin-top: 12px;
-    height: 48px;
+    height: 55px;
     padding-top: 10px;
     min-width: 225px;
 }
@@ -138,7 +138,7 @@ html.wp-toolbar #vakata-dnd,html.wp-toolbar .vakata-context,html.wp-toolbar #jst
     font-size: 13px;
     cursor: pointer;
     outline: 0;
-  
+    margin-top: 3px;
     margin-right: 6px;
     height: 27px;
 }

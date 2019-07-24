@@ -38,7 +38,7 @@ class FileBird_Topbar
             add_action('wp_ajax_filebird_save_attachment', array($this, 'filebird_save_attachment'), 0);
             add_action('wp_ajax_nt_wcm_get_terms_by_attachment', array($this, 'nt_wcm_get_terms_by_attachment'), 0);
             add_action('wp_ajax_filebird_save_multi_attachments', array($this, 'filebird_save_multi_attachments'), 0);
-            add_filter('attachment_fields_to_edit', array($this, 'filebird_attachment_fields_to_edit'), 10, 2);
+            // add_filter('attachment_fields_to_edit', array($this, 'filebird_attachment_fields_to_edit'), 10, 2);
         }
     }
 
@@ -61,14 +61,17 @@ class FileBird_Topbar
         global $sitepress, $wpdb;
         $is_wpml_active = $sitepress !== null && get_class($sitepress) === "SitePress";
         if ($is_wpml_active && $post_ID != $this->wpml_delete_process) {
-            $query = "SELECT element_id from {$wpdb->prefix}icl_translations
-          WHERE trid = (SELECT trid from {$wpdb->prefix}icl_translations WHERE element_id = $post_ID)
-          AND element_id <> $post_ID";
-            $lists = $wpdb->get_results($query);
+            $settings = $sitepress->get_setting('custom_posts_sync_option', array());
+            if ($settings['attachment']) {
+                $query = "SELECT element_id from {$wpdb->prefix}icl_translations
+            WHERE trid = (SELECT trid from {$wpdb->prefix}icl_translations WHERE element_id = $post_ID)
+            AND element_id <> $post_ID";
+                $lists = $wpdb->get_results($query);
 
-            foreach ($lists as $list) {
-                $this->wpml_delete_process = $list->element_id;
-                wp_delete_attachment(intval($list->element_id));
+                foreach ($lists as $list) {
+                    $this->wpml_delete_process = $list->element_id;
+                    wp_delete_attachment(intval($list->element_id));
+                }
             }
         }
     }
@@ -224,6 +227,7 @@ class FileBird_Topbar
 
         wp_register_script('njt-filebird-upload-localize', plugins_url('admin/js/filebird-util.js', dirname(__FILE__)), array('jquery', 'jquery-ui-draggable', 'jquery-ui-droppable'), $this->plugin_version, false);
         wp_localize_script('njt-filebird-upload-localize', 'filebird_translate', FileBird_JS_Translation::get_translation());
+        wp_localize_script('njt-filebird-upload-localize', 'njtFBV', NJT_FB_V);
         wp_enqueue_script('njt-filebird-upload-localize');
         wp_enqueue_style('njt-filebird-treeview', plugins_url('admin/css/filebird-treeview.css', dirname(__FILE__)), array(), $this->plugin_version);
         wp_style_add_data('njt-filebird-treeview', 'rtl', 'replace');
@@ -334,7 +338,10 @@ class FileBird_Topbar
             global $sitepress;
             $is_wpml_active = $sitepress !== null && get_class($sitepress) === "SitePress";
             if ($is_wpml_active) {
-                $this->wpml_filebird_save_attachment($id, intval($_REQUEST['folder_id']));
+                $settings = $sitepress->get_setting('custom_posts_sync_option', array());
+                if ($settings['attachment']) {
+                    $this->wpml_filebird_save_attachment($id, intval($_REQUEST['folder_id']));
+                }
             }
         }
 
@@ -390,8 +397,10 @@ class FileBird_Topbar
         global $sitepress;
         $is_wpml_active = $sitepress !== null && get_class($sitepress) === "SitePress";
         if ($is_wpml_active) {
-            $this->wpml_filebird_save_attachment($id, intval($_REQUEST['folder_id']));
-
+            $settings = $sitepress->get_setting('custom_posts_sync_option', array());
+            if ($settings['attachment']) {
+                $this->wpml_filebird_save_attachment($id, intval($_REQUEST['folder_id']));
+            }
         }
         wp_send_json_success($attachment);
     }
@@ -491,17 +500,19 @@ class FileBird_Topbar
         global $sitepress;
         $is_wpml_active = $sitepress !== null && get_class($sitepress) === "SitePress";
         if ($is_wpml_active) {
-            global $wpdb;
-            $lang = $sitepress->get_current_language();
-            $table_name = $wpdb->prefix . 'icl_translations';
-            $all_count = (int) $wpdb->get_var("SELECT COUNT(*)
+            $settings = $sitepress->get_setting('custom_posts_sync_option', array());
+            if ($settings['attachment']) {
+                global $wpdb;
+                $lang = $sitepress->get_current_language();
+                $table_name = $wpdb->prefix . 'icl_translations';
+                $all_count = (int) $wpdb->get_var("SELECT COUNT(*)
           FROM $table_name AS wpmlt
           INNER JOIN $wpdb->posts AS p ON p.id = wpmlt.element_id
           WHERE wpmlt.element_type =  'post_attachment'
           AND wpmlt.language_code =  '$lang'");
-            return $all_count;
+                return $all_count;
+            }
         }
-
         return wp_count_posts('attachment')->inherit;
     }
 
@@ -510,7 +521,10 @@ class FileBird_Topbar
         global $sitepress;
         $is_wpml_active = $sitepress !== null && get_class($sitepress) === "SitePress";
         if ($is_wpml_active) {
-            return self::wpml_get_uncategories_attachment();
+            $settings = $sitepress->get_setting('custom_posts_sync_option', array());
+            if ($settings['attachment']) {
+                return self::wpml_get_uncategories_attachment();
+            }
         }
         // $args = array(
         //     'post_type' => 'attachment',

@@ -52,7 +52,7 @@ class FileBird_Admin
     {
         $this->plugin_name = $plugin_name;
         $this->version = $version;
-
+   
         add_filter('restrict_manage_posts', array($this, 'restrictManagePosts'));
         //add_action('pre_get_posts', array($this, 'preGetPosts'));
         add_filter('posts_clauses', array($this, 'postsClauses'), 10, 2);
@@ -61,11 +61,15 @@ class FileBird_Admin
     }
 
     public function wpml_register_duplicate_attachment()
-    {
+    { 
         global $sitepress;
         $is_wpml_active = $sitepress !== null && get_class($sitepress) === "SitePress";
+        
         if ($is_wpml_active) {
-            add_action('wpml_media_create_duplicate_attachment', array($this, 'wpml_media_create_duplicate_attachment'), 10, 2);
+          $settings = $sitepress->get_setting('custom_posts_sync_option', array());
+          if($settings['attachment']){
+            add_action('wpml_media_create_duplicate_attachment', array($this, 'wpml_media_create_duplicate_attachment'), 10, 2);            
+          }
         }
     }
 
@@ -83,8 +87,8 @@ class FileBird_Admin
 
     public function go_pro_version($links)
     {
-        if (NJT_FILEBIRD_PLUGIN_NAME == 'FileBird Lite') {
-            $links[] = '<a target="_blank" href="https://1.envato.market/FileBirdPro" style="color: #43B854; font-weight: bold">' . __('Go Pro', NJT_FILEBIRD_TEXT_DOMAIN) . '</a>';
+        if (NJT_FB_V == '0') {
+            $links[] = '<a target="_blank" href="https://1.envato.market/FileBird" style="color: #43B854; font-weight: bold">' . __('Go Pro', NJT_FILEBIRD_TEXT_DOMAIN) . '</a>';
             return $links;
         }
         return $links;
@@ -418,7 +422,15 @@ if ($isCallModal) {
     {
         global $sitepress, $wpdb;
         $is_wpml_active = $sitepress !== null && get_class($sitepress) === "SitePress";
-        if ($is_wpml_active && $term_id !== null) {
+        $media_translation = false;
+        if($is_wpml_active){
+          $settings = $sitepress->get_setting('custom_posts_sync_option', array());
+          if($settings['attachment']){
+            $media_translation = true;
+          }
+        }
+        
+        if ($is_wpml_active && $term_id !== null && $media_translation) {
             $lang = $sitepress->get_current_language();
             $table_name = $wpdb->prefix . 'icl_translations';
 
@@ -449,6 +461,7 @@ if ($isCallModal) {
                     'not_found' => __('Folder not found', NJT_FILEBIRD_TEXT_DOMAIN),
                     'not_found_in_trash' => __('Folder not found in trash', NJT_FILEBIRD_TEXT_DOMAIN),
                 ),
+                'public' => false,
                 'show_ui' => true,
                 'show_in_menu' => false,
                 'show_in_nav_menus' => false,

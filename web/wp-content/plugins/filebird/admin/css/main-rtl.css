@@ -137,7 +137,7 @@ background-size: cover;
   transform: rotate(90deg);
 }
 .filebird_tree .new-wrapper {
-  display: none;
+  display: none !important;
 }
 .context-menu-list{
   border: none;
@@ -201,9 +201,9 @@ background-size: cover;
 }
 .nt_main_add_new span{
   position: absolute;
-  top: 50%;
+  top: 45%;
   right: 30%;
-  transform: translateY(-50%);
+  transform: translateY(-45%);
 }
 .nt_main_add_new:before, .nt_main_add_new svg{
   background:  url("data:image/svg+xml;charset=UTF-8,%3c?xml version='1.0'?%3e%3csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1' id='Capa_12' x='0px' y='0px' width='24px' height='24px' viewBox='0 0 24 24' style='enable-background:new 0 0 24 24;' xml:space='preserve' class=''%3e%3cg%3e%3cg%3e%3cg id='new-folder'%3e%3cpath d='M18,4h-8L8,2H2C0.896,2,0.01,2.896,0.01,4L0,16c0,1.104,0.896,2,2,2h16c1.104,0,2-0.896,2-2V6C20,4.896,19.104,4,18,4z M17,12h-3v3h-2v-3H9v-2h3V7h2v3h3V12z' fill='%230073aa'%3e%3c/path%3e%3c/g%3e%3c/g%3e%3c/g%3e%3c/svg%3e ") no-repeat center center;

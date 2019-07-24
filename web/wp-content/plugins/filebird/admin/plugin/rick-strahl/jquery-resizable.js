@@ -139,7 +139,6 @@ Licensed under MIT License
                         $el.width(newWidth);                    
                 }
                 
-                $(".filebird_sidebar_fixed").css("width", $(".filebird_sidebar").width() + "px")
             }
 
             function stopDragging(e) {
@@ -159,8 +158,6 @@ Licensed under MIT License
 
                 if (opt.onDragEnd)
                     opt.onDragEnd(e, $el, opt);
-                //Update splitter width
-                update_splitter_width(e);
                 return false;
             }
 
@@ -189,28 +186,6 @@ Licensed under MIT License
                 // as long as each has a separate parent container. 
                 return selector ? $el.parent().find(selector) : $el;
             } 
-
-            function update_splitter_width(e){
-                var njtMinWidth = 240;
-                var pos = getMousePos(e), newWidth, newHeight;
-                if (opt.resizeWidthFrom === 'left')
-                    newWidth = startPos.width - pos.x + startPos.x;
-                else
-                    newWidth = startPos.width + pos.x - startPos.x;
-                var data = {
-                    'action' 	: 	'filebird_ajax_save_splitter',
-                    'splitter_width' 	: 	newWidth,
-                };
-
-                if (newWidth >= njtMinWidth){
-                    $.post(ajaxurl,data,function(response){
-                    }).success(function(response){
-                    if(response.success != true){
-                        console.log('Error: ' + response);
-                    }
-                });    
-                }
-            }
         });
     };
 }));
