@@ -1,0 +1,36 @@
+{
+  "name": "waffleiron",
+  "version": "1.0.0",
+  "description": "[![CircleCI](https://circleci.com/gh/mckenziewagner/waffleiron.svg?style=shield)](https://circleci.com/gh/mckenziewagner/waffleiron) [![Dashboard waffleiron](https://img.shields.io/badge/dashboard-waffleiron-yellow.svg)](https://dashboard.pantheon.io/sites/937260c2-446f-4aa2-8a7b-fd76046e32fa#dev/code) [![Dev Site waffleiron](https://img.shields.io/badge/site-waffleiron-blue.svg)](http://dev-waffleiron.pantheonsite.io/)",
+  "main": "server.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cwahlfeldt/waffleiron.git"
+  },
+  "keywords": [
+    "parcel",
+    "tailwindcss",
+    "typescript",
+    "dev",
+    "proxy",
+    "server"
+  ],
+  "author": "cwahlfeldt",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cwahlfeldt/waffleiron/issues"
+  },
+  "homepage": "https://github.com/cwahlfeldt/waffleiron#readme",
+  "dependencies": {
+    "concurrently": "^4.1.1",
+    "parcel-bundler": "^1.12.3",
+    "tailwindcss": "^1.0.5",
+    "typescript": "^3.5.3"
+  }
+}

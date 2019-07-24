@@ -37,7 +37,7 @@ function testimonials_init() {
 		'show_ui'               => true,
 		'show_in_nav_menus'     => true,
 		'supports'              => array( 'title', 'editor' ),
-		'has_archive'           => true,
+		'has_archive'           => false,
 		'rewrite'               => true,
 		'query_var'             => true,
 		'menu_position'         => null,
