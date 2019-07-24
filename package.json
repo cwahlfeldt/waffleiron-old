@@ -26,5 +26,8 @@
     "rust"
   ],
   "author": "cwahlfeldt",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "parcel-bundler": "^1.12.3"
+  }
 }

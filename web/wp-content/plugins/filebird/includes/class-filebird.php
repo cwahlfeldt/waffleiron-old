@@ -223,6 +223,7 @@ class FileBird
                 wp_enqueue_style('njt-filebird-treeview', NJT_FILEBIRD_PLUGIN_URL . '/admin/css/filebird-treeview.css', array(), $this->version);
                 wp_register_script('njt-filebird-upload-localize', NJT_FILEBIRD_PLUGIN_URL . '/admin/js/filebird-util.js', array('jquery', 'jquery-ui-draggable', 'jquery-ui-droppable'), $this->version, false);
                 wp_localize_script('njt-filebird-upload-localize', 'filebird_translate', FileBird_JS_Translation::get_translation());
+                wp_localize_script('njt-filebird-upload-localize', 'njtFBV', NJT_FB_V);
                 wp_enqueue_script('njt-filebird-upload-localize');
                 wp_enqueue_script('filebird-admin-topbar', NJT_FILEBIRD_PLUGIN_URL . '/admin/js/filebird-admin-topbar.js', array('media-views'), $this->version, true);
                 wp_enqueue_script('filebird-droppable-elementor', NJT_FILEBIRD_PLUGIN_URL . '/admin/js/droppable.min.js', array('jquery'), $this->version, false);
@@ -292,7 +293,7 @@ class FileBird
 				<p>
 					<?php _e('Create your first folder for media library now.', NJT_FILEBIRD_TEXT_DOMAIN)?>
 					<a href="<?php echo esc_url(admin_url('/upload.php')) ?>">
-						<?php _e('Get Started', NJT_FILEBIRD_TEXT_DOMAIN)?>
+						<strong><?php _e('Get Started', NJT_FILEBIRD_TEXT_DOMAIN)?></strong>
 					</a>
 				</p>
 			</div>

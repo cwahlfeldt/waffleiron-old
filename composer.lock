@@ -1061,14 +1061,14 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/filebird.zip?timestamp=1562582574"
+                "url": "https://downloads.wordpress.org/plugin/filebird.zip?timestamp=1563969954"
             },
             "require": {
                 "composer/installers": "~1.0"
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/filebird/",
-            "time": "2019-07-08T10:42:54+00:00"
+            "time": "2019-07-24T12:05:54+00:00"
         },
         {
             "name": "wpackagist-plugin/pantheon-advanced-page-cache",
@@ -1678,9 +1678,9 @@
             "authors": [
                 {
                     "name": "Giuseppe Mazzapica",
+                    "role": "Developer",
                     "email": "giuseppe.mazzapica@gmail.com",
-                    "homepage": "https://gmazzap.me",
-                    "role": "Developer"
+                    "homepage": "https://gmazzap.me"
                 }
             ],
             "description": "Mocking utility for PHP functions and WordPress plugin API",
@@ -4070,12 +4070,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "f6fd84859659ab25d74646e7eff7397f009e258e"
+                "reference": "886c16245e0d1ceaf16b3479d938c8665f6aa290"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/f6fd84859659ab25d74646e7eff7397f009e258e",
-                "reference": "f6fd84859659ab25d74646e7eff7397f009e258e",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/886c16245e0d1ceaf16b3479d938c8665f6aa290",
+                "reference": "886c16245e0d1ceaf16b3479d938c8665f6aa290",
                 "shasum": ""
             },
             "require": {
@@ -4113,7 +4113,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2019-07-04T06:00:06+00:00"
+            "time": "2019-07-24T04:17:49+00:00"
         },
         {
             "name": "symfony/browser-kit",
@@ -4244,12 +4244,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "0a8153b7ec0b549a386d040278a0b6d6f18b5760"
+                "reference": "e1f3adb3bdb662169e9b57382352a16d04fdfd8d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/0a8153b7ec0b549a386d040278a0b6d6f18b5760",
-                "reference": "0a8153b7ec0b549a386d040278a0b6d6f18b5760",
+                "url": "https://api.github.com/repos/symfony/console/zipball/e1f3adb3bdb662169e9b57382352a16d04fdfd8d",
+                "reference": "e1f3adb3bdb662169e9b57382352a16d04fdfd8d",
                 "shasum": ""
             },
             "require": {
@@ -4311,7 +4311,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2019-07-10T18:47:17+00:00"
+            "time": "2019-07-24T17:14:38+00:00"
         },
         {
             "name": "symfony/css-selector",
@@ -4372,12 +4372,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dependency-injection.git",
-                "reference": "7be095ff33dd041d8be8c51da78bd27403a93bd6"
+                "reference": "b80addce8eaa96d06cf7e038248e0670df9347c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/7be095ff33dd041d8be8c51da78bd27403a93bd6",
-                "reference": "7be095ff33dd041d8be8c51da78bd27403a93bd6",
+                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/b80addce8eaa96d06cf7e038248e0670df9347c3",
+                "reference": "b80addce8eaa96d06cf7e038248e0670df9347c3",
                 "shasum": ""
             },
             "require": {
@@ -4437,7 +4437,7 @@
             ],
             "description": "Symfony DependencyInjection Component",
             "homepage": "https://symfony.com",
-            "time": "2019-07-18T20:39:44+00:00"
+            "time": "2019-07-23T11:21:51+00:00"
         },
         {
             "name": "symfony/dom-crawler",
@@ -4634,12 +4634,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/filesystem.git",
-                "reference": "994120c755e6fca332fd54f322a86105540f938b"
+                "reference": "a54dc2d6e44ae74a0f1e9cc20876a620739c6890"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/filesystem/zipball/994120c755e6fca332fd54f322a86105540f938b",
-                "reference": "994120c755e6fca332fd54f322a86105540f938b",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/a54dc2d6e44ae74a0f1e9cc20876a620739c6890",
+                "reference": "a54dc2d6e44ae74a0f1e9cc20876a620739c6890",
                 "shasum": ""
             },
             "require": {
@@ -4676,7 +4676,7 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "https://symfony.com",
-            "time": "2019-07-08T06:31:25+00:00"
+            "time": "2019-07-22T00:58:17+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -4992,12 +4992,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "b4d262d40ed43dd77ff3bd1fdc9919d8e237a3b5"
+                "reference": "77ce7e0ca12ec0cbf13528cfee27570f1a4cb836"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/b4d262d40ed43dd77ff3bd1fdc9919d8e237a3b5",
-                "reference": "b4d262d40ed43dd77ff3bd1fdc9919d8e237a3b5",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/77ce7e0ca12ec0cbf13528cfee27570f1a4cb836",
+                "reference": "77ce7e0ca12ec0cbf13528cfee27570f1a4cb836",
                 "shasum": ""
             },
             "require": {
@@ -5043,7 +5043,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2019-05-28T15:53:17+00:00"
+            "time": "2019-07-24T14:49:41+00:00"
         },
         {
             "name": "theseer/tokenizer",

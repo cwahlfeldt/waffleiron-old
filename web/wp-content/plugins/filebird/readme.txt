@@ -55,7 +55,7 @@ This plugin supports most popular languages such as English, Spanish, Italian, F
 
 * Divi Builder plugin from ElegantThemes (PRO).
 
-* WP Bakery Page Builder - Top #1 page builder selling on CodeCanyon. (PRO)
+* WPBakery Page Builder - Top #1 page builder selling on CodeCanyon. (PRO)
 
 * WPML - Best WP plugin to translate and display your website in any languages.
 
@@ -119,6 +119,23 @@ If you have a large files and want to use more than 10 folders/categories, you c
 4. Bulk selectto move / delete files
 
 == Changelog ==
+= 2.3 =
+Jul 24, 2019 - Version 2.3
+* Improved: Fast append treeview
+* Improved: Prevent public folders link
+* Improved: CSS UI
+* Fixed: Prevent plublic taxonomy folder
+* Fixed: Query database callback alltime
+* Fixed: FileBird treeview show on top left in product editor in WooCommerce
+* Fixed: Can't drop file when create first folder
+* Fixed: Work with WPML when Post Types Translation: Media tick not translatable
+* Fixed: 10 folders create in Lite version
+* Fixed: Bulk select moving images into folders by itself
+* Fixed: Move folder with length folder text
+* Fixed: Resize bar not save in min minimum width
+* Fixed: Remove map file library
+* Fixed: Conflict photo gallery
+
 = 2.2 =
 Jun 13, 2019 - Version 2.2
 * Added: RTL display
