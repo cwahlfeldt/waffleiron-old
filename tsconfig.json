@@ -69,6 +69,7 @@
     "web/wp-content/themes/belgium/**/*.js"
   ],
   "exclude": [
+    "/.old/",
     "*/**/node_modules/**/*.js",
     "*/**/node_modules/**/*.ts",
     "**/*.spec.ts"
