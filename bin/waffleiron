@@ -1,7 +1,6 @@
 #!/usr/local/bin/bash
 
-#
-## waffleiron vars
+# waffleiron vars
 export WAFFLEIRON_DIR="$( \
   cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && \
   cd .. && pwd ; \
