@@ -417,7 +417,7 @@ while [[ $# -gt 0 ]]
 
 
     -ks|ks|--kickstart|kickstart)
-      export PANTHEON_SITE_NAME="$SITE_PREFIX-${2-$SITE_NAME}"
+      export PANTHEON_SITE_NAME="$SITE_PREFIX-${2-"$SITE_NAME"}"
       export PANTHEON_MACHINE_TOKEN=A1Q4fO43O3YycjoYFjmdE2Yy3sDzCMl4OqVZi3ygOLvA2
       export PANTHEON_UPSTREAM_KEY=c578c77c-d12e-4943-adc7-d2c177859cee
 
@@ -429,29 +429,36 @@ while [[ $# -gt 0 ]]
       mkdir $PANTHEON_SITE_NAME && \
       cd $PANTHEON_SITE_NAME && \
 
-      lando terminus auth:login \
-        --email=chris.wahlfeldt@mckenziewagner.com\
-        --machine-token=$PANTHEON_MACHINE_TOKEN && \
+      lando ssh -c " \
+        export PANTHEON_SITE_NAME="$SITE_PREFIX-${2-$SITE_NAME}" && \
+        export PANTHEON_MACHINE_TOKEN=A1Q4fO43O3YycjoYFjmdE2Yy3sDzCMl4OqVZi3ygOLvA2 && \
+        export PANTHEON_UPSTREAM_KEY=c578c77c-d12e-4943-adc7-d2c177859cee && \
 
-      lando terminus site:create \
-        --org=mckenzie-wagner \
-        --$PANTHEON_SITE_NAME "$PANTHEON_SITE_NAME" $PANTHEON_UPSTREAM_KEY && \
+        terminus auth:login \
+          --email=chris.wahlfeldt@mckenziewagner.com \
+          --machine-token=$PANTHEON_MACHINE_TOKEN && \
 
-      printf "\n\n chill fo a minute \n\n" && \
-      sleep 60 && \
+        terminus site:create \
+          --org=mckenzie-wagner \
+          $PANTHEON_SITE_NAME "$PANTHEON_SITE_NAME" $PANTHEON_UPSTREAM_KEY && \
+
+        printf "\n\n chill fo a minute \n\n" && \
+        sleep 60 && \
+      " && \
 
       lando init \
         --source remote \
         --recipe pantheon \
         --remote-url git@github.com:cwahlfeldt/waffleiron.git \
         --pantheon-auth "$PANTHEON_MACHINE_TOKEN" \
-        --webroot "/app/web" \
         --pantheon-site $PANTHEON_SITE_NAME \
         --full && \
 
       lando start && \
-        lando pull --code=dev --database=dev --files=${4:-'dev'} && \
-        _install
+        pull --code=dev --database=dev --files=${4:-'dev'} && \
+        printf "\n ! waffleiron engine roars !\n" && \
+
+      _composer_init
 
       shift # past argument
       shift
