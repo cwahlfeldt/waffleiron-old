@@ -10,11 +10,10 @@
     "lint": "tslint -c tslint.json",
     "start": "concurrently \"pnpm run watch-typescript\" \"pnpm run watch-postcss\"",
     "build": "concurrently \"pnpm run build-typescript\" \"pnpm run build-postcss\"",
-    "build-postcss": "postcss web/wp-content/themes/belgium/src/styles/tailwind.css -o web/public/mod.out.css",
-    "watch-postcss": "postcss web/wp-content/themes/belgium/src/styles/tailwind.css -o web/public/mod.out.css -w ",
+    "build-postcss": "postcss web/wp-content/themes/belgium/src/styles/tailwind.css -m true -o web/public/mod.out.css",
+    "watch-postcss": "postcss web/wp-content/themes/belgium/src/styles/tailwind.css -m true -o web/public/mod.out.css --watch",
     "watch-typescript": "tsc --watch tsconfig.json",
-    "build-typescript": "tsc --build tsconfig.json",
-    "build-tailwind": "tailwind build web/wp-content/themes/belgium/src/styles/tailwind.css -o web/public/styles.out.css"
+    "build-typescript": "tsc --build tsconfig.json"
   },
   "repository": {
     "type": "git",
