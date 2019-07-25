@@ -123,16 +123,15 @@ _pull () {
 
 # push yo mom
 _push () {
-
   # branch="-$(git branch | grep \* | cut -d ' ' -f2)"
-
   # if [[ $branch -eq 'master' ]]
   #   then
   #     branch=""
   # fi
-
   cd $WAFFLEIRON_DIR/web && \
-  _clean
+  _install && rm -rf node_modules && \
+  lando restart ; \
+  sleep 20 && \
   lando db-export $SITE_NAME.$SITE_ENV.sql && \
   lando ssh -c "chmod 777 $SITE_NAME.$SITE_ENV.sql.gz" && \
   cd .. && \
@@ -178,25 +177,29 @@ _rebuild () {
   lando poweroff && \
   sleep 15
 }
+_composer_init () {
+  cd $WAFFLEIRON_DIR
+  lando ssh -c " \
+    cd /app && \
+    rm -rf vendor ; \
+    mkdir /app/vendor ; \
+    composer install --no-dev --no-ansi --no-interaction --optimize-autoloader
+  "
+}
 
 # _install install i
 _install () {
   cd $WAFFLEIRON_DIR
   rm -rf node_modules && \
-  pnpm install
-  pnpm run build
+  pnpm install && \
   sleep 10
-  lando ssh -c " \
-    cd /app && \
-    rm -rf ./vendor ; \
-    mkdir /app/vendor ; \
-    composer install --no-dev --no-ansi --no-interaction --optimize-autoloader
-  "
+  _composer_init && \
   _art
   sleep 30
-  lando wp plugin activate --all
-  lando wp plugin deactivate classic-editor
-  lando wp cache flush
+  lando wp plugin activate --all && \
+  lando wp plugin deactivate classic-editor && \
+  _cc && \
+  printf "all done..."
 }
 
 # cc yo ma
@@ -424,6 +427,11 @@ while [[ $# -gt 0 ]]
       shift
     ;;
 
+    # help
+    composer-init)
+      _composer_init
+      shift # past argument
+    ;;
 
     # help
     h|help)
