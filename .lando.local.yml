@@ -1,5 +1,7 @@
 name: ${PANTHEON_SITE_NAME}
 recipe: pantheon
+env_file:
+  - .env
 config:
   framework: wordpress
   id: ${PANTHEON_SITE_ID}
