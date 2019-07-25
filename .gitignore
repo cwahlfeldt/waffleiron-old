@@ -5,7 +5,7 @@
 # Custom ignore
 /vendor/
 /node_modules/
-.lando.local.yml
+# .lando.local.yml
 
 # Webroot #
 ###########
