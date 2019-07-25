@@ -291,7 +291,7 @@ while [[ $# -gt 0 ]]
 
     # push
     -p|p|push)
-      _push $2 $3
+      _push $@
       shift # past argument
       shift # past value
     ;;
