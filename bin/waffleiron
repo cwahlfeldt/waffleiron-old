@@ -417,21 +417,19 @@ while [[ $# -gt 0 ]]
 
 
     -ks|ks|--kickstart|kickstart)
-      cd $PWD
 
       PANTHEON_MACHINE_TOKEN=ijNY2fZHu2NRTUjFa68KmT8KwiEh6QMS1dyZpUBUDU0qJ
-      PANTHEON_DIR_NAME="iron-${2:-'sitename'}"
       PANTHEON_SITE="iron-${2:-'sitename'}"
       PANTHEON_UPSTREAM_KEY=${3:-c578c77c-d12e-4943-adc7-d2c177859cee}
 
-      rm -rf $PANTHEON_DIR_NAME && \
-      mkdir $PANTHEON_DIR_NAME && \
-      cd $PANTHEON_DIR_NAME && \
+      rm -rf $PANTHEON_SITE && \
+      mkdir $PANTHEON_SITE && \
+      cd $PANTHEON_SITE && \
 
       lando terminus auth:login --email=chris.wahlfeldt@mckenziewagner.com --machine-token=A1Q4fO43O3YycjoYFjmdE2Yy3sDzCMl4OqVZi3ygOLvA2 && \
       lando terminus site:create --org=mckenzie-wagner -- $PANTHEON_SITE "$PANTHEON_SITE" $PANTHEON_UPSTREAM_KEY && \
 
-      printf "\n\n chill fo a minute \n\n" ; \
+      printf "\n\n chill fo a minute \n\n" && \
       sleep 60 && \
 
       lando init \
