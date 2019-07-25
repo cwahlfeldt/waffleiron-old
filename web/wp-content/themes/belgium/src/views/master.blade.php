@@ -14,6 +14,6 @@
     @php do_action('get_footer') @endphp
     @include('components.footer')
     @php wp_footer() @endphp
-    <script src="/public/mod.out.js"></script>
+    <script src="/public/index.js"></script>
   </body>
 </html>
