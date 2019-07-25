@@ -124,7 +124,6 @@ _pull () {
 
 # push yo mom
 _push () {
-  cd $WAFFLEIRON_DIR
 
   # branch="-$(git branch | grep \* | cut -d ' ' -f2)"
 
@@ -133,18 +132,25 @@ _push () {
   #     branch=""
   # fi
 
-  cd web && \
-  lando db-export $SITE_NAME\_$SITE_ENV.sql && \
+  cd $WAFFLEIRON_DIR/web && \
+  lando db-export $SITE_NAME.$SITE_ENV.sql && \
+  lando ssh -c "chmod 777 $SITE_NAME.$SITE_ENV.sql.gz" && \
   cd .. && \
 
   git add -A && \
   git commit -m "$SITE_NAME.$SITE_ENV db and files pushed to all remotes including all pantheon sites (dev env only!)" && \
-
   git push origin "$(git branch | grep \* | cut -d ' ' -f2)" && \
 
+  sleep 30 # wait for remote
+
   lando push --files=dev --code=none --database=none && \
-  lando ssh -c "cd /app && terminus import:database $SITE_NAME.$SITE_ENV http://$SITE_ENV-$SITE_NAME.pantheonsite.io/$SITE_NAME\_$SITE_ENV.sql.gz" && \
+  lando ssh -c "cd /app && terminus import:database $SITE_NAME.$SITE_ENV https://$SITE_ENV-$SITE_NAME.pantheonsite.io/$SITE_NAME.$SITE_ENV.sql.gz" && \
   echo "push it reaaal good!"
+}
+
+_exportDB () {
+  cd $WAFFLEIRON_DIR/web
+  lando db-export $SITE_NAME.$SITE_ENV.sql
 }
 
 # create-post-type yo mom
@@ -354,6 +360,13 @@ while [[ $# -gt 0 ]]
     # env
     e|env)
       _env
+      shift # past argument
+      shift # past value
+    ;;
+
+    # env
+    export)
+      _exportDB
       shift # past argument
       shift # past value
     ;;
