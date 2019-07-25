@@ -10,7 +10,7 @@
     "lint": "tslint -c tslint.json",
     "start": "concurrently \"pnpm run watch-typescript\" \"pnpm run watch-postcss\"",
     "build": "concurrently \"pnpm run build-typescript\" \"pnpm run build-postcss\"",
-    "clean": "rm -rf web/public/**/*.out.*",
+    "clean": "rm -rf web/public/*.out.*",
     "build-postcss": "postcss web/wp-content/themes/belgium/src/styles/tailwind.css --map -o web/public/mod.out.css",
     "watch-postcss": "postcss web/wp-content/themes/belgium/src/styles/tailwind.css --map -o web/public/mod.out.css --watch",
     "watch-typescript": "tsc --watch tsconfig.json",

@@ -3,11 +3,10 @@
     /* Basic Options */
     // "incremental": true,                   /* Enable incremental compilation */
     "target": "es5",                          /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019' or 'ESNEXT'. */
-    "module": "amd",                     /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. */
+    "module": "commonjs",                     /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. */
     "lib": [
-      "dom",
-      "es5",
-      "es6"
+      "DOM",
+      "esnext"
     ],                             /* Specify library files to be included in the compilation. */
     "allowJs": true,                       /* Allow javascript files to be compiled. */
     "checkJs": true,                       /* Report errors in .js files. */
@@ -15,9 +14,9 @@
     //"declaration": true,                   /* Generates corresponding '.d.ts' file. */
     // "declarationMap": true,                /* Generates a sourcemap for each corresponding '.d.ts' file. */
     "sourceMap": true,                     /* Generates corresponding '.map' file. */
-    "outFile": "./web/public/mod.out.js",                       /* Concatenate and emit output to single file. */
-    // "outDir": "./web/public",                        /* Redirect output structure to the directory. */
-    //"rootDir": "./web/wp-content/themes/belgium",                       /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
+    //"outFile": "./web/public/mod.out.js",                       /* Concatenate and emit output to single file. */
+    "outDir": "web/public",                        /* Redirect output structure to the directory. */
+    //"rootDir": "./web/wp-content/themes/belgium/src/scripts",                       /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
     // "composite": true,                     /* Enable project compilation */
     // "tsBuildInfoFile": "./",               /* Specify file to store incremental compilation information */
     // "removeComments": true,                /* Do not emit comments to output. */
@@ -65,14 +64,12 @@
     // "emitDecoratorMetadata": true,         /* Enables experimental support for emitting type metadata for decorators. */
   },
   "include": [
-    "web/wp-content/themes/belgium/src/**/*.ts",
-    "web/wp-content/themes/belgium/src/**/*.js"
+    "web/wp-content/themes/belgium/src/scripts/**/*.ts",
+    "web/wp-content/themes/belgium/src/scripts/**/*.js"
   ],
   "exclude": [
     "/.old/",
-    "/old/",
-    "*/**/node_modules/**/*.js",
-    "*/**/node_modules/**/*.ts",
+    "/node_modules/",
     "**/*.spec.ts"
   ]
 }
