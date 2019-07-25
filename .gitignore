@@ -83,7 +83,7 @@ pantheon.upstream.yml
 *.7z
 *.dmg
 *.gz
-!db.sql.gz
+!.sql.gz
 *.bz2
 *.iso
 *.jar
@@ -97,7 +97,6 @@ pantheon.upstream.yml
 *.log
 *.sql
 !dump.sql.gz
-!db.sql.gz
 
 # OS generated files #
 ######################

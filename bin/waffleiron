@@ -128,10 +128,11 @@ _push () {
   #   then
   #     branch=""
   # fi
-  cd $WAFFLEIRON_DIR/web && \
-  _install && rm -rf node_modules && \
+  cd $WAFFLEIRON_DIR && \
+  _install && pnpm run build && rm -rf node_modules && \
   lando restart ; \
   sleep 20 && \
+  cd web && \
   lando db-export $SITE_NAME.$SITE_ENV.sql && \
   lando ssh -c "chmod 777 $SITE_NAME.$SITE_ENV.sql.gz" && \
   cd .. && \
