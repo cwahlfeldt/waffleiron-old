@@ -133,6 +133,7 @@ _push () {
   # fi
 
   cd $WAFFLEIRON_DIR/web && \
+  _clean
   lando db-export $SITE_NAME.$SITE_ENV.sql && \
   lando ssh -c "chmod 777 $SITE_NAME.$SITE_ENV.sql.gz" && \
   cd .. && \
