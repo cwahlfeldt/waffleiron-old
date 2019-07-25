@@ -293,7 +293,8 @@ while [[ $# -gt 0 ]]
     # restart
     -pu|--pull|pu|pull)
       # _pull $2
-      lando pull --code=none --database=dev --files=dev
+      lando pull --code=none --database=dev --files=dev ;
+
       shift # past argument
       shift # past value
     ;;
@@ -304,7 +305,7 @@ while [[ $# -gt 0 ]]
       git add -A && git commit -m "${2:-'Autowafflmagically! - waffles'}" && \
         git push origin && \
 
-      lando push --code=none --database=dev --files=dev
+      lando push --code=none --database=dev --files=dev ;
 
       shift # past argument
       shift # past value
