@@ -115,11 +115,11 @@ _restart () {
 _pull () {
   cd $WAFFLEIRON_DIR
   lando pull --code=none --database=dev --files=dev
-  # site=${1:-"$SITE_NAME.$SITE_ENV"}
-  # lando ssh -c "rm -rf /app/database.sql.gz"
-  # lando terminus backup:create $site --element=db -y
-  # lando terminus backup:get $site --element=db --to=/app/database.sql.gz -y
-  # lando db-import database.sql.gz -y
+  site=${1:-"$SITE_NAME.$SITE_ENV"}
+  lando ssh -c "rm -rf /app/_dump.sql.gz"
+  lando terminus backup:create $site --element=db -y
+  lando terminus backup:get $site --element=db --to=/app/dump.sql.gz -y
+  lando db-import dump.sql.gz -y
 }
 
 # push yo mom
