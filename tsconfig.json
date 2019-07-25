@@ -15,7 +15,7 @@
     //"declaration": true,                   /* Generates corresponding '.d.ts' file. */
     // "declarationMap": true,                /* Generates a sourcemap for each corresponding '.d.ts' file. */
     "sourceMap": true,                     /* Generates corresponding '.map' file. */
-    "outFile": "./web/public/mod.out.ts",                       /* Concatenate and emit output to single file. */
+    "outFile": "./web/public/mod.out.js",                       /* Concatenate and emit output to single file. */
     // "outDir": "./web/public",                        /* Redirect output structure to the directory. */
     //"rootDir": "./web/wp-content/themes/belgium",                       /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
     // "composite": true,                     /* Enable project compilation */
