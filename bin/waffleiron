@@ -178,6 +178,7 @@ _rebuild () {
   lando poweroff && \
   sleep 15
 }
+
 _composer_init () {
   cd $WAFFLEIRON_DIR
   lando ssh -c " \
