@@ -127,24 +127,25 @@ _push () {
   cd $WAFFLEIRON_DIR
 
   site_title="$(git branch | grep \* | cut -d ' ' -f2)"
+
   if [[ $site_title -eq 'master' ]]
     then
       site_title=""
   fi
+
   site="$SITE_NAME-${2:-$site_title}"
   message=${1:-"auto commit dude -- waffles"}
 
   cd web && \
-  echo 'y' | lando db-export $site.sql && \
+  lando db-export $site.sql && \
   cd .. && \
-
-  lando push --files=dev --code=none --database=none && \
 
   git add -A && \
   git commit -m "$message for site: $site" && \
   git push origin $site_title && \
 
-  lando ssh -c "cd /app && terminus import:database $SITE_NAME.$SITE_ENV https://$SITE_ENV-$SITE_NAME.pantheonsite.io/$site.sql.gz" && \
+  lando push --files=dev --code=none --database=none && \
+  lando ssh -c "cd /app && terminus import:database $SITE_NAME.$SITE_ENV http://$SITE_ENV-$site.pantheonsite.io/$site.sql.gz" && \
   echo "push it reaaal good!"
 }
 
