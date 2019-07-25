@@ -82,7 +82,7 @@ _env () {
 }
 
 _createpost () {
-  POST_TYPE=${1:-page}
+  POST_TYPE=${1:-post}
   POST_TITLE=${2:-"$1-${RANDOM:0:2}"}
 
   lando wp post create --post_type=$POST_TYPE --post_title=$POST_TITLE --post_status="published" && \
