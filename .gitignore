@@ -3,8 +3,9 @@
 ###
 
 # Custom ignore
-/vendor/
+# /vendor/
 /node_modules/
+.env
 # .lando.local.yml
 
 # Webroot #
