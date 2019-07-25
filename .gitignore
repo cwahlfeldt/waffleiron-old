@@ -10,7 +10,7 @@
 # Webroot #
 ###########
 !web/
-web/*
+!web/*
 !web/index.php
 !web/wp-cli.yml
 !web/wp-config.php
