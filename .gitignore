@@ -96,6 +96,7 @@ pantheon.upstream.yml
 ######################
 *.log
 !dump.sql.gz
+!db.sql.gz
 *.sql
 
 # OS generated files #
