@@ -127,12 +127,15 @@ _push () {
   cd $WAFFLEIRON_DIR
 
   site_title="$(git branch | grep \* | cut -d ' ' -f2)"
-  if [ $site_title -eq "master" ] ; then site_title="" ; fi
+  if [[ $site_title -eq 'master' ]]
+    then
+      site_title=""
+  fi
   site="$SITE_NAME-${2:-$site_title}"
   message=${1:-"auto commit dude -- waffles"}
 
   cd web && \
-  lando db-export $site.sql -y && \
+  echo 'y' | lando db-export $site.sql && \
   cd .. && \
 
   lando push --files=dev --code=none --database=none && \
