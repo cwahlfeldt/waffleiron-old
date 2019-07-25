@@ -1,9 +1,9 @@
-name        : waffleiron-tm
+name        : iron-tm
 recipe      : pantheon
 config      :
   framework : wordpress
-  site      : waffleiron-tm
-  id        : 0c1f636e-eebb-4657-b96c-1f2f5ec9f1b8
+  site      : iron-tm
+  id        : 7836f8c1-01d0-4b59-8c57-6b71d4fca2c2
   xdebug    : false
   index     : true
   edge      : true
