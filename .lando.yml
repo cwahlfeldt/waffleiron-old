@@ -1,2 +1,10 @@
-config :
-  site : iron-tm
+name        : waffleiron
+recipe      : pantheon
+config      :
+  framework : wordpress
+  site      : waffleiron
+  id        : 937260c2-446f-4aa2-8a7b-fd76046e32fa
+  xdebug    : false
+  index     : true
+  edge      : true
+  cache     : true

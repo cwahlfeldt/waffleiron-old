@@ -1,4 +1,0 @@
-# env_file: .env
-recipe: pantheon
-config:
-  framework: wordpress
