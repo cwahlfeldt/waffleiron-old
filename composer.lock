@@ -2741,8 +2741,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "lead"
+                    "role": "lead",
+                    "email": "sebastian@phpunit.de"
                 }
             ],
             "description": "Library that provides collection, processing, and rendering functionality for PHP code coverage information.",
@@ -4070,12 +4070,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "886c16245e0d1ceaf16b3479d938c8665f6aa290"
+                "reference": "c59713fbd4dda58e569d43db9e53f3ba73ffe9e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/886c16245e0d1ceaf16b3479d938c8665f6aa290",
-                "reference": "886c16245e0d1ceaf16b3479d938c8665f6aa290",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/c59713fbd4dda58e569d43db9e53f3ba73ffe9e0",
+                "reference": "c59713fbd4dda58e569d43db9e53f3ba73ffe9e0",
                 "shasum": ""
             },
             "require": {
@@ -4113,7 +4113,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2019-07-24T04:17:49+00:00"
+            "time": "2019-07-25T06:29:25+00:00"
         },
         {
             "name": "symfony/browser-kit",
