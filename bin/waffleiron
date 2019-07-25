@@ -95,12 +95,11 @@ _createpost () {
 _deploy () {
   cd $WAFFLEIRON_DIR
   message=${1:-'default message duh'}
-
-  # _push $SITE_NAME.$SITE_ENV ;
+  branch=${2:-'master'}
 
   git add -A && \
-    git commit -m "$message" && \
-    git push origin --all -u ;
+  git commit -m "$message" && \
+  git push origin $branch && \
 }
 
 # and restart you're momm
@@ -174,14 +173,21 @@ _rebuild () {
 
 # _install install i
 _install () {
-  cd $WAFFLEIRON_DIR && \
-    lando ssh -c " \
-      cd /app && \
-      rm -rf ./vendor && \
-      composer update --no-dev --no-ansi --no-interaction --optimize-autoloader
-    "
-  sleep 15
+  cd $WAFFLEIRON_DIR
+  rm -rf node_modules && \
+  pnpm install
+  pnpm run build
+  sleep 10
+  lando ssh -c " \
+    cd /app && \
+    rm -rf ./vendor \
+    composer update --no-dev --no-ansi --no-interaction --optimize-autoloader
+  "
+  _art
+  sleep 30
   lando wp plugin activate --all
+  lando wp plugin deactivate classic-editor
+  lando wp cache flush
 }
 
 # cc yo ma
