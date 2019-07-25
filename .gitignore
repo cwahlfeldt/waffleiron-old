@@ -21,7 +21,11 @@
 !web/wp-content/mu-plugins/custom
 !web/wp-content/mu-plugins/.gitkeep
 !web/wp-content/plugins/
+<<<<<<< HEAD
 !web/wp-content/plugins/*
+=======
+# web/wp-content/plugins/*
+>>>>>>> 6331141c40600d0cd3a89e93a2c5b07827a1f76e
 !web/wp-content/plugins/custom/
 !web/wp-content/plugins/.gitkeep
 !web/wp-content/themes

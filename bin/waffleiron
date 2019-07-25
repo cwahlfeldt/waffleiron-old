@@ -265,10 +265,10 @@ while [[ $# -gt 0 ]]
   case $key in
     # init
     --init|init)
-      lando start
-      _install
-      _pull
-      _cc
+      lando start && \
+      _install && \
+      lando pull --code=none --database=dev --files=dev && \
+      _cc ;
       
       shift # past argument
       shift # past value

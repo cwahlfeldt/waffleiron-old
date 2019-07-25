@@ -1132,6 +1132,27 @@
         "homepage": "https://wordpress.org/plugins/pantheon-advanced-page-cache/"
     },
     {
+        "name": "wpackagist-plugin/slate-admin-theme",
+        "version": "dev-trunk",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "svn",
+            "url": "https://plugins.svn.wordpress.org/slate-admin-theme/",
+            "reference": "trunk"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://downloads.wordpress.org/plugin/slate-admin-theme.zip?timestamp=1550944246"
+        },
+        "require": {
+            "composer/installers": "~1.0"
+        },
+        "time": "2019-02-23T17:50:46+00:00",
+        "type": "wordpress-plugin",
+        "installation-source": "dist",
+        "homepage": "https://wordpress.org/plugins/slate-admin-theme/"
+    },
+    {
         "name": "wpackagist-plugin/wedocs",
         "version": "dev-trunk",
         "version_normalized": "9999999-dev",
