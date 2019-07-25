@@ -264,10 +264,11 @@ while [[ $# -gt 0 ]]
   case $key in
     # init
     --init|init)
-      cd $WAFFLEIRON_DIR && \
-      lando start && \
-        _install && \
-        _pull ;
+      lando start
+      _install
+      _pull
+      _cc
+      
       shift # past argument
       shift # past value
     ;;
@@ -308,7 +309,7 @@ while [[ $# -gt 0 ]]
       git add -A && git commit -m "${2:-'Autowafflmagically! - waffles'}" && \
         git push origin && \
 
-      lando push --code=none --database=dev --files=dev && \
+      lando push --code=none --database=dev --files=dev ;
 
       shift # past argument
       shift # past value
@@ -441,13 +442,12 @@ while [[ $# -gt 0 ]]
     # help
     composer:init)
       _composer_init
-
       shift # past argument
     ;;
 
     # help
     '-c\ production'|clean:prod)
-      lando ssh -c "rm -rf /app/web/wp-content/uploads/cache/*"
+      lando ssh -c "rm -rf /app/web/wp-content/uploads/cache/* /app/node_modules"
 
       shift # past argument
     ;;
