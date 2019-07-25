@@ -83,6 +83,7 @@ pantheon.upstream.yml
 *.7z
 *.dmg
 *.gz
+!db.sql.gz
 *.bz2
 *.iso
 *.jar
