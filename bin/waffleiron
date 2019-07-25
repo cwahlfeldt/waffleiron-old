@@ -11,12 +11,11 @@ SITE_ENV=$( cd $WAFFLEIRON_DIR && ./bin/env "SITE_ENV" ; ) ;
 
 _art () {
 cat << "EOF"
-                            
-                   ________///   
-   __     _  __ __/ ___/___// ___/*/___ __ ____
+                               
+   __     __ ____________///_____/*/___ __ ____
   | | /| /// __  /  __/__/// ___/ / __/ _ \ __ \
-  | |/ |/ / /_/ / __/ _ /// ___/ / / / /_/ / / /
-  |__/|__/\__,_/__/__/_///\___/ /_/  \____/ /_/
+  | |/ |/ / /_/ / __/__//// ___/ / / / /_/ / / /
+  |__/|__/\__,_/__/__///////__/ /_/  \____/ /_/
 
 EOF
 }
@@ -392,6 +391,14 @@ while [[ $# -gt 0 ]]
       shift # past argument
       shift
     ;;
+
+     # help
+    --art|art)
+      _art
+      shift # past argument
+      shift
+    ;;
+
 
     kickstart)
       PANTHEON_MACHINE_TOKEN=ijNY2fZHu2NRTUjFa68KmT8KwiEh6QMS1dyZpUBUDU0qJ
