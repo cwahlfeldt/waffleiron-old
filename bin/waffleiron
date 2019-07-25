@@ -307,7 +307,7 @@ while [[ $# -gt 0 ]]
     # push
     -p|p|push)
       # _push $@
-      git add -A && git commit -m "${2:-'Autowafflmagically! - waffles'}" && \
+      git add -A && git commit -m "${2:-'Autowafflmagically! - waffles'}" ; \
         git push origin && \
 
       lando push --code=none --database=dev --files=dev ;
