@@ -147,9 +147,9 @@ _push () {
   lando ssh -c "cd /app && \
       terminus import:database $SITE_NAME.$SITE_ENV https://$SITE_ENV-$SITE_NAME.pantheonsite.io/$site.sql.gz && \
     " && \
-  echo
-  echo "push it reaaal good!"
-  echo
+  echo && \
+  echo "push it reaaal good!" && \
+  echo ;
 }
 
 # create-post-type yo mom
@@ -201,6 +201,9 @@ _install () {
 # cc yo ma
 _cc () {
   cd $WAFFLEIRON_DIR
+  if [[ -z $2 ]] && [[ $2 -eq "--remote" ]] ; then
+    lando terminus env:clear-cache ${1:-"$SITE_NAME.$SITE_ENV"}
+  fi
   lando wp cache flush
 }
 
