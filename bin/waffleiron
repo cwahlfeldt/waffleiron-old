@@ -13,9 +13,9 @@ _art () {
 cat << "EOF"
                             
                    ________///   
-   __     _  __ __/ ___/___//__  /*/___ __ ____
-  | | /| /// __  /  __/__/// __ / / __/ _ \ __ \
-  | |/ |/ / /_/ / __/ _ /// __ / / / / /_/ / / /
+   __     _  __ __/ ___/___// ___/*/___ __ ____
+  | | /| /// __  /  __/__/// ___/ / __/ _ \ __ \
+  | |/ |/ / /_/ / __/ _ /// ___/ / / / /_/ / / /
   |__/|__/\__,_/__/__/_///\___/ /_/  \____/ /_/
 
 EOF
@@ -187,8 +187,9 @@ _install () {
   sleep 10
   lando ssh -c " \
     cd /app && \
-    rm -rf ./vendor \
-    composer update --no-dev --no-ansi --no-interaction --optimize-autoloader
+    rm -rf ./vendor ; \
+    mkdir /app/vendor ; \
+    composer install --no-dev --no-ansi --no-interaction --optimize-autoloader
   "
   _art
   sleep 30
