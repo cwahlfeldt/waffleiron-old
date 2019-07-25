@@ -114,9 +114,9 @@ _restart () {
 # pull yo mom
 _pull () {
   cd $WAFFLEIRON_DIR
-  lando pull --code=none --database=dev --files=dev
   site=${1:-"$SITE_NAME.$SITE_ENV"}
-  lando ssh -c "rm -rf /app/_dump.sql.gz"
+
+  lando ssh -c "rm -rf /app/dump.sql.gz"
   lando terminus backup:create $site --element=db -y
   lando terminus backup:get $site --element=db --to=/app/dump.sql.gz -y
   lando db-import dump.sql.gz -y
@@ -126,21 +126,23 @@ _pull () {
 _push () {
   cd $WAFFLEIRON_DIR
 
-  site="$SITE_NAME-${2:-$(git branch | grep \* | cut -d ' ' -f2) }"
-  message=${1:-"$site commit dude"}
+  site_title="$(git branch | grep \* | cut -d ' ' -f2)"
+  if [ $site_title -eq "master" ] ; then site_title="" ; fi
+  site="$SITE_NAME-${2:-$site_title}"
+  message=${1:-"auto commit dude -- waffles"}
 
   cd web && \
-  lando db-export dump.sql -y && \
+  lando db-export $site.sql -y && \
   cd .. && \
 
   lando push --files=dev --code=none --database=none && \
 
   git add -A && \
-  git commit -m "$message for branch: $branch" && \
-  git push origin $branch && \
+  git commit -m "$message for site: $site" && \
+  git push origin $site_title && \
 
   lando ssh -c "cd /app && \
-      terminus import:database $SITE_NAME.$SITE_ENV https://$SITE_ENV-$SITE_NAME.pantheonsite.io/dump.sql.gz && \
+      terminus import:database $SITE_NAME.$SITE_ENV https://$SITE_ENV-$SITE_NAME.pantheonsite.io/$site.sql.gz && \
     " && \
   echo
   echo "push it reaaal good!"
@@ -284,7 +286,7 @@ while [[ $# -gt 0 ]]
 
     # push
     -p|p|push)
-      _push $2
+      _push $2 $3
       shift # past argument
       shift # past value
     ;;
