@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a76739f453222f906d0e1870e2e6ea1a",
+    "content-hash": "48d66d017355884c92372e3d8f7375ff",
     "packages": [
         {
             "name": "advanced-custom-fields/advanced-custom-fields-pro",
@@ -1087,6 +1087,25 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/pantheon-advanced-page-cache/"
+        },
+        {
+            "name": "wpackagist-plugin/slate-admin-theme",
+            "version": "dev-trunk",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/slate-admin-theme/",
+                "reference": "trunk"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/slate-admin-theme.zip?timestamp=1550944246"
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/slate-admin-theme/",
+            "time": "2019-02-23T17:50:46+00:00"
         },
         {
             "name": "wpackagist-plugin/wedocs",
@@ -2741,8 +2760,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "lead"
+                    "role": "lead",
+                    "email": "sebastian@phpunit.de"
                 }
             ],
             "description": "Library that provides collection, processing, and rendering functionality for PHP code coverage information.",
@@ -4070,12 +4089,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "886c16245e0d1ceaf16b3479d938c8665f6aa290"
+                "reference": "c59713fbd4dda58e569d43db9e53f3ba73ffe9e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/886c16245e0d1ceaf16b3479d938c8665f6aa290",
-                "reference": "886c16245e0d1ceaf16b3479d938c8665f6aa290",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/c59713fbd4dda58e569d43db9e53f3ba73ffe9e0",
+                "reference": "c59713fbd4dda58e569d43db9e53f3ba73ffe9e0",
                 "shasum": ""
             },
             "require": {
@@ -4113,7 +4132,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2019-07-24T04:17:49+00:00"
+            "time": "2019-07-25T06:29:25+00:00"
         },
         {
             "name": "symfony/browser-kit",
@@ -5297,6 +5316,7 @@
         "stoutlogic/acf-builder": 20,
         "wpackagist-plugin/acf-archive": 20,
         "wpackagist-plugin/filebird": 20,
+        "wpackagist-plugin/slate-admin-theme": 20,
         "wpackagist-plugin/wedocs": 20,
         "roave/security-advisories": 20,
         "squizlabs/php_codesniffer": 20,
