@@ -1,9 +1,9 @@
-name: {PANTHEON_SITE_NAME}
+name: ${PANTHEON_SITE_NAME}
 recipe: pantheon
 config:
   framework: wordpress
-  id: {PANTHEON_SITE_ID}
-  site: {PANTHEON_SITE_NAME}
+  id: ${PANTHEON_SITE_ID}
+  site: ${PANTHEON_SITE_NAME}
   xdebug: false
   index: true
   edge: true
