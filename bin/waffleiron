@@ -97,9 +97,11 @@ _deploy () {
   message=${1:-'default message duh'}
   branch=${2:-'master'}
 
+  _push 
+
   git add -A && \
   git commit -m "$message" && \
-  git push origin $branch && \
+  git push origin $branch
 }
 
 # and restart you're momm
@@ -123,23 +125,23 @@ _pull () {
 # push yo mom
 _push () {
   cd $WAFFLEIRON_DIR
-  lando push --code=none --database=dev --files=dev && \
-  # branch=$(git branch | grep \* | cut -d ' ' -f2)
-  # message=${1:-"$SITE_NAME.$SITE_ENV commit"}
 
-  # cd web/wp-content/uploads
-  # lando db-export dump.sql -y ; \
-  # cd $WAFFLEIRON_DIR && \
+  site="$SITE_NAME-${2:-$(git branch | grep \* | cut -d ' ' -f2) }"
+  message=${1:-"$site commit dude"}
 
-  # lando push --files=dev --code=none --database=none && \
+  cd web && \
+  lando db-export dump.sql -y && \
+  cd .. && \
 
-  # git add -A
-  # git commit -m "$message for branch: $branch"
-  # git push origin $branch && \
+  lando push --files=dev --code=none --database=none && \
 
-  # lando ssh -c "cd /app && \
-  #     terminus import:database $SITE_NAME.$SITE_ENV https://$SITE_ENV-$SITE_NAME.pantheonsite.io/wp-content/uploads/dump.sql.gz && \
-  #   " && \
+  git add -A && \
+  git commit -m "$message for branch: $branch" && \
+  git push origin $branch && \
+
+  lando ssh -c "cd /app && \
+      terminus import:database $SITE_NAME.$SITE_ENV https://$SITE_ENV-$SITE_NAME.pantheonsite.io/dump.sql.gz && \
+    " && \
   echo
   echo "push it reaaal good!"
   echo

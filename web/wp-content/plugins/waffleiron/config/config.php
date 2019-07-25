@@ -37,7 +37,6 @@ if (function_exists( 'acf_add_options_page')) {
 
 add_action( 'admin_menu', function() {
   remove_menu_page( 'edit-comments.php');
-  /* echo (delete_menus)(); */
 });
 
 // reorder the menu
