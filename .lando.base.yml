@@ -6,4 +6,3 @@ config:
   xdebug: false
   index: true
   edge: true
-  cache: true
