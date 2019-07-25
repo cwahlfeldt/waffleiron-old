@@ -144,12 +144,8 @@ _push () {
   git commit -m "$message for site: $site" && \
   git push origin $site_title && \
 
-  lando ssh -c "cd /app && \
-      terminus import:database $SITE_NAME.$SITE_ENV https://$SITE_ENV-$SITE_NAME.pantheonsite.io/$site.sql.gz && \
-    " && \
-  echo && \
-  echo "push it reaaal good!" && \
-  echo ;
+  lando ssh -c "cd /app && terminus import:database $SITE_NAME.$SITE_ENV https://$SITE_ENV-$SITE_NAME.pantheonsite.io/$site.sql.gz" && \
+  echo "push it reaaal good!"
 }
 
 # create-post-type yo mom
