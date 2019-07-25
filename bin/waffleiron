@@ -126,26 +126,24 @@ _pull () {
 _push () {
   cd $WAFFLEIRON_DIR
 
-  site_title="-$(git branch | grep \* | cut -d ' ' -f2)"
+  # branch="-$(git branch | grep \* | cut -d ' ' -f2)"
 
-  if [[ $site_title -eq 'master' ]]
-    then
-      site_title=""
-  fi
-
-  site="$SITE_NAME${1:-$site_title}"
-  message="${2:-'auto commit dude -- waffles'}"
+  # if [[ $branch -eq 'master' ]]
+  #   then
+  #     branch=""
+  # fi
 
   cd web && \
-  lando db-export $site.sql && \
+  lando db-export $SITE_NAME\_$SITE_ENV.sql && \
   cd .. && \
 
   git add -A && \
-  git commit -m "$message for site: $site" && \
-  git push origin $site_title && \
+  git commit -m "$SITE_NAME.$SITE_ENV db and files pushed to all remotes including all pantheon sites (dev env only!)" && \
+
+  git push origin "$(git branch | grep \* | cut -d ' ' -f2)" && \
 
   lando push --files=dev --code=none --database=none && \
-  lando ssh -c "cd /app && terminus import:database $SITE_NAME.$SITE_ENV http://$SITE_ENV$site.pantheonsite.io/$site.sql.gz" && \
+  lando ssh -c "cd /app && terminus import:database $SITE_NAME.$SITE_ENV http://$SITE_ENV-$SITE_NAME.pantheonsite.io/$SITE_NAME\_$SITE_ENV.sql.gz" && \
   echo "push it reaaal good!"
 }
 
