@@ -5,18 +5,16 @@ export WAFFLEIRON_DIR="$( \
   cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && \
   cd .. && pwd ; \
 )" ;
-SITE_PREFIX=$( cd $WAFFLEIRON_DIR && ./bin/env "SITE_PREFIX" ; ) ;
+export SITE_PREFIX=$( cd $WAFFLEIRON_DIR && ./bin/env "SITE_PREFIX" ; ) ;
 export SITE_NAME="$SITE_PREFIX-$( cd $WAFFLEIRON_DIR && ./bin/env "SITE_NAME" )"
 export SITE_ENV=$( cd $WAFFLEIRON_DIR && ./bin/env "SITE_ENV" ; ) ;
 
 _art () {
 cat << "EOF"
-                               
-   __     __ ____________///_____/*/___ __ ____
-  | | /| /// __  /  __/__/// ___/ / __/ _ \ __ \
+   __     __ _____________///____///_____ ____
+  ||| /| /// __  /  __/__/// ___/ / __/ _ \ __ \
   | |/ |/ / /_/ / __/__//// ___/ / / / /_/ / / /
   |__/|__/\__,_/__/__///////__/ /_/  \____/ /_/
-
 EOF
 }
 
