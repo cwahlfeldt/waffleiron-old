@@ -1,7 +1,4 @@
-env_file: .env
+# env_file: .env
 recipe: pantheon
 config:
   framework: wordpress
-  xdebug: false
-  index: true
-  edge: true
