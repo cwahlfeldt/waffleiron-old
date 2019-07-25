@@ -415,20 +415,8 @@ while [[ $# -gt 0 ]]
       shift
     ;;
 
-
-    -ks|ks|--kickstart|kickstart)
-      export PANTHEON_SITE_NAME="$SITE_PREFIX-${2-"$SITE_NAME"}"
-      export PANTHEON_MACHINE_TOKEN=A1Q4fO43O3YycjoYFjmdE2Yy3sDzCMl4OqVZi3ygOLvA2
-      export PANTHEON_UPSTREAM_KEY=c578c77c-d12e-4943-adc7-d2c177859cee
-
-      printf "\n PANTHEON_SITE_NAME     $PANTHEON_SITE_NAME"
-      printf "\n PANTHEON_MACHINE_TOKEN $PANTHEON_MACHINE_TOKEN"
-      printf "\n PANTHEON_UPSTREAM_KEY  $PANTHEON_UPSTREAM_KEY\n"
-
-      rm -rf $PANTHEON_SITE_NAME && \
-      mkdir $PANTHEON_SITE_NAME && \
-      cd $PANTHEON_SITE_NAME && \
-
+     # help
+    create-site)
       lando ssh -c " \
         export PANTHEON_SITE_NAME="$SITE_PREFIX-${2-$SITE_NAME}" && \
         export PANTHEON_MACHINE_TOKEN=A1Q4fO43O3YycjoYFjmdE2Yy3sDzCMl4OqVZi3ygOLvA2 && \
@@ -444,7 +432,24 @@ while [[ $# -gt 0 ]]
 
         printf "\n\n chill fo a minute \n\n" && \
         sleep 60 && \
-      " && \
+      "
+      shift # past argument
+      shift
+    ;;
+      
+    -ks|ks|--kickstart|kickstart)
+      export PANTHEON_SITE_NAME="$SITE_PREFIX-${2-"$SITE_NAME"}"
+      export PANTHEON_MACHINE_TOKEN=A1Q4fO43O3YycjoYFjmdE2Yy3sDzCMl4OqVZi3ygOLvA2
+      export PANTHEON_UPSTREAM_KEY=c578c77c-d12e-4943-adc7-d2c177859cee
+
+      printf "\n PANTHEON_SITE_NAME     $PANTHEON_SITE_NAME"
+      printf "\n PANTHEON_MACHINE_TOKEN $PANTHEON_MACHINE_TOKEN"
+      printf "\n PANTHEON_UPSTREAM_KEY  $PANTHEON_UPSTREAM_KEY\n"
+
+      rm -rf $PANTHEON_SITE_NAME && \
+      mkdir $PANTHEON_SITE_NAME && \
+      cd $PANTHEON_SITE_NAME && \
+      $WAFFLEIRON_DIR/bin/waffleiron create-site && \
 
       lando init \
         --source remote \

@@ -1,6 +1,5 @@
+env_file: .env
 recipe: pantheon
-env_file:
-  - .env
 config:
   framework: wordpress
   xdebug: false
