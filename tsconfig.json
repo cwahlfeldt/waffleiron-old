@@ -70,6 +70,7 @@
   ],
   "exclude": [
     "/.old/",
+    "/old/",
     "*/**/node_modules/**/*.js",
     "*/**/node_modules/**/*.ts",
     "**/*.spec.ts"
