@@ -418,15 +418,25 @@ while [[ $# -gt 0 ]]
 
 
     -ks|ks|--kickstart|kickstart)
-      PANTHEON_MACHINE_TOKEN=ijNY2fZHu2NRTUjFa68KmT8KwiEh6QMS1dyZpUBUDU0qJ
+      PANTHEON_SITE_NAME="$SITE_PREFIX-${2-$SITE_NAME}"
+      PANTHEON_MACHINE_TOKEN=A1Q4fO43O3YycjoYFjmdE2Yy3sDzCMl4OqVZi3ygOLvA2
       PANTHEON_UPSTREAM_KEY=${3:-c578c77c-d12e-4943-adc7-d2c177859cee}
 
-      rm -rf $SITE_NAME && \
-      mkdir $SITE_NAME && \
-      cd $SITE_NAME && \
+      printf "\n PANTHEON_SITE_NAME=$PANTHEON_SITE_NAME\n"
+      printf "\n PANTHEON_MACHINE_TOKEN=$PANTHEON_MACHINE_TOKEN\n"
+      printf "\n PANTHEON_UPSTREAM_KEY=$PANTHEON_UPSTREAM_KEY\n\n"
 
-      lando terminus auth:login --email=chris.wahlfeldt@mckenziewagner.com --machine-token=A1Q4fO43O3YycjoYFjmdE2Yy3sDzCMl4OqVZi3ygOLvA2 && \
-      lando terminus site:create --org=mckenzie-wagner -- $SITE_NAME "$SITE_NAME" $PANTHEON_UPSTREAM_KEY && \
+      rm -rf $PANTHEON_SITE_NAME && \
+      mkdir $PANTHEON_SITE_NAME && \
+      cd $PANTHEON_SITE_NAME && \
+
+      lando terminus auth:login \
+        --email=chris.wahlfeldt@mckenziewagner.com\
+        --machine-token=$PANTHEON_MACHINE_TOKEN && \
+
+      lando terminus site:create \
+        --org=mckenzie-wagner \
+        --$PANTHEON_SITE_NAME "$PANTHEON_SITE_NAME" $PANTHEON_UPSTREAM_KEY && \
 
       printf "\n\n chill fo a minute \n\n" && \
       sleep 60 && \
@@ -437,7 +447,7 @@ while [[ $# -gt 0 ]]
         --remote-url git@github.com:cwahlfeldt/waffleiron.git \
         --pantheon-auth "$PANTHEON_MACHINE_TOKEN" \
         --webroot "/app/web" \
-        --pantheon-site $PANTHEON_SITE \
+        --pantheon-site $PANTHEON_SITE_NAME \
         --full && \
 
       lando start && \
