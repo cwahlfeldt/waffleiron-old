@@ -133,8 +133,8 @@ _push () {
       site_title=""
   fi
 
-  site="$SITE_NAME-${2:-$site_title}"
-  message=${1:-"auto commit dude -- waffles"}
+  site="$SITE_NAME-${3:-$site_title}"
+  message=${2:-"auto commit dude -- waffles"}
 
   cd web && \
   lando db-export $site.sql && \
