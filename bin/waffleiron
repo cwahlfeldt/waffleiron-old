@@ -416,25 +416,30 @@ while [[ $# -gt 0 ]]
     ;;
 
 
-    kickstart)
+    -ks|ks|--kickstart|kickstart)
+      cd $PWD
+
       PANTHEON_MACHINE_TOKEN=ijNY2fZHu2NRTUjFa68KmT8KwiEh6QMS1dyZpUBUDU0qJ
       PANTHEON_DIR_NAME=${2:-'waffleiron-site'}
       PANTHEON_SITE=${2:-'waffleiron'}
+      PANTHEON_UPSTREAM_KEY=${3:-c578c77c-d12e-4943-adc7-d2c177859cee}
 
       rm -rf $PANTHEON_DIR_NAME && \
       mkdir $PANTHEON_DIR_NAME && \
       cd $PANTHEON_DIR_NAME && \
 
-      # --source remote \
-      # --remote pantheon \
-      # --remote-url https://github.com/drupal/drupal.git \
+      lando terminus site:create $PANTHEON_SITE "$PANTHEON_SITE" $PANTHEON_UPSTREAM_KEY && \
+
       lando init \
-        --source pantheon \
+        --source remote \
+        --remote pantheon \
+        --remote-url git@github.com:cwahlfeldt/waffleiron.git \
         --pantheon-auth "$PANTHEON_MACHINE_TOKEN" \
         --pantheon-site $PANTHEON_SITE
 
       lando start && \
-      lando pull --code=dev --database=dev --files=${3:-'none'}
+        lando pull --code=dev --database=dev --files=${4:-'dev'}
+        install
 
       shift # past argument
       shift
