@@ -408,7 +408,7 @@ while [[ $# -gt 0 ]]
     i|install)
 
       # do a harder install bro!
-      if [[$2 -eq "--force"]]
+      if [[ $2 -eq --force ]]
         then
           _clean && \
           _install && \
