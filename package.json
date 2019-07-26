@@ -12,7 +12,7 @@
     "build": "concurrently \"pnpm run build-typescript\" \"pnpm run build-postcss\"",
     "clean": "rm -rf web/public/*.out.*",
     "build-postcss": "postcss web/wp-content/themes/belgium/src/styles/tailwind.css --map -o web/public/mod.css",
-    "watch-postcss": "postcss web/wp-content/themes/belgium/src/styles/tailwind.css --map -o web/public/mod.css --watch",
+    "watch-postcss": "postcss web/wp-content/themes/belgium/src/styles/tailwind.css --map --watch -o web/public/mod.css",
     "watch-typescript": "tsc --watch tsconfig.json",
     "build-typescript": "tsc --build tsconfig.json"
   },
