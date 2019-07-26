@@ -91,15 +91,22 @@ _createpost () {
 # deploy your mom
 _deploy () {
   cd $WAFFLEIRON_DIR
+
   message=${1:-'default message duh'}
   branch=${2:-'master'}
 
-  _push 
+  if [[ $3 -eq "--production" ]]
+    then
+    _clean
+    _install
+  fi
 
+  sleep 30 && \
   git add -A && \
   git commit -m "$message" && \
-  git push origin $branch
+  git push origin $branch ;
 }
+
 
 # and restart you're momm
 _restart () {
@@ -177,30 +184,42 @@ _rebuild () {
   sleep 15
 }
 
-_composer_init () {
+_build-composer () {
   cd $WAFFLEIRON_DIR && \
   lando ssh -c " \
     cd /app && \
     rm -rf vendor ; \
     mkdir /app/vendor ; \
     composer install --no-dev --no-ansi --no-interaction --optimize-autoloader --no-progress ;
-  "
+  " ;
+}
+
+_build-node () {
+  pnpm install && \
+  pnpm run build ;
+}
+
+_build () {
+  _build-node && \
+  _build-composer ;
 }
 
 # _install install i
 _install () {
   cd $WAFFLEIRON_DIR && \
-  rm -rf node_modules && \
-  pnpm install && \
+  _clean
+
   sleep 10 && \
-  _composer_init && \
-  sleep 30 && \
-  pnpm run build && \
+  _build && \
+
+  sleep 10 && \
   lando wp plugin activate --all && \
   lando wp plugin deactivate classic-editor && \
+
   _cc && \
   _art && \
-  printf " all done..."
+
+  printf " all done..." ;
 }
 
 # cc yo ma
@@ -214,7 +233,7 @@ _cc () {
 }
 
 _clean () {
-  cd $WAFFLEIRON_DIR
+  cd $WAFFLEIRON_DIR && \
   lando ssh -c "cd /app && rm -rf vendor node_modules ; rm -rf web/wp-content/uploads/cache/* ;"
 }
 
@@ -360,7 +379,7 @@ while [[ $# -gt 0 ]]
 
     # deploy
     dep|deploy)
-      _deploy
+      _deploy $2 $3 $4
       shift # past argument
       shift # past value
     ;;
