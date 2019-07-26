@@ -178,28 +178,29 @@ _rebuild () {
 }
 
 _composer_init () {
-  cd $WAFFLEIRON_DIR
+  cd $WAFFLEIRON_DIR && \
   lando ssh -c " \
     cd /app && \
     rm -rf vendor ; \
     mkdir /app/vendor ; \
-    composer install --no-dev --no-ansi --no-interaction --optimize-autoloader
+    composer install --no-dev --no-ansi --no-interaction --optimize-autoloader --no-progress ;
   "
 }
 
 # _install install i
 _install () {
-  cd $WAFFLEIRON_DIR
+  cd $WAFFLEIRON_DIR && \
   rm -rf node_modules && \
   pnpm install && \
-  sleep 10
+  sleep 10 && \
   _composer_init && \
-  _art
-  sleep 30
+  sleep 30 && \
+  pnpm run build && \
   lando wp plugin activate --all && \
   lando wp plugin deactivate classic-editor && \
   _cc && \
-  printf "all done..."
+  _art && \
+  printf " all done..."
 }
 
 # cc yo ma
