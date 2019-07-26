@@ -130,8 +130,8 @@ echo $scripts;
 
 // enqueue scripts/styles
 add_action( 'wp_enqueue_scripts', function() {
-  /* wp_enqueue_script('waffleiron-script', realpath(__DIR__ . '/../../../public/mod.out.js')); */
-  /* wp_enqueue_style('waffleiron-style', realpath(__DIR__ . '/../../../public/mod.out.css')); */
+  wp_enqueue_script('waffleiron-script', realpath(__DIR__ . '/../../../public/mod.js'));
+  wp_enqueue_style('waffleiron-style', realpath(__DIR__ . '/../../../public/mod.css'));
 });
 
 // enqueue admin styles
