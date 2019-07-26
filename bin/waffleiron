@@ -214,7 +214,6 @@ _install () {
 
   sleep 10 && \
   lando wp plugin activate --all && \
-  lando wp plugin deactivate classic-editor && \
 
   _cc && \
   _art && \
@@ -407,12 +406,19 @@ while [[ $# -gt 0 ]]
 
     # install
     i|install)
-      _install
+
       # do a harder install bro!
-      if [ [$2 == "-f"] ]
+      if [[$2 -eq "--force"]]
         then
-          _clean && _install && _restart && lando wp plugin activate --all && _cc
+          _clean && \
+          _install && \
+          _restart && \
+          _cc ; \
+          return ;
       fi
+
+      _install ;
+
       shift
       shift
     ;;
