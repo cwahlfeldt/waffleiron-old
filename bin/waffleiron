@@ -5,8 +5,7 @@ export WAFFLEIRON_DIR="$( \
   cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && \
   cd .. && pwd ; \
 )" ;
-
-export SITE_PREFIX=$( cd $WAFFLEIRON_DIR && ./bin/env "SITE_PREFIX" ; ) ;
+SITE_PREFIX=$( cd $WAFFLEIRON_DIR && ./bin/env "SITE_PREFIX" ; ) ;
 export SITE_NAME="$SITE_PREFIX-$( cd $WAFFLEIRON_DIR && ./bin/env "SITE_NAME" )"
 export SITE_ENV=$( cd $WAFFLEIRON_DIR && ./bin/env "SITE_ENV" ; ) ;
 
@@ -94,14 +93,14 @@ _createpost () {
 _deploy () {
   cd $WAFFLEIRON_DIR
 
-  message=${1:-'dev deploy, run `iron init && iron deploy -p` to get everything setup for production...'}
-
   if [[ "$1" -eq "--production" ]] || [[ "$1" -eq "-p" ]]
     then
       _clean && _install && clean -p && \
         _push && \
         return 0 ;
   fi
+
+  message=${1:-'dev deploy, run `iron init && iron deploy -p` to get everything setup for production...'}
 
   _export && \
   lando ssh -c "chmod 777 dump.sql.gz" && \
@@ -114,6 +113,16 @@ _deploy () {
   _remote-import-database ;
 }
 
+_remote-import-database () {
+  cd $WAFFLEIRON_DIR/web && \
+  lando push --files=dev --code=none --database=none && \
+  lando ssh -c "cd /app && terminus import:database $SITE_NAME.$SITE_ENV https://$SITE_ENV-$SITE_NAME.pantheonsite.io/private/dump.sql.gz" ;
+}
+
+_export-database () {
+  cd $WAFFLEIRON_DIR/web/private
+  lando db-export dump.sql
+}
 
 # and restart you're momm
 _restart () {
@@ -134,33 +143,22 @@ _pull () {
     terminus backup:get $site --element=db --to=/app/web/private/dump.sql.gz -y ; \
   " && lando db-import web/private/dump.sql.gz -y ;
 }
-
-_remote-import-database () {
-  cd $WAFFLEIRON_DIR/web && \
-  lando push --files=dev --code=none --database=none && \
-  lando ssh -c "cd /app && terminus import:database $site https://$SITE_ENV-$SITE_NAME.pantheonsite.io/private/dump.sql.gz" ;
-}
-
-_export-database () {
-  cd $WAFFLEIRON_DIR/web
-  lando db-export dump.sql
-}
-
 # push yo mom
 _push () {
   cd $WAFFLEIRON_DIR && \
 
   cd web && \
-  _export-database && \
-  lando ssh -c "chmod 777 dump.sql.gz" && \
+  # _export-database && \
+  # lando ssh -c "chmod 777 web/private/dump.sql.gz" && \
   cd .. && \
 
   git add -A ; \
   git commit -m "dumped web/private/dump.sql.gz, and code + files pushed to all remotes including all pantheon sites (dev env only!)" ; \
   git push origin --all && \
+
   sleep 30 && \
 
-  _remote-import-database
+  _remote-import-database && \
   echo "push it reaaal good!" ;
 }
 
