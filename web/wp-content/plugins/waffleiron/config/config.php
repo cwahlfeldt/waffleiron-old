@@ -35,9 +35,6 @@ if (function_exists( 'acf_add_options_page')) {
 /* 	} */
 /* )(); */
 
-add_action( 'admin_menu', function() {
-  remove_menu_page( 'edit-comments.php');
-});
 
 // reorder the menu
 function custom_menu_order($menu_ord) {
@@ -52,11 +49,16 @@ function custom_menu_order($menu_ord) {
 }
 add_filter('custom_menu_order', 'custom_menu_order'); // Activate custom_menu_order
 add_filter('menu_order', 'custom_menu_order');
-
-add_action( 'admin_enqueue_scripts', function() {
-  wp_enqueue_style( 'admin_css', plugin_dir_url(__FILE__) . 'styles/mod.css', false, '1.0.0' );
+add_action( 'admin_menu', function() {
+  remove_menu_page( 'edit-comments.php');
 });
 
+// enqueue admin css
+add_action( 'admin_enqueue_scripts', function() {
+  wp_enqueue_style( 'admin_css', realpath(plugin_dir_url(__FILE__) . '/../../private/admin.css'), true, '1.0.1');
+});
+
+// idk
 add_filter( 'site_transient_update_plugins', function( $value ) {
     unset( $value->response['akismet/akismet.php'] );
     return $value;
@@ -74,8 +76,18 @@ add_filter( 'site_transient_update_plugins', function( $value ) {
 //add SVG to allowed file uploads
 add_action('upload_mimes', function($file_types) {
   $new_filetypes = array();
-  $new_filetypes['svg'] = 'image/svg+xml';
+
+  $new_filetypes [ 'svg'  ] = 'image/svg+xml';
+  $new_filetypes [ 'webp' ] = 'image/webp';
+  $new_filetypes [ 'weba' ] = 'audio/weba';
+  $new_filetypes [ 'webm' ] = 'video/webm';
+  $new_filetypes [ 'obj'  ] = 'text/plain';
+  $new_filetypes [ 'glb'  ] = 'text/plain';
+  $new_filetypes [ 'mjs'  ] = 'text/javascript';
+  $new_filetypes [ 'sh'   ] = 'application/x-sh';
+
   $file_types = array_merge($file_types, $new_filetypes );
+
   return $file_types;
 });
 
