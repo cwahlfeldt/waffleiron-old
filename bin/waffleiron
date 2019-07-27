@@ -5,6 +5,7 @@ export WAFFLEIRON_DIR="$( \
   cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && \
   cd .. && pwd ; \
 )" ;
+
 export SITE_PREFIX=$( cd $WAFFLEIRON_DIR && ./bin/env "SITE_PREFIX" ; ) ;
 export SITE_NAME="$SITE_PREFIX-$( cd $WAFFLEIRON_DIR && ./bin/env "SITE_NAME" )"
 export SITE_ENV=$( cd $WAFFLEIRON_DIR && ./bin/env "SITE_ENV" ; ) ;
@@ -28,6 +29,7 @@ _help () {
   echo "  ENV ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
   echo
   echo "      WAFFLEIRON_DIR : $WAFFLEIRON_DIR"
+  echo "         SITE_PREFIX : $SITE_PREFIX"
   echo "           SITE_NAME : $SITE_NAME"
   echo "            SITE_ENV : $SITE_ENV"
   echo
@@ -92,27 +94,33 @@ _createpost () {
 _deploy () {
   cd $WAFFLEIRON_DIR
 
-  message=${1:-'default message duh'}
-  branch=${2:-'master'}
+  message=${1:-'dev deploy, run `iron init && iron deploy -p` to get everything setup for production...'}
 
-  if [[ $3 -eq "--production" ]]
+  if [[ "$1" -eq "--production" ]] || [[ "$1" -eq "-p" ]]
     then
-    _clean
-    _install
+      _clean && _install && clean -p && \
+        _push && \
+        return 0 ;
   fi
 
-  sleep 30 && \
-  git add -A && \
-  git commit -m "$message" && \
-  git push origin $branch ;
+  _export && \
+  lando ssh -c "chmod 777 dump.sql.gz" && \
+  sleep 10 && \
+
+  git add -A ; \
+  git commit -m "$message" ; \
+  git push origin --all && \
+  
+  _remote-import-database ;
 }
 
 
 # and restart you're momm
 _restart () {
-  cd $WAFFLEIRON_DIR
-  lando poweroff && osascript -e \'quit app "Docker"\' && printf "\nstopping docker..."
-  open --background -a Docker && printf "starting docker...\n"
+  cd $WAFFLEIRON_DIR && \
+  lando poweroff && osascript -e \'quit app "Docker"\' && printf "\nstopping docker..." && \
+    open --background -a Docker && printf "starting docker...\n" && \
+      lando start || lando restart ;
 }
 
 # pull yo mom
@@ -120,42 +128,40 @@ _pull () {
   cd $WAFFLEIRON_DIR
   site=${1:-"$SITE_NAME.$SITE_ENV"}
 
-  lando ssh -c "rm -rf /app/dump.sql.gz"
-  lando terminus backup:create $site --element=db -y
-  lando terminus backup:get $site --element=db --to=/app/dump.sql.gz -y
-  lando db-import dump.sql.gz -y
+  lando ssh -c " \
+    rm -rf /app/dump.sql.gz && \
+    terminus backup:create $site --element=db -y && \
+    terminus backup:get $site --element=db --to=/app/web/private/dump.sql.gz -y ; \
+  " && lando db-import web/private/dump.sql.gz -y ;
+}
+
+_remote-import-database () {
+  cd $WAFFLEIRON_DIR/web && \
+  lando push --files=dev --code=none --database=none && \
+  lando ssh -c "cd /app && terminus import:database $site https://$SITE_ENV-$SITE_NAME.pantheonsite.io/private/dump.sql.gz" ;
+}
+
+_export-database () {
+  cd $WAFFLEIRON_DIR/web
+  lando db-export dump.sql
 }
 
 # push yo mom
 _push () {
-  # branch="-$(git branch | grep \* | cut -d ' ' -f2)"
-  # if [[ $branch -eq 'master' ]]
-  #   then
-  #     branch=""
-  # fi
   cd $WAFFLEIRON_DIR && \
-  _install && pnpm run build && rm -rf node_modules && \
-  lando restart ; \
-  sleep 20 && \
+
   cd web && \
-  lando db-export $SITE_NAME.$SITE_ENV.sql && \
-  lando ssh -c "chmod 777 $SITE_NAME.$SITE_ENV.sql.gz" && \
+  _export-database && \
+  lando ssh -c "chmod 777 dump.sql.gz" && \
   cd .. && \
 
-  git add -A && \
-  git commit -m "$SITE_NAME.$SITE_ENV db and files pushed to all remotes including all pantheon sites (dev env only!)" && \
-  git push origin "$(git branch | grep \* | cut -d ' ' -f2)" && \
+  git add -A ; \
+  git commit -m "dumped web/private/dump.sql.gz, and code + files pushed to all remotes including all pantheon sites (dev env only!)" ; \
+  git push origin --all && \
+  sleep 30 && \
 
-  sleep 30 # wait for remote
-
-  lando push --files=dev --code=none --database=none && \
-  lando ssh -c "cd /app && terminus import:database $SITE_NAME.$SITE_ENV https://$SITE_ENV-$SITE_NAME.pantheonsite.io/$SITE_NAME.$SITE_ENV.sql.gz" && \
-  echo "push it reaaal good!"
-}
-
-_exportDB () {
-  cd $WAFFLEIRON_DIR/web
-  lando db-export $SITE_NAME.$SITE_ENV.sql
+  _remote-import-database
+  echo "push it reaaal good!" ;
 }
 
 # create-post-type yo mom
@@ -247,34 +253,6 @@ _start () {
   cd $WAFFLEIRON_DIR && lando start
 }
 
-# init function... used to be all the commands in composer.json but thats ugly dude
-_init() {
-  cd $WAFFLEIRON_DIR && \
-  printf "\n\nburn it all down to build it back up baby!!\n\n"
-  _rebuild 
-  sleep 60 && \
-
-  printf "\n\n .....starting.....nowish\n\n" && \
-  _start && \
-  sleep 45 && \
-
-  printf "\n\n installing....\n\n"
-  _clean && \
-  _install && \
-  sleep 60 && \
-
-  printf "\n\n pulling....\n\n"
-  _pull && \
-  sleep 10 && \
-
-  printf "\n\n clearing cache....\n\n"
-  _cc && \
-  sleep 10 && \
-
-  _art && \
-  printf "\n\n...all done...\n"
-}
-
 if [ "$#" -eq 0 ]
   then
     printf "suh? no args supplied"
@@ -287,16 +265,28 @@ while [[ $# -gt 0 ]]
   key="$1"
 
   case $key in
-    # init
-    --init|init)
+
+    --init|init) # init functions
       _rebuild && \
-        _install && \
-        _clean-production && \
-          
+        _deploy -p && \
+
+      sleep 6.66 && \
+
+      _restart ;
       
       shift # past argument
       shift # past value
     ;;
+
+    remote-import-database|-rid)
+      _env && \
+      _remote-import-database $1
+      _env && \
+      shift # past argument
+      shift # past value
+    ;;
+
+
 
     # restart
     -r|r|restart)
@@ -314,7 +304,7 @@ while [[ $# -gt 0 ]]
 
     # cc
     -cc|cc|--flush|--clear|--clear-cache)
-      _cc $@
+      _cc $2
       shift # past argument
       shift # past value
     ;;
@@ -328,20 +318,7 @@ while [[ $# -gt 0 ]]
 
     # restart
     -pu|--pull|pu|pull)
-      # _pull $2
-      lando pull --code=none --database=dev --files=dev ;
-
-      shift # past argument
-      shift # past value
-    ;;
-
-    # push
-    -p|p|push)
-      # _push $@
-      git add -A && git commit -m "${2:-'Autowafflmagically! - waffles'}" ; \
-        git push origin && \
-
-      lando push --code=none --database=dev --files=dev ;
+      _pull $2
 
       shift # past argument
       shift # past value
@@ -392,7 +369,7 @@ while [[ $# -gt 0 ]]
 
     # deploy
     dep|deploy)
-      _deploy $2 $3 $4
+      _deploy $2
       shift # past argument
       shift # past value
     ;;
@@ -413,7 +390,7 @@ while [[ $# -gt 0 ]]
 
     # env
     export)
-      _exportDB
+      _export-database
       shift # past argument
       shift # past value
     ;;
