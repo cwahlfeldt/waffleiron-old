@@ -1,6 +1,6 @@
 # waffleiron
 
-[![CircleCI](https://circleci.com/gh/mckenziewagner/waffleiron.svg?style=shield)](https://circleci.com/gh/mckenziewagner/waffleiron)
+[![CircleCI](https://circleci.com/gh/cwahlfeldt/waffleiron.svg?style=shield)](https://circleci.com/gh/cwahlfeldt/waffleiron)
 [![Dashboard waffleiron](https://img.shields.io/badge/dashboard-waffleiron-yellow.svg)](https://dashboard.pantheon.io/sites/937260c2-446f-4aa2-8a7b-fd76046e32fa#dev/code)
 [![Dev Site waffleiron](https://img.shields.io/badge/site-waffleiron-blue.svg)](http://dev-waffleiron.pantheonsite.io/)
 
@@ -13,7 +13,7 @@ Im creating waffleiron as a way to allow myself to maintain and create websites 
 With that said heres a list of features to better describe the framework and then ill dive into TM which uses the framework and rundown the custom post types and their fields.
   
     waffleiron :   
-1. Fast setup. Be up and running in matter of minutes with a local pantheon environment that syncs to pantheon, using Lando ( https://github.com/lando/lando ) and other build systems.  
+1. Fast setup. Be up and running in matter of minutes with a local pantheon environment that syncs to pantheon, using Lando ( https://github.com/lando/lando ) and other build systems.
 2. Continuous integration testing with CircleCI ( https://circleci.com/continuous-integration ). I can explain this more ls later but, it means its setup to continuously test code and deploy it to pantheon when it passes the tests. This even includes browser testing. Also Jill pointed out good workflow that’s being introduced to pantheon soon that will make this better 👍  
 3. Git workflow; All sites are treated as branches of a single upstream ( https://github.com/mckenziewagner/waffleiron ) that keeps all sites in sync with updates for Wordpress, plugins, and configuration. Pantheon allows custom git upstreams and an easy way to deploy them. Also everything important is kept as code where it should be 🤘  
 4. Automated documentation that is created and hosted sing the WP interface 🙏 ☺️   

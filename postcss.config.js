@@ -3,6 +3,6 @@ module.exports = (ctx) => ({
     require('postcss-import')({}),
     require('postcss-preset-env')({}),
     require('tailwindcss')({}),
-    // require('cssnano')({}),
+    require('cssnano')({}),
   ]
 })

@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!u/sr/local/bin/bash
 
 # waffleiron vars
 export WAFFLEIRON_DIR="$( \
@@ -11,12 +11,10 @@ export SITE_ENV=$( cd $WAFFLEIRON_DIR && ./bin/env "SITE_ENV" ; ) ;
 
 _art () {
 cat << "EOF"
-                               
-   __     __ ____________///_____/*/___ __ ____
-  | | /| /// __  /  __/__/// ___/ / __/ _ \ __ \
+   __     __ _____________///____///_____ ____
+  ||| /| /// __  /  __/__/// ___/ / __/ _ \ __ \
   | |/ |/ / /_/ / __/__//// ___/ / / / /_/ / / /
   |__/|__/\__,_/__/__///////__/ /_/  \____/ /_/
-
 EOF
 }
 
@@ -30,6 +28,7 @@ _help () {
   echo "  ENV ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
   echo
   echo "      WAFFLEIRON_DIR : $WAFFLEIRON_DIR"
+  echo "         SITE_PREFIX : $SITE_PREFIX"
   echo "           SITE_NAME : $SITE_NAME"
   echo "            SITE_ENV : $SITE_ENV"
   echo
@@ -93,21 +92,44 @@ _createpost () {
 # deploy your mom
 _deploy () {
   cd $WAFFLEIRON_DIR
-  message=${1:-'default message duh'}
-  branch=${2:-'master'}
 
-  _push 
+  if [[ "$1" -eq "--production" ]] || [[ "$1" -eq "-p" ]]
+    then
+      _clean && _install && clean -p && \
+        _push && \
+        return 0 ;
+  fi
+  sleep 10 && \
 
-  git add -A && \
-  git commit -m "$message" && \
-  git push origin $branch
+  message=${1:-'dev deploy, run `iron init && iron deploy -p` to get everything setup for production...'}
+  git add -A ; \
+  git commit -m "$message" ; \
+  git push origin --all && \
+  
+  _remote-import-database ;
+}
+
+_remote-import-database () {
+  cd $WAFFLEIRON_DIR/web
+
+  _export-database && \
+    sleep 15 && \
+  lando ssh -c "chmod 777 /app/web/public/dump.sql.gz" && \
+  lando push --files=dev --code=none --database=none && \
+  lando ssh -c "cd /app && terminus import:database $SITE_NAME.$SITE_ENV https://$SITE_ENV-$SITE_NAME.pantheonsite.io/public/dump.sql.gz" ;
+}
+
+_export-database () {
+  cd $WAFFLEIRON_DIR/web/public
+  lando db-export dump.sql
 }
 
 # and restart you're momm
 _restart () {
-  cd $WAFFLEIRON_DIR
-  lando poweroff && osascript -e \'quit app "Docker"\' && printf "\nstopping docker..."
-  open --background -a Docker && printf "starting docker...\n"
+  cd $WAFFLEIRON_DIR && \
+  lando poweroff && osascript -e \'quit app "Docker"\' && printf "\nstopping docker..." && \
+    open --background -a Docker && printf "starting docker...\n" && \
+      lando start || lando restart ;
 }
 
 # pull yo mom
@@ -115,42 +137,29 @@ _pull () {
   cd $WAFFLEIRON_DIR
   site=${1:-"$SITE_NAME.$SITE_ENV"}
 
-  lando ssh -c "rm -rf /app/dump.sql.gz"
-  lando terminus backup:create $site --element=db -y
-  lando terminus backup:get $site --element=db --to=/app/dump.sql.gz -y
-  lando db-import dump.sql.gz -y
+  lando ssh -c " \
+    rm -rf /app/dump.sql.gz && \
+    terminus backup:create $site --element=db -y && \
+    terminus backup:get $site --element=db --to=/app/web/public/dump.sql.gz -y ; \
+  " && lando db-import web/public/dump.sql.gz -y ;
 }
-
 # push yo mom
 _push () {
-  # branch="-$(git branch | grep \* | cut -d ' ' -f2)"
-  # if [[ $branch -eq 'master' ]]
-  #   then
-  #     branch=""
-  # fi
   cd $WAFFLEIRON_DIR && \
-  _install && pnpm run build && rm -rf node_modules && \
-  lando restart ; \
-  sleep 20 && \
+
   cd web && \
-  lando db-export $SITE_NAME.$SITE_ENV.sql && \
-  lando ssh -c "chmod 777 $SITE_NAME.$SITE_ENV.sql.gz" && \
+  # _export-database && \
+  # lando ssh -c "chmod 777 web/public/dump.sql.gz" && \
   cd .. && \
 
-  git add -A && \
-  git commit -m "$SITE_NAME.$SITE_ENV db and files pushed to all remotes including all pantheon sites (dev env only!)" && \
-  git push origin "$(git branch | grep \* | cut -d ' ' -f2)" && \
+  git add -A ; \
+  git commit -m "dumped web/public/dump.sql.gz, and code + files pushed to all remotes including all pantheon sites (dev env only!)" ; \
+  git push origin --all && \
 
-  sleep 30 # wait for remote
+  sleep 30 && \
 
-  lando push --files=dev --code=none --database=none && \
-  lando ssh -c "cd /app && terminus import:database $SITE_NAME.$SITE_ENV https://$SITE_ENV-$SITE_NAME.pantheonsite.io/$SITE_NAME.$SITE_ENV.sql.gz" && \
-  echo "push it reaaal good!"
-}
-
-_exportDB () {
-  cd $WAFFLEIRON_DIR/web
-  lando db-export $SITE_NAME.$SITE_ENV.sql
+  _remote-import-database && \
+  echo "push it reaaal good!" ;
 }
 
 # create-post-type yo mom
@@ -174,34 +183,48 @@ _create-post-type () {
 _rebuild () {
   cd $WAFFLEIRON_DIR && \
   lando start && \
-  lando destroy -y && \
+    lando destroy -y ; \
   lando poweroff && \
-  sleep 15
+    sleep 15
+  lando start && \
+    lando pull --code=none --database=dev --files=dev ;
 }
 
-_composer_init () {
-  cd $WAFFLEIRON_DIR
+_build-composer () {
+  cd $WAFFLEIRON_DIR && \
   lando ssh -c " \
     cd /app && \
     rm -rf vendor ; \
     mkdir /app/vendor ; \
-    composer install --no-dev --no-ansi --no-interaction --optimize-autoloader
-  "
+    composer install --no-dev --prefer-dist --no-ansi --no-interaction --optimize-autoloader --no-progress ;
+  " ;
+}
+
+_build-node () {
+  pnpm install && \
+  pnpm run build ;
+}
+
+_build () {
+  _build-node && \
+  _build-composer ;
 }
 
 # _install install i
 _install () {
-  cd $WAFFLEIRON_DIR
-  rm -rf node_modules && \
-  pnpm install && \
-  sleep 10
-  _composer_init && \
-  _art
-  sleep 30
+  cd $WAFFLEIRON_DIR && \
+  _clean
+
+  sleep 10 && \
+  _build && \
+
+  sleep 10 && \
   lando wp plugin activate --all && \
-  lando wp plugin deactivate classic-editor && \
+
   _cc && \
-  printf "all done..."
+  _art && \
+
+  printf " all done..." ;
 }
 
 # cc yo ma
@@ -216,39 +239,16 @@ _cc () {
 
 _clean () {
   cd $WAFFLEIRON_DIR
-  lando ssh -c "cd /app && rm -rf vendor node_modules ; rm -rf web/wp-content/uploads/cache/* ;"
+  if [[ "$1" -eq "--production" ]] || [[ "$1" -eq "-p" ]]
+    then
+      lando ssh -c "cd /app && rm -rf ./node_modules && rm -rf ./web/wp-content/uploads/cache/* ;" && \
+      return 0 ;
+  fi
+  lando ssh -c "cd /app && rm -rf vendor node_modules ; rm -rf web/wp-content/uploads/cache/* ;" ;
 }
 
 _start () {
   cd $WAFFLEIRON_DIR && lando start
-}
-
-# init function... used to be all the commands in composer.json but thats ugly dude
-_init() {
-  cd $WAFFLEIRON_DIR && \
-  printf "\n\nburn it all down to build it back up baby!!\n\n"
-  _rebuild 
-  sleep 60 && \
-
-  printf "\n\n .....starting.....nowish\n\n" && \
-  _start && \
-  sleep 45 && \
-
-  printf "\n\n installing....\n\n"
-  _clean && \
-  _install && \
-  sleep 60 && \
-
-  printf "\n\n pulling....\n\n"
-  _pull && \
-  sleep 10 && \
-
-  printf "\n\n clearing cache....\n\n"
-  _cc && \
-  sleep 10 && \
-
-  _art && \
-  printf "\n\n...all done...\n"
 }
 
 if [ "$#" -eq 0 ]
@@ -263,16 +263,26 @@ while [[ $# -gt 0 ]]
   key="$1"
 
   case $key in
-    # init
-    --init|init)
-      lando start && \
-      _install && \
-      lando pull --code=none --database=dev --files=dev && \
-      _cc ;
+
+    --init|init) # init functions
+      _rebuild && \
+        _deploy -p && \
+
+      sleep 6.66 && \
+
+      _restart ;
       
       shift # past argument
       shift # past value
     ;;
+
+    remote-import-database|-rid)
+      _remote-import-database
+      shift # past argument
+      shift # past value
+    ;;
+
+
 
     # restart
     -r|r|restart)
@@ -281,9 +291,16 @@ while [[ $# -gt 0 ]]
       shift # past value
     ;;
 
+    # restart
+    -b|build)
+      _build
+      shift # past argument
+      shift # past value
+    ;;
+
     # cc
     -cc|cc|--flush|--clear|--clear-cache)
-      _cc $@
+      _cc $2
       shift # past argument
       shift # past value
     ;;
@@ -297,20 +314,7 @@ while [[ $# -gt 0 ]]
 
     # restart
     -pu|--pull|pu|pull)
-      # _pull $2
-      lando pull --code=none --database=dev --files=dev ;
-
-      shift # past argument
-      shift # past value
-    ;;
-
-    # push
-    -p|p|push)
-      # _push $@
-      git add -A && git commit -m "${2:-'Autowafflmagically! - waffles'}" ; \
-        git push origin && \
-
-      lando push --code=none --database=dev --files=dev ;
+      _pull $2
 
       shift # past argument
       shift # past value
@@ -353,15 +357,15 @@ while [[ $# -gt 0 ]]
 
     # deploy
     -c|c|config)
-      cd $DIR/bin
-      $EDITOR waffleiron ;
+      cd $DIR/bin && \
+        $( $EDITOR waffleiron )
       shift # past argument
       shift # past value
     ;;
 
     # deploy
     dep|deploy)
-      _deploy
+      _deploy $2
       shift # past argument
       shift # past value
     ;;
@@ -382,19 +386,26 @@ while [[ $# -gt 0 ]]
 
     # env
     export)
-      _exportDB
+      _export-database
       shift # past argument
       shift # past value
     ;;
 
     # install
     i|install)
-      _install
+
       # do a harder install bro!
-      if [ [$2 == "-f"] ]
+      if [[ $2 -eq --force ]]
         then
-          _clean && _install && _restart && lando wp plugin activate --all && _cc
+          _clean && \
+          _install && \
+          _restart && \
+          _cc ; \
+          return ;
       fi
+
+      _install ;
+
       shift
       shift
     ;;
@@ -491,6 +502,7 @@ while [[ $# -gt 0 ]]
     # catch em all...
     *)
       POSITIONAL+=("$1")
+      printf "\n nada \n\n"
       shift
     ;;
   esac
