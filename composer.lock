@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "48d66d017355884c92372e3d8f7375ff",
+    "content-hash": "da37fa3d8b751fa32a9c978e72b7cdd7",
     "packages": [
         {
             "name": "advanced-custom-fields/advanced-custom-fields-pro",
@@ -1050,6 +1050,25 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/classic-editor/"
+        },
+        {
+            "name": "wpackagist-plugin/duplicate-post",
+            "version": "dev-trunk",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/duplicate-post/",
+                "reference": "trunk"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/duplicate-post.zip?timestamp=1563441519"
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/duplicate-post/",
+            "time": "2019-07-18T09:18:39+00:00"
         },
         {
             "name": "wpackagist-plugin/filebird",
@@ -5315,6 +5334,7 @@
         "samrap/acf-fluent": 20,
         "stoutlogic/acf-builder": 20,
         "wpackagist-plugin/acf-archive": 20,
+        "wpackagist-plugin/duplicate-post": 20,
         "wpackagist-plugin/filebird": 20,
         "wpackagist-plugin/slate-admin-theme": 20,
         "wpackagist-plugin/wedocs": 20,

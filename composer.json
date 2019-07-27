@@ -49,6 +49,7 @@
     "wpackagist-plugin/acf-to-rest-api": "^3.1",
     "wpackagist-plugin/advanced-forms": "^1.6.4",
     "wpackagist-plugin/classic-editor": "^1.4",
+    "wpackagist-plugin/duplicate-post": "dev-trunk",
     "wpackagist-plugin/filebird": "dev-trunk",
     "wpackagist-plugin/pantheon-advanced-page-cache": "^0.1.4",
     "wpackagist-plugin/slate-admin-theme": "dev-trunk",
