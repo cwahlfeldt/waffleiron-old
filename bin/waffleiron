@@ -190,7 +190,7 @@ _build-composer () {
     cd /app && \
     rm -rf vendor ; \
     mkdir /app/vendor ; \
-    composer install --no-dev --no-ansi --no-interaction --optimize-autoloader --no-progress ;
+    composer install --no-dev --prefer-dist --no-ansi --no-interaction --optimize-autoloader --no-progress ;
   " ;
 }
 
@@ -298,6 +298,13 @@ while [[ $# -gt 0 ]]
       shift # past value
     ;;
 
+    # restart
+    -b|build)
+      _build
+      shift # past argument
+      shift # past value
+    ;;
+
     # cc
     -cc|cc|--flush|--clear|--clear-cache)
       _cc $@
@@ -370,8 +377,8 @@ while [[ $# -gt 0 ]]
 
     # deploy
     -c|c|config)
-      cd $DIR/bin
-      $EDITOR waffleiron ;
+      cd $DIR/bin && \
+        $( $EDITOR waffleiron )
       shift # past argument
       shift # past value
     ;;
@@ -515,6 +522,7 @@ while [[ $# -gt 0 ]]
     # catch em all...
     *)
       POSITIONAL+=("$1")
+      printf "\n nada \n\n"
       shift
     ;;
   esac
