@@ -179,9 +179,11 @@ _create-post-type () {
 _rebuild () {
   cd $WAFFLEIRON_DIR && \
   lando start && \
-  lando destroy -y && \
+    lando destroy -y ; \
   lando poweroff && \
-  sleep 15
+    sleep 15
+  lando start && \
+    lando pull --code=none --database=dev --files=dev ;
 }
 
 _build-composer () {
@@ -232,8 +234,13 @@ _cc () {
 }
 
 _clean () {
-  cd $WAFFLEIRON_DIR && \
-  lando ssh -c "cd /app && rm -rf vendor node_modules ; rm -rf web/wp-content/uploads/cache/* ;"
+  cd $WAFFLEIRON_DIR
+  if [[ "$1" -eq "--production" ]] || [[ "$1" -eq "-p" ]]
+    then
+      lando ssh -c "cd /app && rm -rf ./node_modules && rm -rf ./web/wp-content/uploads/cache/* ;" && \
+      return 0 ;
+  fi
+  lando ssh -c "cd /app && rm -rf vendor node_modules ; rm -rf web/wp-content/uploads/cache/* ;" ;
 }
 
 _start () {
@@ -282,10 +289,10 @@ while [[ $# -gt 0 ]]
   case $key in
     # init
     --init|init)
-      lando start && \
-      _install && \
-      lando pull --code=none --database=dev --files=dev && \
-      _cc ;
+      _rebuild && \
+        _install && \
+        _clean-production && \
+          
       
       shift # past argument
       shift # past value
