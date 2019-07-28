@@ -129,8 +129,8 @@ $scripts = realpath(__DIR__ . '/../../public');
 echo $scripts;
 // enqueue scripts/styles
 add_action( 'wp_enqueue_scripts', function() {
-  wp_enqueue_script('waffleiron-script', realpath(__DIR__ . '/../../public/mod.js'));
-  wp_enqueue_style('waffleiron-style', realpath(__DIR__ . '/../../public/mod.css'));
+  wp_enqueue_script('waffleiron-script', realpath(get_template_directory_uri() . '/../../../public/mod.js'));
+  wp_enqueue_style('waffleiron-style', realpath(get_template_directory_uri() . '/../../../public/mod.css'));
 });
 
 // enqueue admin styles
