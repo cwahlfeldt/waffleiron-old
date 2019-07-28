@@ -1,8 +1,8 @@
-name        : iron
+name        : iron-tm
 recipe      : pantheon
 config      :
   framework : wordpress
-  site      : iron
+  site      : iron-tm
   id        : 7836f8c1-01d0-4b59-8c57-6b71d4fca2c2
   xdebug    : false
   index     : true
