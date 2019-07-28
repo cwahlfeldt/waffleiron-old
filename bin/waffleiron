@@ -1,13 +1,13 @@
-#!u/sr/local/bin/bash
+#!/usr/local/bin/bash
 
 # waffleiron vars
 export WAFFLEIRON_DIR="$( \
   cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && \
   cd .. && pwd ; \
-)"
-SITE_PREFIX=$( cd $WAFFLEIRON_DIR && ./bin/env "SITE_PREFIX" ; )
+)" ;
+SITE_PREFIX=$( cd $WAFFLEIRON_DIR && ./bin/env "SITE_PREFIX" ; ) ;
 export SITE_NAME="$SITE_PREFIX-$( cd $WAFFLEIRON_DIR && ./bin/env "SITE_NAME" )"
-export SITE_ENV=$( cd $WAFFLEIRON_DIR && ./bin/env "SITE_ENV" ; )
+export SITE_ENV=$( cd $WAFFLEIRON_DIR && ./bin/env "SITE_ENV" ; ) ;
 
 _art () {
 cat << "EOF"
@@ -97,6 +97,7 @@ _deploy () {
     then
       _clean && _install && clean -p && \
         _push && \
+        return 0 ;
   fi
   sleep 10 && \
 
@@ -109,17 +110,17 @@ _deploy () {
 }
 
 _remote-import-database () {
-  cd $WAFFLEIRON_DIR/web/public
+  cd $WAFFLEIRON_DIR/web
 
   _export-database && \
     sleep 15 && \
-
   lando ssh -c "chmod 777 /app/web/public/dump.sql.gz" && \
   lando push --files=dev --code=none --database=none && \
   lando ssh -c "cd /app && terminus import:database $SITE_NAME.$SITE_ENV https://$SITE_ENV-$SITE_NAME.pantheonsite.io/public/dump.sql.gz" ;
 }
 
 _export-database () {
+  cd $WAFFLEIRON_DIR/web/public
   lando db-export dump.sql
 }
 
@@ -137,7 +138,7 @@ _pull () {
   site=${1:-"$SITE_NAME.$SITE_ENV"}
 
   lando ssh -c " \
-    rm -rf /app/web/public/dump.sql.gz && \
+    rm -rf /app/dump.sql.gz && \
     terminus backup:create $site --element=db -y && \
     terminus backup:get $site --element=db --to=/app/web/public/dump.sql.gz -y ; \
   " && lando db-import web/public/dump.sql.gz -y ;
@@ -145,6 +146,11 @@ _pull () {
 # push yo mom
 _push () {
   cd $WAFFLEIRON_DIR && \
+
+  cd web && \
+  # _export-database && \
+  # lando ssh -c "chmod 777 web/public/dump.sql.gz" && \
+  cd .. && \
 
   git add -A ; \
   git commit -m "dumped web/public/dump.sql.gz, and code + files pushed to all remotes including all pantheon sites (dev env only!)" ; \
@@ -275,6 +281,8 @@ while [[ $# -gt 0 ]]
       shift # past argument
       shift # past value
     ;;
+
+
 
     # restart
     -r|r|restart)

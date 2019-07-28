@@ -1,0 +1,32 @@
+{
+    "name": "samrap/acf-fluent",
+    "description": "A fluent interface for the Advanced Custom Fields WordPress plugin",
+    "keywords": ["acf", "wordpress", "fluent", "interface", "wrapper", "helper"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sam Rapaport",
+            "email": "me@samrapdev.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Samrap\\Acf\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        },
+        "files": [
+            "src/helpers.php",
+            "tests/Support/Mocks/functions.php"
+        ]
+    },
+    "require": {
+        "php": ">=7.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.0"
+    }
+}

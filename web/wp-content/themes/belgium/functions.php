@@ -125,13 +125,12 @@ add_action( 'widgets_init', 'waffleiron_widgets_init' );
  */
 //ini_set('xdebug.max_nesting_level', 9999);
 
-$scripts = realpath(__DIR__ . '/../../../public/mod.out.js');
+$scripts = realpath(__DIR__ . '/../../public');
 echo $scripts;
-
 // enqueue scripts/styles
 add_action( 'wp_enqueue_scripts', function() {
-  wp_enqueue_script('waffleiron-script', realpath(__DIR__ . '/../../../public/mod.js'));
-  wp_enqueue_style('waffleiron-style', realpath(__DIR__ . '/../../../public/mod.css'));
+  wp_enqueue_script('waffleiron-script', realpath(__DIR__ . '/../../public/mod.js'));
+  wp_enqueue_style('waffleiron-style', realpath(__DIR__ . '/../../public/mod.css'));
 });
 
 // enqueue admin styles
