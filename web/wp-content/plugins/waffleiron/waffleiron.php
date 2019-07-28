@@ -13,6 +13,8 @@
  *
 **/
 
+require_once 'sc-svg-uploads/sc-svg-uploads.php';
+
 // config requires
 $config_path = dirname(__FILE__).'/config/';
 foreach (scandir($config_path) as $filename) {
