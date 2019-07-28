@@ -64,8 +64,7 @@
     // "emitDecoratorMetadata": true,         /* Enables experimental support for emitting type metadata for decorators. */
   },
   "include": [
-    "web/wp-content/themes/belgium/src/scripts/**/*.ts",
-    "web/wp-content/themes/belgium/src/scripts/**/*.js"
+    "web/wp-content/themes/belgium/src/scripts/**/*.ts"
   ],
   "exclude": [
     "/.old/",

@@ -56,6 +56,10 @@ _ls () {
   ls -la
 }
 
+_start () {
+  pnpm start
+}
+
 # list the apps path
 _paths () {
   lando ssh -s appserver -c env | grep "PATH" | cut -d '=' --complement -f 1 | tr ':' '\n'
@@ -497,6 +501,15 @@ while [[ $# -gt 0 ]]
     h|help)
       _help
       shift # past argument
+    ;;
+
+    # catch em all...
+    s|start)
+      cd $WAFFLEIRON_DIR && \
+      _start ;
+
+      shift
+      shift
     ;;
 
     # catch em all...
