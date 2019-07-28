@@ -32,3 +32,12 @@ foreach (scandir($post_types_path) as $filename) {
     require_once $path;
   }
 }
+
+// taxonomy requires
+$taxonomy_path = dirname(__FILE__).'/taxonomies/';
+foreach (scandir($post_types_path) as $filename) {
+  $path = $post_types_path . $filename;
+  if (is_file($path)) {
+    require_once $path;
+  }
+}
