@@ -57,7 +57,7 @@ _ls () {
 }
 
 _start () {
-  pnpm start
+  if test which pnpm ; then pnpm start ; else npm start ; fi ;
 }
 
 # list the apps path
@@ -286,7 +286,14 @@ while [[ $# -gt 0 ]]
       shift # past value
     ;;
 
+    # catch em all...
+    s|start)
+      cd $WAFFLEIRON_DIR && \
+      _start ;
 
+      shift
+      shift
+    ;;
 
     # restart
     -r|r|restart)
@@ -338,22 +345,59 @@ while [[ $# -gt 0 ]]
       shift # past value
     ;;
 
-    # create post type with 
-    start|s)
-      cd $DIR
-      lando start
+    ## create post of $1 and name it with $2
+    -cp|cp|create-post )
+      cd $WAFFLEIRON_DIR ;
+
+      POST_TYPE=${2:-page}
+      POST_TITLE=${3:-"${POST_TYPE}-${RANDOM:0:2}"}
+
+      lando wp post create \
+        --post_type=$POST_TYPE \
+        --post_title=$POST_TITLE \
+        --post_status="published" \
+      && sleep 5 ;
+
       shift # past argument
       shift # past value
     ;;
 
-    #
     ## create post of $1 and name it with $2
-    -cp|cp|create-post )
-      cd $DIR
-      POST_TYPE=${2:-page} && \
-      POST_TITLE=${3:-"${POST_TYPE}-${RANDOM:0:2}"} ;
-      lando wp post create --post_type=$POST_TYPE --post_title=$POST_TITLE --post_status="published" && \
-      sleep 5 ;
+    -ctax|ctax|create-taxonomy)
+      
+      if [[ -z "$2" ]]
+        then
+          printf "no slug" && return 1
+      fi
+
+      TAX_TITLE=$2
+      POST_TYPES=${3:-"post, page"}
+
+      printf "\n\nCreating taxonomy for $TAX_TITLE\n\n"
+      lando wp scaffold taxonomy $TAX_TITLE \
+        --label="$TAX_TITLE" \
+        --textdomain="waffleiron" \
+        --plugin="waffleiron" \
+        --force ;
+
+      shift # past argument
+      shift # past value
+    ;;
+
+    ## create post of $1 and name it with $2
+    -cpt|cpt|create-post-type)
+
+      POST_TYPE=${2:-page}
+      POST_TITLE=${3:-"${POST_TYPE}-${RANDOM:0:2}"}
+      ICON=${4:-"dashicons-text-page"}
+
+      printf "\n\nCreating post type and plugin for $name\n\n"
+      lando wp scaffold post-type $POST_TYPE \
+        --label="$POST_TITLE"                 \
+        --textdomain="waffleiron"       \
+        --plugin="waffleiron"           \
+        --dashicon="$icon" \
+        --force ;
 
       shift # past argument
       shift # past value
@@ -361,7 +405,7 @@ while [[ $# -gt 0 ]]
 
     # deploy
     -c|c|config)
-      cd $DIR/bin && \
+      cd $WAFFLEIRON_DIR/bin && \
         $( $EDITOR waffleiron )
       shift # past argument
       shift # past value
@@ -515,10 +559,10 @@ while [[ $# -gt 0 ]]
     # catch em all...
     *)
       POSITIONAL+=("$1")
-      printf "\n nada \n\n"
       shift
     ;;
   esac
 done
 
-set -- "${POSITIONAL[@]}" # restore positional parameters
+# restore positional parameters
+set -- "${POSITIONAL[@]}"
