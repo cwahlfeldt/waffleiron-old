@@ -535,7 +535,7 @@ while [[ $# -gt 0 ]]
     ;;
 
     # help
-    '-c\ production'|clean:prod)
+    clean:prod)
       lando ssh -c "rm -rf /app/web/wp-content/uploads/cache/* /app/node_modules"
 
       shift # past argument
