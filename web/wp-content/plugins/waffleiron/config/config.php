@@ -78,6 +78,7 @@ add_action('upload_mimes', function($file_types) {
   $new_filetypes = array();
 
   $new_filetypes [ 'svg'  ] = 'image/svg+xml';
+  $new_filetypes [ 'svgz '] = 'image/svg+xml';
   $new_filetypes [ 'webp' ] = 'image/webp';
   $new_filetypes [ 'weba' ] = 'audio/weba';
   $new_filetypes [ 'webm' ] = 'video/webm';
