@@ -20,20 +20,20 @@
 @endphp
 
 @section('content')
-  <section style="max-width; 1500px; margin: 0 auto;" class="w-full h-full pt-8 pb-2 px-5">
+  <section class="w-full h-full pt-8 pb-2 container">
 
-    <header class=" primary-navigation -mt-6">
+    <header class="primary-navigation -mt-6">
       <nav class="primary w-full flex flex-row">
         <a href="/{{ $navigation['primary']->post_name }}" class="hover:opacity-75 relative -ml-3">
-          <img class="brand sm:w-88 w-48" src="{{ $brand }}" />
+          <img class="brand md:w-88 w-48" src="{{ $brand }}" />
         </a>
-        <section class="primary-menu sm:flex flex-row items-center w-full justify-end hidden">
+        <section class="primary-menu md:flex hidden flex-row items-center w-full justify-end">
           @foreach ($navigation['primary'] as $nav)
             @if ($loop->index == 1)
               @continue
             @endif
             <div class="menu-item w-auto relative">
-              <a class="menu-link dib font-wide uppercase font-normal text-sm text-tan hover:opacity-75 mb-10 tracking-wide {{ $loop->first ? 'pr-4' : 'p-4' }} {{ $loop->last ? 'pl-4' : '' }}" href="/{{ $nav->post_name }}">
+              <a class="menu-link dib font-wide uppercase font-normal lg:text-sm text-xs text-tan hover:opacity-75 mb-10 tracking-wide {{ $loop->first ? 'md:pr-4 pr-2' : 'md:p-4 p-2' }} {{ $loop->last ? 'md:pl-4 pl-2' : '' }}" href="/{{ $nav->post_name }}">
                 {{ $nav->post_title }}
                 <div class="menu-guide px-6 absolute -mb-5 w-full h-4 bg-orange">&nbsp;</div>
               </a>

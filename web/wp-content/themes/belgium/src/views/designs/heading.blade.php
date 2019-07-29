@@ -1,6 +1,6 @@
 <section class="heading w-full relative container">
-  <div class="flex flex-row w-full h-full">
-    <div class="h-full order-1 w-1/4 mr-3 bg-blue relative py-12">
+  <div class="flex sm:flex-row flex-col w-full h-full">
+    <div class="h-full sm:order-1 order-2 md:w-1/2 lg:w-1/4 sm:w-full sm:mr-3 bg-blue relative py-12">
       <div class="h-full flex flex-col justify-between items-center relative">
         <img class="w-auto px-12 pb-12" src="{{ get_sub_field('branding')['logo']['url'] }}" alt="">
         <hr class="w-10 my-2 border border-orange border-solid border-1">
@@ -15,7 +15,7 @@
         </div>
       </div>
     </div>
-    <div class="order-2 w-3/4 ml-3 bg-center bg-cover" style="background-image: url({{ get_sub_field('branding')['stock']['url'] }});">
+    <div class="sm:order-2 order-1 md:w-1/2 lg:w-3/4 sm:w-full sm:ml-3 bg-center bg-cover" style="background-image: url({{ get_sub_field('branding')['stock']['url'] }});">
       <div class="flex flex-col justify-end items-end p-8 h-full">
         <p class="heading-branded-text text-left tracking-wider text-white text-center font-slab font-thin uppercase leading-tight text-5xl">
           {!! get_sub_field('branding')['title'] !!}
