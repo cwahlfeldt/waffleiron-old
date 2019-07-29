@@ -416,10 +416,14 @@ while [[ $# -gt 0 ]]
           REMOTE=origin
       fi
 
+      _build && _clean && \
       cd $WAFFLEIRON_DIR && \
         git pull $REMOTE $BRANCH && \
-          ./bin/gacp "iron deploy duh!" && git checkout origin master && \
-            ./bin/gacp "iron master deploy" ;
+          ./bin/gacp "iron deploy duh!" $REMOTE $BRANCH && git checkout origin master && git pull $REMOTE $BRANCH --rebase --force && \
+            ./bin/gacp "iron master deploy" origin master --force ;
+
+      lando db-export web/public/dump.sql
+      lando push --database=dev --files=dev --code=none
 
       shift # past argument
       shift # past value
