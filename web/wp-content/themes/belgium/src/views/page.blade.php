@@ -20,7 +20,7 @@
 @endphp
 
 @section('content')
-  <section style="max-width; 1500px; margin: 0 auto;" class="w-full h-full pt-8 pb-2 px-10">
+  <section style="max-width; 1500px; margin: 0 auto;" class="w-full h-full pt-8 pb-2 px-5">
 
     <header class=" primary-navigation -mt-6">
       <nav class="primary w-full flex flex-row">
@@ -47,6 +47,9 @@
             @endif
             {{-- <div class="menu-item"><a class="menu-link font-sans font-normal text-lg text-tan" href="/{{ $nav['post_name'] }}">{{ $nav['post_title'] }}</a></div> --}}
           @endforeach
+          <div class="menu-item w-auto relative">
+            <button class="button text-white pl-2 hover:bg-white hover:text-orange"><i class="fa fa-search bg-gray p-1"></i></button>
+          </div>
           </div>
         </section>
       </nav>
@@ -56,33 +59,35 @@
       @while (have_rows('designs')) @php(the_row())
 
         @if (get_row_layout() === 'heading')
-          <section class="heading w-full relative container">
-            <div class="flex flex-row w-full h-full">
-              <div class="h-full order-1 w-1/4 mr-3 bg-blue relative py-12">
-                <div class="h-full flex flex-col justify-between items-center relative">
-                  <img class="w-auto px-12 pb-12" src="{{ get_sub_field('branding')['logo']['url'] }}" alt="">
-                  <hr class="w-10 my-2 border border-orange border-solid border-1">
-                  <p class="text-white text-center font-amp uppercase font-medium text-normal leading-loose py-3">
-                    {!! get_sub_field('text') !!}
-                  </p>
-                  <hr class="w-10 border border-orange border-solid border-1">
-                  <div class="flex flex-col justify-end items-end p-8">
-                    <a class="link px-5 py-2 font-wide tracking-wide text-white hover:text-blue border border-solid border-orange hover:bg-orange" href="{{ get_sub_field('link') }}">
-                      Our Attorneys
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div class="order-2 w-3/4 ml-3 bg-center bg-cover" style="background-image: url({{ get_sub_field('branding')['stock']['url'] }});">
-                <div class="flex flex-col justify-end items-end p-8 h-full">
-                  <p class="heading-branded-text text-left tracking-wider text-white text-center font-slab font-thin uppercase leading-tight text-5xl">
-                    {!! get_sub_field('branding')['title'] !!}
-                  </p>
-                </div>
+          @include('designs.heading')
+        @endif
 
-              </div>
-            </div>
-          </section>
+        @if (get_row_layout() === 'intro')
+          @include('designs.intro')
+        @endif
+
+        @if (get_row_layout() === 'content')
+          @include('designs.content')
+        @endif
+
+        @if (get_row_layout() === 'contact')
+          @include('designs.contact')
+        @endif
+
+        @if (get_row_layout() === 'image')
+          @include('designs.image')
+        @endif
+
+        @if (get_row_layout() === 'list')
+          @include('designs.list')
+        @endif
+
+        @if (get_row_layout() === 'accordions')
+          @include('designs.accordions')
+        @endif
+
+        @if (get_row_layout() === 'attorneys')
+          @include('designs.attorneys')
         @endif
 
       @endwhile
