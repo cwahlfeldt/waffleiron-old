@@ -1,37 +1,28 @@
 const { createServer } = require('http');
 const { createProxyServer } = require('http-proxy');
-const Path = require('path');
-const Bundler = require('parcel-bundler');
+const concurrently = require('concurrently');
 
 const backEnd = {
   protocol: 'http',
-  host: 'waffleiron-tm.lndo.site',
+  host: 'iron-tm.lndo.site',
   port: 8080
 };
 
-const parcelEnd = {
+const proxyEnd = {
   protocol: 'http',
   host: 'localhost',
-  port: 1234
+  port: 1420
 };
 
-// parcel options, such as publicUrl, watch, sourceMaps... none of which are needed for this proxy server configuration
-const options = {};
-
-// point parcel at its "input"
-const entryFiles = Path.join(__dirname, 'src', 'index.html');
-
-// init the bundler
-const bundler = new Bundler(entryFiles, options);
-  
-bundler.serve();
- 
 // create a proxy server instance
 const proxy = createProxyServer();
+
+concurrently([ 'npm:watch-*' ], {})
+  .then(res => ({ res }));
  
 // serve
 const server = createServer((req, res) => {
-  if (req.url.includes('/web/')) {
+  if (req.url.includes('/')) {
     proxy.web(req, res, {
       // back-end server, local tomcat or otherwise
       target: backEnd,
@@ -41,7 +32,7 @@ const server = createServer((req, res) => {
   } else {
     // parcel's dev server
     proxy.web(req, res, {
-      target: parcelEnd,
+      target: proxyEnd,
       ws: true
     });
   }
