@@ -239,10 +239,8 @@ _cc () {
     lando terminus env:clear-cache ${1:-"$SITE_NAME.$SITE_ENV"}
   fi
 
-  lando ssh -c " \
-    rm -rf /app/web/wp-content/uploads/cache/* \
-  " && \ 
-  lando wp cache flush ;
+  lando ssh -c " rm -rf /app/web/wp-content/uploads/cache/*" && \
+  lando wp cache flush
 }
 
 _clean () {
