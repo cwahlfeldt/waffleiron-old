@@ -3,6 +3,11 @@
 message=${1:-"\"yo put a message in yo commits\" - waffles"}
 remote=${2:-$(git branch | grep \* | cut -d ' ' -f2)}
 
+if [[ "$remote" -eq "master" ]]
+  then
+    remote='origin'
+fi
+
 shift;
 shift;
 shift;
