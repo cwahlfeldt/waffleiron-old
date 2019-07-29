@@ -14,15 +14,17 @@ html {
   transition: all 200ms ease-in-out;
 }
 
+footer .footer {
+  height: 300px;
+}
+
 .container {
   padding-left: 20px;
   padding-right: 20px;
-  max-width: 1440px !important;
+  max-width: 1900px !important;
 }
 
 .container-sm {
-  padding-left: 20px;
-  padding-right: 20px;
   max-width: 1200px !important;
 }
 
@@ -55,10 +57,6 @@ html {
 
 .primary-navigation .dropdown-menu:hover {
   visibility: visible !important;
-}
-
-.container-sm {
-  max-width: 969px;
 }
 
 .heading {

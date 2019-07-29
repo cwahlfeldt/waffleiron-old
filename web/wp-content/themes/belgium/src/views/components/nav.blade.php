@@ -1,5 +1,14 @@
-<header class="primary-navigation -mt-6">
-  <nav class="primary w-full flex flex-row">
+@php
+  $navigation = array(
+    'primary' => get_field('primary', 'options'),
+    'secondary' => get_field('secondary', 'options'),
+    'ternary' => get_field('ternary', 'options'),
+    'footer' => get_field('primary', 'options'),
+  );
+  $brand = get_field('branding', 'options')['Logo']['url'];
+@endphp
+<header class="primary-navigation">
+  <nav class="primary flex flex-row">
     <a href="/{{ $navigation['primary']->post_name }}" class="hover:opacity-75 relative -ml-3">
       <img class="brand md:w-88 w-48" src="{{ $brand }}" />
     </a>

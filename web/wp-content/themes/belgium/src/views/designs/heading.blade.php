@@ -1,4 +1,4 @@
-<section class="heading w-full relative container">
+<section class="heading w-full relative">
   <div class="flex sm:flex-row flex-col w-full h-full">
     <div class="h-full sm:order-1 order-2 md:w-1/2 lg:w-1/4 sm:w-full sm:mr-3 bg-blue relative py-12">
       <div class="h-full flex flex-col justify-between items-center relative">

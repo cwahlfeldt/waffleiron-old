@@ -399,6 +399,8 @@ module.exports = {
     width: theme => ({
       auto: 'auto',
       ...theme('spacing'),
+      '500' : '500px',
+      '400' : '400px',
       '88': '22rem',
       '1/2': '50%',
       '1/3': '33.333333%',

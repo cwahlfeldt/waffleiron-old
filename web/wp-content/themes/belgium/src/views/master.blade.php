@@ -3,8 +3,10 @@
   @include('head')
   <body @php body_class() @endphp>
     @php do_action('get_header') @endphp
-    {{-- @include('blocks.header') --}}
-    <div class="wrap" role="document">
+    <div class="container">
+      @include('components.nav')
+    </div>
+    <div class="container" role="document">
       <div class="content">
         <main class="main">
           @yield('content')
