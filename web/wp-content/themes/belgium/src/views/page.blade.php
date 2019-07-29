@@ -15,8 +15,9 @@
         );
         echo json_encode($navigation);
       @endphp
-        {{ $navigation('primary') }}
+      {{ $navigation('primary') }}
 
+    <div class="w-full"></div>
     </nav>
   </header>
 @endsection

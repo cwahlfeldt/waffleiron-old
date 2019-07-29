@@ -8,7 +8,7 @@
 
 /*
  */
-require "vendor/autoload.php";
+require_once "vendor/autoload.php";
 Use eftec\bladeone\BladeOne;
 
 $views = __DIR__ . '/src/views'; // it uses the folder /views to read the templates

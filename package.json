@@ -11,6 +11,7 @@
     "start": "node ./server.js",
     "build": "concurrently \"pnpm run build-typescript\" \"pnpm run build-postcss\"",
     "clean": "rm -rf web/public/*.out.*",
+    "watch": "concurrently \"pnpm run watch-typescript\" \"pnpm run watch-postcss\"",
     "build-postcss": "postcss web/wp-content/themes/belgium/src/styles/tailwind.css -o web/wp-content/themes/belgium/public/mod.css --map",
     "watch-postcss": "postcss web/wp-content/themes/belgium/src/styles/tailwind.css --watch -o web/wp-content/themes/belgium/public/mod.css --map",
     "watch-typescript": "tsc --watch tsconfig.json",
@@ -35,6 +36,7 @@
   },
   "homepage": "https://github.com/cwahlfeldt/waffleiron#readme",
   "dependencies": {
+    "chokidar": "^3.0.2",
     "concurrently": "^4.1.1",
     "http-proxy": "^1.17.0",
     "parcel-bundler": "^1.12.3",

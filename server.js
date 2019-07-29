@@ -1,25 +1,41 @@
 const { createServer } = require('http');
 const { createProxyServer } = require('http-proxy');
-const concurrently = require('concurrently');
+const Path = require('path');
+const Bundler = require('parcel-bundler');
+const chokidar = require('chokidar');
 
 const backEnd = {
   protocol: 'http',
   host: 'iron-tm.lndo.site',
-  port: 8080
 };
 
-const proxyEnd = {
+const parcelEnd = {
   protocol: 'http',
   host: 'localhost',
-  port: 1420
+  port: 1234
 };
 
+// parcel options, such as publicUrl, watch, sourceMaps... none of which are needed for this proxy server configuration
+const options = {
+  sourceMaps: true,
+  watch: true,
+};
+
+// point parcel at its "input"
+const entryFiles = Path.join(__dirname, 'web/wp-content/themes/belgium/public', 'index.html');
+
+// init the bundler
+const bundler = new Bundler(entryFiles, options);
+  
+bundler.serve();
+ 
 // create a proxy server instance
 const proxy = createProxyServer();
 
-concurrently([ 'npm:watch-*' ], {})
-  .then(res => ({ res }));
- 
+const watcher = chokidar.watch(`web/wp-content/themes/belgium/src/**/*`, (event, path) => {
+  console.log(event, path) 
+});
+
 // serve
 const server = createServer((req, res) => {
   if (req.url.includes('/')) {
@@ -30,10 +46,9 @@ const server = createServer((req, res) => {
       autoRewrite: true
     });
   } else {
-    // parcel's dev server
     proxy.web(req, res, {
-      target: proxyEnd,
+      target: parcelEnd,
       ws: true
     });
   }
-})
+}).listen(1420);
