@@ -57,7 +57,13 @@ _ls () {
 }
 
 _start () {
-  if test which pnpm ; then pnpm start ; else npm start ; fi ;
+  if test which pnpm
+  then
+    pnpm start
+  else
+  then
+    npm start
+  fi
 }
 
 # list the apps path
