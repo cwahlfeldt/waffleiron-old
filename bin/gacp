@@ -1,25 +1,17 @@
 #!/usr/local/bin/bash
 
 message=${1:-"\"yo put a message in yo commits\" - waffles"}
-<<<<<<< HEAD
 branch=${3:-$(git branch | grep \* | cut -d ' ' -f2)}
 remote=${2:-$branch}
-=======
-remote=${2:-$(git branch | grep \* | cut -d ' ' -f2)}
 
 if [[ "$remote" -eq "master" ]]
   then
     remote='origin'
 fi
->>>>>>> 11b1faa86f47b8f80ac06575151ae70ff08dcfbb
 
 shift;
 shift;
 shift;
 
 git add -A && git commit -m "$message" ; \
-<<<<<<< HEAD
   git push $remote $branch $@ ;
-=======
-  git push $remote $@ ;
->>>>>>> 11b1faa86f47b8f80ac06575151ae70ff08dcfbb
