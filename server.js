@@ -32,9 +32,7 @@ bundler.serve();
 // create a proxy server instance
 const proxy = createProxyServer();
 
-const watcher = chokidar.watch(`web/wp-content/themes/belgium/src/**/*`, (event, path) => {
-  console.log(event, path) 
-});
+const watcher = chokidar.watch(`web/wp-content/themes/belgium/`, {ignored: `web/wp-content/themes/belgium/public`});
 
 // serve
 const server = createServer((req, res) => {

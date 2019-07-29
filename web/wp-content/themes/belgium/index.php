@@ -1,13 +1,11 @@
 <?php
 
-/**
+/*
  *
  * Simulates template heirarchy but uses blade templates
  *
  */
 
-/*
- */
 require_once "vendor/autoload.php";
 Use eftec\bladeone\BladeOne;
 
@@ -37,6 +35,7 @@ elseif ( is_single() && $template            = 'single' ) :
 elseif ( is_page() && $template              = 'page' ) :
 elseif ( is_singular() && $template          = 'singular' ) :
 elseif ( is_category() && $template          = 'category' ) :
+elseif ( is_media() && $template          = 'media' ) :
 elseif ( is_tag() && $template               = 'tag' ) :
 elseif ( is_author() && $template            = 'author' ) :
 elseif ( is_date() && $template              = 'date' ) :
@@ -54,7 +53,7 @@ if ($template === 'single') {
   if ($type == 'product') {$template = 'product';}
 }
 
-echo $template;
+/* echo $template; */
 
 // render template
 echo $blade->run($template);

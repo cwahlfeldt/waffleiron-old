@@ -6,7 +6,6 @@ module.exports = {
     screens: {
       sm: '640px',
       md: '768px',
-      mdd:'769px',
       lg: '1024px',
       xl: '1280px',
     },
@@ -37,11 +36,9 @@ module.exports = {
         700: '#c53030',
         800: '#9b2c2c',
         900: '#742a2a',
-        900: '#742a2a',
       },
       orange: {
-        // 100: '#fffaf0',
-        100: 'red',
+        100: '#fffaf0',
         200: '#feebc8',
         300: '#fbd38d',
         400: '#f6ad55',

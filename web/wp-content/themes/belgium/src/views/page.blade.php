@@ -1,23 +1,21 @@
 @extends('master')
 
-@section('content')
-  <header class="primary-navigation">
-    <nav class="primary">
-      <a href="/">
-        <img class="brand"></img>
-      </a>
-      @php
-        $navigation = array(
-          get_field('primary', 'options'),
-          get_field('secondary', 'options'),
-          get_field('ternary', 'options'),
-          get_field('footer', 'options'),
-        );
-        echo json_encode($navigation);
-      @endphp
-      {{ $navigation('primary') }}
+@php
+  $navigation = array(
+    'primary' => get_field('primary', 'options'),
+    'secondary' => get_field('secondary', 'options'),
+    'ternary' => get_field('ternary', 'options'),
+    'footer' => get_field('primary', 'options'),
+  );
+  $brand = get_field('branding', 'options')['Logo']['url'];
+@endphp
 
-    <div class="w-full"></div>
+@section('content')
+  <header class=" primary-navigation">
+    <nav class="primary w-full flex flex-row">
+      <a href="/">
+        <img class="brand w-48" src="{{ $brand }}" />
+      </a>
     </nav>
   </header>
 @endsection
