@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "777bcdea6f8d82f5eaaa3f4290145ca8",
+    "content-hash": "07c6a0b18cd55cc568dff7d6972c4556",
     "packages": [
         {
             "name": "advanced-custom-fields/advanced-custom-fields-pro",
@@ -4148,12 +4148,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "c59713fbd4dda58e569d43db9e53f3ba73ffe9e0"
+                "reference": "9ae59b2b73550d86710a08befeeef5e74d9fbdc9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/c59713fbd4dda58e569d43db9e53f3ba73ffe9e0",
-                "reference": "c59713fbd4dda58e569d43db9e53f3ba73ffe9e0",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/9ae59b2b73550d86710a08befeeef5e74d9fbdc9",
+                "reference": "9ae59b2b73550d86710a08befeeef5e74d9fbdc9",
                 "shasum": ""
             },
             "require": {
@@ -4191,7 +4191,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2019-07-25T06:29:25+00:00"
+            "time": "2019-07-29T03:04:46+00:00"
         },
         {
             "name": "symfony/browser-kit",
@@ -5370,6 +5370,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "eftec/bladeone": 20,
         "johnbillion/extended-cpts": 20,
         "pantheon-systems/wordpress-composer": 20,
         "samrap/acf-fluent": 20,

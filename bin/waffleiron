@@ -57,6 +57,7 @@ _ls () {
 }
 
 _start () {
+
   pnpm start
 }
 
@@ -238,10 +239,11 @@ _cc () {
     lando terminus env:clear-cache ${1:-"$SITE_NAME.$SITE_ENV"}
     exit 0
   fi
+
   lando ssh -c " \
-    rm -rf /app/web/wp-content/uploads/cache/* && \
-      wp cach flush \
-  " ; 
+    rm -rf /app/web/wp-content/uploads/cache/* \
+  " && \ 
+  lando wp cache flush ;
 }
 
 _clean () {
@@ -287,15 +289,6 @@ while [[ $# -gt 0 ]]
       _remote-import-database
       shift # past argument
       shift # past value
-    ;;
-
-    # catch em all...
-    s|start)
-      cd $WAFFLEIRON_DIR && \
-      _start ;
-
-      shift
-      shift
     ;;
 
     # restart
@@ -553,7 +546,17 @@ while [[ $# -gt 0 ]]
     # catch em all...
     s|start)
       cd $WAFFLEIRON_DIR && \
-      _start ;
+        _clean ; \
+        _build ; \
+        node server.js ;
+
+      shift
+      shift
+    ;;
+
+    senv|start-env)
+      cd $WAFFLEIRON_DIR && \
+        _start ;
 
       shift
       shift

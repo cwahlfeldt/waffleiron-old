@@ -14,7 +14,7 @@
           get_field('footer', 'options'),
         );
       @endphp
-      {{ $navigation('primary') }}
+        {{ $navigation('primary') }}
 
     </nav>
   </header>
