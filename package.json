@@ -8,7 +8,7 @@
   },
   "scripts": {
     "lint": "tslint -c tslint.json",
-    "start": "concurrently \"pnpm run watch-typescript\" \"pnpm run watch-postcss\"",
+    "start": "node ./server.js",
     "build": "concurrently \"pnpm run build-typescript\" \"pnpm run build-postcss\"",
     "clean": "rm -rf web/public/*.out.*",
     "build-postcss": "postcss web/wp-content/themes/belgium/src/styles/tailwind.css -o web/wp-content/themes/belgium/public/mod.css --map",
