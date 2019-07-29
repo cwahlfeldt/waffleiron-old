@@ -1,12 +1,11 @@
 #!/usr/local/bin/bash
 
 message=${1:-"\"yo put a message in yo commits\" - waffles"}
-branch=${3:-$(git branch | grep \* | cut -d ' ' -f2)}
-remote=${2:-'origin master'}
+remote=${2:-$(git branch | grep \* | cut -d ' ' -f2)}
 
 shift;
 shift;
 shift;
 
 git add -A && git commit -m "$message" ; \
-  git push $remote $branch $@ ;
+  git push $remote $@ ;
