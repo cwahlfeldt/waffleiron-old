@@ -14,7 +14,6 @@ return array(
     'Spatie\\Ssr\\' => array($vendorDir . '/spatie/server-side-rendering/src'),
     'Samrap\\Acf\\' => array($vendorDir . '/samrap/acf-fluent/src'),
     'PhilippBaschke\\ACFProInstaller\\' => array($vendorDir . '/philippbaschke/acf-pro-installer/src/ACFProInstaller'),
-    'ExtCPTs\\Tests\\' => array($vendorDir . '/johnbillion/extended-cpts/tests/phpunit'),
     'Dotenv\\' => array($vendorDir . '/vlucas/phpdotenv/src'),
     'Doctrine\\Instantiator\\' => array($vendorDir . '/doctrine/instantiator/src/Doctrine/Instantiator'),
     'Doctrine\\Common\\Inflector\\' => array($vendorDir . '/doctrine/inflector/lib/Doctrine/Common/Inflector'),

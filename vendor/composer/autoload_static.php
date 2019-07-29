@@ -8,7 +8,6 @@ class ComposerStaticInitf3e0d5afd6d412e6623bf97846d2f7ed
 {
     public static $files = array (
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
-        'a2c48002d05f7782d8b603bd2bcb5252' => __DIR__ . '/..' . '/johnbillion/extended-cpts/extended-cpts.php',
         '841f98c5d948ce534a6f87abe5b50614' => __DIR__ . '/..' . '/roots/wp-password-bcrypt/wp-password-bcrypt.php',
     );
 
@@ -32,10 +31,6 @@ class ComposerStaticInitf3e0d5afd6d412e6623bf97846d2f7ed
         'P' => 
         array (
             'PhilippBaschke\\ACFProInstaller\\' => 31,
-        ),
-        'E' => 
-        array (
-            'ExtCPTs\\Tests\\' => 14,
         ),
         'D' => 
         array (
@@ -81,10 +76,6 @@ class ComposerStaticInitf3e0d5afd6d412e6623bf97846d2f7ed
         'PhilippBaschke\\ACFProInstaller\\' => 
         array (
             0 => __DIR__ . '/..' . '/philippbaschke/acf-pro-installer/src/ACFProInstaller',
-        ),
-        'ExtCPTs\\Tests\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/johnbillion/extended-cpts/tests/phpunit',
         ),
         'Dotenv\\' => 
         array (

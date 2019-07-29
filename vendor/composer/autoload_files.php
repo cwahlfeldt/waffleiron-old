@@ -7,6 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     '320cde22f66dd4f5d3fd621d3e88b98f' => $vendorDir . '/symfony/polyfill-ctype/bootstrap.php',
-    'a2c48002d05f7782d8b603bd2bcb5252' => $vendorDir . '/johnbillion/extended-cpts/extended-cpts.php',
     '841f98c5d948ce534a6f87abe5b50614' => $vendorDir . '/roots/wp-password-bcrypt/wp-password-bcrypt.php',
 );
