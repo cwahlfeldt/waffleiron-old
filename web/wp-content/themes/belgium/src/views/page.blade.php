@@ -8,22 +8,23 @@
     'footer' => get_field('primary', 'options'),
   );
   $brand = get_field('branding', 'options')['Logo']['url'];
-  echo json_encode($navigation['primary']);
-  function has_children(child) {
+
+ /* function has_children(child) {
     $children = get_pages( array( 'child_of' => $child ) );
     if( count( $children ) == 0 ) {
         return false;
     } else {
         return true;
     }
-  }
+  }*/
 @endphp
 
 @section('content')
-  <section class="w-full h-screen h-screen pt-2 pb-10 px-10">
-    <header class=" primary-navigation">
+  <section style="max-width; 1500px; margin: 0 auto;" class="w-full h-full pt-8 pb-2 px-10">
+
+    <header class=" primary-navigation -mt-6">
       <nav class="primary w-full flex flex-row">
-        <a href="/{{ $navigation['primary']->post_name }}" class="hover:opacity-75 relative">
+        <a href="/{{ $navigation['primary']->post_name }}" class="hover:opacity-75 relative -ml-3">
           <img class="brand sm:w-88 w-48" src="{{ $brand }}" />
         </a>
         <section class="primary-menu sm:flex flex-row items-center w-full justify-end hidden">
@@ -34,13 +35,11 @@
             <div class="menu-item w-auto relative">
               <a class="menu-link dib font-wide uppercase font-normal text-sm text-tan hover:opacity-75 mb-10 tracking-wide {{ $loop->first ? 'pr-4' : 'p-4' }} {{ $loop->last ? 'pl-4' : '' }}" href="/{{ $nav->post_name }}">
                 {{ $nav->post_title }}
-                @if (has_children($nav->ID))
-                  <div class="menu-guide px-6 absolute -mb-5 w-full h-4 bg-orange">&nbsp;</div>
-                @endif
+                <div class="menu-guide px-6 absolute -mb-5 w-full h-4 bg-orange">&nbsp;</div>
               </a>
             </div>
 
-            @if (has_children($nav->ID))
+            @if ( get_page_children( $nav->ID, array($nav) ) )
               <div class="dropdown-menu absolute w-screen bg-orange">
                 <h2 class="font-wide text-4xl border-bottom"></h2>
                 <div class="container-sm flex flex-row"></div>
@@ -50,10 +49,45 @@
           @endforeach
           </div>
         </section>
-
-
       </nav>
-
     </header>
+
+    @if (have_rows('designs'))
+      @while (have_rows('designs')) @php(the_row())
+
+        @if (get_row_layout() === 'heading')
+          <section class="heading w-full relative container">
+            <div class="flex flex-row w-full h-full">
+              <div class="h-full order-1 w-1/4 mr-3 bg-blue relative py-12">
+                <div class="h-full flex flex-col justify-between items-center relative">
+                  <img class="w-auto px-12 pb-12" src="{{ get_sub_field('branding')['logo']['url'] }}" alt="">
+                  <hr class="w-10 my-2 border border-orange border-solid border-1">
+                  <p class="text-white text-center font-amp uppercase font-medium text-normal leading-loose py-3">
+                    {!! get_sub_field('text') !!}
+                  </p>
+                  <hr class="w-10 border border-orange border-solid border-1">
+                  <div class="flex flex-col justify-end items-end p-8">
+                    <a class="link px-5 py-2 font-wide tracking-wide text-white hover:text-blue border border-solid border-orange hover:bg-orange" href="{{ get_sub_field('link') }}">
+                      Our Attorneys
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="order-2 w-3/4 ml-3 bg-center bg-cover" style="background-image: url({{ get_sub_field('branding')['stock']['url'] }});">
+                <div class="flex flex-col justify-end items-end p-8 h-full">
+                  <p class="heading-branded-text text-left tracking-wider text-white text-center font-slab font-thin uppercase leading-tight text-5xl">
+                    {!! get_sub_field('branding')['title'] !!}
+                  </p>
+                </div>
+
+              </div>
+            </div>
+          </section>
+        @endif
+
+      @endwhile
+    @endif
+
+
   </section>
 @endsection
