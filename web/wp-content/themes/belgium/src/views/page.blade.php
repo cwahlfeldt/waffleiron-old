@@ -15,10 +15,7 @@
         );
         echo json_encode($navigation);
       @endphp
-<<<<<<< HEAD
         {{ $navigation('primary') }}
-=======
->>>>>>> git workflow issues
 
     </nav>
   </header>
