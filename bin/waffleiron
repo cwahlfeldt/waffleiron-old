@@ -241,15 +241,9 @@ _cc () {
   fi
 
   lando ssh -c " \
-<<<<<<< HEAD
     rm -rf /app/web/wp-content/uploads/cache/* \
   " && \ 
   lando wp cache flush ;
-=======
-    rm -rf /app/web/wp-content/uploads/cache/*
-  " && \
-    lando wp cache flush ;
->>>>>>> git workflow issues
 }
 
 _clean () {
