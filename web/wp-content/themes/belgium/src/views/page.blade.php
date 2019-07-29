@@ -13,9 +13,18 @@
 @section('content')
   <header class=" primary-navigation">
     <nav class="primary w-full flex flex-row">
-      <a href="/">
-        <img class="brand w-48" src="{{ $brand }}" />
+      <a href="/{{ $navigation['primary']->post_name }}">
+        <img class="brand sm:w-64 w-48" src="{{ $brand }}" />
       </a>
+      <section class="primary-menu relative sm:flex flex-row justify-end hidden">
+        @foreach ($navigation['primary'] as $nav)
+          @if ($loop->index == 1)
+            @continue
+          @endif
+          <div class="menu-item"><a class="menu-link font-sans font-normal text-lg text-tan" href="/{{ $nav->post_name }}">{{ $nav->post_title }}</a></div>
+          {{-- <div class="menu-item"><a class="menu-link font-sans font-normal text-lg text-tan" href="/{{ $nav['post_name'] }}">{{ $nav['post_title'] }}</a></div> --}}
+        @endforeach
+      </section>
     </nav>
   </header>
 @endsection

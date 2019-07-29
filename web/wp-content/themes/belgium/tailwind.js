@@ -221,25 +221,32 @@ module.exports = {
     },
     fontFamily: {
       sans: [
-        '-apple-system',
-        'BlinkMacSystemFont',
-        '"Segoe UI"',
-        'Roboto',
-        '"Helvetica Neue"',
-        'Arial',
-        '"Noto Sans"',
+        'aviano-sans',
         'sans-serif',
-        '"Apple Color Emoji"',
-        '"Segoe UI Emoji"',
-        '"Segoe UI Symbol"',
-        '"Noto Color Emoji"',
       ],
       serif: [
-        'Georgia',
-        'Cambria',
-        '"Times New Roman"',
-        'Times',
+        'adobe-caslon-pro',
         'serif',
+      ],
+      slab: [
+        'aviano-slab',
+        'serif',
+      ],
+      amp: [
+        'amplitude',
+        'sans-serif'
+      ],
+      compressed: [
+        'amplitude-compressed',
+        'sans-serif'
+      ],
+      condensed: [
+        'amplitude-condensed',
+        'sans-serif'
+      ],
+      wide: [
+        'amplitude-wide',
+        'sans-serif'
       ],
       mono: [
         'Menlo',
