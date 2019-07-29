@@ -13,8 +13,12 @@
           get_field('ternary', 'options'),
           get_field('footer', 'options'),
         );
+        echo json_encode($navigation);
       @endphp
+<<<<<<< HEAD
         {{ $navigation('primary') }}
+=======
+>>>>>>> git workflow issues
 
     </nav>
   </header>
