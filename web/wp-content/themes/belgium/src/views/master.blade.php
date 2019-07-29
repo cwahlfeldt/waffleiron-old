@@ -12,7 +12,7 @@
       </div>
     </div>
     @php do_action('get_footer') @endphp
-    {{-- @include('components.footer') --}}
+    @include('footer')
     @php wp_footer() @endphp
   </body>
 </html>

@@ -1,12 +1,7 @@
-(function() {
-  const dropdowns = document.querySelectorAll('.dropdown-menu')
-  dropdowns.forEach(dropdown => {
-    dropdown.onmouseenter = () => {
-      this.style.visibility = "visible"
-    }
-
-    dropdown.onmouseleave = function(){
-      this.style.visibility = "invisible"
-    }; 
+(function($) {
+  $('.menu-link').hover(function() {
+    $(this).parent().parent().find('.dropdown-menu')
+  }, function() {
+  
   })
-})()
+})(jQuery)
