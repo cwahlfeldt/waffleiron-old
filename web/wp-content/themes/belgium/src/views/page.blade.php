@@ -6,7 +6,16 @@
       <a href="/">
         <img class="brand"></img>
       </a>
-      {{ json_encode(get_field('primary_navigation', 'options')) }}
+      @php
+        $navigation = array(
+          get_field('primary', 'options'),
+          get_field('secondary', 'options'),
+          get_field('ternary', 'options'),
+          get_field('footer', 'options'),
+        );
+      @endphp
+      {{ $navigation('primary') }}
+
     </nav>
   </header>
 @endsection
