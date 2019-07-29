@@ -409,7 +409,18 @@ while [[ $# -gt 0 ]]
 
     # deploy
     dep|deploy)
-      _deploy $2
+      REMOTE=$(git branch | grep \* | cut -d ' ' -f2)
+      BRANCH=$(git branch | grep \* | cut -d ' ' -f2)
+      if [[ $BRANCH -eq "master" ]]
+        then
+          REMOTE=origin
+      fi
+
+      cd $WAFFLEIRON_DIR && \
+        git pull $REMOTE $BRANCH && \
+          ./bin/gacp "iron deploy duh!" && git checkout origin master && \
+            ./bin/gacp "iron master deploy" ;
+
       shift # past argument
       shift # past value
     ;;
