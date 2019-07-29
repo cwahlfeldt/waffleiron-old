@@ -235,9 +235,8 @@ _install () {
 # cc yo ma
 _cc () {
   cd $WAFFLEIRON_DIR
-  if [[ -z $1 ]] && [[ $1 -eq "--remote" ]] ; then
+  if [[ $1 -eq "--remote" ]] ; then
     lando terminus env:clear-cache ${1:-"$SITE_NAME.$SITE_ENV"}
-    exit 0
   fi
 
   lando ssh -c " \
