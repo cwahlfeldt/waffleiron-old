@@ -18,6 +18,11 @@ footer .footer {
   height: 300px;
 }
 
+.primary .brand {
+  width: 30vw;
+  margin-left: 1vw;
+}
+
 .container {
   padding-left: 20px;
   padding-right: 20px;
