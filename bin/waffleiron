@@ -570,9 +570,14 @@ while [[ $# -gt 0 ]]
     # catch em all...
     s|start)
       cd $WAFFLEIRON_DIR && \
-        _clean ; \
-        _build ; \
-        node server.js ;
+        lando start && \
+        if [[$2 -eq "--pull"]]
+        then
+          lando pull --code=none --database=dev --files=dev
+        fi
+        pnpm run watch & \
+          lando composer install --no-dev --prefer-dist --no-ansi --no-interaction --optimize-autoloader --no-progress && \
+          fg ;
 
       shift
       shift
