@@ -9,7 +9,8 @@
   "scripts": {
     "lint": "tslint -c tslint.json",
     "start": "node ./server.js & postcss web/wp-content/themes/belgium/src/styles/tailwind.css --watch -o web/wp-content/themes/belgium/public/mod.css --map && fg",
-    "build": "concurrently \"pnpm run build-typescript\" \"pnpm run build-postcss\"",
+    "kill_process": "kill -9 $(pgrep -f server.js)",
+    "build": "postcss web/wp-content/themes/belgium/src/styles/tailwind.css --watch -o web/wp-content/themes/belgium/public/mod.css --map && node ./server.js",
     "clean": "rm -rf web/public/*.out.*",
     "watch": "concurrently \"npm:watch-postcss\" \"npm:start\"",
     "build-postcss": "postcss web/wp-content/themes/belgium/src/styles/tailwind.css -o web/wp-content/themes/belgium/public/mod.css --map",

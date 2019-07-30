@@ -17,21 +17,68 @@
         @if ($loop->index == 1)
           @continue
         @endif
-        <div class="menu-item w-auto relative">
-          <a class="menu-link dib font-wide uppercase font-normal lg:text-sm text-xs text-tan hover:opacity-75 mb-10 tracking-wide {{ $loop->first ? 'md:pr-4 pr-2' : 'md:p-4 p-2' }} {{ $loop->last ? 'md:pl-4 pl-2' : '' }}" href="/{{ $nav->post_name }}">
+        <div class="menu-link w-auto relative">
+          <a class="dib font-wide uppercase font-normal lg:text-sm text-xs text-tan hover:opacity-75 mb-10 tracking-wide {{ $loop->first ? 'md:pr-4 pr-2' : 'md:p-4 p-2' }} {{ $loop->last ? 'md:pl-4 pl-2' : '' }}" href="/{{ $nav->post_name }}">
             {{ $nav->post_title }}
-            <div class="menu-guide px-6 absolute -mb-5 w-full h-4 bg-orange">&nbsp;</div>
+            <div class="menu-guide px-6 py-5 absolute -mb-4 w-full h-4 bg-orange z-20">&nbsp;</div>
           </a>
         </div>
 
-        @if ( get_page_children( $nav->ID, array($nav) ) )
-          <div class="dropdown-menu absolute w-screen bg-orange">
-            <h2 class="font-wide text-4xl border-bottom"></h2>
-            <div class="container-sm flex flex-row"></div>
+        <div class="dropdown-menu absolute w-full h-auto z-30 pl-10">
+          <div class="relative w-full flex flex-col justify-center mx-auto bg-orange pt-5 pb-16">
+            <div class="head-col justify-start">
+              <h2 class="font-wide text-4xl border-bottom text-white tracking-widest">
+                Title
+                <hr class="line">
+              </h2>
+            </div>
+            <div class="head-col justify-between">
+              <div class="col h-auto w-auto">
+                <h4 class="subtitle uppercase font-wide tracking-wide text-tan mb-4">Subtitle</h4>
+                <ul class="text-white w-auto font-condensed font-medium leading-snug list-none pl-0 ml-0">
+                  <li>Link</li>
+                  <li>Another Link</li>
+                  <li>Oh yeah</li>
+                  <li>Oh yeah</li>
+                </ul>
+              </div>
+
+              <div class="col h-auto w-auto">
+                <h4 class="subtitle uppercase font-wide tracking-wide text-tan mb-4">Subtitle</h4>
+                <ul class="text-white w-auto font-condensed font-medium leading-snug list-none pl-0 ml-0">
+                  <li>Link</li>
+                  <li>Another Link</li>
+                  <li>Oh yeah</li>
+                  <li>Oh yeah</li>
+                </ul>
+              </div>
+
+              <div class="col h-auto w-auto">
+                <h4 class="subtitle uppercase font-wide tracking-wide text-tan mb-4">Subtitle</h4>
+                <ul class="text-white w-auto relative font-condensed font-medium leading-snug list-none pl-0 ml-0">
+                  <li>Link</li>
+                  <li>Another Link</li>
+                  <li>Oh yeah</li>
+                  <li>Oh yeah</li>
+                </ul>
+              </div>
+
+              <div class="col h-auto w-auto">
+                <h4 class="subtitle uppercase font-wide tracking-wide text-tan mb-4">Subtitle</h4>
+                <ul class="text-white w-auto font-condensed font-medium leading-snug list-none pl-0 ml-0">
+                  <li>Link</li>
+                  <li>Another Link</li>
+                  <li>Oh yeah</li>
+                  <li>Oh yeah</li>
+                </ul>
+              </div>
+            </div>
           </div>
-        @endif
+        </div>
+
         {{-- <div class="menu-item"><a class="menu-link font-sans font-normal text-lg text-tan" href="/{{ $nav['post_name'] }}">{{ $nav['post_title'] }}</a></div> --}}
       @endforeach
+
       <div class="menu-item w-auto relative">
         <button class="button text-white pl-2 hover:bg-white hover:text-orange"><i class="fa fa-search bg-gray p-1"></i></button>
       </div>

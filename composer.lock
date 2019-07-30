@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "40c2844dafa1986d5aef2edf0cc4e94f",
+    "content-hash": "1f9b34c3a9ba4f5ba4646df9474dc1c4",
     "packages": [
         {
             "name": "advanced-custom-fields/advanced-custom-fields-pro",
@@ -1032,6 +1032,25 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/advanced-forms/"
+        },
+        {
+            "name": "wpackagist-plugin/bulk-move",
+            "version": "dev-trunk",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/bulk-move/",
+                "reference": "trunk"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/bulk-move.zip?timestamp=1552826748"
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/bulk-move/",
+            "time": "2019-03-17T12:45:48+00:00"
         },
         {
             "name": "wpackagist-plugin/classic-editor",
@@ -5316,6 +5335,7 @@
         "samrap/acf-fluent": 20,
         "stoutlogic/acf-builder": 20,
         "wpackagist-plugin/acf-archive": 20,
+        "wpackagist-plugin/bulk-move": 20,
         "wpackagist-plugin/filebird": 20,
         "wpackagist-plugin/slate-admin-theme": 20,
         "wpackagist-plugin/wedocs": 20,

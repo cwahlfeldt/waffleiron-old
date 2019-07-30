@@ -23,42 +23,24 @@ footer .footer {
   margin-left: 1vw;
 }
 
-
 .container {
   padding-left: 20px;
   padding-right: 20px;
   max-width: 1900px !important;
 }
 
-.head-col,
 .container-sm {
-  padding-left: 8vw;
-  padding-right: 8vw;
   max-width: 1200px !important;
-}
-
-.head-col {
-  @apply flex flex-auto mx-auto w-full;
 }
 
 .menu-guide {
   left: 0;
-  top: 0;
-  margin-top: calc(5vw - 5px);
+  bottom: -20px;
   visibility: hidden;
 }
 
-hr.line {
-  @apply border border-solid text-left border-1;
-}
-
 .dropdown-menu {
-  top: 0;
-  margin-top: 5.5vw;
-}
-
-.dropdown-menu > hr {
-  margin-right: 55px;
+  top: 64px;
 }
 
 .heading-branded-text {

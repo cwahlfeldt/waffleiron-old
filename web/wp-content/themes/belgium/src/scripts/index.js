@@ -1,6 +1,7 @@
 (function($) {
+  console.log('yo mom')
   $('.menu-link').hover(function() {
-    $(this).parent().parent().find('.dropdown-menu')
+    console.log($(this).parent().parent().find('.dropdown-menu'))
   }, function() {
   
   })

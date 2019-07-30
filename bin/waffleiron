@@ -56,11 +56,6 @@ _ls () {
   ls -la
 }
 
-_start () {
-
-  pnpm start
-}
-
 # list the apps path
 _paths () {
   lando ssh -s appserver -c env | grep "PATH" | cut -d '=' --complement -f 1 | tr ':' '\n'
@@ -254,7 +249,34 @@ _clean () {
 }
 
 _start () {
-  cd $WAFFLEIRON_DIR && lando start
+  cd $WAFFLEIRON_DIR
+  if [[ "$1" -eq "--init" ]] &>/dev/null 2>&1 ;
+    then
+    _init && return 0
+  fi
+
+  kill -9 $(pgrep -f server.js) > /dev/null 2>&1 ; \
+  printf "\n\n \
+    https://$SITE_NAME.lndo.site/ \n \
+    http://localhost:1420/ \n \
+  \n\n" && \
+  $(which npm) run start
+}
+
+_init () {
+  cd $WAFFLEIRON_DIR
+
+  lando start && \
+    lando pull --code=none --database=dev --files=dev && \
+      lando composer install --no-dev --prefer-dist --no-ansi --no-interaction --optimize-autoloader --no-progress ; \
+        $(which npm) install && \
+
+  kill -9 $(pgrep -f server.js) > /dev/null 2>&1 ; \
+  printf "\n\n \
+    https://$SITE_NAME.lndo.site/wp-admin \n \
+    http://localhost:1420/ \n \
+  \n\n" && \
+  $(which npm) run build ;
 }
 
 if [ "$#" -eq 0 ]
@@ -271,13 +293,7 @@ while [[ $# -gt 0 ]]
   case $key in
 
     --init|init) # init functions
-      _rebuild && \
-        _deploy -p && \
-
-      sleep 6.66 && \
-
-      _restart ;
-      
+      _init
       shift # past argument
       shift # past value
     ;;
@@ -551,12 +567,14 @@ while [[ $# -gt 0 ]]
     composer:init)
       _composer_init
       shift # past argument
+      shift # past argument
     ;;
 
     # help
     clean:prod)
       lando ssh -c "rm -rf /app/web/wp-content/uploads/cache/* /app/node_modules"
 
+      shift # past argument
       shift # past argument
     ;;
 
@@ -569,22 +587,7 @@ while [[ $# -gt 0 ]]
 
     # catch em all...
     s|start)
-      cd $WAFFLEIRON_DIR && \
-        if [[$2 -eq "--init"]]
-        then
-          lando pull --code=none --database=dev --files=dev
-          lando composer install --no-dev --prefer-dist --no-ansi --no-interaction --optimize-autoloader --no-progress && \
-            $(which npm) install ;
-        fi
-        $(which npm) run start ;
-
-      shift
-      shift
-    ;;
-
-    senv|start-env)
-      cd $WAFFLEIRON_DIR && \
-        _start ;
+      _start $2
 
       shift ;
       shift ;
