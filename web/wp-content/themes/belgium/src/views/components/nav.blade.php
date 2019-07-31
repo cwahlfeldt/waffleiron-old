@@ -19,15 +19,17 @@
           @continue
         @endif
 
-        <div class="menu-link w-auto relative md:px-4">
-          <a class="dib font-wide uppercase font-normal lg:text-sm text-xs text-tan hover:opacity-75 mb-10 tracking-wide" href="/{{ $nav->post_name }}">
+        <div id="menu-link-{{ $nav->post_name }}" class="menu-link h-auto w-auto relative md:px-4">
+          <a class="dib font-wide hover:text-orange uppercase h-full font-normal lg:text-sm text-xs text-tan hover:opacity-75 mb-10 tracking-wide" href="/{{ $nav->post_name }}">
             {{ $nav->post_title }}
-            <div class="menu-guide px-6 py-5 absolute -mb-4 w-full h-4 bg-orange z-20">&nbsp;</div>
+            @if ($nav->post_name === 'areas-of-practice' || $nav->post_name === 'our-attorneys')
+              <div class="menu-guide px-6 py-5 absolute w-full h-4 bg-orange z-20">&nbsp;</div>
+            @endif
           </a>
         </div>
 
-        @if ($loop->index == 3)
-          <div class="dropdown-menu flex absolute w-full h-auto z-30 pl-10">
+        @if ($nav->post_name === 'areas-of-practice' || $nav->post_name === 'our-attorneys')
+          <div id="dropdown-{{ $nav->post_name }}" class="invisible dropdown-menu flex absolute w-full h-auto z-30 pl-10">
             <div class="relative w-full flex flex-col justify-center mx-auto bg-orange pt-5 pb-16">
               <div class="head-col justify-start">
                 <h2 class="font-wide text-4xl border-bottom text-white tracking-widest">

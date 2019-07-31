@@ -260,11 +260,6 @@ _clean () {
 
 _start () {
   cd $WAFFLEIRON_DIR
-  if [[ "$1" -eq "--init" ]] &>/dev/null 2>&1 ;
-    then
-      _init && \
-        return 0 ;
-  fi
 
   kill -9 $(pgrep -f server.js) > /dev/null 2>&1 ; \
   printf "\n\n \
@@ -288,9 +283,7 @@ _init () {
       lando composer install --no-dev --prefer-dist --no-ansi --no-interaction --optimize-autoloader --no-progress ; \
         $(which pnpm) install ; \
 
-  $(which node) server.js && \
-  sleep 10 && \
-  kill -9 $(ps aux | grep ' server.js') > /dev/null 2>&1 ;
+  _start
 }
 
 if [ "$#" -eq 0 ]

@@ -52,7 +52,8 @@ footer .footer {
 .menu-guide {
   left: 0;
   top: 0;
-  margin-top: calc(5vw - 5px);
+  padding-top: 1.5vw;
+  margin-top: 2.5vw;
   visibility: hidden;
 }
 
@@ -64,7 +65,8 @@ hr.line {
 
 .dropdown-menu {
   top: 0;
-  margin-top: 5.5vw;
+  padding-top: 1.5vw;
+  margin-top: 3.5vw;
 }
 
 .dropdown-menu > hr {
@@ -78,11 +80,15 @@ hr.line {
 }
 
 .menu-link:hover .menu-guide {
-  visibility: visible !important;
+  visibility: visible;
 }
 
 .menu-link:hover+.dropdown-menu {
   visibility: visible !important;
+}
+
+.dropdown-menu:hover {
+  visibility: visible;
 }
 
 .primary-navigation .dropdown-menu:hover {
