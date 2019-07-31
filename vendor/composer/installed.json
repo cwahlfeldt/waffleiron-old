@@ -1010,27 +1010,6 @@
         ]
     },
     {
-        "name": "wpackagist-plugin/acf-archive",
-        "version": "dev-trunk",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "svn",
-            "url": "https://plugins.svn.wordpress.org/acf-archive/",
-            "reference": "trunk"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://downloads.wordpress.org/plugin/acf-archive.zip?timestamp=1557215728"
-        },
-        "require": {
-            "composer/installers": "~1.0"
-        },
-        "time": "2019-05-07T07:55:28+00:00",
-        "type": "wordpress-plugin",
-        "installation-source": "dist",
-        "homepage": "https://wordpress.org/plugins/acf-archive/"
-    },
-    {
         "name": "wpackagist-plugin/acf-to-rest-api",
         "version": "3.1.0",
         "version_normalized": "3.1.0.0",
@@ -1151,48 +1130,6 @@
         "type": "wordpress-plugin",
         "installation-source": "dist",
         "homepage": "https://wordpress.org/plugins/pantheon-advanced-page-cache/"
-    },
-    {
-        "name": "wpackagist-plugin/slate-admin-theme",
-        "version": "dev-trunk",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "svn",
-            "url": "https://plugins.svn.wordpress.org/slate-admin-theme/",
-            "reference": "trunk"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://downloads.wordpress.org/plugin/slate-admin-theme.zip?timestamp=1550944246"
-        },
-        "require": {
-            "composer/installers": "~1.0"
-        },
-        "time": "2019-02-23T17:50:46+00:00",
-        "type": "wordpress-plugin",
-        "installation-source": "dist",
-        "homepage": "https://wordpress.org/plugins/slate-admin-theme/"
-    },
-    {
-        "name": "wpackagist-plugin/wedocs",
-        "version": "dev-trunk",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "svn",
-            "url": "https://plugins.svn.wordpress.org/wedocs/",
-            "reference": "trunk"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://downloads.wordpress.org/plugin/wedocs.zip?timestamp=1562823199"
-        },
-        "require": {
-            "composer/installers": "~1.0"
-        },
-        "time": "2019-07-11T05:33:19+00:00",
-        "type": "wordpress-plugin",
-        "installation-source": "dist",
-        "homepage": "https://wordpress.org/plugins/wedocs/"
     },
     {
         "name": "wpackagist-plugin/wp-native-php-sessions",

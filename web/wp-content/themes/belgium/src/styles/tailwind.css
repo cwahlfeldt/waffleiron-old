@@ -38,7 +38,11 @@ footer .footer {
 }
 
 .head-col {
-  @apply flex flex-auto mx-auto w-full;
+  width: 100%;
+  display: flex;
+  flex: 1 1 auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .menu-guide {
@@ -49,7 +53,9 @@ footer .footer {
 }
 
 hr.line {
-  @apply border border-solid text-left border-1;
+  text-align: text-left;
+  border-width: 1px;
+  border-style: solid;
 }
 
 .dropdown-menu {

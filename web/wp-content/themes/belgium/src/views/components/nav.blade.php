@@ -7,6 +7,7 @@
   );
   $brand = get_field('branding', 'options')['Logo']['url'];
 @endphp
+
 <header class="primary-navigation">
   <nav class="primary flex flex-row">
     <a href="/{{ $navigation['primary']->post_name }}" class="hover:opacity-75 relative -ml-3">
@@ -17,7 +18,7 @@
         @if ($loop->index == 1)
           @continue
         @endif
-        <div class="menu-link w-auto relative">
+        <div class="menu-link w-full relative">
           <a class="dib font-wide uppercase font-normal lg:text-sm text-xs text-tan hover:opacity-75 mb-10 tracking-wide {{ $loop->first ? 'md:pr-4 pr-2' : 'md:p-4 p-2' }} {{ $loop->last ? 'md:pl-4 pl-2' : '' }}" href="/{{ $nav->post_name }}">
             {{ $nav->post_title }}
             <div class="menu-guide px-6 py-5 absolute -mb-4 w-full h-4 bg-orange z-20">&nbsp;</div>
@@ -29,7 +30,7 @@
             <div class="head-col justify-start">
               <h2 class="font-wide text-4xl border-bottom text-white tracking-widest">
                 Title
-                <hr class="line">
+                <hr class="line mr-5">
               </h2>
             </div>
             <div class="head-col justify-between">

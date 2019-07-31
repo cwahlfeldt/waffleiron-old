@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1f9b34c3a9ba4f5ba4646df9474dc1c4",
+    "content-hash": "009d370f1dc6024a762b1c73e6668eda",
     "packages": [
         {
             "name": "advanced-custom-fields/advanced-custom-fields-pro",
@@ -979,25 +979,6 @@
             "time": "2019-01-29T11:11:52+00:00"
         },
         {
-            "name": "wpackagist-plugin/acf-archive",
-            "version": "dev-trunk",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/acf-archive/",
-                "reference": "trunk"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/acf-archive.zip?timestamp=1557215728"
-            },
-            "require": {
-                "composer/installers": "~1.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/acf-archive/",
-            "time": "2019-05-07T07:55:28+00:00"
-        },
-        {
             "name": "wpackagist-plugin/acf-to-rest-api",
             "version": "3.1.0",
             "source": {
@@ -1106,44 +1087,6 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/pantheon-advanced-page-cache/"
-        },
-        {
-            "name": "wpackagist-plugin/slate-admin-theme",
-            "version": "dev-trunk",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/slate-admin-theme/",
-                "reference": "trunk"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/slate-admin-theme.zip?timestamp=1550944246"
-            },
-            "require": {
-                "composer/installers": "~1.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/slate-admin-theme/",
-            "time": "2019-02-23T17:50:46+00:00"
-        },
-        {
-            "name": "wpackagist-plugin/wedocs",
-            "version": "dev-trunk",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/wedocs/",
-                "reference": "trunk"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wedocs.zip?timestamp=1562823199"
-            },
-            "require": {
-                "composer/installers": "~1.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/wedocs/",
-            "time": "2019-07-11T05:33:19+00:00"
         },
         {
             "name": "wpackagist-plugin/wp-native-php-sessions",
@@ -5334,11 +5277,8 @@
         "pantheon-systems/wordpress-composer": 20,
         "samrap/acf-fluent": 20,
         "stoutlogic/acf-builder": 20,
-        "wpackagist-plugin/acf-archive": 20,
         "wpackagist-plugin/bulk-move": 20,
         "wpackagist-plugin/filebird": 20,
-        "wpackagist-plugin/slate-admin-theme": 20,
-        "wpackagist-plugin/wedocs": 20,
         "roave/security-advisories": 20,
         "squizlabs/php_codesniffer": 20,
         "wp-coding-standards/wpcs": 20

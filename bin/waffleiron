@@ -127,9 +127,10 @@ _export-database () {
 # and restart you're momm
 _restart () {
   cd $WAFFLEIRON_DIR && \
-  lando poweroff && osascript -e \'quit app "Docker"\' && printf "\nstopping docker..." && \
-    open --background -a Docker && printf "starting docker...\n" && \
-      lando start || lando restart ;
+    osascript -e \'quit app "Docker"\' && printf "\nstopping docker..." && \
+      open -g -a Docker && printf "starting docker...\n" && \
+        sleep 30 && \
+          lando start ;
 }
 
 # pull yo mom
@@ -252,7 +253,8 @@ _start () {
   cd $WAFFLEIRON_DIR
   if [[ "$1" -eq "--init" ]] &>/dev/null 2>&1 ;
     then
-    _init && return 0
+      _init && \
+        return 0 ;
   fi
 
   kill -9 $(pgrep -f server.js) > /dev/null 2>&1 ; \
@@ -269,14 +271,10 @@ _init () {
   lando start && \
     lando pull --code=none --database=dev --files=dev && \
       lando composer install --no-dev --prefer-dist --no-ansi --no-interaction --optimize-autoloader --no-progress ; \
-        $(which npm) install && \
+        $(which npm) install ; \
 
-  kill -9 $(pgrep -f server.js) > /dev/null 2>&1 ; \
-  printf "\n\n \
-    https://$SITE_NAME.lndo.site/wp-admin \n \
-    http://localhost:1420/ \n \
-  \n\n" && \
-  $(which npm) run build ;
+  $(which npm) run build && \
+  kill -9 $(pgrep -f server.js) > /dev/null 2>&1 ;
 }
 
 if [ "$#" -eq 0 ]
@@ -306,7 +304,7 @@ while [[ $# -gt 0 ]]
 
     # restart
     -r|r|restart)
-      _restart
+      _restart $2
       shift # past argument
       shift # past value
     ;;
