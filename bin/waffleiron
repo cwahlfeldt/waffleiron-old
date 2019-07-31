@@ -202,13 +202,22 @@ _build-composer () {
 }
 
 _build-node () {
-  pnpm install && \
-  pnpm run build ;
+  cd $WAFFLEIRON_DIR && \
+    $(which npm) install && \
+    $(which npm) run build ;
 }
 
 _build () {
-  _build-node && \
-  _build-composer ;
+  lando composer install \
+    --no-dev \
+    --prefer-dist \
+    --no-ansi \
+    --no-interaction \
+    --optimize-autoloader \
+    --no-progress && \
+
+  $(which pnpm) install && \
+    $(which node) server.js 
 }
 
 # _install install i
@@ -277,10 +286,11 @@ _init () {
   lando start && \
     lando pull --code=none --database=dev --files=dev && \
       lando composer install --no-dev --prefer-dist --no-ansi --no-interaction --optimize-autoloader --no-progress ; \
-        $(which npm) install ; \
+        $(which pnpm) install ; \
 
-  $(which npm) run build && \
-  kill -9 $(pgrep -f server.js) > /dev/null 2>&1 ;
+  $(which node) server.js && \
+  sleep 10 && \
+  kill -9 $(ps aux | grep ' server.js') > /dev/null 2>&1 ;
 }
 
 if [ "$#" -eq 0 ]
