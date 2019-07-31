@@ -29,10 +29,6 @@
         @include('designs.heading')
       @endif
 
-      @if (get_row_layout() === 'intro')
-        @include('designs.intro')
-      @endif
-
       @if (get_row_layout() === 'content')
         @include('designs.content')
       @endif
@@ -41,8 +37,8 @@
         @include('designs.contact')
       @endif
 
-      @if (get_row_layout() === 'image')
-        @include('designs.image')
+      @if (get_row_layout() === 'banner')
+        @include('designs.banner')
       @endif
 
       @if (get_row_layout() === 'list')
