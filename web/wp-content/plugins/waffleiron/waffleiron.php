@@ -13,23 +13,21 @@
  *
 **/
 
-require_once 'sc-svg-uploads/sc-svg-uploads.php';
-
+$dir = dirname( __FILE__ );
 $paths = array (
 	'config',
 	'post-types',
 	'taxonomies',
 );
 
-$dir = dirname( __FILE__ );
-
 foreach ( $paths as $path ) {
-	$p = "{$dir}/{$path}";
+	$p = $dir . '/' . $path . '/';
 
-	foreach ( scandir($p) as $f ) {
-		$p = "{$p}/{$f}";
-		if (is_file( $p )) {
-			require_once $p;
+	foreach ( scandir($p) as $filename ) {
+		$f = $p . $filename;
+		if (is_file( $f )) {
+			require_once $f;
 		}
 	}
 }
+
