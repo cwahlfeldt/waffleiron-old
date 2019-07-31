@@ -30,4 +30,3 @@ foreach ( $paths as $path ) {
 		}
 	}
 }
-
