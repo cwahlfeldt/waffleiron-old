@@ -263,12 +263,12 @@ _start () {
     http://localhost:1420/ \n \
   \n\n" && \
 
-  $(which node) server.js & \
   $(which px) \
     --watch \
     --input web/wp-content/themes/belgium/src/scripts/mod.js \
-    --output web/public/out.js && \
-      fg ;
+    --output web/public/out.js & \
+  $(which node) server.js && \
+      fg
 }
 
 _init () {

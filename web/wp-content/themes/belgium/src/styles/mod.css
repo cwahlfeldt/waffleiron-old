@@ -23,18 +23,22 @@ footer .footer {
   margin-left: 1vw;
 }
 
-
 .container {
   padding-left: 20px;
   padding-right: 20px;
-  max-width: 1900px !important;
+  width: 100%;
+  max-width: 2048px !important;
 }
 
 .head-col,
 .container-sm {
-  padding-left: 8vw;
-  padding-right: 8vw;
-  max-width: 1200px !important;
+  width: 100%;
+  max-width: 1069px !important;
+
+  @media and screen (max-width: 768px) {
+    padding-left: 4vw;
+    padding-right: 4vw;
+  }
 }
 
 .head-col {

@@ -42,4 +42,10 @@ const plugins = [
   require('tailwindcss')('web/wp-content/themes/belgium/tailwind.js'),
   require('cssnano')({}),
 ]
-postcssWalk({ input, output, indexName: 'mod.css', plugins, log: true, watch: true })
+postcssWalk({
+  input,
+  output,
+  indexName: 'mod.css',
+  plugins, log: true,
+  watch: true
+})

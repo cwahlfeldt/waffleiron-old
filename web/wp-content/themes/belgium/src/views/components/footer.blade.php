@@ -25,17 +25,17 @@
       </section>
 
       <section class="logo-footer md:w-1/3 w-full flex flex-col h-full justify-between items-center pt-2">
-        <a href="#" class="hover:opacity-75 relative">
+        <a href="#" class="hover:opacity-75 relative -ml-1">
           <img class="brand md:w-500 w-48" src="{{ $brand }}" />
         </a>
-        <p class="flex flex-row items-end h-full  text-xs text-blue font-hairline">
+        <p class="flex flex-row items-end h-full text-xs text-blue font-hairline">
           <a class="link uppercase font-wide tracking-wide hover:text-white" href="">Privacy Policy</a>&nbsp; | &nbsp;<br>
           <a class="link uppercase font-wide tracking-wide hover:text-white" href="">Disclaimer</a>&nbsp; | &nbsp;<br>
           <a class="link uppercase font-wide tracking-wide hover:text-white" href="">Site Map</a>
         </p>
       </section>
 
-      <section class="contact h-full md:w-auto flex flex-col justify-start w-full leading-loose md:text-left text-center relative block ml-auto">
+      <section class="contact h-full md:w-auto flex flex-col justify-start w-full leading-loose md:text-left text-center relative block ml-auto lg:-mr-12">
         <p class="text-left uppercase font-wide tracking-wide w-full pt-10">
           <div class="address font-wide uppercase tracking-wide text-xs font-hairline text-blue">
             {!! get_field('contact', 'options')['address'] !!}
