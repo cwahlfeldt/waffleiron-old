@@ -1,41 +1,23 @@
-const { createServer } = require('http');
-const { createProxyServer } = require('http-proxy');
-const Path = require('path');
-const Bundler = require('parcel-bundler');
-const chokidar = require('chokidar');
+const { createServer } = require('http')
+const { createProxyServer } = require('http-proxy')
+const postcssWalk = require('postcss-walk')
 
 const backEnd = {
   protocol: 'http',
   host: 'iron-tm.lndo.site',
 };
 
-const parcelEnd = {
+const frontEnd = {
   protocol: 'http',
   host: 'localhost',
-  port: 1234
+  port: 1421
 };
 
-// parcel options, such as publicUrl, watch, sourceMaps... none of which are needed for this proxy server configuration
-const options = {
-  sourceMaps: true,
-  watch: true,
-};
-
-// point parcel at its "input"
-const entryFiles = Path.join(__dirname, 'web/wp-content/themes/belgium/public', 'index.html');
-
-// init the bundler
-const bundler = new Bundler(entryFiles, options);
-  
-bundler.serve();
- 
 // create a proxy server instance
 const proxy = createProxyServer();
 
-const watcher = chokidar.watch(`web/wp-content/themes/belgium/`, {ignored: `web/wp-content/themes/belgium/public`});
-
 // serve
-const server = createServer((req, res) => {
+createServer((req, res) => {
   if (req.url.includes('/')) {
     proxy.web(req, res, {
       // back-end server, local tomcat or otherwise
@@ -45,8 +27,19 @@ const server = createServer((req, res) => {
     });
   } else {
     proxy.web(req, res, {
-      target: parcelEnd,
+      target: frontEnd,
       ws: true
     });
   }
 }).listen(1420);
+
+// process css
+const input  = 'web/wp-content/themes/belgium/src/styles/mod.css'
+const output = 'web/public/out.css'
+const plugins = [
+  require('postcss-import')({}),
+  require('postcss-preset-env')({}),
+  require('tailwindcss')('web/wp-content/themes/belgium/tailwind.js'),
+  require('cssnano')({}),
+]
+postcssWalk({ input, output, indexName: 'mod.css', plugins, log: true, watch: true })

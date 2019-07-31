@@ -262,7 +262,13 @@ _start () {
     https://$SITE_NAME.lndo.site/ \n \
     http://localhost:1420/ \n \
   \n\n" && \
-  $(which npm) run start
+
+  $(which node) server.js & \
+  $(which px) \
+    --watch \
+    --input web/wp-content/themes/belgium/src/scripts/mod.js \
+    --output web/public/out.js && \
+      fg ;
 }
 
 _init () {

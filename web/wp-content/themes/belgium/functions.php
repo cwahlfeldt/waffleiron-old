@@ -127,9 +127,8 @@ add_action( 'widgets_init', 'waffleiron_widgets_init' );
 
 // enqueue scripts/styles
 add_action( 'wp_enqueue_scripts', function() {
-  wp_enqueue_script('waffleiron-script', get_template_directory_uri() . '/public/mod.js');
-  /* wp_enqueue_script('waffleiron-script', get_template_directory_uri() . '/src/scripts/index.js'); */
-  wp_enqueue_style('waffleiron-style', get_template_directory_uri() . '/public/mod.css');
+  /* wp_enqueue_script('waffleiron-script', get_template_directory_uri() . '/public/out.js'); */
+  /* wp_enqueue_style('waffleiron-style', get_template_directory_uri() . '/public/out.css'); */
 });
 
 // enqueue admin styles
