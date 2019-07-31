@@ -12,7 +12,7 @@
 
     <div class="container-sm flex flex-row m-auto justify-center items-start h-full">
       <section class="nav md:w-1/3 w-full h-full pt-10">
-        @foreach ($navigation['primary'] as $nav)
+        @foreach ($navigation['secondary'] as $nav)
           @if ($loop->index == 1)
             @continue
           @endif

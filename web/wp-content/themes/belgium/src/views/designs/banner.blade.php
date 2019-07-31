@@ -1,3 +1,3 @@
-<section class="content w-full relative container">
-  content
+<section class="banner w-full relative container">
+  banner
 </section>
