@@ -23,8 +23,15 @@ footer .footer {
 }
 
 .primary .brand {
-  width: 30vw;
+  text-align: center;
+  min-width: 260px;
+  max-width: 30vw;
   margin-left: 1vw;
+}
+
+.primary-navigation {
+  height: 100%;
+  max-height: 8vh;
 }
 
 .container {
@@ -34,21 +41,43 @@ footer .footer {
   max-width: 2048px !important;
 }
 
+.dropdown-menu.container {
+  top: 7.4vh;
+  right: 0;
+  width: 100%;
+  border-left-color: white;
+  border-right-color: white;
+  border-left-width: 20px;
+  border-right-width: 20px;
+}
+
+@media (max-width: 1280px) {
+  .dropdown-menu.container {
+    top: 75px;
+  }
+
+  .primary-navigation {
+    min-height: 75px;
+  }
+}
+
 .head-col,
 .container-sm {
   width: 100%;
-  max-width: 1069px !important;
+  max-width: 1300px !important;
+}
 
-  @media and screen (max-width: 768px) {
+@media (max-width: 768px) {
+  .container-sm {
     padding-left: 4vw;
     padding-right: 4vw;
   }
 }
 
-.head-col {
-  margin-left: auto;
-  margin-right: auto;
-}
+/* .head-col { */
+/*   margin-left: auto; */
+/*   margin-right: auto; */
+/* } */
 
 .menu-guide {
   left: 0;
@@ -67,37 +96,43 @@ hr.line {
   border-style: solid;
 }
 
+.menu-link:hover a {
+  color: #a45a2a;
+}
+
 .dropdown-menu {
-  top: 0;
-  padding-top: 1.5vw;
-  margin-top: 3.5vw;
+  visibility: hidden;
 }
 
-.dropdown-menu > hr {
-  margin-right: 55px;
-}
-
-.heading-branded-text {
-  width: 100%;
-  max-width: 560px;
-  text-align: left;
-}
-
-.menu-link:hover .menu-guide {
-  visibility: visible;
-}
-
-.menu-link:hover+.dropdown-menu {
+.menu-link:hover ~ .dropdown-menu {
   visibility: visible !important;
 }
 
-.dropdown-menu:hover {
-  visibility: visible;
-}
+/* .dropdown-menu > hr { */
+/*   margin-right: 55px; */
+/* } */
 
-.primary-navigation .dropdown-menu:hover {
-  visibility: visible !important;
-}
+/* .heading-branded-text { */
+/*   width: 100%; */
+/*   max-width: 560px; */
+/*   text-align: left; */
+/* } */
+
+/* .menu-link:hover .menu-guide { */
+/*   visibility: visible; */
+/* } */
+
+/* .menu-link:hover > a + .dropdown-menu { */
+/*   visibility: visible !important; */
+/* } */
+
+/* .dropdown-menu:hover { */
+/*   visibility: visible; */
+/* } */
+
+/* .primary-navigation .dropdown-menu:hover { */
+/*   visibility: visible !important; */
+/* } */
 
 .heading {
   height: 82vh;

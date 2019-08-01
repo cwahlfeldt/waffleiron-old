@@ -46,3 +46,7 @@ function removeBodyClass(e) {
   // console.log('out', e.target)
   document.body.classList.remove(bodyClass)
 }
+
+setTimeout(() => {
+  document.html.style.marginTop = 0
+}, 300)

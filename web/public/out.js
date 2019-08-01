@@ -104,6 +104,10 @@ function removeBodyClass(e) {
   // console.log('out', e.target)
   document.body.classList.remove(bodyClass)
 }
+
+setTimeout(() => {
+  document.html.style.marginTop = 0
+}, 300)
 }
   Pax.main = file_$2fUsers$2fwaffles$2f$2edotfiles$2fCode$2fWeb$2fwaffleiron$2fweb$2fwp$2dcontent$2fthemes$2fbelgium$2fsrc$2fscripts$2fmod$2ejs; Pax.makeRequire(null)()
   if (typeof module !== 'undefined') module.exports = Pax.main.module && Pax.main.module.exports
