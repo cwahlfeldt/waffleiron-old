@@ -283,7 +283,8 @@ _init () {
       lando composer install --no-dev --prefer-dist --no-ansi --no-interaction --optimize-autoloader --no-progress ; \
         $(which pnpm) install ; \
 
-  _start
+  _start && \
+  kill -9 $(pgrep -f server.js) > /dev/null 2>&1 ;
 }
 
 if [ "$#" -eq 0 ]

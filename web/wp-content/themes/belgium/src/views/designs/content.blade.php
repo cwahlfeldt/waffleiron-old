@@ -9,8 +9,6 @@
   $style_fg_color = get_sub_field('color')['foreground_color'];
   $style_logo = get_sub_field('branding')['logo']['url'];
   $style_sizing = get_sub_field('sizing')['alignment'];
-
-  //echo json_encode($content);
 @endphp
 
 <section class="content w-full relative py-6">

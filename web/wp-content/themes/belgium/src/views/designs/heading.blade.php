@@ -1,3 +1,16 @@
+@php
+  $title = get_sub_field('title')['title'];
+  $title_color = get_sub_field('title')['color'];
+  $title_line_color = get_sub_field('title')['line_rule'];
+  $use_columns = get_sub_field('use_columns');
+  $content = $use_columns ? get_sub_field('columns') : get_sub_field('content');
+  $style_bg_image = get_sub_field('branding')['background_image'];
+  $style_bg_color = get_sub_field('color')['background_color'];
+  $style_fg_color = get_sub_field('color')['foreground_color'];
+  $style_logo = get_sub_field('branding')['logo']['url'];
+  $style_sizing = get_sub_field('sizing')['alignment'];
+@endphp
+
 <section class="heading w-full relative">
   <div class="flex sm:flex-row flex-col w-full h-full">
 
