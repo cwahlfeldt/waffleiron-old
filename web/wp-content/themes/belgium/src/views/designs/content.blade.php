@@ -13,33 +13,37 @@
   //echo json_encode($content);
 @endphp
 
-<section class="content w-full relative">
+<section class="content w-full relative py-6">
   <div class="container mx-auto" style="background-color: {{ $style_bg_color }};">
     @if ($content)
-      @foreach ($content as $c)
-        @if ($c['acf_fc_layout'] === 'copy')
-          <h2 class="text-center" style="color: {{ $title_color }}">
-            {{ $title }}
-            @if ($title_line_color)
-              <hr style="border-color: {{$title_line_color}}; text-align: {{$style_sizing['value']}};" class="w-10 my-2 border border-solid border-1 ml-0">
+      <div class="container-sm mx-auto pt-16 pb-12">
+        @foreach ($content as $c)
+          @if ($c['acf_fc_layout'] === 'copy')
+            <h2 class="text-center mb-5 font-wide tracking-widest font-xl uppercase" style="color: {{ $title_color }}">
+              {{ $title }}
+              @if ($title_line_color)
+                <hr style="border-color: {{$title_line_color}}; text-align: {{$style_sizing['value']}};" class="w-10 my-2 border border-solid border-1 ml-0">
+              @endif
+            </h2>
+            <div class="content font-serif leading-loose {{ $content[$loop->index++]['acf_fc_layout'] === 'link' ? 'font-amp' : '' }}" style="color: {{ $style_fg_color }};">{!! $c['copy'] !!}</div>
+            @if ($style_logo)
+              <img class="w-24 mx-auto mt-8 mb-5" style="text-align: {{ $style_sizing['value'] }};" src="{{ $style_logo }}" alt="">
             @endif
-          </h2>
-          <div class="content" style="color: {{ $style_fg_color }};">{!! $c['copy'] !!}</div>
-          <img class="w-32 mx-auto" style="text-align: {{ $style_sizing['value'] }};" src="{{ $style_logo }}" alt="">
-        @endif
+          @endif
 
-        @if ($c['acf_fc_layout'] === 'image')
-          {!! $c['image'] !!}
-        @endif
+          @if ($c['acf_fc_layout'] === 'image')
+            {!! $c['image'] !!}
+          @endif
 
-        @if ($c['acf_fc_layout'] === 'link')
-          <div class="py-4" style="text-align: {{ $style_sizing['value'] }};">
-            <a class="link px-5 py-2 font-wide tracking-widest font-amp font-thin uppercase text-orange hover:text-tan border border-solid border-orange hover:bg-orange" href="{{ $c['link'] }}">
-              {{ $c['label'] }}
-            </a>
-          </div> 
-        @endif
-      @endforeach
+          @if ($c['acf_fc_layout'] === 'link')
+            <div class="py-4" style="text-align: {{ $style_sizing['value'] }};">
+              <a class="link px-5 py-2 font-sans tracking-widest font-amp font-thin uppercase text-orange hover:text-tan border border-solid border-orange hover:bg-orange" href="{{ $c['link'] }}">
+                {{ $c['label'] }}
+              </a>
+            </div> 
+          @endif
+        @endforeach
+      </div>
     @endif 
   </div>
  
