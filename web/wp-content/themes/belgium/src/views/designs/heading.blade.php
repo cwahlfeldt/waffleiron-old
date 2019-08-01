@@ -1,14 +1,7 @@
 @php
-  $title = get_sub_field('title')['title'];
-  $title_color = get_sub_field('title')['color'];
-  $title_line_color = get_sub_field('title')['line_rule'];
-  $use_columns = get_sub_field('use_columns');
-  $content = $use_columns ? get_sub_field('columns') : get_sub_field('content');
-  $style_bg_image = get_sub_field('branding')['background_image'];
-  $style_bg_color = get_sub_field('color')['background_color'];
-  $style_fg_color = get_sub_field('color')['foreground_color'];
-  $style_logo = get_sub_field('branding')['logo']['url'];
-  $style_sizing = get_sub_field('sizing')['alignment'];
+  $link = get_sub_field('link', false, false);
+  $link_text = get_sub_field('link_text');
+  $link_title = get_the_title($link);
 @endphp
 
 <section class="heading w-full relative">
@@ -16,22 +9,26 @@
 
     <div class="h-full sm:order-1 order-2 md:w-1/2 lg:w-1/4 sm:w-full sm:mr-3 bg-blue relative py-12">
       <div class="h-full flex flex-col justify-between items-center relative">
-        <img class="w-auto px-12 pb-12" src="{{ get_sub_field('branding')['logo']['url'] }}" alt="">
-        <hr class="w-10 my-2 border border-orange border-solid border-1">
-        <p class="text-white text-center font-amp uppercase font-medium text-normal leading-loose py-3">
-          {!! get_sub_field('text') !!}
-        </p>
-        <hr class="w-10 border border-orange border-solid border-1">
+        <img class="logo w-auto p-12" src="{{ get_sub_field('branding')['logo']['url'] }}" alt="">
+
+        <div class="text">
+          <hr style="{{ get_sub_field('style')['line_color'] }}" class="w-10 my-2 border border-orange border-solid border-1">
+          <p class="text-white text-center tracking-wider font-amp uppercase font-thin text-lg leading-loose py-3">
+            {!! get_sub_field('text') !!}
+          </p>
+          <hr style="{{ get_sub_field('style')['line_color'] }}" class="w-10 my-2 border border-orange border-solid border-1"> 
+        </div>
+       
         <div class="flex flex-col justify-end items-end p-8">
           <a class="link px-5 py-2 font-sans font-thin tracking-widest text-white uppercase hover:text-blue border border-solid border-orange hover:bg-orange" href="{{ get_sub_field('link') }}">
-            Our Attorneys
+            {{ $link_text ?: $link_title }}
           </a>
         </div>
       </div>
     </div>
 
     <div class="sm:order-2 order-1 md:w-1/2 lg:w-3/4 sm:w-full sm:ml-3 bg-center bg-cover" style="background-image: url({{ get_sub_field('branding')['stock']['url'] }});">
-      <div class="flex flex-col justify-end items-end p-8 h-full">
+      <div class="flex flex-col justify-end items-end p-12 h-full">
         <p class="heading-branded-text text-left tracking-wider text-white text-center font-slab font-thin uppercase leading-tight text-5xl">
           {!! get_sub_field('branding')['title'] !!}
         </p>

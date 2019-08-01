@@ -4,10 +4,11 @@ module.exports = {
   separator: ':',
   theme: {
     screens: {
-      sm: '640px',
-      md: '768px',
-      lg: '1024px',
-      xl: '1280px',
+      sm  : '640px',
+      md  : '768px',
+      lg  : '1024px',
+      xl  : '1280px',
+    '2xl' : '1920px',
     },
     colors: {
       transparent: 'transparent',
@@ -309,7 +310,7 @@ module.exports = {
       tight: '-0.025em',
       normal: '0',
       wide: '0.025em',
-      wider: '0.05em',
+      wider: '0.075em',
       widest: '0.15em',
     },
     lineHeight: {

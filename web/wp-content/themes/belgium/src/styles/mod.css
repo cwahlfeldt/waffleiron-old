@@ -18,6 +18,10 @@ footer .footer {
   height: 300px;
 }
 
+.heading .logo {
+  max-height: 28vh;
+}
+
 .primary .brand {
   width: 30vw;
   margin-left: 1vw;
