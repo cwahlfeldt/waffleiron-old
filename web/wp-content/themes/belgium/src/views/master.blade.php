@@ -4,10 +4,8 @@
   <body @php body_class() @endphp>
     <link rel="stylesheet" href="/public/out.css">
     @php do_action('get_header') @endphp
-    <div class="container">
-      @include('components.nav')
-    </div>
-    <div class="container" role="document">
+    @include('components.nav')
+    <div class="content-wrap container" role="document">
       <div class="content">
         <main class="main">
           @yield('content')

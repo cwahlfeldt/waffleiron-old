@@ -10,6 +10,24 @@ body {
   min-height: 100vh;
 }
 
+.nav-wrap {
+  width: 25vw;
+}
+
+@media (max-width: 1290px) {
+  .nav-wrap {
+    width: 275px !important;
+  }
+}
+
+@media (min-width: 1550px) {
+  .nav-wrap {
+    width: 100%;
+    max-width: 360px;
+    margin-left: -20px;
+  }
+}
+
 html {
   transition: all 200ms ease-in-out;
 }
@@ -19,19 +37,13 @@ footer .footer {
 }
 
 .heading .logo {
-  max-height: 28vh;
-}
-
-.primary .brand {
-  text-align: center;
-  min-width: 260px;
-  max-width: 30vw;
-  margin-left: 1vw;
+  width: 100%;
+  max-width: 12vw;
 }
 
 .primary-navigation {
-  height: 100%;
-  max-height: 8vh;
+  height: 85px;
+  z-index: 100;
 }
 
 .container {
@@ -41,8 +53,22 @@ footer .footer {
   max-width: 2048px !important;
 }
 
+.heading-branded-text {
+  font-size: 2.8vw;
+  width: 100%;
+  max-width: 33vw;
+  text-align: left;
+}
+
+@media (min-width: 1700px) {
+  .heading-branded-text {
+    font-size: 3.1rem;
+    max-width: 30vw;
+  }
+}
+
 .dropdown-menu.container {
-  top: 7.4vh;
+  top: 85px;
   right: 0;
   width: 100%;
   border-left-color: white;
@@ -64,7 +90,7 @@ footer .footer {
 .head-col,
 .container-sm {
   width: 100%;
-  max-width: 1300px !important;
+  max-width: 1200px !important;
 }
 
 @media (max-width: 768px) {
@@ -100,13 +126,39 @@ hr.line {
   color: #a45a2a;
 }
 
+.menu-link.areas-of-practice:hover a,
+.menu-link.our-attorneys:hover a {
+  padding-bottom: 20px;
+  border-bottom: 40px solid #a45a2a;
+}
+
 .dropdown-menu {
   visibility: hidden;
 }
 
-.menu-link:hover ~ .dropdown-menu {
+.dropdown-menu:hover {
   visibility: visible !important;
 }
+
+.menu-link:hover + .dropdown-menu {
+  visibility: visible !important;
+}
+
+/* .drop-down:hover ~ .menu-link { */
+/*   color: #a45a2a; */
+/*   padding-bottom: 10px; */
+/*   border-bottom: 40px solid #a45a2a; */
+/* } */
+
+/* .drop-down:hover ~ .menu-link.our-attorneys { */
+/*   padding-bottom: 20px; */
+/*   border-bottom: 0 solid transparent; */
+/* } */
+
+/* .drop-down:hover ~ .menu-link.areas-of-practice { */
+/*   padding-bottom: 0; */
+/*   border-bottom: 0 solid transparent; */
+/* } */
 
 /* .dropdown-menu > hr { */
 /*   margin-right: 55px; */
@@ -135,5 +187,20 @@ hr.line {
 /* } */
 
 .heading {
-  height: 82vh;
+  height: 80vh;
+  min-height: 600px;
+}
+
+@media (max-width: 1440px) {
+  .heading {
+    height: 70vh;
+    min-height: 600px;
+  }
+}
+
+.banner img {
+  width: 100%;
+  max-width: 400px;
+  height: 100%;
+  max-height: 150px;
 }

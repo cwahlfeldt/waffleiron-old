@@ -8,7 +8,7 @@
   $brand = get_field('branding', 'options')['footer_logo']['url'];
 @endphp
 <footer class="w-full h-full container my-5">
-  <nav class="footer bg-gray pt-3 pb-3">
+  <nav style="background-color: #e3e5e6;" class="footer pt-3 pb-3">
 
     <div class="container-sm flex flex-row m-auto justify-center items-start h-full">
       <section class="nav md:w-1/3 w-full h-full pt-10">

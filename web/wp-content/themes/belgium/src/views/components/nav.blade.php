@@ -22,10 +22,10 @@
 
 @endphp
 
-<header class="primary-navigation h-full">
+<header class="primary-navigation container mx-auto h-full">
   <nav class="primary flex flex-row items-center sm:justify-center h-full w-full">
-    <a href="/{{ $navigation['primary']->post_name }}" class="hover:opacity-75 relative -ml-3 max-h-nav">
-      <img class="brand md:w-88 w-48" src="{{ $brand }}" />
+    <a href="/{{ $navigation['primary']->post_name }}" class="nav-wrap hover:opacity-75 relative">
+      <img class="brand" src="{{ $brand }}" />
     </a>
     <section class="primary-menu md:flex hidden flex-row sm:items-center w-full justify-end ml-auto">
       @foreach ($navigation['primary']['menu'] as $nav)
@@ -34,14 +34,14 @@
         @endif
 
           @if ($nav->post_parent == 0 && $nav->post_type == 'page')
-            <div id="menu-link-{{ $nav->post_name }}" class="md:py-7 menu-link w-auto relative h-full relative top-0 left-0 sm:mx-6">
-              <a class="py-5 dib font-wide w-full uppercase h-full font-normal lg:text-sm text-xs text-tan hover:opacity-75 tracking-wide" href="/{{ $nav->post_name }}">
+            <div id="menu-link-{{ $nav->post_name }}" class="{{$nav->post_name}} md:py-7 menu-link w-auto relative h-full relative top-0 left-0 sm:mx-6">
+              <a class="py-7 dib font-wide w-full uppercase h-full font-normal lg:text-sm text-xs text-tan hover:opacity-75 tracking-wide" href="/{{ $nav->post_name }}">
                 {{ $nav->post_title }}
               </a>
             </div>
 
             @if ($nav->post_name == 'areas-of-practice' || $nav->post_name == 'our-attorneys')
-              <div id="dropdown-{{ $nav->post_name }}" class="py-7 container bg-orange dropdown-menu flex absolute w-full pt-8 pb-10 h-auto z-30 top-0">
+              <div id="dropdown-{{ $nav->post_name }}" class="py-10 container bg-orange dropdown-menu flex absolute w-full pt-8 pb-10 h-auto z-30 top-0">
                 <div class="container-sm relative flex flex-col mx-auto justify-between pt-5 pb">
                   <div class="relative h-full">
                     <h2 class="font-sans uppercase text-3xl font-thin border-bottom text-white tracking-widest">
@@ -51,7 +51,7 @@
                     <div class="flex flex-auto flex-wrap items-between w-full py-6">
                       @foreach($the_menu as $menu)
                         <div class="w-1/4">
-                          <a class="text-white font-condensed font-medium text-base tracking-wide leading-relaxed" href="/areas-of-practice/{{ $menu->post_name }}/">{{ $menu->post_title }}</a>
+                          <a class="text-white font-condensed font-medium text-base tracking-wide leading-relaxed" href="/{{ $menu->post_name }}/{{ $menu->post_name }}/">{{ $menu->post_title }}</a>
                         </div>
                       @endforeach
                     </div>
