@@ -11,8 +11,8 @@
   $style_bg_color = get_sub_field('color')['background_color'];
   $style_fg_color = get_sub_field('color')['foreground_color'];
   $style_sizing = get_sub_field('sizing')['alignment'];
-@endphp
 
+@endphp
 <section class="content w-full relative py-6">
   <div class="container mx-auto" style="background-color: {{ $style_bg_color }};">
     @if ($content)
@@ -32,7 +32,7 @@
           @endif
 
           @if ($c['acf_fc_layout'] === 'image')
-            {!! $c['image'] !!}
+            <img class="lg:px-24 md:px-24" src="{{ $c['image']['url'] }}" alt="">
           @endif
 
           @if ($c['acf_fc_layout'] === 'link')
