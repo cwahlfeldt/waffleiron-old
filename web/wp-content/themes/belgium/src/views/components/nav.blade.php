@@ -41,22 +41,22 @@
               </a>
             </div>
 
-            {{-- {{ $nav['page'] }} --}}
-
-            @if ($nav['page']['post_name'] == 'areas-of-practice' || $nav['page']['post_name'] == 'our-attorneys')
+            @if ($nav['page']['sub_menu'])
+              @php $sub_nav = $nav['page']['sub_menu']; @endphp
+              {{-- {{ $sub_nav }} --}}
               <div id="dropdown-{{ $nav['page']['post_name'] }}" class="py-10 container bg-orange dropdown-menu flex absolute w-full pt-8 pb-10 h-auto z-30 top-0">
                 <div class="container-sm relative flex flex-col mx-auto justify-between pt-5">
                   <div class="relative h-full">
                     <h2 class="font-sans uppercase text-3xl font-thin border-bottom text-white tracking-widest">
-                      {{ $nav['page']->post_title }}
+                      {{ $nav['page']['label'] }}
                       <hr class="w-10 my-3 border border-tan border-solid border-1 ml-0">
                     </h2>
                     <div class="flex flex-auto flex-wrap items-between w-full py-6">
-                      {{-- @foreach($the_menu as $menu) --}}
-                      {{--   <div class="lg:w-1/4 md:w-1/3 w-full"> --}}
-                      {{--     <a class="text-white font-condensed font-medium text-base tracking-wide leading-relaxed" href="/{{ $menu['page']['post_name'] }}/">{{ $menu->post_title }}</a> --}}
-                      {{--   </div> --}}
-                      {{-- @endforeach --}}
+                      @foreach($sub_nav as $sub)
+                        <div class="lg:w-1/4 md:w-1/3 w-full">
+                          <a class="text-white font-condensed font-medium text-base tracking-wide leading-relaxed" href="/{{ $sub->post_name }}/">{{ $sub->post_title }}</a>
+                        </div>
+                      @endforeach
                     </div>
                   </div>
                 </div>
