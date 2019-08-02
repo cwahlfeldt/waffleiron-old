@@ -19,30 +19,39 @@
   if ($nav->post_name == 'our-attorneys') {
     $the_menu = $attorneys_menu;
   }
-
 @endphp
 
 <header class="primary-navigation container mx-auto h-full">
-  <nav class="primary flex flex-row items-center sm:justify-center h-full w-full">
-    <a href="/{{ $navigation['primary']->post_name }}" class="nav-wrap hover:opacity-75 relative">
-      <img class="brand" src="{{ $brand }}" />
-    </a>
-    <section class="primary-menu md:flex hidden flex-row sm:items-center w-full justify-end ml-auto">
+  <nav class="primary flex md:flex-row flex-col h-full w-full">
+    <div class="flex flex-row justify-start items-center">
+      <a href="/{{ $navigation['primary']->post_name }}" class="nav-wrap hover:opacity-75 relative">
+        <img class="brand" src="{{ $brand }}" />
+      </a>
+      <div class="ml-auto md:hidden">
+        <button class="hamburger" type="button">
+          <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <section class="primary-menu md:flex md:visible invisible flex-row sm:items-center w-full justify-end ml-auto">
       @foreach ($navigation['primary']['menu'] as $nav)
         @if ($loop->index == 1)
           @continue
         @endif
 
           @if ($nav->post_parent == 0 && $nav->post_type == 'page')
-            <div id="menu-link-{{ $nav->post_name }}" class="{{$nav->post_name}} md:py-7 menu-link w-auto relative h-full relative top-0 left-0 sm:mx-6">
-              <a class="py-7 dib font-wide w-full uppercase h-full font-normal lg:text-sm text-xs text-tan hover:opacity-75 tracking-wide" href="/{{ $nav->post_name }}">
+            <div id="menu-link-{{ $nav->post_name }}" class="{{$nav->post_name}} md:py-7 menu-link w-auto relative relative top-0 left-0 lg:mx-6 md:mx-2">
+              <a class="py-7 dib font-wide w-full uppercase font-normal lg:text-sm text-xs text-tan hover:opacity-75 tracking-wide" href="/{{ $nav->post_name }}">
                 {{ $nav->post_title }}
               </a>
             </div>
 
             @if ($nav->post_name == 'areas-of-practice' || $nav->post_name == 'our-attorneys')
               <div id="dropdown-{{ $nav->post_name }}" class="py-10 container bg-orange dropdown-menu flex absolute w-full pt-8 pb-10 h-auto z-30 top-0">
-                <div class="container-sm relative flex flex-col mx-auto justify-between pt-5 pb">
+                <div class="container-sm relative flex flex-col mx-auto justify-between pt-5">
                   <div class="relative h-full">
                     <h2 class="font-sans uppercase text-3xl font-thin border-bottom text-white tracking-widest">
                       {{ $nav->post_title }}
@@ -50,8 +59,8 @@
                     </h2>
                     <div class="flex flex-auto flex-wrap items-between w-full py-6">
                       @foreach($the_menu as $menu)
-                        <div class="w-1/4">
-                          <a class="text-white font-condensed font-medium text-base tracking-wide leading-relaxed" href="/{{ $menu->post_name }}/{{ $menu->post_name }}/">{{ $menu->post_title }}</a>
+                        <div class="lg:w-1/4 md:w-1/3 w-full">
+                          <a class="text-white font-condensed font-medium text-base tracking-wide leading-relaxed" href="/{{ $menu->post_name }}/">{{ $menu->post_title }}</a>
                         </div>
                       @endforeach
                     </div>
