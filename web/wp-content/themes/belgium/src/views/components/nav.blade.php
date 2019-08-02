@@ -11,7 +11,7 @@
   $primary_nav = get_field('primary_nav', 'options');
   $home = (array) get_field('primary_nav', 'options')[0]['page']['page'];
   $menu = (array) get_field('primary_nav', 'options');
-  array_shift($menu);
+ // array_shift($menu);
 
 
   /*

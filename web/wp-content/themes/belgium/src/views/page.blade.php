@@ -49,6 +49,10 @@
         @include('designs.buttons')
       @endif
 
+      @if (get_row_layout() === 'call_to_action')
+        @include('designs.buttons')
+      @endif
+
       @if (get_row_layout() === 'attorneys')
         @include('designs.attorneys')
       @endif

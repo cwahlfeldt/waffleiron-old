@@ -217,6 +217,14 @@ hr.line {
   max-height: 150px;
 }
 
-.buttons .link {
-  height: 200px;
+.button-wrap {
+  min-height: 250px;
+}
+
+.button-wrap:first-child {
+  margin-right: 20px;
+}
+
+.button-wrap:last-child {
+  margin-left: 20px;
 }
