@@ -53,12 +53,13 @@
               <p class="fax font-wide uppercase tracking-wide text-xs font-hairline text-gray">
                 Fax&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="tel:{{ get_field('contact', 'options')['fax'] }}" class="text-regular text-gray hover:text-blue text-base">{{ get_field('contact', 'options')['fax'] }}</a>
               </p>
+							<div class="ml-auto copyright w-64 md:pt-24 pt-5 flex flex-row justify-end justify-end w-auto">
+								<p class="font-amp font-thin text-xs uppercase text-gray w-full ml-auto">
+									&copy; {{ date("Y") }} Thomas Mamer, LLP | All Rights Reserved
+								</p>
+							</div>
             </div>
-						<div class="ml-auto copyright w-64 md:pt-24 pt-5 flex flex-row justify-end justify-end w-auto">
-							<p class="font-amp font-thin text-xs uppercase text-gray w-full ml-auto">
-								&copy; {{ date("Y") }} Thomas Mamer, LLP | All Rights Reserved
-							</p>
-						</div>
+
           </p>
 
           </div>

@@ -45,8 +45,8 @@
         @include('designs.list')
       @endif
 
-      @if (get_row_layout() === 'accordions')
-        @include('designs.accordions')
+      @if (get_row_layout() === 'buttons')
+        @include('designs.buttons')
       @endif
 
       @if (get_row_layout() === 'attorneys')
