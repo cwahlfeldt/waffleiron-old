@@ -217,7 +217,7 @@ hr.line {
   max-height: 150px;
 }
 
-.button-wrap {
+.button-wrap > div {
   min-height: 250px;
 }
 
@@ -228,3 +228,27 @@ hr.line {
 .button-wrap:last-child {
   margin-left: 20px;
 }
+
+.see-through-image {
+  width: 100%;
+  max-width: 400px;
+  margin-top: -18px;
+  opacity: 0.1;
+}
+
+.small-text {
+  font-size: 11px !important;
+}
+
+/* .call-to-action-wrap .item { */
+/*   height: 100%; */
+/*   min-height: 250px; */
+/* } */
+
+/* .call-to-action-wrap:first-child { */
+/*   padding-right: 20px; */
+/* } */
+
+/* .call-to-action-wrap:last-child { */
+/*   padding-left: 20px; */
+/* } */

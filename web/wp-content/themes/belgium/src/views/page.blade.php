@@ -41,16 +41,12 @@
         @include('designs.banner')
       @endif
 
-      @if (get_row_layout() === 'list')
-        @include('designs.list')
-      @endif
-
       @if (get_row_layout() === 'buttons')
         @include('designs.buttons')
       @endif
 
       @if (get_row_layout() === 'call_to_action')
-        @include('designs.buttons')
+        @include('designs.call-to-action')
       @endif
 
       @if (get_row_layout() === 'attorneys')

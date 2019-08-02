@@ -12,11 +12,11 @@
         <img class="logo" src="{{ get_sub_field('branding')['logo']['url'] }}" alt="">
 
         <div class="text my-auto">
-          <hr style="{{ get_sub_field('style')['line_color'] }}" class="w-10 sm:my-12 my-4 border border-orange border-solid border-1">
+          <hr style="color: {{ get_sub_field('style')['line_color'] }};" class="w-10 my-4 border border-orange border-solid border-1">
           <p class="text-white text-center tracking-wider font-amp uppercase font-thin text-lg leading-loose">
             {!! get_sub_field('text') !!}
           </p>
-          <hr style="{{ get_sub_field('style')['line_color'] }}" class="w-10 sm:my-12 my-4 border border-orange border-solid border-1"> 
+          <hr style="color: {{ get_sub_field('style')['line_color'] }};" class="w-10 sm:my-12 my-4 border border-orange border-solid border-1"> 
         </div>
        
         <div class="flex flex-col justify-end items-end">
