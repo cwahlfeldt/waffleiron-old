@@ -12,7 +12,6 @@
   $home = (array) get_field('primary_nav', 'options')[0]['page']['page'];
   $menu = (array) get_field('primary_nav', 'options');
   array_shift($menu);
-  //echo json_encode($menu);
 @endphp
 
 <header class="primary-navigation container mx-auto h-full">
@@ -37,11 +36,13 @@
 
           @if (isset($nav['page']['page']))
             @php $new_nav = $nav['page']['page']; @endphp
-            <div id="menu-link-{{ $new_nav->post_name }}" class="{{$new_nav->post_name}} md:py-7 menu-link w-auto relative relative top-0 left-0 lg:mx-6 md:mx-2">
-              <a class="py-7 dib font-wide w-full uppercase font-normal lg:text-sm text-xs text-tan hover:opacity-75 tracking-wide" href="/{{ $nav['page']['post_name'] }}">
+            <div id="menu-link-{{ $new_nav->post_name }}" class="{{ $new_nav->post_name }} md:py-7 menu-link w-auto relative relative top-0 left-0 lg:mx-6 md:mx-2">
+              <a class="py-7 dib font-wide w-full uppercase font-normal lg:text-sm text-xs text-tan hover:opacity-75 tracking-wide" href="/{{ $new_nav->post_name }}">
                 {{ $nav['page']['label'] }}
               </a>
             </div>
+
+            {{ $nav['page'] }}
 
             @if ($nav['page']['post_name'] == 'areas-of-practice' || $nav['page']['post_name'] == 'our-attorneys')
               <div id="dropdown-{{ $nav['page']['post_name'] }}" class="py-10 container bg-orange dropdown-menu flex absolute w-full pt-8 pb-10 h-auto z-30 top-0">
