@@ -30,7 +30,7 @@
         </div>
       </div>
 
-      <div class="title sm:order-2 order-1 md:w-1/2 lg:w-3/4 sm:w-full sm:ml-3 md:bg-center bg-left bg-left bg-cover md:px-12 md:py-12 px-8 py-12" style="background-image: url({{ $pic['url'] }});">
+      <div class="title sm:order-2 order-1 md:w-1/2 lg:w-3/4 sm:w-full sm:ml-3 md:bg-center bg-left bg-left bg-cover md:px-12 md:py-12 px-8 py-12" style="background-image: url({{ $img['url'] }});">
         <div class="flex flex-col justify-end sm:items-end items-center h-full">
           <p class="heading-branded-text lg:text-left text-center tracking-wider text-white sm:font-lg text-center font-slab font-thin uppercase leading-tight text-5xl">
             {!! get_field('branding')['title'] !!}
@@ -46,7 +46,7 @@
         <div class="h-full flex flex-col justify-center items-center relative">
           <div class="profile md:block hidden flex flex-col items-center justify-center">
             <div class="bg-white p-4">
-              <img class="" src="{{ $img['url'] }}" alt="">
+              <img class="" src="{{ $pic['url'] }}" alt="">
               <p class="text-blue w-64 text-left tracking-widest font-slab uppercase font-thin text-lg leading-normal pt-3">
                 {{ $name }}
               </p>
