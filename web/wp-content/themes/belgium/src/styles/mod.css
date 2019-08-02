@@ -129,8 +129,7 @@ hr.line {
   color: #a45a2a;
 }
 
-.menu-link.areas-of-practice:hover a,
-.menu-link.our-attorneys:hover a {
+.sub-menu-enabled:hover {
   padding-bottom: 20px;
   border-bottom: 40px solid #a45a2a;
 }

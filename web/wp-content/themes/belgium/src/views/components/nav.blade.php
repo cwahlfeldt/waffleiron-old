@@ -36,7 +36,7 @@
           @if (isset($nav['page']['page']))
             @php $new_nav = $nav['page']['page']; @endphp
             <div id="menu-link-{{ $new_nav->post_name }}" class="{{ $new_nav->post_name }} md:py-7 menu-link w-auto relative relative top-0 left-0 lg:mx-6 md:mx-2">
-              <a class="py-7 dib font-wide w-full uppercase font-normal lg:text-sm text-xs text-tan hover:opacity-75 tracking-wide" href="/{{ $new_nav->post_name }}">
+              <a class="{{ $nav['page']['sub_menu'] ? 'sub-menu-enabled' : '' }} py-7 dib font-wide w-full uppercase font-normal lg:text-sm text-xs text-tan hover:opacity-75 tracking-wide" href="/{{ $new_nav->post_name }}">
                 {{ $nav['page']['label'] }}
               </a>
             </div>
