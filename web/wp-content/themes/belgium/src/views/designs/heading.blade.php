@@ -12,11 +12,11 @@
         <img class="logo" src="{{ get_sub_field('branding')['logo']['url'] }}" alt="">
 
         <div class="text my-auto">
-          <hr style="{{ get_sub_field('style')['line_color'] }}" class="w-10 my-12 border border-orange border-solid border-1">
+          <hr style="{{ get_sub_field('style')['line_color'] }}" class="w-10 sm:my-12 my-4 border border-orange border-solid border-1">
           <p class="text-white text-center tracking-wider font-amp uppercase font-thin text-lg leading-loose">
             {!! get_sub_field('text') !!}
           </p>
-          <hr style="{{ get_sub_field('style')['line_color'] }}" class="w-10 my-12 border border-orange border-solid border-1"> 
+          <hr style="{{ get_sub_field('style')['line_color'] }}" class="w-10 sm:my-12 my-4 border border-orange border-solid border-1"> 
         </div>
        
         <div class="flex flex-col justify-end items-end">
@@ -27,9 +27,9 @@
       </div>
     </div>
 
-    <div class="sm:order-2 order-1 md:w-1/2 lg:w-3/4 sm:w-full sm:ml-3 md:bg-center bg-left bg-cover md:p-12 p-8" style="background-image: url({{ get_sub_field('branding')['stock']['url'] }});">
-      <div class="flex flex-col justify-end items-end h-full">
-        <p class="heading-branded-text lg:text-left text-center tracking-wider text-white text-center font-slab font-thin uppercase leading-tight text-5xl">
+    <div class="sm:order-2 order-1 md:w-1/2 lg:w-3/4 sm:w-full sm:ml-3 md:bg-center bg-left bg-left bg-cover md:px-12 md:py-12 px-8 py-12" style="background-image: url({{ get_sub_field('branding')['stock']['url'] }});">
+      <div class="flex flex-col justify-end sm:items-end items-center h-full">
+        <p class="heading-branded-text lg:text-left text-center tracking-wider text-white sm:font-lg text-center font-slab font-thin uppercase leading-tight text-5xl">
           {!! get_sub_field('branding')['title'] !!}
         </p>
       </div>
