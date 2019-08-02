@@ -205,8 +205,23 @@ hr.line {
   height: 100%;
 }
 
-.attorney .heading .side-wrap {
-  height: 100vh;
+
+.profile {
+  height: auto !important;
+}
+
+.attorney-heading {
+  height: 500px !important;
+  min-height: 300px !important;
+}
+
+.attorney-heading-content {
+  height: 100% !important;
+  min-height: 100% !important;
+}
+
+.side-wrap {
+  height: auto !important; 
 }
 
 /* @media (max-width: 1440px) { */
@@ -258,16 +273,22 @@ hr.line {
 /*   padding-left: 20px; */
 /* } */
 
+.profile div.flex,
 .profile img {
-  max-height: 370px;
+  max-width: 220px;
 }
+
 .profile {
   position: absolute;
   top: 43px;
-  right: -9vw;
+  right: -10vw;
 }
 
 .content p {
  margin-top: 1rem;
  margin-bottom: 1rem;
+}
+
+.content-thing {
+  border-left: 25px solid white;
 }
