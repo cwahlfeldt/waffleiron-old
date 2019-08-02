@@ -7,6 +7,7 @@ body {
   overflow-x: hidden;
 }
 
+
 .nav-wrap {
   width: 352px;
   margin-left: -21px;
@@ -283,7 +284,7 @@ hr.line {
   right: -10vw;
 }
 
-.content p {
+.the-content > *  {
  margin-top: 1rem;
  margin-bottom: 1rem;
 }
