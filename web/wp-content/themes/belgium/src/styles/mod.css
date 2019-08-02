@@ -90,9 +90,6 @@ footer .brand {
   border-left-width: 20px;
   border-right-width: 20px;
 }
-br {
-  
-}
 
 .container-sm {
   width: 100%;
@@ -204,6 +201,14 @@ hr.line {
   }
 }
 
+.attorney .heading {
+  height: 100%;
+}
+
+.attorney .heading .side-wrap {
+  height: 100vh;
+}
+
 /* @media (max-width: 1440px) { */
 /*   .heading { */
 /*     /1* height: 80vh; *1/ */
@@ -252,3 +257,17 @@ hr.line {
 /* .call-to-action-wrap:last-child { */
 /*   padding-left: 20px; */
 /* } */
+
+.profile img {
+  max-height: 370px;
+}
+.profile {
+  position: absolute;
+  top: 43px;
+  right: -9vw;
+}
+
+.content p {
+ margin-top: 1rem;
+ margin-bottom: 1rem;
+}
