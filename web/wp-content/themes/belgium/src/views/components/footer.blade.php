@@ -36,21 +36,23 @@
       </section>
 
       <section class="order-3 lg:w-1/3 contact h-full leading-loose md:text-left text-center relative block">
-        <div class="flex flex-col w-auto ml-auto">
-          <p class="md:text-left text-center uppercase font-wide tracking-wide">
+        <div class="flex flex-col w-auto">
+          <p class="md:text-left text-center uppercase font-wide tracking-wide ml-auto">
             <div class="address font-wide uppercase tracking-wide text-xs font-hairline text-blue">
               {!! get_field('contact', 'options')['address'] !!}
             </div>
           </p>
-          <p class="email font-wide uppercase tracking-wide text-xs font-hairline text-blue">
-            Email&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="text-blue hover:text-white" href="mailto:{{ get_field('contact', 'options')['email'] }}">{{ get_field('contact', 'options')['email'] }}</a>
-          </p>
-          <p class="phone font-wide uppercase tracking-wide text-xs font-hairline text-blue">
-            Phone&nbsp;&nbsp;&nbsp;&nbsp;<a href="tel:{{ get_field('contact', 'options')['phone'] }}" class="text-blue hover:text-white text-regular text-base">{{ get_field('contact', 'options')['phone'] }}</a>
-          </p>
-          <p class="fax font-wide uppercase tracking-wide text-xs font-hairline text-blue">
-            Fax&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="tel:{{ get_field('contact', 'options')['fax'] }}" class="text-regular text-blue hover:text-white text-base">{{ get_field('contact', 'options')['fax'] }}</a>
-          </p>
+          <div class="ml-auto">
+            <p class="email font-wide uppercase tracking-wide text-xs font-hairline text-blue">
+              Email&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="text-blue hover:text-white" href="mailto:{{ get_field('contact', 'options')['email'] }}">{{ get_field('contact', 'options')['email'] }}</a>
+            </p>
+            <p class="phone font-wide uppercase tracking-wide text-xs font-hairline text-blue">
+              Phone&nbsp;&nbsp;&nbsp;&nbsp;<a href="tel:{{ get_field('contact', 'options')['phone'] }}" class="text-blue hover:text-white text-regular text-base">{{ get_field('contact', 'options')['phone'] }}</a>
+            </p>
+            <p class="fax font-wide uppercase tracking-wide text-xs font-hairline text-blue">
+              Fax&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="tel:{{ get_field('contact', 'options')['fax'] }}" class="text-regular text-blue hover:text-white text-base">{{ get_field('contact', 'options')['fax'] }}</a>
+            </p>
+          </div>
         </div>
       </section>
 
