@@ -27,23 +27,22 @@
         </h2>
 
         
+        <div class="flex w-full justify-between items-center {{$use_columns ? 'flex-col' : 'flex-auto' }} ">
         @foreach ($content as $c)
 
           @if (!$use_columns)
-              <div class="the-content lg:px-32 md:px-24 sm:px-0 copy font-serif leading-loose {{ $content[$loop->index++]['acf_fc_layout'] === 'link' ? 'font-amp' : '' }}" style="color: {{ $style_fg_color }};">
-                {!! $c['copy'] !!}
-              </div>
+            <div class="the-content lg:px-32 md:px-24 sm:px-0 copy font-serif leading-loose {{ $content[$loop->index++]['acf_fc_layout'] === 'link' ? 'font-amp' : '' }}" style="color: {{ $style_fg_color }};">
+              {!! $c['copy'] !!}
+            </div>
           @else
 
-            <div class="flex w-full justify-between items-center flex-auto">
-            @foreach ($columns as $col)
+            {{-- @foreach ($columns as $col) --}}
               <div
-                class="w-1/2 the-content copy font-serif leading-loose {{ $content[$loop->index++]['acf_fc_layout'] === 'link' ? 'font-amp' : '' }}" style="color: {{ $style_fg_color }};">
+                class="w-1/2 the-content copy font-serif leading-loose {{ $c[$loop->index++]['acf_fc_layout'] === 'link' ? 'font-amp' : '' }}" style="color: {{ $style_fg_color }};">
                   {!! $c['copy'] !!}
                 </div>
               </div>
-            @endforeach
-            </div>
+            {{-- @endforeach --}}
 
           @endif
 
@@ -63,6 +62,7 @@
             </div> 
           @endif
 
+        </div>
         @endforeach
       </div>
       </div>
