@@ -1,12 +1,14 @@
-/* import tailwind */
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+html {
+  margin-top: 0 !important;
+}
+
 body {
   overflow-x: hidden;
 }
-
 
 .nav-wrap {
   width: 352px;
