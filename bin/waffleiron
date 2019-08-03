@@ -288,12 +288,6 @@ _init () {
   kill -9 $(pgrep -f server.js) > /dev/null 2>&1 ;
 }
 
-if [ "$#" -eq 0 ]
-  then
-    printf "suh? no args supplied"
-    _help
-fi
-
 POSITIONAL=()
 while [[ $# -gt 0 ]]
   do
@@ -301,48 +295,51 @@ while [[ $# -gt 0 ]]
 
   case $key in
 
-    --init|init) # init functions
+    init) # init functions
       _init
       shift # past argument
       shift # past value
     ;;
 
-    remote-import-database|-rid)
-      _remote-import-database
-      shift # past argument
-      shift # past value
+    # catch em all...
+    s|start)
+      _start $2
+
+      shift
+      shift
     ;;
 
     # restart
-    -r|r|restart)
+    restart)
       _restart $2
       shift # past argument
       shift # past value
     ;;
 
     # restart
-    -b|build)
+    build)
       _build
       shift # past argument
       shift # past value
     ;;
 
     # cc
-    -cc|cc|--flush|--clear|--clear-cache)
+    cc|clear-cache )
       _cc $2
+
       shift # past argument
       shift # past value
     ;;
 
     # restart
-    --rebuild|rebuild)
+    rebuild)
       _rebuild
       shift # past argument
       shift # past value
     ;;
 
     # restart
-    -pu|--pull|pu|pull)
+    pull)
       _pull $2
 
       shift # past argument
@@ -350,21 +347,21 @@ while [[ $# -gt 0 ]]
     ;;
 
     # restart
-    -c|--clean|c|clean)
+    clean)
       _clean
       shift # past argument
       shift # past value
     ;;
 
     # create post type with 
-    cpt|create-post-type)
+    create-post-type)
       _create-post-type $2 $3
       shift # past argument
       shift # past value
     ;;
 
     ## create post of $1 and name it with $2
-    -cp|cp|create-post )
+    create-post )
       cd $WAFFLEIRON_DIR ;
 
       POST_TYPE=${2:-page}
@@ -381,7 +378,7 @@ while [[ $# -gt 0 ]]
     ;;
 
     ## create post of $1 and name it with $2
-    -ctax|ctax|create-taxonomy)
+    create-taxonomy )
       
       if [[ -z "$2" ]]
         then
@@ -403,7 +400,7 @@ while [[ $# -gt 0 ]]
     ;;
 
     ## create post of $1 and name it with $2
-    -cpt|cpt|create-post-type)
+    create-post-type )
 
       POST_TYPE=${2:-page}
       POST_TITLE=${3:-"${POST_TYPE}-${RANDOM:0:2}"}
@@ -422,15 +419,16 @@ while [[ $# -gt 0 ]]
     ;;
 
     # deploy
-    -c|c|config)
+    config )
       cd $WAFFLEIRON_DIR/bin && \
-        $( $EDITOR waffleiron )
+        $EDITOR waffleiron
+
       shift # past argument
       shift # past value
     ;;
 
     # deploy
-    dep|deploy)
+    dep|deploy )
       REMOTE=$(git branch | grep \* | cut -d ' ' -f2)
       BRANCH=$(git branch | grep \* | cut -d ' ' -f2)
       if [[ $BRANCH -eq "master" ]]
@@ -481,8 +479,6 @@ while [[ $# -gt 0 ]]
       shift
     ;;
 
-   
-
     # install
     i|install)
 
@@ -503,7 +499,7 @@ while [[ $# -gt 0 ]]
     ;;
 
      # help
-    superpowers)
+    superpowers )
       arr=(${_cc} ${_env})
       echo ${arr[*]}
 
@@ -512,14 +508,14 @@ while [[ $# -gt 0 ]]
     ;;
 
      # help
-    --art|art)
+    art )
       _art
       shift # past argument
       shift
     ;;
 
      # help
-    create-site)
+    create-site )
       lando ssh -c " \
         export PANTHEON_SITE_NAME="$SITE_PREFIX-${2-$SITE_NAME}" && \
         export PANTHEON_MACHINE_TOKEN=A1Q4fO43O3YycjoYFjmdE2Yy3sDzCMl4OqVZi3ygOLvA2 && \
@@ -540,7 +536,7 @@ while [[ $# -gt 0 ]]
       shift
     ;;
       
-    -ks|ks|--kickstart|kickstart)
+    kickstart)
       export PANTHEON_SITE_NAME="$SITE_PREFIX-${2-"$SITE_NAME"}"
       export PANTHEON_MACHINE_TOKEN=A1Q4fO43O3YycjoYFjmdE2Yy3sDzCMl4OqVZi3ygOLvA2
       export PANTHEON_UPSTREAM_KEY=c578c77c-d12e-4943-adc7-d2c177859cee
@@ -573,37 +569,44 @@ while [[ $# -gt 0 ]]
     ;;
 
     # help
-    composer:init)
-      _composer_init
-      shift # past argument
-      shift # past argument
-    ;;
-
-    # help
-    clean:prod)
-      lando ssh -c "rm -rf /app/web/wp-content/uploads/cache/* /app/node_modules"
-
-      shift # past argument
-      shift # past argument
-    ;;
-
-    # help
     h|help)
       _help
+
       shift # past argument
       shift # past argument
     ;;
 
-    # catch em all...
-    s|start)
-      _start $2
-
-      shift ;
-      shift ;
-    ;;
 
     # catch em all...
     * )
+      cd $WAFFLEIRON_DIR && \
+
+      #TODO how does gnu do it?
+      case "$1" in
+        -s )
+          _start ;
+
+          shift
+          shift
+        ;;
+
+        -sr )
+          lando start && lando pull --code=none --database=dev --files=dev && \
+            lando ssh -c "rm -rf web/wp-content/uploads/cache/*" && \
+            _cc ; \
+            _start ;
+
+          shift
+          shift
+        ;;
+
+        * )
+          printf "\n nada \n\n"
+          shift
+          shift
+        ;;
+      esac
+
       POSITIONAL+=("$1")
       shift
     ;;
