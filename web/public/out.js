@@ -56,31 +56,40 @@
   }
 
   Pax.files["/Users/waffles/.dotfiles/Code/Web/waffleiron/web/wp-content/themes/belgium/src/scripts/mod.js"] = file_$2fUsers$2fwaffles$2f$2edotfiles$2fCode$2fWeb$2fwaffleiron$2fweb$2fwp$2dcontent$2fthemes$2fbelgium$2fsrc$2fscripts$2fmod$2ejs; file_$2fUsers$2fwaffles$2f$2edotfiles$2fCode$2fWeb$2fwaffleiron$2fweb$2fwp$2dcontent$2fthemes$2fbelgium$2fsrc$2fscripts$2fmod$2ejs.deps = {}; file_$2fUsers$2fwaffles$2f$2edotfiles$2fCode$2fWeb$2fwaffleiron$2fweb$2fwp$2dcontent$2fthemes$2fbelgium$2fsrc$2fscripts$2fmod$2ejs.filename = "/Users/waffles/.dotfiles/Code/Web/waffleiron/web/wp-content/themes/belgium/src/scripts/mod.js"; function file_$2fUsers$2fwaffles$2f$2edotfiles$2fCode$2fWeb$2fwaffleiron$2fweb$2fwp$2dcontent$2fthemes$2fbelgium$2fsrc$2fscripts$2fmod$2ejs(module, exports, require, __filename, __dirname, __import_meta) {
+~function() {
 //
 // mod.js
-
-// wrap it cause im lazy
-const selectit = s => document.querySelector(`${s}`)
-
-const 
-
-const bodyClass = 'nav-open'
-function addBodyClass() {
-  console.log(this)
-  // console.log('in', e.target)
-  document.body.classList.add(bodyClass)
+// declare 
+const env = {
+  id : `dope`,
 }
 
-function removeBodyClass() {
-  console.log(this)
-  // console.log('out', e.target)
-  document.body.classList.remove(bodyClass)
-}
 
-setTimeout(() => {
-  document.html.style.marginTop = '0 !important'
-}, 300)
-}
+(async ({
+  state,
+  actions,
+}) => {
+
+  // do stuff here
+  const link = actions.slctr(`.menu-link`)
+  console.log(link)
+
+})({
+
+  // state
+  state             : {
+    name            : `waffles is ${ dope }`,
+    state           : `illinois`,
+  },
+  
+  // actions
+  actions           : {
+    slctr           : s => document.querySelector(`${ s }`),
+    toggleBodyClass : c => document.body.classList.toggle(`${ c }`),
+  },
+
+})
+}()}
   Pax.main = file_$2fUsers$2fwaffles$2f$2edotfiles$2fCode$2fWeb$2fwaffleiron$2fweb$2fwp$2dcontent$2fthemes$2fbelgium$2fsrc$2fscripts$2fmod$2ejs; Pax.makeRequire(null)()
   if (typeof module !== 'undefined') module.exports = Pax.main.module && Pax.main.module.exports
 }(typeof global !== "undefined" ? global : typeof window !== "undefined" ? window : this)

@@ -1,24 +1,32 @@
 //
 // mod.js
-
-// wrap it cause im lazy
-const selectit = s => document.querySelector(`${s}`)
-
-const 
-
-const bodyClass = 'nav-open'
-function addBodyClass() {
-  console.log(this)
-  // console.log('in', e.target)
-  document.body.classList.add(bodyClass)
+// declare 
+const env = {
+  id : `dope`,
 }
 
-function removeBodyClass() {
-  console.log(this)
-  // console.log('out', e.target)
-  document.body.classList.remove(bodyClass)
-}
 
-setTimeout(() => {
-  document.html.style.marginTop = '0 !important'
-}, 300)
+(async ({
+  state,
+  actions,
+}) => {
+
+  // do stuff here
+  const link = actions.slctr(`.menu-link`)
+  console.log(link)
+
+})({
+
+  // state
+  state             : {
+    name            : `waffles is ${ dope }`,
+    state           : `illinois`,
+  },
+  
+  // actions
+  actions           : {
+    slctr           : s => document.querySelector(`${ s }`),
+    toggleBodyClass : c => document.body.classList.toggle(`${ c }`),
+  },
+
+})

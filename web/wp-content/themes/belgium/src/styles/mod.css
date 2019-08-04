@@ -3,7 +3,7 @@
 @import "tailwindcss/utilities";
 
 html {
-  margin-top: 0 !important;
+  /* margin-top: 0 !important; */
 }
 
 body {
@@ -50,16 +50,15 @@ footer .brand {
   z-index: 100;
 }
 
+
+
 @media (max-width: 888px) {
   .heading .logo {
     width: 115px;
   }
+
   .primary-navigation {
     height: 64px;
-  }
-
-  .dropdown-menu.container {
-    top: 64px;
   }
 }
 
@@ -94,15 +93,25 @@ footer .brand {
   border-right-width: 20px;
 }
 
+.logged-in .dropdown-menu.container {
+  top: 117px;
+}
+
 .container-sm {
   width: 100%;
   max-width: 1200px !important;
 }
 
-@media (max-width: 1024px) {
+@media (min-width: 889px) {
   .container-sm {
     padding-left: 4rem;
     padding-right: 4rem;
+  }
+}
+@media (max-width: 888px) {
+  .container-sm {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
   }
 }
 
@@ -148,49 +157,6 @@ hr.line {
 .menu-link:hover + .dropdown-menu {
   visibility: visible !important;
 }
-
-/* .drop-down:hover ~ .menu-link { */
-/*   color: #a45a2a; */
-/*   padding-bottom: 10px; */
-/*   border-bottom: 40px solid #a45a2a; */
-/* } */
-
-/* .drop-down:hover ~ .menu-link.our-attorneys { */
-/*   padding-bottom: 20px; */
-/*   border-bottom: 0 solid transparent; */
-/* } */
-
-/* .drop-down:hover ~ .menu-link.areas-of-practice { */
-/*   padding-bottom: 0; */
-/*   border-bottom: 0 solid transparent; */
-/* } */
-
-/* .dropdown-menu > hr { */
-/*   margin-right: 55px; */
-/* } */
-
-/* .heading-branded-text { */
-/*   width: 100%; */
-/*   max-width: 560px; */
-/*   text-align: left; */
-/* } */
-
-/* .menu-link:hover .menu-guide { */
-/*   visibility: visible; */
-/* } */
-
-/* .menu-link:hover > a + .dropdown-menu { */
-/*   visibility: visible !important; */
-/* } */
-
-/* .dropdown-menu:hover { */
-/*   visibility: visible; */
-/* } */
-
-/* .primary-navigation .dropdown-menu:hover { */
-/*   visibility: visible !important; */
-/* } */
-
 .heading {
   height: 80vh;
   min-height: 700px;
@@ -206,7 +172,6 @@ hr.line {
 .attorney .heading {
   height: 100%;
 }
-
 
 .profile {
   height: auto !important;
@@ -225,12 +190,6 @@ hr.line {
 .side-wrap {
   height: auto !important; 
 }
-
-/* @media (max-width: 1440px) { */
-/*   .heading { */
-/*     /1* height: 80vh; *1/ */
-/*   } */
-/* } */
 
 .banner img {
   width: 100%;
@@ -294,3 +253,4 @@ hr.line {
 .content-thing {
   border-left: 25px solid white;
 }
+
