@@ -11,9 +11,9 @@
       <hr style="border-color: {{ $style['color']['line_color'] }};" class="w-10 my-4 border border-orange border-solid border-1">
     </h3>
 
-    <div class="flex flex-auto justify-between w-full">
+    <div class="flex flex-auto flex-wrap justify-between w-full">
       @foreach($attorneys as $attorney)
-        <div class="flex-col flex w-full h-full mx-3">
+        <div class="flex-col flex lg:w-1/5 md:1/4 sm:1/2 h-full mx-3">
           <div class="w-full h-64 bg-cover h-64 bg-center bg-gray" style="background-image: url({{ get_field('picture', $attorney->ID)['url'] }});"></div>
           <div class="bg-white w-full h-auto bg-white py-2">
             <h4 class="font-sans text-blue font-bold tracking-wide">

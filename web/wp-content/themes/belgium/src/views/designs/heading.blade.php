@@ -27,7 +27,7 @@
       </div>
     </div>
 
-    <div class="sm:order-2 order-1 md:w-1/2 lg:w-3/4 sm:w-full sm:ml-3 md:bg-center bg-left bg-left bg-cover md:px-12 md:py-12 px-8 py-12" style="background-image: url({{ get_sub_field('branding')['stock']['url'] }});">
+    <div class="sm:order-2 order-1 md:w-1/2 lg:w-3/4 sm:w-full sm:ml-3 md:bg-center bg-left bg-left bg-cover md:px-12 px-5 py-12" style="background-image: url({{ get_sub_field('branding')['stock']['url'] }});">
       <div class="flex flex-col justify-end sm:items-end items-center h-full">
         <p class="heading-branded-text lg:text-left text-center tracking-wider text-white sm:font-lg text-center font-slab font-thin uppercase leading-tight text-5xl">
           {!! get_sub_field('branding')['title'] !!}

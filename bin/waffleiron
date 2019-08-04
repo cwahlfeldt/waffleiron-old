@@ -1,5 +1,6 @@
 #!/usr/local/bin/bash
 
+
 # waffleiron vars
 export WAFFLEIRON_DIR="$( \
   cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && \
@@ -265,10 +266,11 @@ _start () {
   printf "\n\n \
     https://$SITE_NAME.lndo.site/ \n \
     http://localhost:1420/ \n \
-  \n\n" && \
+  \n\n"
 
   $(which px) \
     --watch \
+    --es-syntax-everywhere \
     --input web/wp-content/themes/belgium/src/scripts/mod.js \
     --output web/public/out.js & \
   $(which node) server.js && \
