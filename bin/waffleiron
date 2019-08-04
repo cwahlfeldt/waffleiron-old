@@ -594,7 +594,9 @@ while [[ $# -gt 0 ]]
 
         -sr )
           lando start && lando pull --code=none --database=dev --files=dev && \
+            sleep 30 && \
             lando ssh -c "rm -rf web/wp-content/uploads/cache/*" && \
+            sleep 15 && \
             _cc ; \
             _start ;
 

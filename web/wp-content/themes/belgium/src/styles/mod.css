@@ -257,3 +257,31 @@ hr.line {
   border-left: 25px solid white;
 }
 
+.attorney-item {
+  width: auto;
+  height: auto;
+}
+
+@media (min-width: 1024px) {
+  .attorney-item {
+    max-width: 290px;
+  }
+}
+
+@media (min-width: 889px) {
+  .attorney-item {
+    max-width: 220px;
+  }
+}
+
+@media (max-width: 888px) {
+  .attorney-item {
+    max-width: 50%;
+  }
+}
+
+@media (max-width: 640px) {
+  .attorney-item {
+    max-width: 100%;
+  }
+}
