@@ -592,9 +592,27 @@ while [[ $# -gt 0 ]]
           shift
         ;;
 
+        -d )
+          git add -A ; \
+            git commit -am "$2" ; \
+            git push origin master ; \
+
+          git checkout $SITE_NAME && \
+            git pull origin master --rebase && \
+            git push $SITE_NAME $SITE_NAME ; \
+
+          lando ssh -c "rm -rf web/wp-content/uploads/cache/*" && \
+            lando push --code=none --database=none --files=dev ;
+
+          shift
+          shift
+        ;;
+
         -sr )
           lando start && lando pull --code=none --database=dev --files=dev && \
+            sleep 30 && \
             lando ssh -c "rm -rf web/wp-content/uploads/cache/*" && \
+            sleep 15 && \
             _cc ; \
             _start ;
 

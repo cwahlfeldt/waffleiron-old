@@ -8,22 +8,23 @@
   <div class="py-16 w-full h-full container-sm mx-auto">
     <h3 class="w-full text-base font-sans tracking-widest text-center">
       {{ $title['title'] }}
-      <hr style="border-color: {{ $style['color']['line_color'] }};" class="w-10 my-4 border border-orange border-solid border-1">
+      <hr style="border-color: {{ $style['color']['line_color'] }};" class="w-10 my-8 border border-orange border-solid border-1">
     </h3>
 
-    <div class="flex flex-auto flex-wrap justify-between w-full">
+    <div class="flex flex-auto flex-wrap items-center md:justify-start justofy-center py-12">
       @foreach($attorneys as $attorney)
-        <div class="flex-col flex lg:w-1/5 md:1/4 sm:1/2 h-full mx-3">
-          <div class="w-full h-64 bg-cover h-64 bg-center bg-gray" style="background-image: url({{ get_field('picture', $attorney->ID)['url'] }});"></div>
-          <div class="bg-white w-full h-auto bg-white py-2">
-            <h4 class="font-sans text-blue font-bold tracking-wide">
+        {{-- <a href="{{ get_permalink($attorney->ID) }}" class="flex-col flex 2xl:w-1/5 lg:w-1/4 md:w-1/4 sm:w-1/2 xs:w-full h-auto my-6 px-6"> --}}
+        <a href="{{ get_permalink($attorney->ID) }}" class="flex-col flex h-auto my-6 px-6">
+          <div class="attorney-item w-auto h-auto">
+            <img class="w-auto h-auto bg-cover" src="{{ get_field('picture', $attorney->ID)['url'] }}" />
+            <h4 class="font-sans text-blue font-bold tracking-wide mt-3">
               {{ get_the_title($attorney->ID) }}
             </h4>
             <h5 class="small-text font-slab font-thin text-xs tracking-widest text-orange">
               {{ get_field('title', $attorney->ID) }}
             </h5>
           </div> 
-        </div>
+        </a>
       @endforeach
     </div>
   </div>

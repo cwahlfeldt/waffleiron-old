@@ -1,6 +1,7 @@
 @extends('master')
 
 @php
+  global $post;
   $name = get_the_title();
   $pic = get_field('picture');
   $img = get_field('image');
@@ -66,10 +67,9 @@
           {{-- <hr style="border-color: {{ $style['color']['line_color'] }};" class="w-10 my-4 border border-orange border-solid border-1"> --}}
           <hr style="border-color: ;" class="w-10 my-6 border border-blue mx-0 border-solid border-1">
           @php
-            global $post;
-            $content = $post->post_content;
+            $content = nl2br($post->post_content);
           @endphp
-          <div class="font-serif text-blue py-6">{!! $post->post_content !!}</div>
+          <div class="font-serif text-blue py-6">{!! $content !!}</div>
         </p>
   
         <div class="accordions w-full h-full">

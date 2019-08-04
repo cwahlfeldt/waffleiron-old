@@ -44,7 +44,7 @@
             @if ($nav['page']['sub_menu'])
               @php $sub_nav = $nav['page']['sub_menu']; @endphp
               {{-- {{ $sub_nav }} --}}
-              <div id="dropdown-{{ $nav['page']['post_name'] }}" class="py-10 container bg-orange dropdown-menu flex absolute w-full pt-8 pb-10 h-auto z-30 top-0">
+              <div id="dropdown-{{ $nav['page']['label'] }}" class="py-10 container bg-orange dropdown-menu flex absolute w-full pt-8 pb-10 h-auto z-30 top-0">
                 <div class="container-sm relative flex flex-col mx-auto justify-between pt-5">
                   <div class="relative h-full">
                     <h2 class="font-sans uppercase text-3xl font-thin border-bottom text-white tracking-widest">
