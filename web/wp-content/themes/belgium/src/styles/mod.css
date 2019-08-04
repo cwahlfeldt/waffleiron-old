@@ -50,8 +50,6 @@ footer .brand {
   z-index: 100;
 }
 
-
-
 @media (max-width: 888px) {
   .heading .logo {
     width: 115px;
@@ -220,19 +218,6 @@ hr.line {
 .small-text {
   font-size: 11px !important;
 }
-
-/* .call-to-action-wrap .item { */
-/*   height: 100%; */
-/*   min-height: 250px; */
-/* } */
-
-/* .call-to-action-wrap:first-child { */
-/*   padding-right: 20px; */
-/* } */
-
-/* .call-to-action-wrap:last-child { */
-/*   padding-left: 20px; */
-/* } */
 
 .profile div.flex,
 .profile img {
