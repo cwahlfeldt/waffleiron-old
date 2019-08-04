@@ -67,9 +67,10 @@
           <hr style="border-color: ;" class="w-10 my-6 border border-blue mx-0 border-solid border-1">
           @php
             global $post;
+            echo json_encode($post);
             $content = $post->post_content;
           @endphp
-          <div class="font-serif text-blue py-6">{!! $post->post_content !!}</div>
+          <div class="font-serif text-blue py-6">{!! get_the_content(null, false, $post->ID) !!}</div>
         </p>
   
         <div class="accordions w-full h-full">
