@@ -602,7 +602,9 @@ while [[ $# -gt 0 ]]
           #   git push $SITE_NAME $SITE_NAME ; \
 
           lando ssh -c "rm -rf web/wp-content/uploads/cache/*" && \
-            lando push --code=none --database=none --files=dev ;
+            lando push --code=none --database=none --files=dev && \
+              sleep 120 && \
+              lando terminus env:clear-cache iron-tm.dev ;
 
           shift
           shift
