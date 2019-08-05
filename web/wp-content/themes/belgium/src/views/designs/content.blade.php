@@ -24,18 +24,18 @@
   $use_columns = get_sub_field('use_columns');
 @endphp
 {{-- {{$content}} --}}
-<section class="content w-full relative py-5">
-  <div class="container mx-auto {{ !$title ? 'py-5' : 'py-24' }}" style="background-color: {{ $style_bg_color }};">
+<section class="content w-full relative py-4">
+  <div class="container mx-auto {{ $title ? 'pt-16 pb-8' : 'pb-8 -mt-16' }}" style="background-color: {{ $style_bg_color }};">
     <div class="container-sm mx-auto">
-      <h2 class="text-center mb-5 font-sans tracking-widest font-xl uppercase" style="color: {{ $style_title_color }}">
+      <h2 class="text-center mb-5 font-sans tracking-widest font-xl uppercase" style="color: {{ $style_fg_color }};">
         {{ $title }}
         @if ($style_line_color)
-          <hr style="border-color: {{$style_line_color}}; text-align: {{$style_sizing['value']}};" class="w-10 my-2 border border-solid border-1 mt-6">
+          <hr style="border-color: {{ $style_line_color }}; text-align: {{$style_sizing['value']}};" class="w-10 my-2 border border-solid border-1 mt-6">
         @endif
       </h2>
 
       @if ( $content )
-        <div class="the-content w-full h-full mx-auto py-5">
+        <div class="the-content w-full h-full mx-auto py-3">
 
 					  @if ($use_columns) <div class="flex flex-auto flex-wrap"> @endif
             @foreach ($content as $c)
@@ -48,7 +48,6 @@
                       {!! $c['copy'] !!}
                     </div>
                   @else
-                    
                     <div class={{ preg_match_all("/[\w']+/", $c['copy']) <= 20 ? 'text-2xl' : '' }} "w-full mx-auto lg:px-32 md:px-24 sm:px-0 copy font-serif leading-loose {{ $c[$loop->index++]['acf_fc_layout'] === 'link' ? 'font-amp' : '' }}" style="color: {{ $style_fg_color }};">
                       {!! $c['copy'] !!}
                     </div>								

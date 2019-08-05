@@ -7,8 +7,17 @@ body {
 }
 
 p {
+  font-family: theme('fontFamily.serif');
   line-height: theme('lineHeight.loose');
   font-size: theme('fontSize.base');
+}
+
+strong {
+  font-style: uppercase;
+  font-size: theme('fontSize.compressed');
+  font-family: theme('fontFamily.wide');
+  letter-spacing: theme('letterSpacing.wider');
+  text-transform: uppercase;
 }
 
 .nav-wrap {
