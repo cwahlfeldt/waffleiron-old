@@ -12,11 +12,11 @@
         <img class="logo" src="{{ get_sub_field('branding')['logo']['url'] }}" alt="">
 
         <div class="text my-auto">
-          <hr style="color: {{ get_sub_field('style')['line_color'] }};" class="w-10 my-4 border border-orange border-solid border-1">
+          <hr style="color: {{ get_sub_field('style')['line_color'] }};" class="w-10 my-6 border border-orange border-solid border-1">
           <p class="text-white text-center tracking-wider font-amp uppercase leading font-thin {{ preg_match_all("/[\w']+/", get_sub_field('text')) <= 6 ? 'text-3xl leading-snug' : 'text-lg leading-loose' }}">
             {!! get_sub_field('text') !!}
           </p>
-          <hr style="color: {{ get_sub_field('style')['line_color'] }};" class="w-10 sm:my-12 my-4 border border-orange border-solid border-1"> 
+          <hr style="color: {{ get_sub_field('style')['line_color'] }};" class="w-10 my-6 border border-orange border-solid border-1">
         </div>
        
         <div class="flex flex-col justify-end items-end">
