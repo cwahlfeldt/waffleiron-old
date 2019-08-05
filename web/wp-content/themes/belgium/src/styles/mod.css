@@ -2,12 +2,13 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-html {
-  /* margin-top: 0 !important; */
-}
-
 body {
   overflow-x: hidden;
+}
+
+p {
+  line-height: theme('lineHeight.loose');
+  font-size: theme('fontSize.base');
 }
 
 .nav-wrap {
@@ -48,6 +49,10 @@ footer .brand {
 .primary-navigation {
   height: 85px;
   z-index: 100;
+}
+
+.slick-dots li button::before {
+  font-size: 12px;
 }
 
 @media (max-width: 888px) {

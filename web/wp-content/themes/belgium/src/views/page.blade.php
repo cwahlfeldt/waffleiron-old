@@ -53,6 +53,10 @@
         @include('designs.attorneys')
       @endif
 
+      @if (get_row_layout() === 'testimonials')
+        @include('designs.testimonials')
+      @endif
+
     @endwhile
   @endif
 </section>

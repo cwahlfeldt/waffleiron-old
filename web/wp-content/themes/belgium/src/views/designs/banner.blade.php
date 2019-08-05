@@ -1,7 +1,6 @@
-<style></style>
-<section class="banner w-full h-auto py-24">
+<section class="banner w-full h-auto py-3">
   <div
-    class="banner w-full h-auto relative container py-16 bg-cover bg-center"
+    class="banner w-full h-auto relative container py-24 bg-cover bg-center"
     style="background-image: url({{ get_sub_field('branding')['background_image']['url'] }});"
   >
     <div class="container-sm mx-auto h-full">
