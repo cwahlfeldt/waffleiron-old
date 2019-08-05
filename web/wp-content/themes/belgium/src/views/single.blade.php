@@ -82,7 +82,7 @@
                   {{ $a['title'] }}
                 </h2>
                 <div class="accordion-content hidden">
-                  {!! $a['content'] !!}
+                  {!! $a['copy'] !!}
                 </div>
               </button>
             @endforeach 
