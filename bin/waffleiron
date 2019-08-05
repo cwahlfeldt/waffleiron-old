@@ -597,9 +597,9 @@ while [[ $# -gt 0 ]]
             git commit -am "$2" ; \
             git push origin master ; \
 
-          git checkout $SITE_NAME && \
-            git pull origin master --rebase && \
-            git push $SITE_NAME $SITE_NAME ; \
+          # git checkout $SITE_NAME && \
+          #   git pull origin master --rebase && \
+          #   git push $SITE_NAME $SITE_NAME ; \
 
           lando ssh -c "rm -rf web/wp-content/uploads/cache/*" && \
             lando push --code=none --database=none --files=dev ;

@@ -73,16 +73,17 @@
         </p>
   
         <div class="accordions w-full h-full">
-
-          <div class="accordion-title border-t-2 border-solid border-blue hover:cursor-point">
-            <h2 class="font-condensed font-bold tracking-wide text-2xl text-blue uppercase hover:text-orange hover:cursor-pointer">
-              Title
-            </h2>
-          </div>
-          <div class="accordion-content pb-3 hidden">
-            Content
-          </div>
-
+          {{-- {{ $accordions }} --}}
+          @foreach($accordions as $a)
+            <div class="accordion-item border-t-2 border-solid border-blue hover:cursor-point">
+              <h2 class="font-condensed font-bold tracking-wide text-2xl text-blue uppercase hover:text-orange hover:cursor-pointer">
+                {{ $a['title'] }}
+              </h2>
+              <div class="accordion-content pb-3 visible">
+                {!! $a['copy'] !!}
+              </div>
+            </div>
+          @endforeach
         </div>
       </div>
     </div>
