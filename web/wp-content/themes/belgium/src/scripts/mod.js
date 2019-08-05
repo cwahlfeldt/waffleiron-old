@@ -6,25 +6,54 @@
     $,
   }) => {
     $(document).ready(function() {
+
+          let sentinal = false
     // code
-    $('.primary-menu .sub-menu-enabled').hover(
-      function(e) {
-        // console.log(this)
-        let t = e.target
-        console.log(this)
-        if (t.classList.contains('dropdown-menu')) {
-          $(t).find('.sub-menu-enabled').addClass('sub-menu-style')
-        } else {
-          $(t).addClass('sub-menu-style')
+      $('.primary-menu .menu-link').hover(
+        function(e) {
+          if ($(this).find('.sub-menu-enabled')) {
+            $(this).find('.sub-menu-enabled').parent().next('.dropdown-menu').slideDown('fast')
+          }
+        },
+        function(e) {
+          // $(this).find('.sub-menu-enabled').parent().next('.dropdown-menu').slideUp('fast')
+          $(this).find('.sub-menu-enabled').parent().next('.dropdown-menu').hover(
+            function() {
+              sentinal = true
+              $(this).prev().find('.sub-menu-enabled').toggleClass('sub-menu-style')
+              $(this).css({
+                display: "flex"
+              })
+            },
+            function() {
+              sentinal = false
+              $('.dropdown-menu').slideUp('fast')
+              $(this).prev().find('.sub-menu-enabled').toggleClass('sub-menu-style')
+            }
+          )
+          if (sentinal) {
+            $('.dropdown-menu').slideUp('fast')
+          }
+            // .not($(this).find('.sub-menu-enabled').parent().next('.dropdown-menu')).slideUp('fast');
         }
-      },
-      function(e) {
-        console.log(this)
-        if ( !(e.target === this) && !(e.target.classList.contains('dropdown-menu')) ) {
-          $('.primary-menu').find('.sub-menu-enabled').removeClass('sub-menu-style')
-        }
-      }
-    )
+      )
+
+      // $('.primary-menu .dropdown-menu').hover(
+      //   function(e) {
+      //     // $(this).parent().addClass('sub-menu-style')
+      //     $(this).parent().prev('.sub-menu-enabled').toggleClass('sub-menu-style')
+      //   },
+      //   function(e) {
+      //     $(this).parent().prev('.sub-menu-enabled').toggleClass('sub-menu-style')
+      //     $(this).slideToggle()
+      //     // $(this).parent().next('.dropdown-menu').slideToggle('fast')
+      //   }
+      // )
+
+      $('.primary-menu .sub-menu-enabled').hover(
+        function() {},
+        function() {}
+      )
 
       $('.carrousel').slick({
         dots: true,

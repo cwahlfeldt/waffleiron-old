@@ -35,7 +35,7 @@
 
           @if (isset($nav['page']['page']))
             @php $new_nav = $nav['page']['page']; @endphp
-            <div id="menu-link-{{ $new_nav->post_name }}" class="{{ $new_nav->post_name }} md:py-7 menu-link w-auto relative relative top-0 left-0 lg:mx-6 md:mx-2">
+            <div id="menu-link-{{ $new_nav->post_name }}" class="{{ $new_nav->post_name }} md:py-7 menu-link w-auto relative relative top-0 left-0 lg:mx-6 md:mx-2 z-30">
               <a class="{{ $nav['page']['sub_menu'] ? 'sub-menu-enabled' : '' }} py-7 dib font-wide w-full uppercase font-normal lg:text-sm text-xs text-tan hover:opacity-75 tracking-wide" href="/{{ $new_nav->post_name }}">
                 {{ $nav['page']['label'] }}
               </a>
@@ -44,7 +44,7 @@
             @if ($nav['page']['sub_menu'])
               @php $sub_nav = $nav['page']['sub_menu']; @endphp
               {{-- {{ $sub_nav }} --}}
-              <div id="dropdown-{{ $nav['page']['label'] }}" class="py-10 container bg-orange dropdown-menu flex absolute w-full pt-8 pb-10 h-auto z-30 top-0">
+              <div style="display: none;" class="py-10 container bg-orange dropdown-menu flex absolute w-full pt-8 pb-10 h-auto z-20 top-0">
                 <div class="container-sm relative flex flex-col mx-auto justify-between pt-5">
                   <div class="relative h-full">
                     <h2 class="font-sans uppercase text-3xl font-thin border-bottom text-white tracking-widest">
