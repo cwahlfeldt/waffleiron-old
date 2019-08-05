@@ -74,16 +74,19 @@
   
         <div class="accordions w-full h-full">
           {{-- {{ $accordions }} --}}
-          @foreach($accordions as $a)
-            <div class="accordion-item border-t-2 border-solid border-blue hover:cursor-point">
-              <h2 class="font-condensed font-bold tracking-wide text-2xl text-blue uppercase hover:text-orange hover:cursor-pointer">
-                {{ $a['title'] }}
-              </h2>
-              <div class="accordion-content pb-3 visible">
-                {!! $a['copy'] !!}
-              </div>
-            </div>
-          @endforeach
+
+          <div class="accordion-items w-full h-full">
+            @foreach($accordions as $a)
+              <button class="accordion-item flex flex-col items-between py-2 h-auto w-full text-left border-t-2 border-solid border-blue hover:cursor-pointer">
+                <h2 class="font-condensed font-semibold tracking-wide text-lg text-blue uppercase hover:text-orange hover:cursor-pointer">
+                  {{ $a['title'] }}
+                </h2>
+                <div class="accordion-content hidden">
+                  {!! $a['content'] !!}
+                </div>
+              </button>
+            @endforeach 
+          </div>
         </div>
       </div>
     </div>

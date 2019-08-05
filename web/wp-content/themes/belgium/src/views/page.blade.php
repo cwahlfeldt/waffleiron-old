@@ -57,6 +57,10 @@
         @include('designs.testimonials')
       @endif
 
+      @if (get_row_layout() === 'accordions')
+        @include('designs.accordions')
+      @endif
+
     @endwhile
   @endif
 </section>

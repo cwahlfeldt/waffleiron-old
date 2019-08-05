@@ -299,3 +299,7 @@ hr.line {
     max-width: 100%;
   }
 }
+
+.accordion-item {
+  /* min-height: 50px; */
+}

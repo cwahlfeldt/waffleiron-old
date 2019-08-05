@@ -64,6 +64,7 @@
   (async ({
     $,
   }) => {
+    $(document).ready(function() {
     // code
     $('.primary-menu .sub-menu-enabled').hover(
       function(e) {
@@ -84,10 +85,13 @@
       }
     )
 
-    $(document).ready(function() {
       $('.carrousel').slick({
         dots: true,
         arrows: false,
+      })
+
+      $('.accordion-item').on('click', function() {
+        $(this).find('.accordion-content').slideToggle('fast')
       })
     })
 
