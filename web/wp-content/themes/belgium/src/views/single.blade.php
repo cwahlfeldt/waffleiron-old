@@ -31,7 +31,7 @@
         </div>
       </div>
 
-      <div class="title sm:order-2 order-1 md:w-1/2 lg:w-3/4 sm:w-full sm:ml-3 md:bg-center bg-left bg-left bg-cover md:px-12 md:py-12 px-8 py-12" style="background-image: url({{ $img['url'] }});">
+      <div class="title sm:order-2 order-1 md:w-1/2 lg:w-3/4 sm:w-full sm:ml-3 md:bg-top sm:bg-right bg-cover md:px-12 md:py-12 px-8 py-12" style="background-image: url({{ $img['url'] }});">
         <div class="flex flex-col justify-end sm:items-end items-center h-full">
           <p class="heading-branded-text lg:text-left text-center tracking-wider text-white sm:font-lg text-center font-slab font-thin uppercase leading-tight text-5xl">
             {!! get_field('branding')['title'] !!}

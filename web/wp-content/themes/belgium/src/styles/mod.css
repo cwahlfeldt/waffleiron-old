@@ -33,8 +33,7 @@ strong {
 
 @media (min-width: 1550px) {
   .nav-wrap {
-    width: 100%;
-    max-width: 360px;
+    width: 360px;
     margin-left: -20px;
   }
 }
@@ -318,3 +317,20 @@ hr.line {
 .accordion-item {
   /* min-height: 50px; */
 }
+
+.vis {
+  display: flex !important;
+}
+
+.heading-title-block {
+  width: 100%;
+  max-width: 44%;
+}
+
+@media (max-width: 1024px) {
+  .heading-title-block {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+

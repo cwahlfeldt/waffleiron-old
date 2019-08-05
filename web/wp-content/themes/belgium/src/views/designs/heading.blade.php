@@ -12,11 +12,11 @@
         <img class="logo" src="{{ get_sub_field('branding')['logo']['url'] }}" alt="">
 
         <div class="text my-auto">
-          <hr style="color: {{ get_sub_field('style')['line_color'] }};" class="w-10 my-6 border border-orange border-solid border-1">
+          <hr style="border-color: {{ get_sub_field('style')['line_color'] }};" class="w-10 my-6 border border-orange border-solid border-1">
           <p class="text-white text-center tracking-wider font-amp uppercase leading font-thin {{ preg_match_all("/[\w']+/", get_sub_field('text')) <= 6 ? 'text-3xl leading-snug' : 'text-lg leading-loose' }}">
             {!! get_sub_field('text') !!}
           </p>
-          <hr style="color: {{ get_sub_field('style')['line_color'] }};" class="w-10 my-6 border border-orange border-solid border-1">
+          <hr style="border-color: {{ get_sub_field('style')['line_color'] }};" class="w-10 my-6 border border-orange border-solid border-1">
         </div>
        
         <div class="flex flex-col justify-end items-end">
@@ -27,11 +27,12 @@
       </div>
     </div>
 
-    <div class="sm:order-2 order-1 md:w-1/2 lg:w-3/4 sm:w-full sm:ml-3 md:bg-center bg-left bg-left bg-cover md:px-12 px-5 py-12" style="background-image: url({{ get_sub_field('branding')['stock']['url'] }});">
-      <div class="flex flex-col justify-end sm:items-end items-center h-full">
-        <p class="heading-branded-text lg:text-left text-center tracking-wider text-white sm:font-lg text-center font-slab font-thin uppercase leading-tight text-5xl">
+    <div class="sm:order-2 flex order-1 md:w-1/2 lg:w-3/4 sm:w-full sm:ml-3 md:bg-center bg-left bg-left bg-cover md:px-12 px-5 py-12 md:justify-end justify-center md:items-end justify-center w-full" style="background-image: url({{ get_sub_field('branding')['stock']['url'] }});">
+      <div class="heading-title-block flex flex-col md:justify-end justify-center w-auto h-full">
+        <hr style="border-color: {{ get_sub_field('style')['line_color'] }};" class="w-10 my-4 border border-orange mx-0 border-solid border-1">
+        <h2 class="heading-title text-white font-base font-slab font-thin 2xl:text-5xl md:text-4xl sm:text-3xl xs:text-xl uppercase tracking-wider leading-tight">
           {!! get_sub_field('branding')['title'] !!}
-        </p>
+        </h2>
       </div>
     </div>
 

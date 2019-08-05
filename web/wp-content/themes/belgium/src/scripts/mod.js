@@ -7,7 +7,7 @@
   }) => {
     $(document).ready(function() {
 
-          let sentinal = false
+      let sentinal = false
     // code
       $('.primary-menu .menu-link').hover(
         function(e) {
@@ -17,13 +17,12 @@
         },
         function(e) {
           // $(this).find('.sub-menu-enabled').parent().next('.dropdown-menu').slideUp('fast')
-          $(this).find('.sub-menu-enabled').parent().next('.dropdown-menu').hover(
+          dropdown = $(this).find('.sub-menu-enabled').parent().next('.dropdown-menu')
+          dropdown.hover(
             function() {
               sentinal = true
               $(this).prev().find('.sub-menu-enabled').toggleClass('sub-menu-style')
-              $(this).css({
-                display: "flex"
-              })
+              // $(this).slideDown('fast')
             },
             function() {
               sentinal = false
@@ -32,11 +31,13 @@
             }
           )
           if (sentinal) {
+            $('.sub-menu-enabled').toggleClass('sub-menu-style')
             $('.dropdown-menu').slideUp('fast')
           }
-            // .not($(this).find('.sub-menu-enabled').parent().next('.dropdown-menu')).slideUp('fast');
         }
       )
+
+
 
       // $('.primary-menu .dropdown-menu').hover(
       //   function(e) {

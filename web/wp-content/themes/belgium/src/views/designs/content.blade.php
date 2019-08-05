@@ -27,7 +27,7 @@
 <section class="content w-full relative py-4">
   <div class="container mx-auto {{ $title ? 'pt-16 pb-8' : 'pb-8 -mt-16' }}" style="background-color: {{ $style_bg_color }};">
     <div class="container-sm mx-auto">
-      <h2 class="text-center mb-5 font-sans tracking-widest font-xl uppercase" style="color: {{ $style_fg_color }};">
+      <h2 class="text-center mb-5 font-sans tracking-widest font-xl uppercase" style="color: {{ $style_title_color }};">
         {{ $title }}
         @if ($style_line_color)
           <hr style="border-color: {{ $style_line_color }}; text-align: {{$style_sizing['value']}};" class="w-10 my-2 border border-solid border-1 mt-6">
@@ -54,9 +54,9 @@
                   @endif
                 @endif
 
-                {{-- @if () --}}
-                {{--   <img class="w-24 mx-auto mt-8 mb-5" style="text-align: {{ $style_sizing['value'] }};" src="{{ $style_logo }}" alt=""> --}}
-                {{-- @endif --}}
+                @if ($style_logo)
+                  <img class="w-24 mx-auto mt-12 mb-5" style="text-align: {{ $style_sizing['value'] }};" src="{{ $style_logo }}" alt="">
+                @endif
 
                 @if ($c['acf_fc_layout'] === 'image')
                   <img class="lg:px-24 md:px-24 mx-auto py-8" src="{{ $c['image']['url'] }}" alt="">
