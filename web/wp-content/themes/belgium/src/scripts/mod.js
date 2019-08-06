@@ -7,53 +7,64 @@
   }) => {
     $(document).ready(function() {
 
-      let sentinal = false
-    // code
-      $('.primary-menu .menu-link').hover(
-        function(e) {
-          if ($(this).find('.sub-menu-enabled')) {
-            $(this).find('.sub-menu-enabled').parent().next('.dropdown-menu').slideDown('fast')
-          }
-        },
-        function(e) {
-          // $(this).find('.sub-menu-enabled').parent().next('.dropdown-menu').slideUp('fast')
-          dropdown = $(this).find('.sub-menu-enabled').parent().next('.dropdown-menu')
-          dropdown.hover(
-            function() {
-              sentinal = true
-              $(this).prev().find('.sub-menu-enabled').toggleClass('sub-menu-style')
-              // $(this).slideDown('fast')
-            },
-            function() {
-              sentinal = false
-              $('.dropdown-menu').slideUp('fast')
-              $(this).prev().find('.sub-menu-enabled').toggleClass('sub-menu-style')
-            }
-          )
-          if (sentinal) {
-            $('.sub-menu-enabled').toggleClass('sub-menu-style')
-            $('.dropdown-menu').slideUp('fast')
-          }
+      let subMenu = false
+      let dropdown = false
+
+      // code
+      $('.primary-menu .menu-link').mouseover(
+        function() {
+          subMenu = $(this).find('.sub-menu-enabled')
+          dropdown = subMenu.parent().next('.dropdown-menu')
+
+          subMenu.toggleClass('sub-menu-style')
+          dropdown.slideDown('fast')
+
+          // console.log(`mouseover: `, subMenu)
+          // console.log(`mouseover: `, dropdown)
         }
       )
 
+      $('.dropdown-menu').hover(
+        function() {
+          // let subMenu = $(this).prev().find('.sub-menu-enabled')
+          // let dropdown = $(this)
 
+          dropdown.css({display: 'flex !important'})
+          dropdown.toggleClass('vis')
+          subMenu.addClass('sub-menu-style')
 
-      // $('.primary-menu .dropdown-menu').hover(
-      //   function(e) {
-      //     // $(this).parent().addClass('sub-menu-style')
-      //     $(this).parent().prev('.sub-menu-enabled').toggleClass('sub-menu-style')
-      //   },
-      //   function(e) {
-      //     $(this).parent().prev('.sub-menu-enabled').toggleClass('sub-menu-style')
-      //     $(this).slideToggle()
-      //     // $(this).parent().next('.dropdown-menu').slideToggle('fast')
-      //   }
-      // )
+          // console.log(`dropdown - mouseover: `, subMenu)
+          // console.log(`dropdown - mouseover: `, dropdown)
+        },
+        function() {
+          // let subMenu = $(this).prev().find('.sub-menu-enabled')
+          // let dropdown = $(this)
 
-      $('.primary-menu .sub-menu-enabled').hover(
-        function() {},
-        function() {}
+          // dropdown.css('vis')
+          dropdown.css({display: ''})
+          subMenu.removeClass('sub-menu-style')
+          dropdown.toggleClass('vis')
+          // dropdown.slideUp('fast')
+
+          // console.log(`dropdown - mouseout: `, subMenu , '\n')
+          // console.log(`dropdown - mouseout: `, dropdown , '\n')
+        }
+      )
+
+      $('.primary-menu .menu-link').mouseout(
+        function() {
+          // let subMenu = $(this).find('.sub-menu-enabled')
+          // let dropdown = subMenu.parent().next('.dropdown-menu')
+
+          subMenu.removeClass('sub-menu-style')
+
+          // console.log(`mouseout: `, subMenu , '\n')
+          // console.log(`mouseout: `, dropdown , '\n')
+
+          if ( !(dropdown.hasClass('vis')) ) {
+            dropdown.slideUp('fast')
+          }
+        }
       )
 
       $('.carrousel').slick({
@@ -74,3 +85,31 @@
     // addBodyClass    : c => document.body.classList.add(`${ c }`),
     // removeBodyClass : c => document.body.classList.remove(`${ c }`),
   })
+
+
+      // $('.primary-menu .menu-link').mouseout(
+      //   function() {
+      //     let subMenu = $(this).find('.sub-menu-enabled')
+      //     let dropdown = $(this).find('.sub-menu-enabled').parent().next('.dropdown-menu')
+      //     if ($(this).find('.sub-menu-enabled')) {
+      //       dropdown.slideDown('fast')
+      //     }
+      //   }
+      // )
+
+      // $('.primary-menu .dropdown-menu').hover(
+      //   function(e) {
+      //     // $(this).parent().addClass('sub-menu-style')
+      //     $(this).parent().prev('.sub-menu-enabled').toggleClass('sub-menu-style')
+      //   },
+      //   function(e) {
+      //     $(this).parent().prev('.sub-menu-enabled').toggleClass('sub-menu-style')
+      //     $(this).slideToggle()
+      //     // $(this).parent().next('.dropdown-menu').slideToggle('fast')
+      //   }
+      // )
+
+      // $('.primary-menu .sub-menu-enabled').hover(
+      //   function() {},
+      //   function() {}
+      // )

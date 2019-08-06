@@ -148,6 +148,10 @@ hr.line {
   border-style: solid;
 }
 
+a {
+  transition: 200 all ease-in-out;
+}
+
 .menu-link a:hover {
   color: #a45a2a;
 }
@@ -164,20 +168,19 @@ hr.line {
 /* } */
 
 .sub-menu-enabled {
-  transition: 200 all ease-in-out;
   padding-bottom: 0;
   border-bottom: 0 solid transparent;
 }
-.sub-menu-enabled:hover {
-  color: #a45a2a !important;
-  padding-bottom: 20px;
-  border-bottom: 30px solid #a45a2a;
-}
+/* .sub-menu-enabled:hover { */
+/*   color: #a45a2a !important; */
+/*   padding-bottom: 20px; */
+/*   border-bottom: 30px solid #a45a2a; */
+/* } */
 
 .sub-menu-style {
   color: #a45a2a !important;
   padding-bottom: 20px !important;
-  border-bottom: 30px solid #a45a2a !important;
+  border-bottom: 20px solid #a45a2a !important;
 }
 
 .dropdown-menu:hover {
