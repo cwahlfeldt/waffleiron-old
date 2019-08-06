@@ -4,6 +4,12 @@
   $link_title = get_the_title($link);
 @endphp
 
+<style>
+  .heading a:hover {
+    background-color: {{ get_sub_field('style')['line_color'] }};
+    color: {{ get_sub_field('style')['background_color'] }};
+  }
+</style>
 <section class="heading w-full relative">
   <div class="flex sm:flex-row flex-col w-full h-full">
 
@@ -13,14 +19,15 @@
 
         <div class="text my-auto">
           <hr style="border-color: {{ get_sub_field('style')['line_color'] }};" class="w-10 my-6 border border-orange border-solid border-1">
-          <p class="text-white text-center tracking-wider font-amp uppercase leading font-thin {{ preg_match_all("/[\w']+/", get_sub_field('text')) <= 6 ? 'text-3xl leading-snug' : 'text-lg leading-loose' }}">
+          <p
+            style="color: {{ get_sub_field('style')['foreground_color'] }};"
+            class="text-white text-center tracking-wider font-amp uppercase leading font-thin {{ preg_match_all("/[\w']+/", get_sub_field('text')) <= 6 ? 'text-3xl leading-snug' : 'text-lg leading-loose' }}">
             {!! get_sub_field('text') !!}
           </p>
           <hr style="border-color: {{ get_sub_field('style')['line_color'] }};" class="w-10 my-6 border border-orange border-solid border-1">
         </div>
-       
         <div class="flex flex-col justify-end items-end">
-          <a style="color: {{ get_sub_field('style')['foreground_color'] }}; border-color: {{ get_sub_field('style')['line_color'] }};" class="link px-5 py-2 font-sans font-thin tracking-widest text-white uppercase hover:text-blue border border-solid border-orange hover:bg-orange" href="{{ get_sub_field('link') }}">
+          <a style="color: {{ get_sub_field('style')['foreground_color'] }}; border-color: {{ get_sub_field('style')['line_color'] }};" class="link px-5 py-2 font-sans font-thin tracking-widest text-white uppercase hover:text-blue border-2 border-solid border-orange" href="{{ get_sub_field('link') }}">
             {{ $link_text ?: $link_title }}
           </a>
         </div>
@@ -31,7 +38,7 @@
       <div class="heading-title-block flex flex-col md:justify-end justify-center w-auto h-full">
         @if (get_sub_field('branding')['title'])
           <hr style="border-color: {{ get_sub_field('style')['line_color'] }};" class="w-10 my-4 border border-orange mx-0 border-solid border-1">
-          <h2 class="heading-title text-white font-base font-slab font-thin 2xl:text-5xl md:text-4xl sm:text-3xl xs:text-xl uppercase tracking-wider leading-tight">
+          <h2 style="color: {{ get_sub_field('style')['foreground_color'] }};" class="heading-title text-white font-base font-slab font-thin 2xl:text-5xl md:text-4xl sm:text-3xl xs:text-xl uppercase tracking-wider leading-tight">
             {!! get_sub_field('branding')['title'] !!}
           </h2>
         @endif

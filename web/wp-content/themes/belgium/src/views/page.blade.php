@@ -33,10 +33,6 @@
         @include('designs.content')
       @endif
 
-      @if (get_row_layout() === 'contact')
-        @include('designs.contact')
-      @endif
-
       @if (get_row_layout() === 'banner')
         @include('designs.banner')
       @endif
@@ -59,6 +55,10 @@
 
       @if (get_row_layout() === 'accordions')
         @include('designs.accordions')
+      @endif
+
+      @if (get_row_layout() === 'contact')
+        @include('designs.contact')
       @endif
 
     @endwhile

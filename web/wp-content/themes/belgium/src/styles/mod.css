@@ -20,6 +20,10 @@ strong {
   text-transform: uppercase;
 }
 
+a {
+  transition: all 200ms ease-in-out;
+}
+
 .nav-wrap {
   width: 352px;
   margin-left: -21px;
@@ -242,7 +246,7 @@ a {
   width: 100%;
   max-width: 400px;
   height: 100%;
-  max-height: 150px;
+  max-height: 80vh;
 }
 
 .button-wrap > div {
@@ -255,6 +259,10 @@ a {
 
 .button-wrap:last-child {
   margin-left: 20px;
+}
+
+.button-wrap:hover p span {
+  border-bottom: 4px solid white;
 }
 
 .see-through-image {
@@ -336,4 +344,3 @@ a {
     max-width: 100%;
   }
 }
-

@@ -4,12 +4,12 @@
   $style_fg_color = get_sub_field('style')['foreground_color'];
   $style_bg_color = get_sub_field('style')['background_color'];
   $style_line_color = get_sub_field('style')['line_color'];
-
 @endphp
+
 @if ($accordions)
-<div class="accordions w-full h-full">
+<div class="accordions w-full h-full py-3 {{ $title ? '' : '-mt-12' }}">
   <div class="container h-full">
-    <div class="container-sm mx-auto">
+    <div class="container-sm mx-auto {{ $title ? '' : 'pb-12' }}" style="background-color: {{ $style_bg_color }};">
       <h2 class="text-center mb-5 font-sans tracking-widest font-xl uppercase" style="color: {{ $style_fg_color }};">
         {{ $title }}
         @if ($style_line_color)

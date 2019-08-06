@@ -290,6 +290,11 @@ _init () {
   kill -9 $(pgrep -f server.js) > /dev/null 2>&1 ;
 }
 
+if [ -z $# ]
+then
+  _start
+fi
+
 POSITIONAL=()
 while [[ $# -gt 0 ]]
   do
@@ -623,7 +628,7 @@ while [[ $# -gt 0 ]]
         ;;
 
         * )
-          printf "\n nada \n\n"
+          _start
           shift
           shift
         ;;

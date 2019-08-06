@@ -10,10 +10,10 @@
           href="{{ $button['link'] }}"
           style="background-image: url({{ wp_get_attachment_url($button['image']['id']) }});"
           class="
-            button-wrap hover:border-2
-            border-0 border-orange border-solid flex bg-cover bg-center
+            button-wrap
+            flex bg-cover bg-center
             flex-col justify-center items-center
-            w-1/2 h-full py-12 px-5
+            w-full h-full py-12 px-5
             {{ $loop->last ? 'md:w-1/2' : 'md:w-1/4' }}"
           >
           <p
@@ -23,7 +23,7 @@
               $the_rest = explode(' />', $button['label'])[0];
             @endphp
             {!! $the_rest !!}<br><br>
-            <span class="text-white font-condensed leading-widest uppercase text-5xl">{!! $last_word !!}</span>
+            <span class="text-white font-amp font-medium leading-widest uppercase text-5xl">{!! $last_word !!}</span>
           </p>
         </a>
       @endforeach
