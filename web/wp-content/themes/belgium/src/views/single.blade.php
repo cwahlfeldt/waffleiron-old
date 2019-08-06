@@ -72,22 +72,24 @@
           <div class="font-serif text-blue py-6">{!! $content !!}</div>
         </p>
   
-        <div class="accordions w-full h-full">
-          {{-- {{ $accordions }} --}}
+        @if ($accordions)
+          <div class="accordions w-full h-full">
+            {{-- {{ $accordions }} --}}
 
-          <div class="accordion-items w-full h-full">
-            @foreach($accordions as $a)
-              <button class="accordion-item flex flex-col items-between py-2 h-auto w-full text-left border-t-2 border-solid border-blue hover:cursor-pointer">
-                <h2 class="font-condensed font-semibold tracking-wide text-lg text-blue uppercase hover:text-orange hover:cursor-pointer">
-                  {{ $a['title'] }}
-                </h2>
-                <div class="accordion-content hidden">
-                  {!! $a['copy'] !!}
-                </div>
-              </button>
-            @endforeach 
+            <div class="accordion-items w-full h-full">
+              @foreach($accordions as $a)
+                <button class="accordion-item flex flex-col items-between py-2 h-auto w-full text-left border-t-2 border-solid border-blue hover:cursor-pointer">
+                  <h2 class="font-condensed font-semibold tracking-wide text-lg text-blue uppercase hover:text-orange hover:cursor-pointer">
+                    {{ $a['title'] }}
+                  </h2>
+                  <div class="accordion-content hidden">
+                    {!! $a['copy'] !!}
+                  </div>
+                </button>
+              @endforeach 
+            </div>
           </div>
-        </div>
+        @endif
       </div>
     </div>
   </section>

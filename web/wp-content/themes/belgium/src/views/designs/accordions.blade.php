@@ -6,6 +6,7 @@
   $style_line_color = get_sub_field('style')['line_color'];
 
 @endphp
+@if ($accordions)
 <div class="accordions w-full h-full">
   <div class="container h-full">
     <div class="container-sm mx-auto">
@@ -21,7 +22,7 @@
             <h2 class="font-condensed font-semibold tracking-wide text-lg text-blue uppercase hover:text-orange hover:cursor-pointer">
               {{ $a['title'] }}
             </h2>
-            <div class="accordion-content hidden">
+            <div class="accordion-content pt-4 pb-8 hidden" style="color: {{ $style_fg_color }};">
               {!! $a['content'] !!}
             </div>
           </button>
@@ -30,3 +31,4 @@
     </div>
   </div>
 </div>
+@endif

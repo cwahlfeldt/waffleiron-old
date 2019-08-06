@@ -25,7 +25,7 @@
 @endphp
 {{-- {{$content}} --}}
 <section class="content w-full relative py-4">
-  <div class="container mx-auto {{ $title ? 'pt-16 pb-8' : 'pb-8 -mt-16' }}" style="background-color: {{ $style_bg_color }};">
+  <div class="container mx-auto {{ $title ? 'pt-16 pb-8' : 'pb-3' }}" style="background-color: {{ $style_bg_color }};">
     <div class="container-sm mx-auto">
       <h2 class="text-center mb-5 font-sans tracking-widest font-xl uppercase" style="color: {{ $style_title_color }};">
         {{ $title }}
