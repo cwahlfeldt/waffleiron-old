@@ -325,14 +325,6 @@ a {
   }
 }
 
-.accordion-item {
-  /* min-height: 50px; */
-}
-
-.vis {
-  display: flex !important;
-}
-
 .heading-title-block {
   width: 100%;
   max-width: 44%;
@@ -343,4 +335,106 @@ a {
     width: 100%;
     max-width: 100%;
   }
+}
+
+.page div[data-remodal-id="modal-fcd"] {
+  display: none !important;
+}
+
+.af-form .acf-th {
+  padding: 0;
+}
+
+.af-form .acf-row .acf-input-wrap input {
+  border: 2px solid theme('colors.blue') !important;
+  padding: 10px 15px !important;
+  color: theme('colors.blue');
+  font-family: theme('fontFamily.amp');
+  font-size: theme('fontSize.base');
+}
+
+.af-form textarea {
+  border: 2px solid theme('colors.blue');
+}
+
+/* .af-form .acf-input:last-child { */
+/*   padding-left: 20px; */
+/* } */
+
+.af-form table {
+  border: none !important;
+}
+
+/* .af-form .acf-form td:nth-child(1) { */
+/*   padding-left: 0; */
+/* } */
+
+.acf-table > tbody > tr:last-child > td {
+  padding-right: 20px !important;
+  padding-left: 0 !important;
+}
+
+.acf-table > tbody > tr td:last-child {
+  padding-left: 20px;
+  padding-right: 0 !important;
+}
+
+.acf-input-wrap input {
+  height: 100% !important;
+  max-height: 35px !important;
+}
+
+#acf-field_5d4ae154ce8db-field_5d4adcd5ae439 {
+  min-height: 35px !important;
+}
+
+/* .af-form .acf-row td[data-name="first"] { */
+/*   padding-right: 10px !important; */
+/*   padding-left: 0 !important; */
+/* } */
+/* .af-form .acf-row td[data-name="last"] { */
+/*   padding-left: 10px !important; */
+/*   padding-right: 0 !important; */
+/* } */
+
+.af-form .acf-th label {
+  font-family: theme('fontFamily.condensed') !important;
+  font-size: theme('fontSize.sm') !important;
+  letter-spacing: 1px !important;
+  font-weight: 400 !important;
+  text-transform: uppercase !important;
+  color: theme('colors.blue');
+}
+.af-form .acf-fields > .acf-field .af-label label {
+  font-family: theme('fontFamily.slab');
+  font-size: theme('fontSize.base');
+  letter-spacing: 1px;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: theme('colors.orange');
+}
+
+.af-form .acf-fields > .acf-field {
+  border: none;
+}
+
+.af-form .acf-fields > .acf-field .af-label {
+  /* display: none; */
+}
+
+.acf-button.af-submit-button {
+  padding: 5px 24px;
+  font-family: theme('fontFamily.amp');
+  letter-spacing: 1px;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: theme('fontSize.base');
+  color: theme('colors.blue');
+  border: 2px solid theme('colors.blue');
+  background-color: white;
+}
+
+.acf-button.af-submit-button:hover {
+  color: white;
+  background-color: theme('colors.blue')
 }

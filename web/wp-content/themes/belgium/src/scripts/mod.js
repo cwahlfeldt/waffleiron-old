@@ -10,28 +10,29 @@
     let $subMenu = false
     let $dropdown = false
 
-    $(document).hover(
+    $(window).hover(
       ({ target }) => {
-          if ($(target).is('.sub-menu-enabled')) {
-            console.log( $(target).parent().next() )
+        if ($(target).is('.sub-menu-enabled')) {
+          console.log( $(target).parent().next() )
 
-            $dropdown = $(target).parent().next()
-            $subMenu = $(target)
+          $dropdown = $(target).parent().next()
+          $subMenu = $(target)
 
-            $subMenu.addClass('sub-menu-style')
-            $dropdown.slideDown('fast')
-          }
+          $subMenu.addClass('sub-menu-style')
+          $dropdown.slideDown('fast')
+          return
+        }
+        return
       },
       ({ target }) => {
-        // console.log($subMenu)
-        // console.log($dropdown)
         if ($subMenu || $dropdown) {
           if (!($(target).is('.dropdown-menu *')) && !($(target).is('.dropdown-menu')) && !($(target).is('.sub-menu-enabled'))) {
             $('.sub-menu-enabled').removeClass('sub-menu-style')
             $('.dropdown-menu').slideUp('fast')
           }
-
+          return
         }
+        return
       }
     )
     $('.carrousel').slick({
