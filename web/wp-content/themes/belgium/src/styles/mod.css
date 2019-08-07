@@ -128,6 +128,10 @@ footer .brand {
     padding-left: 0 !important;
     padding-right: 0 !important;
   }
+
+  .dropdown-menu.container {
+    top: 64px !important;
+  }
 }
 
 /* .head-col { */
@@ -227,8 +231,8 @@ a {
 
 @media (min-width: 889px) {
   .primary .menu-link {
-    margin-left: 1rem;
-    margin-right: 1rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
   }
 }
 
