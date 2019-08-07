@@ -1,6 +1,7 @@
 @extends('master')
 
 @php
+  global $post;
   $navigation = array(
     'primary' => get_field('primary', 'options'),
     'secondary' => get_field('secondary', 'options'),
@@ -63,5 +64,18 @@
 
     @endwhile
   @endif
+
+  @if ($post->post_name === 'news')
+    <div class="flex flex-col">
+      @foreach(get_posts() as $news_post) @php(setup_postdata($news_post))
+        <h2 class="font-slab text-2xl uppercase text-blue tracking-wide leading-snug">{{ $news_post->post_title }}</h2>
+        @foreach (get_field('designs', $news_post->ID) as $design)
+          {{ json_encode($design) }}
+        @endforeach
+      @endforeach 
+    </div>
+   
+  @endif
+
 </section>
 @endsection
