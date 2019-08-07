@@ -83,8 +83,12 @@ add_action('upload_mimes', function($file_types) {
   $new_filetypes [ 'weba' ] = 'audio/weba';
   $new_filetypes [ 'webm' ] = 'video/webm';
   $new_filetypes [ 'obj'  ] = 'text/plain';
+  $new_filetypes [ 'vcf'  ] = 'text/vcard';
   $new_filetypes [ 'glb'  ] = 'text/plain';
   $new_filetypes [ 'mjs'  ] = 'text/javascript';
+  $new_filetypes [ 'pdf'  ] = 'text/pdf';
+  $new_filetypes [ 'doc'  ] = 'text/doc';
+  $new_filetypes [ 'docx'  ] = 'text/docx';
   $new_filetypes [ 'sh'   ] = 'application/x-sh';
 
   $file_types = array_merge($file_types, $new_filetypes );
