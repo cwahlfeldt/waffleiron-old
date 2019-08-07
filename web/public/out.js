@@ -94,6 +94,14 @@
         return
       }
     )
+
+    $('.fa-bars').on('click', function() {
+      $('.mobile-dropdown').slideToggle('fast')
+      $('.mobile-dropdown').click(function () {
+        $(this).slideUp('fast')
+      })
+    })
+
     $('.carrousel').slick({
       dots: true,
       arrows: false,
