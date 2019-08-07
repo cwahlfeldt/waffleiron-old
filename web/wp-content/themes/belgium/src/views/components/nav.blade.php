@@ -22,11 +22,7 @@
         <img class="brand" src="{{ $brand }}" />
       </a>
       <div class="ml-auto md:hidden">
-        <button class="hamburger" type="button">
-          <span class="hamburger-box">
-            <span class="hamburger-inner"></span>
-          </span>
-        </button>
+        <i class="fas fa-bars font-2xl font-thin"></i>
       </div>
     </div>
 

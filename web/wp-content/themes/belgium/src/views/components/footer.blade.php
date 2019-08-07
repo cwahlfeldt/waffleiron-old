@@ -30,7 +30,7 @@
       <section class="md:order-2 order-1 lg:w-1/3 logo-footer w-full h-full">
         <div class="flex flex-col justify-between items-center h-full text-xs text-gray font-hairline md:text-left text-center">
           <img class="brand" src="{{ $brand }}" />
-          <p class="flex flex-row justify-center text-center md:text-left md:pt-24 pt-5">
+          <p class="flex flex-row justify-center text-center md:text-left md:pt-24 pt-5 h-full w-full">
             <a class="link uppercase font-wide tracking-wide hover:text-blue text-sm" href="/privacy-policy">Privacy Policy</a>&nbsp; | &nbsp;<br>
             <a class="link uppercase font-wide tracking-wide hover:text-blue text-sm" href="/disclaimer">Disclaimer</a>&nbsp; | &nbsp;<br>
             <a class="link uppercase font-wide tracking-wide hover:text-blue text-sm" href="#">Site Map</a>
