@@ -74,20 +74,21 @@
     <section class="news">
       <div class="flex flex-col px-48 py-12">
         @foreach(get_posts() as $news_post) @php(setup_postdata($news_post))
-        <div class="flex flex-col py-6">
-          <h2 class="font-slab text-2xl uppercase text-blue tracking-wide leading-snug">
-           <a href="{{ $news_post }}">{{ $news_post->post_title }}</a>
-          </h2>
-          @foreach (get_field('designs', $news_post->ID) as $design)
-              {{-- {{ var_dump($design) }} --}}
-            @if ($design['acf_fc_layout'] === 'content')
-              <div class="content font-serif text-base leading-loose text-blue">
-                {!! get_excerpt($design['content'][0]['copy']) !!}
-              </div>
+          <div class="flex flex-col py-6">
+            <h2 class="font-slab text-2xl uppercase text-blue tracking-wide leading-snug">
+             <a href="{{ $news_post }}">{{ $news_post->post_title }}</a>
+            </h2>
+            @if (get_field('designs', $news_post->ID))
+              @foreach (get_field('designs', $news_post->ID) as $design)
+                  {{-- {{ var_dump($design) }} --}}
+                @if ($design['acf_fc_layout'] === 'content')
+                  <div class="content font-serif text-base leading-loose text-blue">
+                    {!! get_excerpt($design['content'][0]['copy']) !!}
+                  </div>
+                @endif
+              @endforeach 
             @endif
-          @endforeach 
-        </div>
-       
+          </div>
         @endforeach 
       </div>   
     </section>

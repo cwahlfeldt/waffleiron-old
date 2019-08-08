@@ -227,9 +227,17 @@ a {
 .heading {
   height: 80vh;
   min-height: 700px;
+  max-height: 800px;
 }
 
 @media (min-width: 889px) {
+  .primary .menu-link {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+}
+
+@media (max-width: 888px) {
   .primary .menu-link {
     margin-left: 0.5rem;
     margin-right: 0.5rem;
