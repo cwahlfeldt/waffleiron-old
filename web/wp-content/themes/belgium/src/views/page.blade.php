@@ -11,7 +11,7 @@
   $brand = get_field('branding', 'options')['Logo']['url'];
 
 
-  function get_excerpt($str, $startPos=0, $maxLength=100) {
+  function get_excerpt($str, $startPos=0, $maxLength=200) {
     if(strlen($str) > $maxLength) {
       $excerpt   = substr($str, $startPos, $maxLength-3);
       $lastSpace = strrpos($excerpt, ' ');
@@ -75,14 +75,18 @@
       <div class="flex flex-col px-48 py-12">
         @foreach(get_posts() as $news_post) @php(setup_postdata($news_post))
           <div class="flex flex-col py-6">
-            <h2 class="font-slab text-2xl uppercase text-blue tracking-wide leading-snug">
-             <a href="{{ $news_post }}">{{ $news_post->post_title }}</a>
+            {{-- {{ $post }} --}}
+            <h2 class="font-slab text-2xl uppercase hover:text-orange text-blue tracking-wide leading-snug">
+              <a href="{{ $news_post }}">{{ $news_post->post_title }}</a>
             </h2>
+            <p class="post-meta my-0 text-gray font-condensed text-base font-thin tracking-wide">
+              {{ the_time('l, F jS, Y') }}
+            </p>
             @if (get_field('designs', $news_post->ID))
               @foreach (get_field('designs', $news_post->ID) as $design)
                   {{-- {{ var_dump($design) }} --}}
                 @if ($design['acf_fc_layout'] === 'content')
-                  <div class="content font-serif text-base leading-loose text-blue">
+                  <div class="content font-serif text-base leading-snug text-blue">
                     {!! get_excerpt($design['content'][0]['copy']) !!}
                   </div>
                 @endif

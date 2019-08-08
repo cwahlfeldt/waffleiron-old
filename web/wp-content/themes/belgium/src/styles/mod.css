@@ -10,6 +10,14 @@ p {
   font-family: theme('fontFamily.serif');
   line-height: theme('lineHeight.loose');
   font-size: theme('fontSize.base');
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+p:first-child {
+  margin-top: 0;
+}
+p:last-child {
+  margin-bottom: 0;
 }
 
 strong {
@@ -231,14 +239,14 @@ a {
   max-height: 800px;
 }
 
-@media (min-width: 889px) {
+@media (min-width: 1111px) {
   .primary .menu-link {
     margin-left: 1rem;
     margin-right: 1rem;
   }
 }
 
-@media (max-width: 888px) {
+@media (max-width: 1110px) {
   .primary .menu-link {
     margin-left: 0.5rem;
     margin-right: 0.5rem;
@@ -247,6 +255,7 @@ a {
 
 .attorney .heading {
   height: 100%;
+  max-height: 100%;
 }
 
 .profile {
@@ -256,11 +265,13 @@ a {
 .attorney-heading {
   height: 500px !important;
   min-height: 300px !important;
+  max-height: 100%;
 }
 
 .attorney-heading-content {
   height: 100% !important;
   min-height: 100% !important;
+  max-height: 100%;
 }
 
 .side-wrap {
@@ -380,6 +391,10 @@ a {
 
 .af-form textarea {
   border: 2px solid theme('colors.blue');
+  font-family: theme('fontFamily.amp');
+  font-size: theme('fontSize.base');
+  padding: 10px 15px !important;
+  color: theme('colors.blue');
 }
 
 /* .af-form .acf-input:last-child { */
