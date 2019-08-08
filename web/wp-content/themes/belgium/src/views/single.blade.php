@@ -15,6 +15,7 @@
       $content = get_field('content');
       $style = get_field('style');
     @endphp
+
     <section class="heading attorney-heading w-full relative">
       <div class="flex sm:flex-row flex-col w-full h-full">
         <div class="side-wrap h-full sm:order-1 order-2 2xl:w-1/4 md:w-1/2 lg:w-1/3 sm:w-full sm:mr-3 bg-blue relative py-12 px-4" style="background-color: {{ $style['background_color'] }};">
@@ -96,11 +97,13 @@
         </div>
       </div>
     </section>
+
   @elseif (get_post_type() === 'post')
+
     @php
       $designs = get_field('designs');
     @endphp
-    {{-- {{ $designs }} --}}
+
     <section class="post">
       @if (have_rows('designs'))
         @while (have_rows('designs')) @php(the_row())
