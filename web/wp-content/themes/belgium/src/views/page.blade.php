@@ -10,14 +10,19 @@
   );
   $brand = get_field('branding', 'options')['Logo']['url'];
 
- /* function has_children(child) {
-    $children = get_pages( array( 'child_of' => $child ) );
-    if( count( $children ) == 0 ) {
-        return false;
+
+  function get_excerpt($str, $startPos=0, $maxLength=100) {
+    if(strlen($str) > $maxLength) {
+      $excerpt   = substr($str, $startPos, $maxLength-3);
+      $lastSpace = strrpos($excerpt, ' ');
+      $excerpt   = substr($excerpt, 0, $lastSpace);
+      $excerpt  .= '...';
     } else {
-        return true;
+      $excerpt = $str;
     }
-  }*/
+    
+    return $excerpt;
+  }
 @endphp
 
 @section('content')
@@ -66,15 +71,26 @@
   @endif
 
   @if ($post->post_name === 'news')
-    <div class="flex flex-col">
-      @foreach(get_posts() as $news_post) @php(setup_postdata($news_post))
-        <h2 class="font-slab text-2xl uppercase text-blue tracking-wide leading-snug">{{ $news_post->post_title }}</h2>
-        @foreach (get_field('designs', $news_post->ID) as $design)
-          {{ json_encode($design) }}
-        @endforeach
-      @endforeach 
-    </div>
-   
+    <section class="news">
+      <div class="flex flex-col px-48 py-12">
+        @foreach(get_posts() as $news_post) @php(setup_postdata($news_post))
+        <div class="flex flex-col py-6">
+          <h2 class="font-slab text-2xl uppercase text-blue tracking-wide leading-snug">
+           <a href="{{ $news_post }}">{{ $news_post->post_title }}</a>
+          </h2>
+          @foreach (get_field('designs', $news_post->ID) as $design)
+              {{-- {{ var_dump($design) }} --}}
+            @if ($design['acf_fc_layout'] === 'content')
+              <div class="content font-serif text-base leading-loose text-blue">
+                {!! get_excerpt($design['content'][0]['copy']) !!}
+              </div>
+            @endif
+          @endforeach 
+        </div>
+       
+        @endforeach 
+      </div>   
+    </section>
   @endif
 
 </section>
