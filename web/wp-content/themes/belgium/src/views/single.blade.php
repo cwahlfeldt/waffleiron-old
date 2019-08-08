@@ -100,7 +100,7 @@
     @php
       $designs = get_field('designs');
     @endphp
-    {{ $designs }}
+    {{-- {{ $designs }} --}}
     <section class="post">
       @if (have_rows('designs'))
         @while (have_rows('designs')) @php(the_row())
