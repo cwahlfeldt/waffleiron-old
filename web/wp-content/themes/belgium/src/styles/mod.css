@@ -491,10 +491,14 @@ a {
 
 .trans {
   transition: all 200ms ease-in-out;
-  transform: rotate3d(0, 0, 0,);
+  transform: rotate3d(0, 0, 1, 90deg);
 }
 
-.trans:hover {
+.trans-change {
   transition: all 200ms ease-in-out;
-  transform: rotate3d(90deg, 0, 0,);
+  transform: rotate3d(0, 0, 0, 0deg);
+}
+
+.text--orange {
+  color: theme('colors.orange') !important;
 }
