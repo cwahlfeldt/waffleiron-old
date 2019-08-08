@@ -98,8 +98,9 @@
     </section>
   @elseif (get_post_type() === 'post')
     @php
-      $designs = get_field('designs')
+      $designs = get_field('designs');
     @endphp
+    {{ $designs }}
     <section class="post">
       @if (have_rows('designs'))
         @while (have_rows('designs')) @php(the_row())
