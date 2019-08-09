@@ -517,3 +517,7 @@ a {
 .text--orange {
   color: theme('colors.orange') !important;
 }
+
+.area-wrap {
+  height: 300px !important;
+}
