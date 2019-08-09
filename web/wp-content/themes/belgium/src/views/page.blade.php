@@ -77,15 +77,15 @@
 
   @if ($post->post_name === 'news')
     <section class="news">
-      <div class="flex flex-col px-48 py-12">
-        @foreach(get_posts() as $news_post) @php(setup_postdata($news_post))
+      <div class="flex flex-col lg:px-64 md:px-48 px-12 py-12">
+        @foreach(get_posts(array('posts_per_page' => -1)) as $news_post) @php(setup_postdata($news_post))
           <div class="flex flex-col py-6">
             {{-- {{ $post }} --}}
             <h2 class="font-slab text-2xl uppercase hover:text-orange text-blue tracking-wide leading-snug">
-              <a href="{{ $news_post }}">{{ $news_post->post_title }}</a>
+              <a href="/{{ $news_post->post_name }}">{{ $news_post->post_title }}</a>
             </h2>
             <p class="post-meta my-0 text-gray font-condensed text-base font-thin tracking-wide">
-              {{ the_time('l, F jS, Y') }}
+              {{ date_format(date_create($news_post->post_date), 'l, F jS, Y') }}
             </p>
             @if (get_field('designs', $news_post->ID))
               @foreach (get_field('designs', $news_post->ID) as $design)
