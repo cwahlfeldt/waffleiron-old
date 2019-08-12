@@ -275,6 +275,7 @@ a {
 }
 
 .side-wrap {
+  width: 33.66% !important;
   height: auto !important; 
 }
 
