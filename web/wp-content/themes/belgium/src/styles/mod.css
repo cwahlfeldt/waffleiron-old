@@ -344,8 +344,12 @@ a {
 }
 
 .the-content > *  {
- margin-top: 1rem;
- margin-bottom: 1rem;
+ margin-top: 1.3rem;
+ margin-bottom: 1.3rem;
+}
+
+.the-content > img {
+  margin-top: 2.4rem;
 }
 
 .content-thing {
@@ -373,6 +377,10 @@ a {
 @media (max-width: 888px) {
   .attorney-item {
     max-width: 50%;
+  }
+
+  .the-content > img {
+    margin-top: 1.4rem;
   }
 
   .content-thing {
