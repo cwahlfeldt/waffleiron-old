@@ -24,8 +24,8 @@
   $use_columns = get_sub_field('use_columns');
 @endphp
 {{-- {{$content}} --}}
-<section class="content w-full relative py-4">
-  <div class="container mx-auto {{ $title ? 'pt-16 pb-8' : 'pb-3' }}" style="background-color: {{ $style_bg_color }};">
+<section class="content w-full relative py-3">
+  <div class="container mx-auto {{ !$title && $style_bg_color !== "#ffffff"? 'pt-16 pb-8' : 'pb-3' }}" style="background-color: {{ $style_bg_color }};">
     <div class="container-sm mx-auto">
       <h2 class="text-center mb-5 font-sans tracking-widest font-xl uppercase" style="color: {{ $style_title_color }};">
         {{ $title }}
@@ -35,7 +35,7 @@
       </h2>
 
       @if ( $content )
-        <div class="the-content w-full h-full mx-auto py-3">
+        <div class="the-content w-full h-full mx-auto {{ !$title && $style_bg_color !== "#ffffff" ? '' : 'py-3' }}">
 
 					  @if ($use_columns) <div class="flex flex-auto flex-wrap"> @endif
             @foreach ($content as $c)

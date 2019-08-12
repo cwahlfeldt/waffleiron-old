@@ -13,7 +13,7 @@
           {!! get_sub_field('title')['title'] !!}
         </h2>
       </div>
-      <div class="md:pt-48 pt-24">
+      <div class="md:pt-24 pt-16">
         <img class="w-1/2" src="{{ get_sub_field('branding')['logo']['url'] }}" alt="">
       </div>
     </div>
