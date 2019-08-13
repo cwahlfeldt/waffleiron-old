@@ -24,15 +24,17 @@
   $use_columns = get_sub_field('use_columns');
 @endphp
 {{-- {{$content}} --}}
-<section class="content w-full relative py-6">
-  <div class="container mx-auto {{ !$title && $style_bg_color !== "#ffffff" ? 'pt-6 pb-6' : 'pt-10 pb-8' }}" style="background-color: {{ $style_bg_color }};">
+<section class="content w-full relative">
+  <div class="container mx-auto" style="background-color: {{ $style_bg_color }};">
     <div class="container-sm mx-auto">
-      <h2 class="text-center mt-5 font-sans tracking-widest font-xl uppercase" style="color: {{ $style_title_color }};">
-        {{ $title }}
-        @if ($style_line_color)
-          <hr style="border-color: {{ $style_line_color }}; text-align: {{$style_sizing['value']}};" class="w-10 my-2 border border-solid border-1 mt-6">
-        @endif
-      </h2>
+      @if ($title)
+        <h2 class="text-center mt-5 font-sans tracking-widest font-xl uppercase" style="color: {{ $style_title_color }};">
+          {{ $title }}
+          @if ($style_line_color)
+            <hr style="border-color: {{ $style_line_color }}; text-align: {{$style_sizing['value']}};" class="w-10 my-2 border border-solid border-1 mt-6">
+          @endif
+        </h2>
+      @endif
 
       @if ( $content )
         <div class="the-content w-full h-full mx-auto {{ !$title && $style_bg_color !== "#ffffff" ? '' : 'py-3' }}">
