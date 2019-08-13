@@ -37,6 +37,8 @@ blockquote {
   line-height: theme('lineHeight.snug');
   color: theme('colors.orange');
   font-style: oblique;
+  padding-top: 25px;
+  padding-bottom: 25px;
 }
 
 p {
@@ -164,7 +166,7 @@ footer .brand {
 }
 
 .logged-in .dropdown-menu.container {
-  top: 117px;
+  /* top: 117px; */
 }
 
 .container-sm {
