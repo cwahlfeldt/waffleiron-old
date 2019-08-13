@@ -80,23 +80,22 @@
       <div class="flex flex-col lg:px-64 md:px-48 px-12 py-12">
         @foreach(get_posts(array('posts_per_page' => -1)) as $news_post) @php(setup_postdata($news_post))
           <div class="flex flex-col py-6">
-            {{-- {{ $post }} --}}
-            <h2 class="font-slab text-2xl uppercase hover:text-orange text-blue tracking-wide leading-snug">
+            <h2 class="font-condensed 2xl:text-5xl md:text-4xl text-2xl uppercase hover:text-orange text-blue tracking-wide leading-none">
               <a href="/{{ $news_post->post_name }}">{{ $news_post->post_title }}</a>
             </h2>
-            <p class="post-meta my-0 text-gray font-condensed text-base font-thin tracking-wide">
+            <p class="post-meta my-0 text-gray font-slab text-sm font-thin tracking-wide">
               {{ date_format(date_create($news_post->post_date), 'l, F jS, Y') }}
             </p>
-            @if (get_field('designs', $news_post->ID))
-              @foreach (get_field('designs', $news_post->ID) as $design)
-                  {{-- {{ var_dump($design) }} --}}
-                @if ($design['acf_fc_layout'] === 'content')
-                  <div class="content font-serif text-base leading-snug text-blue">
-                    {!! get_excerpt($design['content'][0]['copy']) !!}
-                  </div>
-                @endif
-              @endforeach 
-            @endif
+            {{-- @if (get_field('designs', $news_post->ID)) --}}
+            {{--   @foreach (get_field('designs', $news_post->ID) as $design) --}}
+            {{--       {1{-- {{ var_dump($design) }} --}1} --}}
+            {{--     @if ($design['acf_fc_layout'] === 'content') --}}
+            {{--       <div class="content font-serif text-base leading-snug text-blue"> --}}
+            {{--         {!! get_excerpt($design['content'][0]['copy']) !!} --}}
+            {{--       </div> --}}
+            {{--     @endif --}}
+            {{--   @endforeach --}} 
+            {{-- @endif --}}
           </div>
         @endforeach 
       </div>   
