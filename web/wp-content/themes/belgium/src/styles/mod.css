@@ -307,6 +307,11 @@ a {
   max-height: 100%;
 }
 
+.heading.variant {
+  height: 35vh !important;
+  min-height: 535px; 
+}
+
 .profile {
   height: auto !important;
 }
