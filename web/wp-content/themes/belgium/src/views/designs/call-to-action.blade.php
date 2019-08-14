@@ -23,14 +23,13 @@
       </div>
     </div>
     <div class="item w-1/4 ml-3 relative flex flex-col" style="background-color: {{ $style['background_color'] }};">
-      <img class="see-through-image z-0 absolute z-0 mx-auto" src="/wp-content/uploads/2019/07/TM_Icon_White.svg" />
-      <div style="border-color: {{ $style['line_color'] }};" class="z-20 h-full m-4 flex flex-col justify-center items-center border border-tan border-solid">
-        <a class="md:p-16 p-4 uppercase text-center font-sans text-xl" style="color: {{ $style['line_color'] }};" href="{{ $link }}">
-          Get<br>
-          in<br>
+      <img class="see-through-image z-0 absolute" src="/wp-content/uploads/2019/07/TM_Icon_White.svg" />
+      <a style="border-color: {{ $style['line_color'] }};" class="z-20 h-full m-4 flex flex-col justify-center items-center border-2 border-white border-solid hover:border-dotted" href="{{ $link }}">
+        <p class="md:p-16 p-4 uppercase text-center font-sans text-xl leading-tight" style="color: {{ $style['line_color'] }};">
+          Get in<br>
           Touch
-        </a>
-      </div>
+        </p>
+      </a>
     </div>
   </div>
 </section>

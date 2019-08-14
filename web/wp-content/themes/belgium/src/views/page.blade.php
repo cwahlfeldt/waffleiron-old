@@ -60,7 +60,6 @@
       @endif
 
       @if (get_row_layout() === 'areas_of_practice')
-        {{-- {{ 'wtf' }} --}}
         @include('designs.areas-of-practice')
       @endif
 
