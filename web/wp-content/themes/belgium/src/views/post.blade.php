@@ -10,8 +10,8 @@
   @include('designs.banner', array(
     'variant' => true,
   ))
-  @if (have_rows('designs'))
-    @while (have_rows('designs')) @php(the_row())
+  @if (have_rows('post_designs'))
+    @while (have_rows('post_designs')) @php(the_row())
 
       @if (get_row_layout() === 'content')
         @include('designs.content')
@@ -19,10 +19,6 @@
 
       @if (get_row_layout() === 'banner')
         @include('designs.banner')
-      @endif
-
-      @if (get_row_layout() === 'buttons')
-        @include('designs.buttons')
       @endif
 
       @if (get_row_layout() === 'call_to_action')
@@ -44,10 +40,6 @@
 
       @if (get_row_layout() === 'accordions')
         @include('designs.accordions')
-      @endif
-
-      @if (get_row_layout() === 'contact')
-        @include('designs.contact')
       @endif
 
     @endwhile
