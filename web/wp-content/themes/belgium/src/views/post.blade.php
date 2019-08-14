@@ -6,15 +6,12 @@
 
 @section('content')
 
-<section class="designs">
+<section class="post designs">
+  @include('designs.banner', array(
+    'variant' => true,
+  ))
   @if (have_rows('designs'))
     @while (have_rows('designs')) @php(the_row())
-
-      @if (get_row_layout() === 'heading')
-        @include('designs.heading', array(
-          'variant' => true,
-        ))
-      @endif
 
       @if (get_row_layout() === 'content')
         @include('designs.content')

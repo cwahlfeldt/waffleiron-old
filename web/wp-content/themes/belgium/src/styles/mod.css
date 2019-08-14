@@ -42,6 +42,7 @@ blockquote {
 }
 
 p {
+	transition: all 200ms ease-in-out;
   font-family: theme('fontFamily.serif');
   line-height: theme('lineHeight.loose');
   font-size: theme('fontSize.base');
@@ -345,11 +346,18 @@ a {
   .privacy {
     padding-top: 0;
   }
+
+  .banner .logo img {
+    max-height: 100% !important;
+    /* height: 100%; */
+    /* max-height: 80vh; */
+  }
 }
 
-.banner img {
+.banner .logo img {
   width: auto;
-  max-width: 150px;
+  height: auto;
+  max-height: 55px;
   /* height: 100%; */
   /* max-height: 80vh; */
 }
@@ -371,10 +379,31 @@ a {
 }
 
 .see-through-image {
+  width: auto;
+  height: 100%;
+  opacity: 0.03;
+}
+
+.call-to-action .see-through-image {
   width: 100%;
-  max-width: 400px;
-  margin-top: -18px;
-  opacity: 0.1;
+}
+
+a {
+	transition: all 200 ease-in-out;
+}
+
+a:hover p {
+	transition: all 200 ease-in-out;
+}
+
+.call-to-action a:hover {
+	border-color: theme('colors.orange') !important;
+	color: theme('colors.orange') !important;
+	border-width: 8px;
+}
+
+.call-to-action a:hover p {
+	color: theme('colors.orange') !important;
 }
 
 .small-text {
