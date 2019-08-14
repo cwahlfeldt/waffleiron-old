@@ -9,7 +9,7 @@
       "type": "package",
       "package": {
         "name": "advanced-custom-fields/advanced-custom-fields-pro",
-        "version": "5.8.1",
+        "version": "5.8.3",
         "type": "wordpress-plugin",
         "dist": {
           "type": "zip",
@@ -40,10 +40,6 @@
     "philippbaschke/acf-pro-installer": "^1.0",
     "roots/wp-password-bcrypt": "^1.0.0",
     "rvtraveller/qs-composer-installer": "^1.1",
-    "samrap/acf-fluent": "dev-master",
-    "spatie/server-side-rendering": "^0.2.5",
-    "stoutlogic/acf-builder": "dev-master",
-    "upstatement/routes": "^0.5.0",
     "vlucas/phpdotenv": "^2.4.0",
     "wpackagist-plugin/acf-to-rest-api": "^3.1",
     "wpackagist-plugin/advanced-forms": "^1.6.4",

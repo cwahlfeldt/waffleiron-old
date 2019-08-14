@@ -282,12 +282,17 @@ _init () {
 
   lando start && \
     lando pull --code=none --database=dev --files=dev && \
-      lando composer install --no-dev --prefer-dist --no-ansi --no-interaction --optimize-autoloader --no-progress ; \
-        $(which pnpm) install ; \
+      lando ssh -c "cd /app && rm -rf vendor node_modules ; rm -rf web/wp-content/uploads/cache/* ;" && \
+        lando composer install --no-dev --prefer-dist --no-ansi --no-interaction --optimize-autoloader --no-progress && \
+          lando wp plugin activate --all ; \
+          $(which pnpm) install ; \
 
   _start & \
-  sleep 20 && \
-  kill -9 $(pgrep -f server.js) > /dev/null 2>&1 ;
+  fg && \
+    sleep 20 && \
+      kill -9 $(pgrep -f server.js) > /dev/null 2>&1 ;
+
+  _cc
 }
 
 if [ -z $# ]
@@ -590,6 +595,13 @@ while [[ $# -gt 0 ]]
 
       #TODO how does gnu do it?
       case "$1" in
+        -i )
+          _init ;
+
+          shift
+          shift
+        ;;
+
         -s )
           _start ;
 

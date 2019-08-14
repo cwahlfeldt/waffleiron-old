@@ -27,7 +27,21 @@ Please, don't email me (or send me PM) directly for question or reports.
 Also, if you want to reopen a report, then you are open to do that.     
 I will try to answer all and every one of the question (in my limited time).    
 
+## Some example
+|[ExampleTicketPHP](https://github.com/jorgecc/ExampleTicketPHP) | [Example cupcakes](https://github.com/EFTEC/example.cupcakes)|
+|-------|---------|
+| <img src="https://camo.githubusercontent.com/3c938f71f46a90eb85bb104f0f396fcba62b8f4a/68747470733a2f2f74686570726163746963616c6465762e73332e616d617a6f6e6177732e636f6d2f692f3436696b7061376661717677726533797537706a2e6a7067" alt="example php bladeone" width="200"/>   | <img src="https://github.com/EFTEC/example.cupcakes/raw/master/docs/result.jpg" alt="example php bladeone cupcakes" width="200"/>  |
+ 
 
+
+
+
+
+
+
+
+
+## Index
   
 
 - [BladeOne Blade Template Engine](#bladeone-blade-template-engine)
@@ -1035,6 +1049,8 @@ Also, BladeOneHTML adds multiple select, fixed values (without array), grouped s
 
 ## Version
 
+- 2019-08-09 3.31 The operations _e(), _n() and _ef() used for language are now integrated on BladeOne. 
+ So we don't need BladeOneLang anymore.
 - 2019-06-14 3.30 Here it goes again.Returned cause psr-2 (but it breaks phpstorm so I added exceptions)
 - 2019-06-08 3.29 More cleanup. tabs removed, some exceptions were changed, added imports (instead of /)
 - 2019-06-08 3.28 Added setter and getters and solved some issues

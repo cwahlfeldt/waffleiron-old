@@ -1,1 +1,648 @@
-bin/waffleiron
+#!/usr/local/bin/bash
+
+
+# waffleiron vars
+export WAFFLEIRON_DIR="$( \
+  cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && \
+  cd .. && pwd ; \
+)" ;
+SITE_PREFIX=$( cd $WAFFLEIRON_DIR && ./bin/env "SITE_PREFIX" ; ) ;
+export SITE_NAME="$SITE_PREFIX-$( cd $WAFFLEIRON_DIR && ./bin/env "SITE_NAME" )"
+export SITE_ENV=$( cd $WAFFLEIRON_DIR && ./bin/env "SITE_ENV" ; ) ;
+
+_art () {
+cat << "EOF"
+   __     __ _____________///____///_____ ____
+  ||| /| /// __  /  __/__/// ___/ / __/ _ \ __ \
+  | |/ |/ / /_/ / __/__//// ___/ / / / /_/ / / /
+  |__/|__/\__,_/__/__///////__/ /_/  \____/ /_/
+EOF
+}
+
+# help me!
+_help () { 
+  cd $WAFFLEIRON_DIR
+  echo
+  echo
+  _art
+  echo
+  echo "  ENV ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+  echo
+  echo "      WAFFLEIRON_DIR : $WAFFLEIRON_DIR"
+  echo "         SITE_PREFIX : $SITE_PREFIX"
+  echo "           SITE_NAME : $SITE_NAME"
+  echo "            SITE_ENV : $SITE_ENV"
+  echo
+  echo "  USAGE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+  echo
+  echo "      $ waffleiron help           "
+  echo "                   init           "
+  echo "                   i|install      "
+  echo "                   restart        "
+  echo "                   cc             "
+  echo "                   rebuild        "
+  echo "                   clean          "
+  echo "                   push           "
+  echo "                   pull           "
+  echo "                   link           "
+  echo "                   deploy         "
+  echo "                   ls             "
+  echo 
+}
+
+# list waffleiron project dir
+_ls () {
+  cd $WAFFLEIRON_DIR
+  printf "\n path: $WAFFLEIRON_DIR \n\n"
+  ls -la
+}
+
+# list the apps path
+_paths () {
+  lando ssh -s appserver -c env | grep "PATH" | cut -d '=' --complement -f 1 | tr ':' '\n'
+}
+
+# search env or list all
+_env () {
+  echo "  ENV ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+  echo
+  echo "      WAFFLEIRON_DIR : $WAFFLEIRON_DIR"
+  echo "           SITE_NAME : $SITE_NAME"
+  echo "            SITE_ENV : $SITE_ENV"
+  echo
+  echo "  PANTHEON / LANDO ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+  echo
+  if [ -z "$1" ]
+    then
+      printf "      $(lando ssh -s appserver -c env | grep "$1")"
+    else
+      printf "      $(lando ssh -s appserver -c env)"
+  fi
+  echo ;
+}
+
+_createpost () {
+  POST_TYPE=${1:-post}
+  POST_TITLE=${2:-"$1-${RANDOM:0:2}"}
+
+  lando wp post create --post_type=$POST_TYPE --post_title=$POST_TITLE --post_status="published" && \
+
+  sleep 5 ;
+}
+
+# deploy your mom
+_deploy () {
+  cd $WAFFLEIRON_DIR
+
+  if [[ "$1" -eq "--production" ]] || [[ "$1" -eq "-p" ]]
+    then
+      _clean && _install && clean -p && \
+        _push && \
+        return 0 ;
+  fi
+  sleep 10 && \
+
+  message=${1:-'dev deploy, run `iron init && iron deploy -p` to get everything setup for production...'}
+  git add -A ; \
+  git commit -m "$message" ; \
+  git push origin --all && \
+  
+  _remote-import-database ;
+}
+
+_remote-import-database () {
+  cd $WAFFLEIRON_DIR/web
+
+  _export-database && \
+    sleep 15 && \
+  lando ssh -c "chmod 777 /app/web/public/dump.sql.gz" && \
+  lando push --files=dev --code=none --database=none && \
+  lando ssh -c "cd /app && terminus import:database $SITE_NAME.$SITE_ENV https://$SITE_ENV-$SITE_NAME.pantheonsite.io/public/dump.sql.gz" ;
+}
+
+_export-database () {
+  cd $WAFFLEIRON_DIR/web/public
+  lando db-export dump.sql
+}
+
+# and restart you're momm
+_restart () {
+  cd $WAFFLEIRON_DIR && \
+    osascript -e \'quit app "Docker"\' && printf "\nstopping docker..." && \
+      open -g -a Docker && printf "starting docker...\n" && \
+        sleep 30 && \
+          lando start ;
+}
+
+# pull yo mom
+_pull () {
+  cd $WAFFLEIRON_DIR
+  site=${1:-"$SITE_NAME.$SITE_ENV"}
+
+  lando ssh -c " \
+    rm -rf /app/dump.sql.gz && \
+    terminus backup:create $site --element=db -y && \
+    terminus backup:get $site --element=db --to=/app/web/public/dump.sql.gz -y ; \
+  " && lando db-import web/public/dump.sql.gz -y ;
+}
+# push yo mom
+_push () {
+  cd $WAFFLEIRON_DIR && \
+
+  cd web && \
+  # _export-database && \
+  # lando ssh -c "chmod 777 web/public/dump.sql.gz" && \
+  cd .. && \
+
+  git add -A ; \
+  git commit -m "dumped web/public/dump.sql.gz, and code + files pushed to all remotes including all pantheon sites (dev env only!)" ; \
+  git push origin --all && \
+
+  sleep 30 && \
+
+  _remote-import-database && \
+  echo "push it reaaal good!" ;
+}
+
+# create-post-type yo mom
+_create-post-type () {
+  cd $WAFFLEIRON_DIR
+  name=${1:-"change-name"}
+  icon=${2:-"dashicons-text-page"}
+
+  printf "\n\nCreating post type and plugin for $name\n\n"
+  lando wp scaffold post-type $name \
+    --label="$name"                 \
+    --textdomain="waffleiron"       \
+    --plugin="waffleiron"           \
+    --dashicon="$icon"              \
+    --force                  &&     \
+  printf "\n\ncreation!\n\n" &&     \
+  return 1
+}
+
+# rebuild yo mom
+_rebuild () {
+  cd $WAFFLEIRON_DIR && \
+  lando start && \
+    lando destroy -y ; \
+  lando poweroff && \
+    sleep 15
+  lando start && \
+    lando pull --code=none --database=dev --files=dev ;
+}
+
+_build-composer () {
+  cd $WAFFLEIRON_DIR && \
+  lando ssh -c " \
+    cd /app && \
+    rm -rf vendor ; \
+    mkdir /app/vendor ; \
+    composer install --no-dev --prefer-dist --no-ansi --no-interaction --optimize-autoloader --no-progress ;
+  " ;
+}
+
+_build-node () {
+  cd $WAFFLEIRON_DIR && \
+    $(which npm) install && \
+    $(which npm) run build ;
+}
+
+_build () {
+  lando composer install \
+    --no-dev \
+    --prefer-dist \
+    --no-ansi \
+    --no-interaction \
+    --optimize-autoloader \
+    --no-progress && \
+
+  $(which pnpm) install && \
+    $(which node) server.js 
+}
+
+# _install install i
+_install () {
+  cd $WAFFLEIRON_DIR && \
+  _clean
+
+  sleep 10 && \
+  _build && \
+
+  sleep 10 && \
+  lando wp plugin activate --all && \
+
+  _cc && \
+  _art && \
+
+  printf " all done..." ;
+}
+
+# cc yo ma
+_cc () {
+  cd $WAFFLEIRON_DIR
+  if [[ $1 -eq "--remote" ]] ; then
+    lando terminus env:clear-cache ${1:-"$SITE_NAME.$SITE_ENV"}
+  fi
+
+  lando ssh -c " rm -rf /app/web/wp-content/uploads/cache/*" && \
+  lando wp cache flush
+}
+
+_clean () {
+  cd $WAFFLEIRON_DIR
+  if [[ "$1" -eq "--production" ]] || [[ "$1" -eq "-p" ]]
+    then
+      lando ssh -c "cd /app && rm -rf ./node_modules && rm -rf ./web/wp-content/uploads/cache/* ;" && \
+      return 0 ;
+  fi
+  lando ssh -c "cd /app && rm -rf vendor node_modules ; rm -rf web/wp-content/uploads/cache/* ;" ;
+}
+
+_start () {
+  cd $WAFFLEIRON_DIR
+
+  kill -9 $(pgrep -f server.js) > /dev/null 2>&1 ; \
+  printf "\n\n \
+    https://$SITE_NAME.lndo.site/ \n \
+    http://localhost:1420/ \n \
+  \n\n"
+
+  $(which px) \
+    --watch \
+    --es-syntax-everywhere \
+    --input web/wp-content/themes/belgium/src/scripts/mod.js \
+    --output web/public/out.js & \
+  $(which node) server.js && \
+      fg
+}
+
+_init () {
+  cd $WAFFLEIRON_DIR
+
+  lando start && \
+    lando pull --code=none --database=dev --files=dev && \
+      lando ssh -c "cd /app && rm -rf vendor node_modules ; rm -rf web/wp-content/uploads/cache/* ;" && \
+        lando composer install --no-dev --prefer-dist --no-ansi --no-interaction --optimize-autoloader --no-progress && \
+          lando wp plugin activate --all ; \
+          $(which pnpm) install ; \
+
+  _start & \
+  sleep 20 && \
+    kill -9 $(pgrep -f server.js) > /dev/null 2>&1 ;
+
+  _cc
+}
+
+if [ -z $# ]
+then
+  _start
+fi
+
+POSITIONAL=()
+while [[ $# -gt 0 ]]
+  do
+  key="$1"
+
+  case $key in
+
+    init) # init functions
+      _init
+      shift # past argument
+      shift # past value
+    ;;
+
+    # catch em all...
+    s|start)
+      _start $2
+
+      shift
+      shift
+    ;;
+
+    # restart
+    restart)
+      _restart $2
+      shift # past argument
+      shift # past value
+    ;;
+
+    # restart
+    build)
+      _build
+      shift # past argument
+      shift # past value
+    ;;
+
+    # cc
+    cc|clear-cache )
+      _cc $2
+
+      shift # past argument
+      shift # past value
+    ;;
+
+    # restart
+    rebuild)
+      _rebuild
+      shift # past argument
+      shift # past value
+    ;;
+
+    # restart
+    pull)
+      _pull $2
+
+      shift # past argument
+      shift # past value
+    ;;
+
+    # restart
+    clean)
+      _clean
+      shift # past argument
+      shift # past value
+    ;;
+
+    # create post type with 
+    create-post-type)
+      _create-post-type $2 $3
+      shift # past argument
+      shift # past value
+    ;;
+
+    ## create post of $1 and name it with $2
+    create-post )
+      cd $WAFFLEIRON_DIR ;
+
+      POST_TYPE=${2:-page}
+      POST_TITLE=${3:-"${POST_TYPE}-${RANDOM:0:2}"}
+
+      lando wp post create \
+        --post_type=$POST_TYPE \
+        --post_title=$POST_TITLE \
+        --post_status="published" \
+      && sleep 5 ;
+
+      shift # past argument
+      shift # past value
+    ;;
+
+    ## create post of $1 and name it with $2
+    create-taxonomy )
+      
+      if [[ -z "$2" ]]
+        then
+          printf "no slug" && return 1
+      fi
+
+      TAX_TITLE=$2
+      POST_TYPES=${3:-"post, page"}
+
+      printf "\n\nCreating taxonomy for $TAX_TITLE\n\n"
+      lando wp scaffold taxonomy $TAX_TITLE \
+        --label="$TAX_TITLE" \
+        --textdomain="waffleiron" \
+        --plugin="waffleiron" \
+        --force ;
+
+      shift # past argument
+      shift # past value
+    ;;
+
+    ## create post of $1 and name it with $2
+    create-post-type )
+
+      POST_TYPE=${2:-page}
+      POST_TITLE=${3:-"${POST_TYPE}-${RANDOM:0:2}"}
+      ICON=${4:-"dashicons-text-page"}
+
+      printf "\n\nCreating post type and plugin for $name\n\n"
+      lando wp scaffold post-type $POST_TYPE \
+        --label="$POST_TITLE"                 \
+        --textdomain="waffleiron"       \
+        --plugin="waffleiron"           \
+        --dashicon="$icon" \
+        --force ;
+
+      shift # past argument
+      shift # past value
+    ;;
+
+    # deploy
+    config )
+      cd $WAFFLEIRON_DIR/bin && \
+        $EDITOR waffleiron
+
+      shift # past argument
+      shift # past value
+    ;;
+
+    # deploy
+    dep|deploy )
+      REMOTE=$(git branch | grep \* | cut -d ' ' -f2)
+      BRANCH=$(git branch | grep \* | cut -d ' ' -f2)
+      if [[ $BRANCH -eq "master" ]]
+        then
+          REMOTE=origin
+      fi
+
+      _build && _clean && \
+      cd $WAFFLEIRON_DIR && \
+        git pull $REMOTE $BRANCH && \
+          ./bin/gacp "iron deploy duh!" $REMOTE $BRANCH && git checkout origin master && git pull $REMOTE $BRANCH --rebase --force && \
+            ./bin/gacp "iron master deploy" origin master --force ; \
+
+      lando db-export web/public/dump.sql && \
+      git checkout origin master && \
+      lando push --database=dev --files=dev --code=none \
+
+      shift # past argument
+      shift # past value
+    ;;
+
+    # paths
+    path|paths)
+      _paths
+      shift # past argument
+      shift # past value
+    ;;
+
+    # env
+    e|env)
+      _env
+      shift # past argument
+      shift # past value
+    ;;
+
+    # env
+    export)
+      _export-database
+      shift # past argument
+      shift # past value
+    ;;
+ 
+    # install
+    serve)
+      cd $WAFFLEIRON_DIR && \
+        node server.js ;
+      shift
+      shift
+    ;;
+
+    # install
+    i|install)
+
+      # do a harder install bro!
+      if [[ $2 -eq --force ]]
+        then
+          _clean && \
+          _install && \
+          _restart && \
+          _cc ; \
+          return ;
+      fi
+
+      _install ;
+
+      shift
+      shift
+    ;;
+
+     # help
+    superpowers )
+      arr=(${_cc} ${_env})
+      echo ${arr[*]}
+
+      shift # past argument
+      shift
+    ;;
+
+     # help
+    art )
+      _art
+      shift # past argument
+      shift
+    ;;
+
+     # help
+    create-site )
+      lando ssh -c " \
+        export PANTHEON_SITE_NAME="$SITE_PREFIX-${2-$SITE_NAME}" && \
+        export PANTHEON_MACHINE_TOKEN=A1Q4fO43O3YycjoYFjmdE2Yy3sDzCMl4OqVZi3ygOLvA2 && \
+        export PANTHEON_UPSTREAM_KEY=c578c77c-d12e-4943-adc7-d2c177859cee && \
+
+        terminus auth:login \
+          --email=chris.wahlfeldt@mckenziewagner.com \
+          --machine-token=$PANTHEON_MACHINE_TOKEN && \
+
+        terminus site:create \
+          --org=mckenzie-wagner \
+          $PANTHEON_SITE_NAME "$PANTHEON_SITE_NAME" $PANTHEON_UPSTREAM_KEY && \
+
+        printf "\n\n chill fo a minute \n\n" && \
+        sleep 60 && \
+      "
+      shift # past argument
+      shift
+    ;;
+      
+    kickstart)
+      export PANTHEON_SITE_NAME="$SITE_PREFIX-${2-"$SITE_NAME"}"
+      export PANTHEON_MACHINE_TOKEN=A1Q4fO43O3YycjoYFjmdE2Yy3sDzCMl4OqVZi3ygOLvA2
+      export PANTHEON_UPSTREAM_KEY=c578c77c-d12e-4943-adc7-d2c177859cee
+
+      printf "\n PANTHEON_SITE_NAME     $PANTHEON_SITE_NAME"
+      printf "\n PANTHEON_MACHINE_TOKEN $PANTHEON_MACHINE_TOKEN"
+      printf "\n PANTHEON_UPSTREAM_KEY  $PANTHEON_UPSTREAM_KEY\n"
+
+      rm -rf $PANTHEON_SITE_NAME && \
+      mkdir $PANTHEON_SITE_NAME && \
+      cd $PANTHEON_SITE_NAME && \
+      $WAFFLEIRON_DIR/bin/waffleiron create-site && \
+
+      lando init \
+        --source remote \
+        --recipe pantheon \
+        --remote-url git@github.com:cwahlfeldt/waffleiron.git \
+        --pantheon-auth "$PANTHEON_MACHINE_TOKEN" \
+        --pantheon-site $PANTHEON_SITE_NAME \
+        --full && \
+
+      lando start && \
+        pull --code=dev --database=dev --files=${4:-'dev'} && \
+        printf "\n ! waffleiron engine roars !\n" && \
+
+      _composer_init
+
+      shift # past argument
+      shift
+    ;;
+
+    # help
+    h|help)
+      _help
+
+      shift # past argument
+      shift # past argument
+    ;;
+
+
+    # catch em all...
+    * )
+      cd $WAFFLEIRON_DIR && \
+
+      #TODO how does gnu do it?
+      case "$1" in
+        -s )
+          _start ;
+
+          shift
+          shift
+        ;;
+
+        -d )
+          git add -A ; \
+            git commit -am "$2" ; \
+            git push origin master ; \
+
+          # git checkout $SITE_NAME && \
+          #   git pull origin master --rebase && \
+          #   git push $SITE_NAME $SITE_NAME ; \
+
+          lando ssh -c "rm -rf web/wp-content/uploads/cache/*" && \
+            lando push --code=none --database=none --files=dev && \
+              sleep 120 && \
+              lando terminus env:clear-cache iron-tm.dev ;
+
+          shift
+          shift
+        ;;
+
+        -sr )
+          lando start && lando pull --code=none --database=dev --files=dev && \
+            sleep 30 && \
+            lando ssh -c "rm -rf web/wp-content/uploads/cache/*" && \
+            sleep 15 && \
+            _cc ; \
+            _start ;
+
+          shift
+          shift
+        ;;
+
+        * )
+          _start
+          shift
+          shift
+        ;;
+      esac
+
+      POSITIONAL+=("$1")
+      shift
+    ;;
+  esac
+done
+
+# restore positional parameters
+set -- "${POSITIONAL[@]}"

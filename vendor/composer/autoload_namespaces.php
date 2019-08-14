@@ -7,5 +7,4 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'johnpbloch\\Composer\\' => array($vendorDir . '/johnpbloch/wordpress-core-installer/src'),
-    'Routes' => array($vendorDir . '/upstatement/routes'),
 );
