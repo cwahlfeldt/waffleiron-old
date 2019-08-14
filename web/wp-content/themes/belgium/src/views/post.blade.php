@@ -1,5 +1,9 @@
 @extends('master')
 
+@php
+  global $wp_query;
+@endphp
+
 @section('content')
 
 <section class="designs">
@@ -7,7 +11,9 @@
     @while (have_rows('designs')) @php(the_row())
 
       @if (get_row_layout() === 'heading')
-        @include('designs.heading')
+        @include('designs.heading', array(
+          'variant' => true,
+        ))
       @endif
 
       @if (get_row_layout() === 'content')
@@ -51,4 +57,8 @@
   @endif
 
 </section>
+  <div class="posts-controls">
+    <div class="next">{!! next_posts_link() !!}</div> 
+    <div class="previous">{!! previous_posts_link() !!}</div> 
+  </div>
 @endsection
