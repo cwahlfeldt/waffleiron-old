@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "edc807d5ee60033f7aeefde56d024533",
+    "content-hash": "a1fe78c5bf45cfd7155742615879eb34",
     "packages": [
         {
             "name": "advanced-custom-fields/advanced-custom-fields-pro",
@@ -619,6 +619,25 @@
                 "environment"
             ],
             "time": "2019-01-29T11:11:52+00:00"
+        },
+        {
+            "name": "wpackagist-plugin/acf-flexible-layouts-manager",
+            "version": "dev-trunk",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/acf-flexible-layouts-manager/",
+                "reference": "trunk"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/acf-flexible-layouts-manager.zip?timestamp=1562912482"
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/acf-flexible-layouts-manager/",
+            "time": "2019-07-12T06:21:22+00:00"
         },
         {
             "name": "wpackagist-plugin/acf-to-rest-api",
@@ -4918,6 +4937,7 @@
     "stability-flags": {
         "eftec/bladeone": 20,
         "pantheon-systems/wordpress-composer": 20,
+        "wpackagist-plugin/acf-flexible-layouts-manager": 20,
         "wpackagist-plugin/bulk-move": 20,
         "wpackagist-plugin/filebird": 20,
         "roave/security-advisories": 20,

@@ -41,6 +41,7 @@
     "roots/wp-password-bcrypt": "^1.0.0",
     "rvtraveller/qs-composer-installer": "^1.1",
     "vlucas/phpdotenv": "^2.4.0",
+    "wpackagist-plugin/acf-flexible-layouts-manager": "dev-trunk",
     "wpackagist-plugin/acf-to-rest-api": "^3.1",
     "wpackagist-plugin/advanced-forms": "^1.6.4",
     "wpackagist-plugin/bulk-move": "dev-trunk",
