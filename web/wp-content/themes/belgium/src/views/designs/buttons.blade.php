@@ -13,7 +13,7 @@
             button-wrap
             flex bg-cover bg-center
             flex-col justify-center items-center
-            w-full h-full py-12 px-5
+            w-full h-full py-12 px-6
             {{ $loop->last ? 'md:w-1/2' : 'md:w-1/4' }}"
           >
           <p

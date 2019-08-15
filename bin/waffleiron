@@ -273,8 +273,7 @@ _start () {
     --es-syntax-everywhere \
     --input web/wp-content/themes/belgium/src/scripts/mod.js \
     --output web/public/out.js & \
-  $(which node) server.js && \
-      fg
+  $(which node) server.js
 }
 
 _init () {
@@ -622,6 +621,17 @@ while [[ $# -gt 0 ]]
             lando push --code=none --database=none --files=dev && \
               sleep 120 && \
               lando terminus env:clear-cache iron-tm.dev ;
+
+          shift
+          shift
+        ;;
+        
+        -r )
+          lando start && lando pull --code=none --database=dev --files=dev && \
+            sleep 30 && \
+            lando ssh -c "rm -rf web/wp-content/uploads/cache/*" && \
+            sleep 15 && \
+            _cc ;
 
           shift
           shift

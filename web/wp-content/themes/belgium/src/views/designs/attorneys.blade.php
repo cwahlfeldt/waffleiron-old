@@ -8,7 +8,7 @@
   <div class="py-16 w-full h-full container-sm mx-auto">
     <h3 class="w-full text-base font-sans tracking-widest text-center">
       {{ $title['title'] }}
-      <hr style="border-color: {{ $style['color']['line_color'] }};" class="w-10 my-8 border border-orange border-solid border-1">
+      <hr style="border-color: {{ $style['color']['line_color'] }};" class="w-10 my-8 border border-orange border-solid border-1 mx-auto">
     </h3>
 
     <div class="flex flex-auto flex-wrap items-center {{ count($attorneys) > 4 ? 'md:justify-start' : 'justify-center'  }} justify-center py-12">

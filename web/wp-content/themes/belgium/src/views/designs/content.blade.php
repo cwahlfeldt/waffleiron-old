@@ -24,14 +24,15 @@
   $use_columns = get_sub_field('use_columns');
 @endphp
 {{-- {{$content}} --}}
-<section class="content w-full relative">
+<section class="content w-full relative py-3">
   <div class="container mx-auto" style="background-color: {{ $style_bg_color }};">
     <div class="container-sm mx-auto">
       @if ($title)
-        <h2 class="text-center mt-5 font-sans tracking-widest font-xl uppercase" style="color: {{ $style_title_color }};">
+        {{-- <h2 class="md:text-center {{$style_sizing['value']}} text-center mt-5 lg:px-32 md:px-24 sm:px-0 font-sans tracking-widest font-xl uppercase" style="color: {{ $style_title_color }};"> --}}
+        <h2 class="text-center pt-4 lg:px-32 md:px-24 px-2 font-sans tracking-widest font-xl uppercase" style="color: {{ $style_title_color }};">
           {{ $title }}
           @if ($style_line_color)
-            <hr style="border-color: {{ $style_line_color }}; text-align: {{$style_sizing['value']}};" class="w-10 my-2 border border-solid border-1 mt-6">
+            <hr style="border-color: {{ $style_line_color }}; text-align: {{$style_sizing['value']}};" class="w-10 my-2 border border-solid border-1 mt-6 mx-auto">
           @endif
         </h2>
       @endif
@@ -46,11 +47,11 @@
 
                 @if ($c['acf_fc_layout'] === 'copy')
                   @if ($use_columns)
-                    <div class="md:w-1/2 md:px-12 text-{{ $style_sizing }} font-serif leading-loose {{ $c[$loop->index++]['acf_fc_layout'] === 'link' ? 'font-amp' : '' }}" style="color: {{ $style_fg_color }};">
+                    <div class="md:w-1/2 md:px-12 px-2 text-{{ $style_sizing }} font-serif leading-loose {{ $c[$loop->index++]['acf_fc_layout'] === 'link' ? 'font-amp' : '' }}" style="color: {{ $style_fg_color }};">
                       {!! $c['copy'] !!}
                     </div>
                   @else
-                    <div class={{ preg_match_all("/[\w']+/", $c['copy']) <= 20 ? 'text-2xl' : '' }} "w-full mx-auto lg:px-32 md:px-24 sm:px-0 copy font-serif leading-loose {{ $c[$loop->index++]['acf_fc_layout'] === 'link' ? 'font-amp' : '' }}" style="color: {{ $style_fg_color }};">
+                    <div class={{ preg_match_all("/[\w']+/", $c['copy']) <= 20 ? 'text-2xl' : '' }} "w-full mx-auto lg:px-32 md:px-24 px-2 copy font-serif leading-loose {{ $c[$loop->index++]['acf_fc_layout'] === 'link' ? 'font-amp' : '' }}" style="color: {{ $style_fg_color }};">
                       {!! $c['copy'] !!}
                     </div>								
                   @endif

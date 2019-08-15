@@ -18,10 +18,10 @@
     style="background-image: url({{ $bg_image }});"
   >
     <div class="container-sm mx-auto h-full">
-      <div class="flex flex-col sm:items-start sm:justify-between justify-center">
+      <div class="flex flex-col sm:items-start sm:justify-between items-center justify-center">
         <hr style="border-color: {{ $line_color }};" class="w-10 my-4 border border-orange mx-0 border-solid border-1">
         <h2
-          class="text-white font-base font-slab font-thin sm:text-4xl text-xl uppercase tracking-wider leading-tight"
+          class="text-white font-base font-slab font-thin md:text-4xl text-xl uppercase tracking-wider leading-tight"
           style="color: {{ $foreground_color }};"
         >
           {!! $title !!}
@@ -29,7 +29,7 @@
       </div>
       @if (!$variant)
         <div class="md:pt-24 pt-16 logo">
-          <img class="w-1/2" src="{{ $logo }}" alt="">
+          <img class="w-1/2 md:mx-0 mx-auto" src="{{ $logo }}" alt="">
         </div>
       @else
         <div class="md:pt-24 pt-16 meta-info">

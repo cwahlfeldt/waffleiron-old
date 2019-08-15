@@ -22,7 +22,7 @@
             </a>
           </div>
         @endforeach
-        <div class="md:block hidden bar-logo w-48 md:pt-24 pt-5 md:text-left text-center mx-auto md:-mb-1">
+        <div class="md:block hidden bar-logo w-48 md:pt-24 pt-5 md:text-left text-center md:mx-0 mx-auto">
           <img src="/wp-content/uploads/2019/07/IL_Bar_Logo-Horiz_TM-gray.png" alt="">
         </div>
       </section>
@@ -54,7 +54,7 @@
                 Fax&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="tel:{{ get_field('contact', 'options')['fax'] }}" class="text-regular text-gray hover:text-blue text-base">{{ get_field('contact', 'options')['fax'] }}</a>
               </p>
 							<div class="ml-auto copyright w-64 md:pt-24 pt-5 flex flex-row md:justify-end justify-center w-auto">
-								<p class="font-amp font-thin text-xs uppercase text-gray w-full ml-auto my-0">
+								<p class="font-amp font-thin text-xxs uppercase text-gray w-full ml-auto my-0">
 									&copy; {{ date("Y") }} Thomas Mamer, LLP | All Rights Reserved
 								</p>
 							</div>

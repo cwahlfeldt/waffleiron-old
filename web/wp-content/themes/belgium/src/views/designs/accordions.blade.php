@@ -21,7 +21,7 @@
       <div class="accordion-items md:px-32 sm:px-16 xs:px-4">
         @foreach($accordions as $a)
           <button class="accordion-item flex flex-col items-between py-3 h-auto w-full text-left border-t-2 border-solid border-blue hover:cursor-pointer">
-            <h2 class="relative accordion-title font-slab font-semibold tracking-wide text-lg text-blue uppercase hover:text-orange hover:cursor-pointer">
+            <h2 class="relative accordion-title font-slab font-semibold tracking-wide md:text-lg text-sm text-blue uppercase hover:text-orange hover:cursor-pointer">
               {{ $a['title'] }}
              	<i class="absolute right-0 fa fa-angle-double-down trans"></i>
             </h2>

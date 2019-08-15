@@ -23,19 +23,19 @@
             <img class="logo" src="/wp-content/uploads/2019/07/TM_Icon_Orange.svg" alt="">
 
             <div class="text my-auto">
-              <hr style="color: {{ $style['line_color'] }};" class="w-10 my-4 border border-orange border-solid border-1"> 
-              <p class="text-white text-center tracking-widest font-condensed uppercase font-thin text-3xl leading-snug">
+              <hr style="color: {{ $style['line_color'] }};" class="w-10 my-4 border border-orange border-solid border-1 mx-auto"> 
+              <p class="text-white text-center tracking-widest font-condensed uppercase font-thin text-3xl leading-snug my-0">
                 {{ $name }}
               </p>
-              <p class="text-white text-center tracking-widest font-amp uppercase font-thin text-sm leading-snug">
+              <p class="text-white text-center tracking-widest font-amp uppercase font-thin text-sm leading-snug my-0">
                 {{ $job_title }}
               </p>
-              <hr style="color: {{ $style['line_color'] }};" class="w-10 my-5 border border-orange border-solid border-1"> 
+              <hr style="color: {{ $style['line_color'] }};" class="w-10 my-5 border border-orange border-solid border-1 mx-auto"> 
             </div>
           </div>
         </div>
 
-        <div class="title sm:order-2 order-1 md:w-1/2 lg:w-3/4 sm:w-full sm:ml-3 md:bg-top sm:bg-right bg-cover bg-center md:px-12 md:py-12 py-40 px-8" style="background-image: url({{ $img['url'] }});">
+        <div class="title sm:order-2 order-1 md:w-full lg:w-3/4 sm:w-full sm:ml-3 md:bg-top sm:bg-right bg-cover bg-center md:px-12 md:py-12 py-40 px-8" style="background-image: url({{ $img['url'] }});">
           <div class="flex flex-col justify-end sm:items-end items-center h-full">
             <p class="heading-branded-text lg:text-left text-center tracking-wider text-white sm:font-lg text-center font-slab font-thin uppercase leading-tight text-5xl">
               {!! get_field('branding')['title'] !!}
@@ -49,7 +49,7 @@
       <div class="flex sm:flex-row flex-col w-full h-full">
         <div class="side-wrap md:block hidden h-full sm:order-1 order-2 2xl:w-1/4 md:w-1/2 lg:w-1/3 sm:w-full bg-blue relative py-12 px-4" style="background-color: {{ $style['background_color'] }};">
           <div class="h-full flex flex-col justify-center items-center relative">
-            <div class="profile md:block hidden flex flex-col items-center justify-center">
+            <div class="profile lg:block hidden flex flex-col items-center justify-center">
               <div class="bg-white p-6 w-auto">
                 <img class="" src="{{ $pic['url'] }}" alt="">
                 <div class="flex flex-col">
@@ -69,16 +69,19 @@
           </div>
         </div>
 
-        <div class="content-thing bg-tan py-24 lg:pl-48 px-4 md:pr-32 sm:mt-6 mt-56 title sm:order-2 order-1 md:w-1/2 lg:w-3/4 sm:w-full md:bg-center bg-left bg-left bg-cover border-l-8 md:border-solid md:border-white">
-          <p class="lg:text-left text-left tracking-wider sm:text-lg md:text-center text-left font-slab font-thin uppercase leading-tight text-5xl text-orange">
-            Profile
-            {{-- <hr style="border-color: {{ $style['color']['line_color'] }};" class="w-10 my-4 border border-orange border-solid border-1"> --}}
-            <hr style="border-color: ;" class="w-10 my-6 border border-blue mx-0 border-solid border-1">
+        <div class="content-thing bg-tan md:py-24 py-16 lg:pl-48 px-6 md:pr-32 sm:mt-6 title sm:order-2 order-1 md:w-full lg:w-3/4 w-full md:bg-center bg-left bg-left bg-cover border-l-8 md:border-solid md:border-white">
+          <div class="content-cont">
+            <p class="md:text-left text-center tracking-wider sm:text-lg font-slab font-thin uppercase leading-tight text-orange 2xl:mx-20 lg:mx-12 md:mx-0">
+              Profile
+              {{-- <hr style="border-color: {{ $style['color']['line_color'] }};" class="w-10 my-4 border border-orange border-solid border-1"> --}}
+              <hr class="w-10 my-6 border border-blue md:mx-0 mx-auto border-solid border-1 2xl:mx-20 lg:mx-12 md:mx-0 mx-auto">
+            </p>
+
             @php
               $content = nl2br($post->post_content);
             @endphp
-            <div class="font-serif text-blue py-6">{!! $content !!}</div>
-          </p>
+            <div class="font-serif text-blue py-6  2xl:mx-20 lg:mx-12 md:mx-0 mx-auto">{!! $content !!}</div>
+          </div>
     
           @if ($accordions)
             <div class="accordions w-full h-full">
