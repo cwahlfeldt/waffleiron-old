@@ -1,0 +1,17 @@
+#!/bin/bash
+
+#### push code to all live environments ####
+
+if [ -z "$1" ]
+then
+  terminus org:site:list mckenzie-wagner --tag=rcr-6331 --format=list | while read SITE
+  do
+    terminus env:deploy --note="push upstream to live" --cc $SITE.live &&
+    terminus env:clear-cache $SITE.live &&
+    echo "pushed $SITE to live";
+  done
+else
+  terminus env:deploy --note="push upstream to live" --cc $1.live &&
+  terminus env:clear-cache $SITE.live &&
+  echo "pushed $SITE to live";
+fi

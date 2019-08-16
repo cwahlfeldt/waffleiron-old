@@ -461,8 +461,8 @@ a {
 
 @media (max-width: 888px) {
   .heading {
-    height: 100vh !important;
-    min-height: 1px !important;
+    height: 100% !important;
+    min-height: 100% !important;
     max-height: 100% !important;
   }
 
