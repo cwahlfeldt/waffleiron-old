@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a1fe78c5bf45cfd7155742615879eb34",
+    "content-hash": "ddc210bab916ae75532f823ddc01c39f",
     "packages": [
         {
             "name": "advanced-custom-fields/advanced-custom-fields-pro",
@@ -730,6 +730,25 @@
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/filebird/",
             "time": "2019-07-24T12:05:54+00:00"
+        },
+        {
+            "name": "wpackagist-plugin/google-sitemap-generator",
+            "version": "dev-trunk",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/google-sitemap-generator/",
+                "reference": "trunk"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/google-sitemap-generator.zip?timestamp=1558027163"
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/google-sitemap-generator/",
+            "time": "2019-05-16T17:19:23+00:00"
         },
         {
             "name": "wpackagist-plugin/pantheon-advanced-page-cache",
@@ -3886,12 +3905,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "20ce8b1d81999446d0b9d70b30b79e0280110593"
+                "reference": "562b061194711fb7502b6af2d92cc3d9d03c44db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/20ce8b1d81999446d0b9d70b30b79e0280110593",
-                "reference": "20ce8b1d81999446d0b9d70b30b79e0280110593",
+                "url": "https://api.github.com/repos/symfony/console/zipball/562b061194711fb7502b6af2d92cc3d9d03c44db",
+                "reference": "562b061194711fb7502b6af2d92cc3d9d03c44db",
                 "shasum": ""
             },
             "require": {
@@ -3954,7 +3973,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2019-08-14T13:27:41+00:00"
+            "time": "2019-08-16T06:37:15+00:00"
         },
         {
             "name": "symfony/css-selector",
@@ -4015,12 +4034,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dependency-injection.git",
-                "reference": "17c06294cdae75c54cc43cfb4e836fa2acb5fe40"
+                "reference": "ed7d37f3f40b1ade3b3ef8358e253f5af5bb2ce5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/17c06294cdae75c54cc43cfb4e836fa2acb5fe40",
-                "reference": "17c06294cdae75c54cc43cfb4e836fa2acb5fe40",
+                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/ed7d37f3f40b1ade3b3ef8358e253f5af5bb2ce5",
+                "reference": "ed7d37f3f40b1ade3b3ef8358e253f5af5bb2ce5",
                 "shasum": ""
             },
             "require": {
@@ -4080,7 +4099,7 @@
             ],
             "description": "Symfony DependencyInjection Component",
             "homepage": "https://symfony.com",
-            "time": "2019-08-14T12:37:46+00:00"
+            "time": "2019-08-15T09:38:48+00:00"
         },
         {
             "name": "symfony/dom-crawler",
@@ -4940,6 +4959,7 @@
         "wpackagist-plugin/acf-flexible-layouts-manager": 20,
         "wpackagist-plugin/bulk-move": 20,
         "wpackagist-plugin/filebird": 20,
+        "wpackagist-plugin/google-sitemap-generator": 20,
         "roave/security-advisories": 20,
         "squizlabs/php_codesniffer": 20,
         "wp-coding-standards/wpcs": 20

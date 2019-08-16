@@ -129,15 +129,7 @@ footer .brand {
   font-size: 12px;
 }
 
-@media (max-width: 888px) {
-  .heading .logo {
-    width: 115px;
-  }
 
-  .primary-navigation {
-    height: 64px;
-  }
-}
 
 .container {
   padding-left: 20px;
@@ -390,6 +382,20 @@ a {
     margin-right: 0.5rem;
   }
 }
+@media (max-width: 888px) {
+  .heading .logo {
+    width: 115px;
+  }
+
+  .primary-navigation {
+    height: 64px;
+  }
+
+  .heading {
+    height: 100vh !important;
+    max-height: 100% !important;
+  }
+}
 
 .attorney .heading {
   height: 100%;
@@ -455,7 +461,7 @@ a {
 
 @media (max-width: 888px) {
   .heading {
-    height: 60vh !important;
+    height: 100vh !important;
     min-height: 1px !important;
     max-height: 100% !important;
   }
