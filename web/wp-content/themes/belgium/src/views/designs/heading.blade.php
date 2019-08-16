@@ -49,8 +49,8 @@
     <div class="sm:order-2 flex order-1 md:w-1/2 lg:w-3/4 w-full sm:ml-3 md:bg-center bg-left bg-left bg-cover md:px-12 px-5 py-12 md:justify-end justify-center md:items-end justify-center" style="background-image: url({{ get_sub_field('branding')['stock']['url'] }});">
       <div class="heading-title-block flex flex-col md:justify-end justify-center w-auto h-full">
         @if ($branding_title)
-          <hr style="border-color: {{ $style_line_color }};" class="w-10 my-4 border border-orange mx-0 border-solid border-1 md:mx-0 mx-auto">
-          <h2 style="color: {{ $style_fg_color }};" class="heading-title text-white font-base font-slab text-center md:text-left font-thin 2xl:text-5xl lg:text-4xl md:text-2xl text-3xl uppercase tracking-wider leading-tight">
+          <hr style="border-color: {{ $style_line_color }};" class="w-10 my-4 border border-orange mx-0 border-solid border-1 md:mx-0 mx-auto md:block hidden">
+          <h2 style="color: {{ $style_fg_color }};" class="heading-title text-white font-base font-slab text-center md:text-left font-thin 2xl:text-5xl lg:text-4xl md:text-3xl text-2xl uppercase tracking-wider leading-tight">
             {!! $branding_title !!}
           </h2>
         @endif

@@ -14,17 +14,18 @@
   array_shift($menu);
 @endphp
 
-<header class="primary-navigation container mx-auto h-full">
-  <nav class="primary flex md:flex-row flex-col h-full w-full">
+<header class="primary-navigation container mx-auto h-full relative top-0 left-0">
+  <nav class="primary flex md:flex-row flex-col md:justify-start md:items-center h-full w-full ">
 
-    <div class="flex flex-row justify-start items-center">
-      <a href="/{{ $home['page_name'] }}" class="nav-wrap hover:opacity-75 relative">
+    <div class="flex flex-row md:justify-start justify-center items-center h-full">
+      <a href="/{{ $home['page_name'] }}" class="nav-wrap hover:opacity-75 relative h-full">
         <img class="brand" src="{{ $brand }}" />
       </a>
-      <div class="ml-auto md:hidden">
-        <i class="fas fa-bars font-3xl font-thin text-blue"></i>
+      <div class="ml-auto md:hidden block h-full">
+        <i class="fas fa-bars font-3xl font-thin block text-blue"></i>
         <div style="display: none;" class="px-4 container bg-orange mobile-dropdown dropdown-menu flex absolute w-full pb-8 h-auto z-30 top-0">
           <div class="container-sm relative flex flex-col mx-auto justify-between pt-5">
+
             <div class="relative h-full">
               @foreach ($menu as $nav)
                 @if (isset($nav['page']['page']))
@@ -37,9 +38,9 @@
                       {{ $nav['page']['label'] }}
                     </a>
                   </div>
-                  @endif
-                @endforeach
-              </div>
+                @endif
+              @endforeach
+            </div>
 
           </div>
         </div>

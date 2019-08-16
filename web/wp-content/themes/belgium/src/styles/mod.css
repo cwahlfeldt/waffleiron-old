@@ -91,6 +91,12 @@ a {
   margin-left: -21px;
 }
 
+@media (max-width: 888px) {
+  .nav-wrap {
+    margin-left: -15px;
+  }
+}
+
 @media (max-width: 1290px) {
   .nav-wrap {
     width: 275px;
@@ -176,8 +182,11 @@ footer .brand {
     padding-right: 0 !important;
   }
 
+
   .dropdown-menu.container {
     top: 64px !important;
+    border-left-width: 10px;
+    border-right-width: 10px;
   }
 }
 
@@ -382,6 +391,7 @@ a {
     margin-right: 0.5rem;
   }
 }
+
 @media (max-width: 888px) {
   .heading .logo {
     width: 115px;
@@ -834,4 +844,9 @@ p > b {
     padding-top: 0 !important;
     padding-bottom: 0 !important;
   }
+}
+
+.primary i {
+  margin-top: 22px;
+  font-size: 1.4rem;
 }

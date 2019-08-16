@@ -611,15 +611,16 @@ while [[ $# -gt 0 ]]
         -d )
           git add -A ; \
             git commit -am "$2" ; \
-            git push origin master ; \
+            git push --all ; \
 
           # git checkout $SITE_NAME && \
           #   git pull origin master --rebase && \
           #   git push $SITE_NAME $SITE_NAME ; \
 
           lando ssh -c "rm -rf web/wp-content/uploads/cache/*" && \
-            sleep 120 && \
-              lando terminus env:clear-cache iron-tm.live ;
+            ./bin/push && \
+              sleep 60 && \
+                lando terminus env:clear-cache iron-tm.live ;
 
           shift
           shift
