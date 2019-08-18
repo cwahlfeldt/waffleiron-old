@@ -33,7 +33,7 @@
           <p class="privacy flex flex-row justify-center text-center md:text-left mt-auto h-auto w-full">
             <a class="link uppercase font-wide tracking-wide hover:text-blue text-sm" href="/privacy-policy">Privacy Policy</a>&nbsp; | &nbsp;<br>
             <a class="link uppercase font-wide tracking-wide hover:text-blue text-sm" href="/disclaimer">Disclaimer</a>&nbsp; | &nbsp;<br>
-            <a class="link uppercase font-wide tracking-wide hover:text-blue text-sm" href="#">Site Map</a>
+            <a class="link uppercase font-wide tracking-wide hover:text-blue text-sm" href="/sitemap.xml">Site Map</a>
           </p>
         </div>
       </section>
