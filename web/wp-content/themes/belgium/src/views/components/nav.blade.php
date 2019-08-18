@@ -12,8 +12,19 @@
   $home = (array) get_field('primary_nav', 'options')[0]['page']['page'];
   $menu = (array) get_field('primary_nav', 'options');
   array_shift($menu);
+
+  $attorneys = array_map(function($n) {
+    if ($n['page']['sub_menu']) {
+      return $n;
+//      if ((array)$n === 'attorneys') {
+//        $a = $n['page']['page'];
+//        return $a;
+//      }
+    }
+  }, $menu);
 @endphp
 
+{{ $attorneys }}
 <header class="primary-navigation container mx-auto h-full relative top-0 left-0">
   <nav class="primary flex md:flex-row flex-col md:justify-start md:items-center h-full w-full ">
 
@@ -29,7 +40,9 @@
             <div class="relative h-full">
               @foreach ($menu as $nav)
                 @if (isset($nav['page']['page']))
-                  @php $new_nav = $nav['page']['page']; @endphp
+                  @php
+                    $new_nav = $nav['page']['page'];
+                  @endphp
                   <div id="menu-link-{{ $new_nav->post_name }}" class="{{ $new_nav->post_name }} md:py-7 py-1 menu-link w-auto relative relative top-0 left-0 lg:mx-6 md:mx-2 z-30">
                     <a
                       class="{{ $nav['page']['sub_menu'] ? 'sub-menu-enabled' : '' }} py-7 dib font-wide w-full uppercase font-normal lg:text-base text-sm text-tan hover:opacity-75 tracking-wide"
@@ -51,7 +64,9 @@
       @foreach ($menu as $nav)
 
           @if (isset($nav['page']['page']))
-            @php $new_nav = $nav['page']['page']; @endphp
+            @php
+              $new_nav = $nav['page']['page'];
+            @endphp
             <div id="menu-link-{{ $new_nav->post_name }}" class="{{ $new_nav->post_name }} md:py-7 menu-link w-auto relative relative top-0 left-0 lg:mx-6 md:mx-2 z-30">
               <a
                 class="{{ $nav['page']['sub_menu'] ? 'sub-menu-enabled' : '' }} py-7 dib font-wide w-full uppercase font-normal lg:text-sm text-xs text-tan hover:opacity-75 tracking-wide"
@@ -62,8 +77,17 @@
             </div>
 
             @if ($nav['page']['sub_menu'])
-              @php $sub_nav = $nav['page']['sub_menu']; @endphp
-              {{-- {{ $sub_nav }} --}}
+              @php
+                $sub_nav = $nav['page']['sub_menu'];
+
+                $attorneys = array_map(function($a) {
+                  if ($a[0]->post_type) {
+                  
+                  }
+                }, $sub_nav);
+
+              @endphp
+              {{-- {{ $attorneys }} --}}
               <div style="display: none;" class="py-10 container bg-orange dropdown-menu flex absolute w-full pt-8 pb-10 h-auto z-20 top-0">
                 <div class="container-sm relative flex flex-col mx-auto justify-between pt-5">
                   <div class="relative h-full">
