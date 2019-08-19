@@ -23,6 +23,19 @@
   $associates = array();
   $of_counsel = array();
 
+  function lastNameSort($a, $b) {
+    $aa = $a->post_title;
+    $bb = $b->post_title;
+    $aLast = end(explode(' ', $aa));
+    $bLast = end(explode(' ', $bb));
+
+    if ($aLast == 'Warren') {
+      return false;
+    }
+
+    return strcasecmp($aLast, $bLast);
+  }
+
   for ($i = 0; $i < count($attorneys); $i++) {
     $a = $attorneys[$i];
     $type = trim(get_field('title', $a->ID));
@@ -40,9 +53,9 @@
     }
   }
 
-  usort($partners, $alphebetize);
-  usort($associates, $alphebetize);
-  usort($of_counsel, $alphebetize);
+  usort($partners,'lastNameSort');
+  usort($associates, 'lastNameSort');
+  usort($of_counsel, 'lastNameSort');
 
   /*
   $attorneys = array_filter(array_map( function($n) {
@@ -116,7 +129,7 @@
                       {{ $nav['page']['label'] }}
                       <hr class="w-10 my-3 border border-tan border-solid border-1 ml-0">
                     </h2>
-                    @if ($attorneys)
+                    @if ($nav['page']['page']->post_name == 'our-attorneys')
                       <div class="attorneys-menu flex flex-row items-between w-full py-6">
 
                         <div class="partner w-1/2 pr-3">
