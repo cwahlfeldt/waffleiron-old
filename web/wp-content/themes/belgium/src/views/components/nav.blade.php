@@ -12,19 +12,48 @@
   $home = (array) get_field('primary_nav', 'options')[0]['page']['page'];
   $menu = (array) get_field('primary_nav', 'options');
   array_shift($menu);
+  
+  $attorneys = (array) get_field('primary_nav', 'options')[3]['page']['sub_menu'];
 
-  $attorneys = array_map(function($n) {
-    if ($n['page']['sub_menu']) {
-      return $n;
-//      if ((array)$n === 'attorneys') {
-//        $a = $n['page']['page'];
-//        return $a;
-//      }
+  $alphebetize = function( $a, $b ) {
+    return strcmp($a->post_title, $b->post_title);
+  };
+
+  $partners = array();
+  $associates = array();
+  $of_counsel = array();
+
+  for ($i = 0; $i < count($attorneys); $i++) {
+    $a = $attorneys[$i];
+    $type = trim(get_field('title', $a->ID));
+    if ($type == 'Partner') {
+      $partners[] = $a;
     }
-  }, $menu);
+    if ($type == 'Associate') {
+      $associates[] = $a;
+    } 
+    if ($type == 'Of Counsel') {
+      $of_counsel[] = $a;
+    } 
+    if ($type == 'Managing Partner') {
+      array_unshift($partners, $a);
+    }
+  }
+
+  usort($partners, $alphebetize);
+  usort($associates, $alphebetize);
+  usort($of_counsel, $alphebetize);
+
+  /*
+  $attorneys = array_filter(array_map( function($n) {
+    $a = $n['page']['page']->post_name;
+    if ($a === 'our-attorneys') {
+      return $a;
+    }
+  }, $menu ));
+  */
 @endphp
 
-{{ $attorneys }}
 <header class="primary-navigation container mx-auto h-full relative top-0 left-0">
   <nav class="primary flex md:flex-row flex-col md:justify-start md:items-center h-full w-full ">
 
@@ -79,15 +108,7 @@
             @if ($nav['page']['sub_menu'])
               @php
                 $sub_nav = $nav['page']['sub_menu'];
-
-                $attorneys = array_map(function($a) {
-                  if ($a[0]->post_type) {
-                  
-                  }
-                }, $sub_nav);
-
               @endphp
-              {{-- {{ $attorneys }} --}}
               <div style="display: none;" class="py-10 container bg-orange dropdown-menu flex absolute w-full pt-8 pb-10 h-auto z-20 top-0">
                 <div class="container-sm relative flex flex-col mx-auto justify-between pt-5">
                   <div class="relative h-full">
@@ -95,13 +116,48 @@
                       {{ $nav['page']['label'] }}
                       <hr class="w-10 my-3 border border-tan border-solid border-1 ml-0">
                     </h2>
-                    <div class="flex flex-auto flex-wrap items-between w-full py-6">
-                      @foreach($sub_nav as $sub)
-                        <div class="lg:w-1/4 md:w-1/3 w-full">
-                          <a class="text-white font-condensed font-medium text-base tracking-wide leading-relaxed" href="/{{ $sub->post_name }}/">{{ $sub->post_title }}</a>
+                    @if ($attorneys)
+                      <div class="attorneys-menu flex flex-row items-between w-full py-6">
+
+                        <div class="partner w-1/2 pr-3">
+                          <h2 class="text-tan font-slab tracking-tight text-sm uppercase pb-3">Partners</h2>
+                          <div class="flex flex-auto flex-wrap w-full">
+                          @foreach($partners as $p)
+                            <div class="partner lg:w-1/2 w-full">
+                              <a class="text-white font-condensed font-medium text-base tracking-wide leading-relaxed" href="/{{ $p->post_name }}/">{{ $p->post_title }}</a>
+                            </div>
+                          @endforeach
+                         </div>
                         </div>
-                      @endforeach
-                    </div>
+
+                        <div class="w-1/4 border-white border-s pl-2">
+                          <h2 class="text-tan font-slab tracking-tight text-sm uppercase pb-3">Associates</h2>
+                          @foreach($associates as $a)
+                            <div class="associates w-full border-l-2 border-white border-solid -ml-6 pl-6">
+                              <a class="text-white font-condensed font-medium text-base tracking-wide leading-relaxed" href="/{{ $a->post_name }}/">{{ $a->post_title }}</a>
+                            </div>
+                          @endforeach
+                        </div>
+
+                        <div class="w-1/4">
+                          <h2 class="text-tan font-slab tracking-tight text-sm uppercase pb-3">Of Counsel</h2>
+                          @foreach($of_counsel as $c)
+                            <div class="of-counsel w-full border-l-2 border-white border-solid -ml-6 pl-6 h-auto">
+                              <a class="text-white font-condensed font-medium text-base tracking-wide leading-relaxed" href="/{{ $c->post_name }}/">{{ $c->post_title }}</a>
+                            </div>
+                          @endforeach
+                        </div>
+
+                      </div>
+                    @else
+                      <div class="flex flex-auto flex-wrap items-between w-full py-6">
+                        @foreach($sub_nav as $sub)
+                          <div class="lg:w-1/4 md:w-1/3 w-full">
+                            <a class="text-white font-condensed font-medium text-base tracking-wide leading-relaxed" href="/{{ $sub->post_name }}/">{{ $sub->post_title }}</a>
+                          </div>
+                        @endforeach
+                      </div>
+                    @endif
                   </div>
                 </div>
               </div>
