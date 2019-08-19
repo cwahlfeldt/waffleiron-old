@@ -69,6 +69,14 @@ p:last-child {
   margin-bottom: 0;
 }
 
+p > * {
+  color: theme('colors.blue');
+}
+
+p a:hover {
+  color: theme('colors.orange');
+}
+
 footer p {
   margin-top: 0;
   margin-bottom: 0;
@@ -812,7 +820,7 @@ a:hover p {
 }
 
 .container-sm .the-content:only-child p:first-of-type {
-  padding-top: 50px;
+  padding-top: 40px;
 }
 
 p > b {

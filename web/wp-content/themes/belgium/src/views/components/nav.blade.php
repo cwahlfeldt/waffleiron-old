@@ -23,7 +23,7 @@
   $associates = array();
   $of_counsel = array();
 
-  function lastNameSort($a, $b) {
+  $lastNameSort = function($a, $b) {
     $aa = $a->post_title;
     $bb = $b->post_title;
     $aLast = end(explode(' ', $aa));
@@ -34,7 +34,7 @@
     }
 
     return strcasecmp($aLast, $bLast);
-  }
+  };
 
   for ($i = 0; $i < count($attorneys); $i++) {
     $a = $attorneys[$i];
@@ -53,9 +53,9 @@
     }
   }
 
-  usort($partners,'lastNameSort');
-  usort($associates, 'lastNameSort');
-  usort($of_counsel, 'lastNameSort');
+  usort($partners, $lastNameSort);
+  usort($associates, $lastNameSort);
+  usort($of_counsel, $lastNameSort);
 
   /*
   $attorneys = array_filter(array_map( function($n) {
