@@ -17,6 +17,7 @@
     @endphp
 
     <section class="heading attorney-heading w-full relative">
+
       <div class="flex sm:flex-row flex-col w-full h-full">
         <div class="side-wrap h-full sm:order-1 order-2 2xl:w-1/4 w-full lg:w-1/3 sm:mr-3 bg-blue relative py-12 px-4" style="background-color: {{ $style['background_color'] }};">
           <div class="h-full w-full flex flex-col justify-start items-center relative">
