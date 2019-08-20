@@ -16,9 +16,10 @@
 				@endphp
 				<div class="md:w-1/3 sm:w-1/2 w-full h-full lg:p-5 sm:p-3 py-1">
 					
+          {{$banner['branding']['background_image']}}
         <a
           href="/areas-of-practice/{{ $area->post_name }}"
-          style="background-image: url({{ $banner['branding']['background_image']['url']}});"
+          style="background-image: url({{ $banner['branding']['background_image']['sizes']['720'] }});"
           class="
             area-wrap
             flex bg-cover bg-center

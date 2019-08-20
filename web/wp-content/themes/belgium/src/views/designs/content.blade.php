@@ -62,7 +62,7 @@
                 @endif
 
                 @if ($c['acf_fc_layout'] === 'image')
-                  <img class="lg:px-24 md:px-24 mx-auto py-8" src="{{ $c['image']['url'] }}" alt="">
+                  <img class="lg:px-24 md:px-24 mx-auto py-8" src="{{ $c['image']['sizes']['1440'] }}" alt="">
                 @endif
 
                 @if ($c['acf_fc_layout'] === 'link')

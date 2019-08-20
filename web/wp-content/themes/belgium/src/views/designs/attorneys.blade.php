@@ -16,7 +16,7 @@
         {{-- <a href="{{ get_permalink($attorney->ID) }}" class="flex-col flex 2xl:w-1/5 lg:w-1/4 md:w-1/4 sm:w-1/2 xs:w-full h-auto my-6 px-6"> --}}
         <a href="{{ get_permalink($attorney->ID) }}" class="flex-col flex h-auto my-6 px-6">
           <div class="attorney-item w-auto h-auto">
-            <img class="w-auto h-auto bg-cover" src="{{ get_field('picture', $attorney->ID)['url'] }}" />
+            <img class="w-auto h-auto bg-cover" src="{{ get_field('picture', $attorney->ID)['sizes']['340'] }}" />
             <h4 class="font-sans text-blue font-bold tracking-wide mt-3">
               {{ get_the_title($attorney->ID) }}
             </h4>

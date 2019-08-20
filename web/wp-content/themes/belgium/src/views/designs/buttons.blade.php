@@ -6,9 +6,10 @@
   <div class=" mx-auto w-full h-full">
     <div class="flex md:flex-row flex-col h-full w-full md:justify-between justify-center">
       @foreach ($buttons as $button)
+        {{-- {{ $button }} --}}
         <a
           href="{{ $button['link'] }}"
-          style="background-image: url({{ wp_get_attachment_url($button['image']['id']) }});"
+          style="background-image: url({{ $button['image']['sizes']['720'] }});"
           class="
             button-wrap
             flex bg-cover bg-center

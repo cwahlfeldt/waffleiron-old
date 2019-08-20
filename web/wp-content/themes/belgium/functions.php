@@ -41,6 +41,7 @@ if ( ! function_exists( 'waffleiron_setup' ) ) :
 		 * @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
 		 */
     add_theme_support('post-thumbnails');
+    add_image_size( '1440', 1440, 9999 );
     add_image_size( '1024', 1024, 9999 );
     add_image_size( '720', 720, 9999 );
     add_image_size( '340', 340, 9999 );

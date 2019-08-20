@@ -127,7 +127,7 @@ footer .footer {
 }
 
 footer .brand {
-  margin-top: -40px;
+  margin-top: -60px;
 }
 
 .heading .logo {
@@ -176,6 +176,11 @@ footer .brand {
 .container-sm {
   width: 100%;
   max-width: 1200px !important;
+}
+
+footer .container-sm {
+  width: 100%;
+  max-width: 1300px !important;
 }
 
 @media (min-width: 889px) {
@@ -351,7 +356,6 @@ a {
   padding-top: 105px;
 }
 
-
 .banner .logo img {
   width: auto;
   height: auto;
@@ -403,6 +407,12 @@ a {
 @media (max-width: 888px) {
   .heading .logo {
     width: 115px;
+  }
+
+  .privacy,
+  .bar-logo,
+  .copyright {
+    padding-top: 10px !important;
   }
 
   .primary-navigation {

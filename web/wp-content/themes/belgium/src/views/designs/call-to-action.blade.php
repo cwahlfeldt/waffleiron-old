@@ -8,7 +8,7 @@
 <section class="call-to-action py-3">
   <div class="call-to-action-wrap flex md:flex-row flex-col h-full w-full justify-between w-full">
     <div class="item md:w-3/4 w-full md:mr-3 relative h-full">
-      <div class="bg-cover bg-center h-full py-12 px-6" style="background-image: url({{ $style['background_image']['url'] }});">
+      <div class="bg-cover bg-center h-full py-12 px-6" style="background-image: url({{ $style['background_image']['sizes']['1440'] }});">
         <h3
           style="color: {{ $style['line_color'] }};"
           class="font-sans tracking-widest text-center">
@@ -25,7 +25,7 @@
     <div class="item md:w-1/4 w-full md:ml-3 relative flex flex-col" style="background-color: {{ $style['background_color'] }};">
       <img class="see-through-image z-0 absolute" src="/wp-content/uploads/2019/07/TM_Icon_White.svg" />
       <a style="border-color: {{ $style['line_color'] }};" class="z-20 h-full m-4 flex flex-col justify-center items-center border-2 border-white border-solid hover:border-dotted" href="{{ $link }}">
-        <p class="md:p-16 p-4 uppercase text-center font-sans text-lg leading-tight" style="color: {{ $style['line_color'] }};">
+        <p class="md:p-16 p-4 uppercase text-center font-sans md:text-xl text-lg leading-tight" style="color: {{ $style['line_color'] }};">
           Get in<br class="md:block hidden">
           Touch
         </p>

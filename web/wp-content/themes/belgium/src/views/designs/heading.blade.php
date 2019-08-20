@@ -46,7 +46,7 @@
       </div>
     </div>
 
-    <div class="sm:order-2 flex order-1 md:w-1/2 lg:w-3/4 w-full sm:ml-3 md:bg-center bg-left bg-left bg-cover md:px-12 px-5 py-12 md:justify-end justify-center md:items-end justify-center" style="background-image: url({{ get_sub_field('branding')['stock']['url'] }});">
+    <div class="sm:order-2 flex order-1 md:w-1/2 lg:w-3/4 w-full sm:ml-3 md:bg-center bg-left bg-left bg-cover md:px-12 px-5 py-12 md:justify-end justify-center md:items-end justify-center" style="background-image: url({{ get_sub_field('branding')['stock']['sizes']['1440'] }});">
       <div class="heading-title-block flex flex-col md:justify-end justify-center w-auto h-full">
         @if ($branding_title)
           <hr style="border-color: {{ $style_line_color }};" class="w-10 my-4 border border-orange mx-0 border-solid border-1 md:mx-0 mx-auto md:block hidden">

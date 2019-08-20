@@ -4,7 +4,7 @@
   $variant          = $variant ?: false;
   $title            = $title ?: get_sub_field('title')['title'] ?: get_the_title();
   $logo             = $logo ?: get_sub_field('branding')['logo']['url'] ?: '/wp-content/uploads/2019/07/TM_Icon_Orange.svg';
-  $bg_image         = $bg_image ?: get_sub_field('branding')['background_image']['url'];
+  $bg_image         = $bg_image ?: get_sub_field('branding')['background_image']['sizes']['1440'];
   $line_color       = $line_color ?: get_sub_field('color')['line_color'] ?: '#a45a2a';
   $foreground_color = $foreground_color ?: get_sub_field('color')['foreground_color'] ?: '#ffffff';
   $background_color = $background_color ?: get_sub_field('color')['background_color'] ?: '#333f48';
