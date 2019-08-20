@@ -787,11 +787,17 @@ a:hover p {
 }
 
 .trans {
+  outline: none;
   transition: all 200ms ease-in-out;
   transform: rotate3d(0, 0, 1, 90deg);
 }
 
+button.accordion-item {
+  outline: none !important;
+}
+
 .trans-change {
+  color: theme('colors.orange');
   transform: rotate3d(0, 0, 0, 0deg);
 }
 
