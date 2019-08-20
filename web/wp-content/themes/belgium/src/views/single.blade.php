@@ -61,7 +61,7 @@
                   </p>
                   <div class="flex flex-row justify-between w-full h-full pt-6">
                     <a download class="vcard text-center py-1 px-3 mr-2 font-amp w-full text-base hover:bg-tan hover:text-white text-tan border-2 border-solid border-tan uppercase" href="{{ get_field('uploads')[0]['upload']['url'] }}">VCARD</a>
-                    <a class="contact text-center py-1 px-3 ml-2 w-full font-amp text-base hover:bg-tan hover:text-white uppercase text-tan border-2 border-solid border-tan " href="{{ get_field('links')[0]['link'] }}">Contact</a>
+                    <a class="contact text-center py-1 px-3 ml-2 w-full font-amp text-base hover:bg-tan hover:text-white uppercase text-tan border-2 border-solid border-tan " target"_top" href="{{ get_field('links')[0]['link'] }}">Contact</a>
                   </div>
                 </div>
               </div>
