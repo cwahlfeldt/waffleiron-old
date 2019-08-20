@@ -5,7 +5,7 @@
  * for use with 'post'.
  */
 function areas_of_practice_init() {
-	register_taxonomy( 'areas-of-practice', array( 'attorneys' ), array(
+	register_taxonomy( 'areas-of-practices', array( 'attorneys' ), array(
 		'hierarchical'      => false,
 		'public'            => true,
 		'show_in_nav_menus' => true,

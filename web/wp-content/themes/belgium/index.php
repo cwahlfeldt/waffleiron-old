@@ -35,7 +35,7 @@ elseif ( is_single() && $template            = 'single' ) :
 elseif ( is_page() && $template              = 'page' ) :
 elseif ( is_singular() && $template          = 'singular' ) :
 elseif ( is_category() && $template          = 'category' ) :
-elseif ( is_media() && $template          = 'media' ) :
+elseif ( is_media() && $template             = 'media' ) :
 elseif ( is_tag() && $template               = 'tag' ) :
 elseif ( is_author() && $template            = 'author' ) :
 elseif ( is_date() && $template              = 'date' ) :
@@ -44,16 +44,18 @@ elseif ( is_archive() && $template           = 'archive' ) :
 else :
   $template                                  = 'page';
 endif;
-if ($template === 'attorney') {
-  $term = get_queried_object()->taxonomy;
-  $template = str_replace('_', '-', $term);
-}
+
+/* echo $template; */
+
+/* if ($template === 'attorney') { */
+/*   $template = 'page'; */
+/* } */
+
 if ($template === 'single') {
   $type = get_post_type(get_the_ID());
   if ($type == 'product') {$template = 'product';}
 }
 
-/* echo $template; */
 
 // render template
 echo $blade->run($template);

@@ -166,7 +166,7 @@
                       <div class="flex flex-auto flex-wrap items-between w-full py-6">
                         @foreach($sub_nav as $sub)
                           <div class="lg:w-1/4 md:w-1/3 w-full">
-                            <a class="text-white font-condensed font-medium text-base tracking-wide leading-relaxed" href="/{{ $sub->post_name }}/">{{ $sub->post_title }}</a>
+                            <a class="text-white font-condensed font-medium text-base tracking-wide leading-relaxed" href="{{ get_permalink($sub->ID) }}">{{ $sub->post_title }}</a>
                           </div>
                         @endforeach
                       </div>
