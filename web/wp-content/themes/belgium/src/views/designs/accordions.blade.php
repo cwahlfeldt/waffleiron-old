@@ -18,13 +18,15 @@
           @endif
         </h2>
       @endif
-      <div class="accordion-items md:px-32 sm:px-16 xs:px-4">
+      <div class="accordion-items md:px-32 sm:px-16 xs:px-4 w-full">
         @foreach($accordions as $a)
           <button class="accordion-item flex flex-col items-between py-3 h-auto w-full text-left border-t-2 border-solid border-blue hover:cursor-pointer">
-            <h2 class="relative accordion-title font-slab font-semibold tracking-wide md:text-lg text-sm text-blue uppercase hover:text-orange hover:cursor-pointer">
-              {{ $a['title'] }}
-             	<i class="absolute right-0 fa fa-angle-double-down trans"></i>
-            </h2>
+            <div class="relative flex flex-row justify-between items-center w-full">
+              <h2 class="accordion-title font-slab font-semibold tracking-wide md:text-lg text-sm text-blue uppercase hover:text-orange hover:cursor-pointer">
+                {{ $a['title'] }}
+              </h2>
+              {{-- <i class="fa fa-angle-double-down"></i> --}}           
+            </div>
             <div class="accordion-content pt-4 pb-8 hidden" style="color: {{ $style_fg_color }};">
               {!! $a['content'] !!}
             </div>

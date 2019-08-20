@@ -776,17 +776,12 @@ a:hover p {
   /* width: 100% !important; */
 }
 
-.accordion-item i {
-  top: 5px;
-}
-
 .trans {
   transition: all 200ms ease-in-out;
   transform: rotate3d(0, 0, 1, 90deg);
 }
 
 .trans-change {
-  transition: all 200ms ease-in-out;
   transform: rotate3d(0, 0, 0, 0deg);
 }
 
