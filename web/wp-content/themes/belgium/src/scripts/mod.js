@@ -49,7 +49,7 @@
     })
 
     $('.accordion-item').on('click', function() {
-      // $(this).find('.trans').toggleClass('trans-change')
+      $(this).find('.trans').toggleClass('trans-change')
       $(this).find('.accordion-title').toggleClass('text--orange')
       $(this).find('.accordion-content').slideToggle('fast')
     })
