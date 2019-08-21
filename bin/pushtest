@@ -6,4 +6,3 @@ do
   terminus env:deploy --sync-content --no-interaction --yes --note="pushed waffleiron to test" --cc $SITE.test &&
   echo "pushed $SITE to test";
 done
-
