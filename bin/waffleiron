@@ -103,6 +103,7 @@ _deploy () {
   sleep 10 && \
 
   message=${1:-'dev deploy, run `iron init && iron deploy -p` to get everything setup for production...'}
+
   git add -A ; \
   git commit -m "$message" ; \
   git push origin --all && \
@@ -204,8 +205,19 @@ _build-composer () {
 
 _build-node () {
   cd $WAFFLEIRON_DIR && \
-    $(which npm) install && \
-    $(which npm) run build ;
+    $(which pnpm) install && \
+
+  printf "\n\n \
+    https://$SITE_NAME.lndo.site/ \n \
+    http://localhost:1420/ \n \
+  \n\n" && \
+
+  $(which px) \
+    --watch \
+    --es-syntax-everywhere \
+    --input web/wp-content/themes/belgium/src/scripts/mod.js \
+    --output web/public/out.js & \
+  $(which node) server.js
 }
 
 _build () {
@@ -634,8 +646,9 @@ while [[ $# -gt 0 ]]
         -sr )
           lando start && lando pull --code=none --database=live --files=live && \
             lando ssh -c "rm -rf web/wp-content/uploads/cache/*" && \
-              _cc && \
-               _start
+                _build-composer && \
+                _build-node & \
+                _cc && fg
 
           shift
           shift
