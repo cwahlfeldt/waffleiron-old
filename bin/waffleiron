@@ -646,9 +646,9 @@ while [[ $# -gt 0 ]]
         -sr )
           lando start && lando pull --code=none --database=live --files=live && \
             lando ssh -c "rm -rf web/wp-content/uploads/cache/*" && \
-                _build-composer && \
-                _build-node & \
-                _cc && fg
+              _build-composer && \
+                _cc && \
+                  _build-node ;
 
           shift
           shift
