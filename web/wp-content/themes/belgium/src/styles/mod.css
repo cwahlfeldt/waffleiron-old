@@ -464,7 +464,8 @@ a {
 
 
 .banner .logo img {
-  width: auto;
+  width: 100%;
+  max-width: 365px;
   height: auto;
   max-height: 55px;
   /* height: 100%; */
