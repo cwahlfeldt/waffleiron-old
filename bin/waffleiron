@@ -5,9 +5,9 @@ export WAFFLEIRON_DIR="$( \
   cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && \
   cd .. && pwd ; \
 )" ;
-SITE_PREFIX=$( cd $WAFFLEIRON_DIR && ./bin/env "SITE_PREFIX" ; ) ;
-export SITE_NAME="$SITE_PREFIX-$( cd $WAFFLEIRON_DIR && ./bin/env "SITE_NAME" )"
-export SITE_ENV=$( cd $WAFFLEIRON_DIR && ./bin/env "SITE_ENV" ; ) ;
+SITE_PREFIX=$( cd $WAFFLEIRON_DIR && ../scripts/waffleiron/env "SITE_PREFIX" ; ) ;
+export SITE_NAME="$SITE_PREFIX-$( cd $WAFFLEIRON_DIR && ../scripts/waffleiron/env "SITE_NAME" )"
+export SITE_ENV=$( cd $WAFFLEIRON_DIR && ../scripts/waffleiron/env "SITE_ENV" ; ) ;
 
 _art () {
 cat << "EOF"
