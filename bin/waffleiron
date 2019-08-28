@@ -1,6 +1,5 @@
 #!/usr/local/bin/bash
 
-
 # waffleiron vars
 export WAFFLEIRON_DIR="$( \
   cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && \
@@ -306,9 +305,10 @@ _init () {
   _cc
 }
 
-if [ -z $# ]
-then
-  _start
+if [ -z $# ]; then
+  _help
+else
+  cd $WAFFLEIRON_DIR
 fi
 
 POSITIONAL=()
@@ -318,75 +318,8 @@ while [[ $# -gt 0 ]]
 
   case $key in
 
-    init) # init functions
-      _init
-      shift # past argument
-      shift # past value
-    ;;
-
-    # catch em all...
-    s|start)
-      _start $2
-
-      shift
-      shift
-    ;;
-
-    # restart
-    restart)
-      _restart $2
-      shift # past argument
-      shift # past value
-    ;;
-
-    # restart
-    build)
-      _build
-      shift # past argument
-      shift # past value
-    ;;
-
-    # cc
-    cc|clear-cache )
-      _cc $2
-
-      shift # past argument
-      shift # past value
-    ;;
-
-    # restart
-    rebuild)
-      _rebuild
-      shift # past argument
-      shift # past value
-    ;;
-
-    # restart
-    pull)
-      _pull $2
-
-      shift # past argument
-      shift # past value
-    ;;
-
-    # restart
-    clean)
-      _clean
-      shift # past argument
-      shift # past value
-    ;;
-
-    # create post type with 
-    create-post-type)
-      _create-post-type $2 $3
-      shift # past argument
-      shift # past value
-    ;;
-
     ## create post of $1 and name it with $2
     create-post )
-      cd $WAFFLEIRON_DIR ;
-
       POST_TYPE=${2:-page}
       POST_TITLE=${3:-"${POST_TYPE}-${RANDOM:0:2}"}
 
@@ -396,13 +329,12 @@ while [[ $# -gt 0 ]]
         --post_status="published" \
       && sleep 5 ;
 
-      shift # past argument
-      shift # past value
+      shift
+      shift
     ;;
 
     ## create post of $1 and name it with $2
     create-taxonomy )
-      
       if [[ -z "$2" ]]
         then
           printf "no slug" && return 1
@@ -418,13 +350,12 @@ while [[ $# -gt 0 ]]
         --plugin="waffleiron" \
         --force ;
 
-      shift # past argument
-      shift # past value
+      shift
+      shift
     ;;
 
-    ## create post of $1 and name it with $2
+    # create post of $1 and name it with $2
     create-post-type )
-
       POST_TYPE=${2:-page}
       POST_TITLE=${3:-"${POST_TYPE}-${RANDOM:0:2}"}
       ICON=${4:-"dashicons-text-page"}
@@ -437,107 +368,18 @@ while [[ $# -gt 0 ]]
         --dashicon="$icon" \
         --force ;
 
-      shift # past argument
-      shift # past value
-    ;;
-
-    # deploy
-    config )
-      cd $WAFFLEIRON_DIR/bin && \
-        $EDITOR waffleiron
-
-      shift # past argument
-      shift # past value
-    ;;
-
-    # deploy
-    dep|deploy )
-      REMOTE=$(git branch | grep \* | cut -d ' ' -f2)
-      BRANCH=$(git branch | grep \* | cut -d ' ' -f2)
-      if [[ $BRANCH -eq "master" ]]
-        then
-          REMOTE=origin
-      fi
-
-      _build && _clean && \
-      cd $WAFFLEIRON_DIR && \
-        git pull $REMOTE $BRANCH && \
-          ./bin/gacp "iron deploy duh!" $REMOTE $BRANCH && git checkout origin master && git pull $REMOTE $BRANCH --rebase --force && \
-            ./bin/gacp "iron master deploy" origin master --force ; \
-
-      lando db-export web/public/dump.sql && \
-      git checkout origin master && \
-      lando push --database=dev --files=dev --code=none \
-
-      shift # past argument
-      shift # past value
-    ;;
-
-    # paths
-    path|paths)
-      _paths
-      shift # past argument
-      shift # past value
-    ;;
-
-    # env
-    e|env)
-      _env
-      shift # past argument
-      shift # past value
-    ;;
-
-    # env
-    export)
-      _export-database
-      shift # past argument
-      shift # past value
-    ;;
- 
-    # install
-    serve)
-      cd $WAFFLEIRON_DIR && \
-        node server.js ;
       shift
       shift
     ;;
 
-    # install
-    i|install)
-
-      # do a harder install bro!
-      if [[ $2 -eq --force ]]
-        then
-          _clean && \
-          _install && \
-          _restart && \
-          _cc ; \
-          return ;
-      fi
-
-      _install ;
-
-      shift
-      shift
-    ;;
-
-     # help
-    superpowers )
-      arr=(${_cc} ${_env})
-      echo ${arr[*]}
-
-      shift # past argument
-      shift
-    ;;
-
-     # help
+    # help
     art )
       _art
-      shift # past argument
+      shift
       shift
     ;;
 
-     # help
+    # help
     create-site )
       lando ssh -c " \
         export PANTHEON_SITE_NAME="$SITE_PREFIX-${2-$SITE_NAME}" && \
@@ -555,7 +397,8 @@ while [[ $# -gt 0 ]]
         printf "\n\n chill fo a minute \n\n" && \
         sleep 60 && \
       "
-      shift # past argument
+
+      shift
       shift
     ;;
       
@@ -585,9 +428,7 @@ while [[ $# -gt 0 ]]
         pull --code=dev --database=dev --files=${4:-'dev'} && \
         printf "\n ! waffleiron engine roars !\n" && \
 
-      _composer_init
-
-      shift # past argument
+      shift
       shift
     ;;
 
@@ -595,71 +436,101 @@ while [[ $# -gt 0 ]]
     h|help)
       _help
 
-      shift # past argument
-      shift # past argument
+      shift
+      shift
     ;;
 
+    init|-i )
+      _init ;
+
+      shift
+      shift
+    ;;
+
+    start|-s )
+      _start ;
+
+      shift
+      shift
+    ;;
+
+    deploy|-d )
+      git add -A ; \
+        git commit -am "$2" ; \
+        git push --all ; \
+
+      lando ssh -c "rm -rf web/wp-content/uploads/cache/*" && \
+        ./bin/push ;
+
+      shift
+      shift
+    ;;
+    
+    rebuild|-r )
+      lando start && lando pull --code=none --database=live --files=live && \
+        sleep 30 && \
+        lando ssh -c "rm -rf web/wp-content/uploads/cache/*" && \
+        sleep 15 && \
+        _cc ;
+
+      shift
+      shift
+    ;;
+
+    sync|-sr )
+      lando start && lando pull --code=none --database=live --files=live && \
+        lando ssh -c "rm -rf web/wp-content/uploads/cache/*" && \
+          _build-composer && \
+            _cc && \
+              _build-node ;
+
+      shift
+      shift
+    ;;
+
+    composer|--composer )
+      if [[ -z $2 ]]; then
+        shift
+        lando ssh -c "composer $@"
+      else
+        shift
+        _build-composer
+      fi
+
+      shift
+      shift
+    ;;
+
+    npm|--npm )
+      npm=$(which pnpm)
+      if [[ ! -z $2 ]]; then
+        shift
+        $npm $@
+      else
+        shift
+        $npm install
+      fi
+
+      shift
+    ;;
+
+    --node|node )
+      node=$(which node)
+      if [[ ! -z $2 ]]; then
+        shift
+        $node $@
+      else
+        shift
+        printf "\nno node script append a script... like \`node index.js\`\n\n"
+      fi
+
+      shift
+      shift
+    ;;
 
     # catch em all...
     * )
-      cd $WAFFLEIRON_DIR && \
-
-      #TODO how does gnu do it?
-      case "$1" in
-        -i )
-          _init ;
-
-          shift
-          shift
-        ;;
-
-        -s )
-          _start ;
-
-          shift
-          shift
-        ;;
-
-        -d )
-          git add -A ; \
-            git commit -am "$2" ; \
-            git push --all ; \
-
-          lando ssh -c "rm -rf web/wp-content/uploads/cache/*" && \
-            ./bin/push ;
-
-          shift
-          shift
-        ;;
-        
-        -r )
-          lando start && lando pull --code=none --database=live --files=live && \
-            sleep 30 && \
-            lando ssh -c "rm -rf web/wp-content/uploads/cache/*" && \
-            sleep 15 && \
-            _cc ;
-
-          shift
-          shift
-        ;;
-
-        -sr )
-          lando start && lando pull --code=none --database=live --files=live && \
-            lando ssh -c "rm -rf web/wp-content/uploads/cache/*" && \
-              _build-composer && \
-                _cc && \
-                  _build-node ;
-
-          shift
-          shift
-        ;;
-
-        * )
-          _start
-          shift
-          shift
-        ;;
-      esac
+      printf "$1 is not a command"
 
       POSITIONAL+=("$1")
       shift
