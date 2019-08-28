@@ -1,51 +1,72 @@
-# waffleiron
+# Example Drops 7 Composer
 
-[![CircleCI](https://circleci.com/gh/cwahlfeldt/waffleiron.svg?style=shield)](https://circleci.com/gh/cwahlfeldt/waffleiron)
-[![Dashboard waffleiron](https://img.shields.io/badge/dashboard-waffleiron-yellow.svg)](https://dashboard.pantheon.io/sites/937260c2-446f-4aa2-8a7b-fd76046e32fa#dev/code)
-[![Dev Site waffleiron](https://img.shields.io/badge/site-waffleiron-blue.svg)](http://dev-waffleiron.pantheonsite.io/)
+This repository can be used to set up a Composer-Managed Drupal 7 site on [Pantheon](https://pantheon.io).
 
-waffleiron announcement
+[![CircleCI](https://circleci.com/gh/pantheon-systems/example-drops-7-composer.svg?style=svg)](https://circleci.com/gh/pantheon-systems/example-drops-7-composer) 
+[![Pantheon example-drops-7-composer](https://img.shields.io/badge/pantheon-drops_7-yellow.svg)](https://dashboard.pantheon.io/sites/f4acd01e-c989-48ab-8921-69c38206edee#dev/code) 
+[![Dev Site example-drops-7-composer](https://img.shields.io/badge/site-drops_7-blue.svg)](http://dev-example-drops-7-composer.pantheonsite.io/)
+
+This repository is a start state for a Composer-based Drupal 7 workflow with Pantheon. It is meant to be copied by the the [Terminus Build Tools Plugin](https://github.com/pantheon-systems/terminus-build-tools-plugin) which will set up for you a brand new
+
+* GitHub repo
+* Free Pantheon sandbox site
+* A CircleCI configuration to run tests and push from the source repo (GitHub) to Pantheon.
+
+For more background information on this style of workflow, see the [Pantheon documentation](https://pantheon.io/docs/guides/github-pull-requests/).
 
 
-The new Thomas Mamer website is currently using a custom “framework" codenamed waffleiron. waffleiron is basically a wrapper for a Wordpress site on pantheon but with a ton of cool features to help automate every site that uses the framework. Old sites that we host on pantheon (and elsewhere) can be ported over as well (currently only Wordpress but def Drupal in the future).  
+## Installation
 
-Im creating waffleiron as a way to allow myself to maintain and create websites much faster than how I or past developers have done things. I get that we are a small company and this will make our lives easier by speeding up development time and allowing updates and site maintenance to happen under one umbrella.  
+### Prerequisites
 
-With that said heres a list of features to better describe the framework and then ill dive into TM which uses the framework and rundown the custom post types and their fields.
-  
-    waffleiron :   
-1. Fast setup. Be up and running in matter of minutes with a local pantheon environment that syncs to pantheon, using Lando ( https://github.com/lando/lando ) and other build systems.
-2. Continuous integration testing with CircleCI ( https://circleci.com/continuous-integration ). I can explain this more ls later but, it means its setup to continuously test code and deploy it to pantheon when it passes the tests. This even includes browser testing. Also Jill pointed out good workflow that’s being introduced to pantheon soon that will make this better 👍  
-3. Git workflow; All sites are treated as branches of a single upstream ( https://github.com/mckenziewagner/waffleiron ) that keeps all sites in sync with updates for Wordpress, plugins, and configuration. Pantheon allows custom git upstreams and an easy way to deploy them. Also everything important is kept as code where it should be 🤘  
-4. Automated documentation that is created and hosted sing the WP interface 🙏 ☺️
-5. Up to date theme (Belgium) with advanced custom fields and Gutenberg.  
-5. Up to date theme (Belgium) with advanced custom fields and Gutenberg.  
-6. Push Pull Overwrite. Do it all with the command line.  
-7. waffleiron comes with command line tool called “iron” that can do all of these tasks and more with a few calls to the interface. This is mostly for developers but its good to know how its automated and how the command line lets you do anything ( see docs for a more complete list.  
-  
-    # INSTALL all dependencies (composer, npm, docker, lando...)  
-    # also sets you up with a local lando/docker server  
-    $ iron init      
-    # START the local server  
-    $ iron start  
-  
-    # PULL code, database, and files  
-    $ iron pull     # pull from any environment on pantheon     # using the &lt;site-name&gt;.&lt;dev, test, or live&gt;  
-    $ iron pull windsor-west.dev     $ iron pull thomas-mamer.live          # PUSH up to pantheon     $ iron push     # or to any environment  
-    $ iron push windsor-west.dev     # or push to multiple environments with filters     # good for mass updating a bunch of sites     $ iron push --all "custom-upstream-name"      # ... more cool stuff ...  
-     # create a new site under the mckenziewagner organzation and deploy to pantheon.     # this will also install all the default waffleiron plugins, files and database.     # Your site will be available at https://dev-waffleiron-new-waffleiron-site.pantheonsite.org     $ iron create-site 'New Waffleiron Site'          # create a new post type from the command line and set it up     $ iron create-post-type          # see all commands     $ iron help      # ... documentation is hosted on the site as well :)  
-      
-     waffleiron Fields :   
-  
-waffleiron website fields to type scheme  
-Legend : CONSTANTS ALL POST PAGE CUSTOM ECOMMERCE   HEAD  
-* Meta Tags  
-* Meta Keywords * Meta Description  
-* Meta ... * Site Title * Site Tagline * Configuration   
-  Navigation  
-  * Heading   * Intro   * Copy   * Banner (also allows for "call to action")   * Call Out   * Relationship ( relate any post-type )   * Social Media Center   * Contact   * Location *** Product  
- ** Ternary Nav   
-    Footer     * Date & Copyright     * Contact     * Banner ?     * Social Media Center ?      * Location ?     * Secondary Nav ?  
-  
-  
-…. Work in Progress…. mostly complete for sites currently in development, and deployed on pantheon.
+Before running the `terminus build:project:create` command, make sure you have all of the prerequisites:
+
+* [A Pantheon account](https://dashboard.pantheon.io/register)
+* [Terminus, the Pantheon command line tool](https://pantheon.io/docs/terminus/install/)
+* [The Terminus Build Tools Plugin](https://github.com/pantheon-systems/terminus-build-tools-plugin)
+* An account with GitHub and an authentication token capable of creating new repos.
+* An account with CircleCI and an authentication token.
+
+You may find it easier to export the GitHub and CircleCI tokens as variables on your command line where the Build Tools Plugin can detect them automatically:
+
+```
+export GITHUB_TOKEN=[REDACTED]
+export CIRCLE_TOKEN=[REDACTED]
+```
+
+### One command setup:
+
+Once you have all of the prerequisites in place, you can create your copy of this repo with one command:
+
+```
+terminus build:project:create pantheon-systems/example-drops-7-composer my-new-site --team="Agency Org Name"
+```
+
+The parameters shown here are:
+
+* The name of the source repo, `pantheon-systems/example-drops-7-composer`. If you are interest in other source repos like WordPress, see the [Terminus Build Tools Plugin](https://github.com/pantheon-systems/terminus-build-tools-plugin).
+* The machine name to be used by both the soon-to-be-created Pantheon site and GitHub repo. Change `my-new-site` to something meaningful for you.
+* The `--team` flag is optional and refers to a Pantheon organization. Pantheon organizations are often web development agencies or Universities. Setting this parameter causes the newly created site to go within the given organization. Run the Terminus command `terminus org:list` to see the organizations you are a member of. There might not be any.
+
+
+## Important files and directories
+
+### `/web`
+
+Pantheon will serve the site from the `/web` subdirectory due to the configuration in `pantheon.yml`, facilitating a Composer based workflow. Having your website in this subdirectory also allows for tests, scripts, and other files related to your project to be stored in your repo without polluting your web document root.
+
+#### `/config`
+
+One of the directories moved to the git root is `/config`. This directory holds Drupal's `.yml` configuration files. In more traditional repo structure these files would live at `/sites/default/config/`. Thanks to [this line in `settings.php`](https://github.com/pantheon-systems/example-drops-7-composer/blob/master/web/sites/default/settings.php#L19), the config is moved entirely outside of the web root.
+
+### `composer.json`
+
+If you are just browsing this repository on GitHub, you may notice that the files of Drupal core itself are not included in this repo.  That is because Drupal core and contrib modules are installed via Composer and ignored in the `.gitignore` file. Specific contrib modules are added to the project via `composer.json` and `composer.lock` keeps track of the exact version of each modules (or other dependency). Modules, and themes are placed in the correct directories thanks to the `"installer-paths"` section of `composer.json`. `composer.json` also includes instructions for `drupal-scaffold` which takes care of placing some individual files in the correct places like `settings.pantheon.php`.
+
+## Behat tests
+
+So that CircleCI will have some test to run, this repository includes a configuration of Behat tests. You can add your own `.feature` files within `/tests/features/`.
+
+## Updating your site
+
+When using this repository to manage your Drupal site, you will no longer use the Pantheon dashboard to update your Drupal version. Instead, you will manage your updates using Composer. Ensure your site is in Git mode, clone it locally, and then run composer commands from there.  Commit and push your files back up to Pantheon as usual.
