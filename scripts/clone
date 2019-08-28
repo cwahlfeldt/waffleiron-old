@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+terminus org:site:list mckenzie-wagner --tag=rcr-6331 --format=list | while read SITE
+do
+  terminus env:clone-content $SITE.test live --yes --no-interaction
+done

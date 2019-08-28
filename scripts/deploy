@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && cd .. && pwd )"
+
+git add -A && git commit -m "${1:-"waffleiron deploy - $(git config user.name)"}" && git push --all
+
+# deploy to test
+terminus org:site:list mckenzie-wagner --tag=waffleiron --format=list --field=name | while read SITE
+do
+  terminus env:deploy --sync-content --no-interaction --yes --note="pushed waffleiron to test" --cc $SITE.test &&
+  echo "deployed $SITE to test";
+done
+
+# deploy to live
+terminus org:site:list mckenzie-wagner --tag=waffleiron --format=list --field=name | while read SITE
+do
+  terminus env:deploy --no-interaction --yes --note="pushed waffleiron to test" --cc $SITE.live &&
+  echo "deployed $SITE to live";
+done

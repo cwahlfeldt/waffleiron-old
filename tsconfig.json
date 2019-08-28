@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./web/wp-content/themes/belgium/src",
+    "paths": {
+      "~*": ["./web/wp-content/themes/belgium/src/scripts/mod.ts"]
+    }
+  },
+  "include": ["./web/wp-content/themes/belgium/**/*.ts", "./**/*.json"],
+  "ignore": ["./web/wp-content/themes/belgium/**/*.js"]
+}

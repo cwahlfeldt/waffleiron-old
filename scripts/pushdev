@@ -1,0 +1,6 @@
+#!/bin/bash
+
+#### push all code to dev do a dry run first just in case ####
+
+terminus site:list --format=list | terminus site:mass-update:apply --upstream=2c87a556-4d0b-47b0-8ee9-d5d02ccb1734 --accept-upstream --dry-run &&
+terminus site:list --format=list | terminus site:mass-update:apply --upstream=2c87a556-4d0b-47b0-8ee9-d5d02ccb1734 --accept-upstream

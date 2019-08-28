@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+#### push code to all test environments and optional then push to live ####
+terminus org:site:list mckenzie-wagner --tag=waffleiron --format=list | while read SITE
+do
+  terminus env:deploy --no-interaction --yes --note="pushed waffleiron to test" --cc $SITE.live &&
+  echo "pushed $SITE to live";
+done
+
