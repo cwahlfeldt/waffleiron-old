@@ -1,0 +1,14 @@
+name: lando-nginx
+services:
+  defaults:
+    type: nginx
+  patch:
+    type: nginx:1.14.1
+  custom:
+    type: nginx
+    ssl: true
+    webroot: www
+    config:
+      server: config/server.conf
+      vhosts: config/custom.conf
+      params: config/params
