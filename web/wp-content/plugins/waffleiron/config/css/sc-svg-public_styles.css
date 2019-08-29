@@ -1,6 +1,0 @@
-
-/*sets all SVG's to be responsive. displaying at full width*/
-body.wp-admin img[src*='.svg']{
-	width: 100%;
-	height: auto;
-}
