@@ -1,9 +1,9 @@
-name        : iron-tm
+name        : iron-b2
 recipe      : pantheon
 config      :
-  framework : wordpress
-  site      : iron-tm
-  id        : 7836f8c1-01d0-4b59-8c57-6b71d4fca2c2
+  framework : drupal7
+  site      : headprotech
+  id        : 7361b38c-e1dc-46f7-8945-e65cca0fdad3
   xdebug    : false
   index     : true
   edge      : true
