@@ -1,13 +1,13 @@
-#!/usr/local/bin/bash
+#!/usr/bin/env bash
 
-# waffleiron vars
 export WAFFLEIRON_DIR="$( \
   cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && \
   cd .. && pwd ; \
 )" ;
-SITE_PREFIX=$( cd $WAFFLEIRON_DIR && ../scripts/waffleiron/env "SITE_PREFIX" ; ) ;
-export SITE_NAME="$SITE_PREFIX-$( cd $WAFFLEIRON_DIR && ../scripts/waffleiron/env "SITE_NAME" )"
-export SITE_ENV=$( cd $WAFFLEIRON_DIR && ../scripts/waffleiron/env "SITE_ENV" ; ) ;
+export DOTENV=$( printf "$(grep "$1" $WAFFLEIRON_DIR/.env | cut -d '=' --complement -f 1)")
+export SITE_PREFIX=$( cd $WAFFLEIRON_DIR && $DOTENV "SITE_PREFIX" ; ) ;
+export SITE_NAME="$SITE_PREFIX-$( cd $WAFFLEIRON_DIR && $DOTENV "SITE_NAME" )"
+export SITE_ENV=$( cd $WAFFLEIRON_DIR && $DOTENV "SITE_ENV" ; ) ;
 
 _art () {
 cat << "EOF"
