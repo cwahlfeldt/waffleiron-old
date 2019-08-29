@@ -13,22 +13,21 @@ _help () {
   echo
   _art
   echo
-  echo "   waffleiron directory:"
-  echo "     $WAFFLEIRON_DIR"
+  echo "   waffleiron directory : $WAFFLEIRON_DIR"
   echo
-  echo "              CMD      ALIAS   ARGS"
-  echo " $ waffleiron help     h     "
-  echo "              init     in    [ --site|-s pantheon-site, --env|-e pantheon-env ]"
-  echo "              start    s     "
-  echo "              sync     sy    [ --env|-e pantheon-site.pantheon-env ]"
-  echo "              restart  r     "
-  echo "              build    b     "
-  echo "              deploy   d     [ --message|-m ]"
-  echo "              rebuild  rd"
-  echo "              composer c     [ *composer commands* ]"
-  echo "              npm      n     [ *npm commands* ]"
-  echo "              node     nd    [ *node commands* ]"
-  echo "              clean    cc"
+  echo "              CMD      ALIAS  ARGS"
+  echo " $ waffleiron help     h      "
+  echo "              init     in     [ --site|-s pantheon-site, --env|-e pantheon-env ]"
+  echo "              start    s      "
+  echo "              sync     sy     [ --env|-e pantheon-site.pantheon-env ]"
+  echo "              restart  r      "
+  echo "              build    b      "
+  echo "              deploy   d      [ --message|-m ]"
+  echo "              rebuild  rb     "
+  echo "              composer c      [ *composer commands* ]"
+  echo "              npm      n      [ *npm commands* ]"
+  echo "              node     nd     [ *node commands* ]"
+  echo "              clean    cc     "
   echo 
 }
 
@@ -76,8 +75,6 @@ _createpost () {
 
 # deploy your mom
 _deploy () {
-  cd $WAFFLEIRON_DIR
-
   if [[ "$1" -eq "--production" ]] || [[ "$1" -eq "-p" ]]
     then
       _clean && _install && clean -p && \
@@ -96,7 +93,7 @@ _deploy () {
 }
 
 _remote-import-database () {
-  cd $WAFFLEIRON_DIR/web
+  cd ./web
 
   _export-database && \
     sleep 15 && \
@@ -106,22 +103,20 @@ _remote-import-database () {
 }
 
 _export-database () {
-  cd $WAFFLEIRON_DIR/web/public
+  cd ./web/public
   lando db-export dump.sql
 }
 
 # and restart you're momm
 _restart () {
-  cd $WAFFLEIRON_DIR && \
-    osascript -e \'quit app "Docker"\' && printf "\nstopping docker..." && \
-      open -g -a Docker && printf "starting docker...\n" && \
-        sleep 30 && \
-          lando start ;
+  osascript -e \'quit app "Docker"\' && printf "\nstopping docker..." && \
+    open -g -a Docker && printf "starting docker...\n" && \
+      sleep 30 && \
+        lando start ;
 }
 
 # pull yo mom
 _pull () {
-  cd $WAFFLEIRON_DIR
   site=${1:-"$SITE_NAME.$SITE_ENV"}
 
   lando ssh -c " \
@@ -132,8 +127,6 @@ _pull () {
 }
 # push yo mom
 _push () {
-  cd $WAFFLEIRON_DIR && \
-
   cd web && \
   # _export-database && \
   # lando ssh -c "chmod 777 web/public/dump.sql.gz" && \
@@ -151,7 +144,6 @@ _push () {
 
 # create-post-type yo mom
 _create-post-type () {
-  cd $WAFFLEIRON_DIR
   name=${1:-"change-name"}
   icon=${2:-"dashicons-text-page"}
 
@@ -168,7 +160,6 @@ _create-post-type () {
 
 # rebuild yo mom
 _rebuild () {
-  cd $WAFFLEIRON_DIR && \
   lando start && \
     lando destroy -y ; \
   lando poweroff && \
@@ -178,7 +169,6 @@ _rebuild () {
 }
 
 _build-composer () {
-  cd $WAFFLEIRON_DIR && \
   lando ssh -c " \
     cd /app && \
     rm -rf vendor ; \
@@ -188,7 +178,6 @@ _build-composer () {
 }
 
 _build-node () {
-  cd $WAFFLEIRON_DIR && \
     $(which pnpm) install && \
 
   printf "\n\n \
@@ -219,7 +208,6 @@ _build () {
 
 # _install install i
 _install () {
-  cd $WAFFLEIRON_DIR && \
   _clean
 
   sleep 10 && \
@@ -236,7 +224,6 @@ _install () {
 
 # cc yo ma
 _cc () {
-  cd $WAFFLEIRON_DIR
   if [[ $1 -eq "--remote" ]] ; then
     lando terminus env:clear-cache ${1:-"$SITE_NAME.$SITE_ENV"}
   fi
@@ -246,7 +233,6 @@ _cc () {
 }
 
 _clean () {
-  cd $WAFFLEIRON_DIR
   if [[ "$1" -eq "--production" ]] || [[ "$1" -eq "-p" ]]
     then
       lando ssh -c "cd /app && rm -rf ./node_modules && rm -rf ./web/wp-content/uploads/cache/* ;" && \
@@ -290,7 +276,7 @@ _init () {
   _cc
 }
 
-if [ -z $# ]; then
+if [ -z $1 ]; then
   _help
 else
   cd $WAFFLEIRON_DIR
@@ -425,21 +411,24 @@ while [[ $# -gt 0 ]]
       shift
     ;;
 
-    init|-i )
-      _init ;
+    init|in )
+      lando init \
+        --source remote \
+        --remote-url git@github.com:cwahlfeldt/waffleiron.git \
+        --recipe pantheon \
 
       shift
       shift
     ;;
 
-    start|-s )
+    start|s )
       _start ;
 
       shift
       shift
     ;;
 
-    deploy|-d )
+    deploy|d )
       git add -A ; \
         git commit -am "$2" ; \
         git push --all ; \
@@ -451,7 +440,7 @@ while [[ $# -gt 0 ]]
       shift
     ;;
     
-    rebuild|-r )
+    rebuild|rd )
       lando start && lando pull --code=none --database=live --files=live && \
         sleep 30 && \
         lando ssh -c "rm -rf web/wp-content/uploads/cache/*" && \
@@ -462,7 +451,7 @@ while [[ $# -gt 0 ]]
       shift
     ;;
 
-    sync|-sr )
+    sync|sy )
       lando start && lando pull --code=none --database=live --files=live && \
         lando ssh -c "rm -rf web/wp-content/uploads/cache/*" && \
           _build-composer && \
@@ -473,7 +462,7 @@ while [[ $# -gt 0 ]]
       shift
     ;;
 
-    composer|--composer )
+    composer|comp )
       if [[ -z $2 ]]; then
         shift
         lando ssh -c "composer $@"
@@ -486,7 +475,7 @@ while [[ $# -gt 0 ]]
       shift
     ;;
 
-    npm|--npm )
+    npm|n )
       npm=$(which pnpm)
       if [[ ! -z $2 ]]; then
         shift
@@ -499,7 +488,7 @@ while [[ $# -gt 0 ]]
       shift
     ;;
 
-    --node|node )
+    node|nd )
       node=$(which node)
       if [[ ! -z $2 ]]; then
         shift
