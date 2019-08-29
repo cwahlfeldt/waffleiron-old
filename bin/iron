@@ -412,10 +412,12 @@ while [[ $# -gt 0 ]]
     ;;
 
     init|in )
-      lndo init \
-        --source remote \
-        --remote-url git@github.com:cwahlfeldt/waffleiron.git \
+      lando init \
         --recipe pantheon \
+        --source 'cwd' \
+        --full
+        # --remote-url git@github.com:cwahlfeldt/waffleiron.git \
+        # --recipe pantheon \
 
       shift
       shift

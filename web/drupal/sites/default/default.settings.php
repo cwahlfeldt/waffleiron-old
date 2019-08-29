@@ -668,3 +668,8 @@ $conf['file_scan_ignore_directories'] = array(
   'node_modules',
   'bower_components',
 );
+
+
+$settings['file_public_path'] = '/app/web/sites/default/files';
+// Replace http://drupal-8.localhost with your site's URL or $base_url if you have defined that.
+$settings['file_public_base_url'] = 'http://headprotech.lndo.site/files';
