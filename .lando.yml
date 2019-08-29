@@ -1,6 +1,0 @@
-name: headprotech
-recipe: pantheon
-config:
-  framework: drupal
-  site: headprotech
-  id: 7361b38c-e1dc-46f7-8945-e65cca0fdad3
