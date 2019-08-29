@@ -1,0 +1,19 @@
+name: lando-mysql
+services:
+  defaults:
+    type: mysql
+  patch:
+    type: mysql:5.7.24
+  custom:
+    type: mysql:8.0
+    portforward: true
+    creds:
+      user: pirog
+      password: password
+      database: stuff
+    config:
+      database: my.cnf
+tooling:
+  mysql:
+    service: custom
+    cmd: mysql -uroot

@@ -1,0 +1,32 @@
+name: lando-php
+events:
+  post-start:
+    - defaults: php -i | grep memory_limit | grep -e "-1"
+services:
+  defaults:
+    type: php
+  cli:
+    type: php
+    via: cli
+  cliold:
+    type: php:5.6
+    via: cli
+  custom:
+    type: php:7.1
+    via: nginx
+    ssl: true
+    xdebug: true
+    webroot: web
+    config:
+      php: config/php.ini
+    overrides:
+      image: devwithlando/php:7.1-fpm-2
+      environment:
+        DUALBLADE: maxim
+  composer:
+    type: php:7.0
+    composer:
+      phpunit/phpunit: "*"
+tooling:
+  php:
+    service: defaults
