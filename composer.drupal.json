@@ -26,7 +26,7 @@
     "drush-ops/behat-drush-endpoint": "^1",
     "rvtraveller/qs-composer-installer": "^1.1",
     "cweagans/composer-patches": "^1.0",
-    "derhasi/composer-preserve-paths": "0.1.*",
+    "drupal-composer/preserve-paths": "^0.1.0",
     "drupal/composer_autoloader": "1.*",
 
     "pantheon-systems/drops-7-composer": "^7",
@@ -84,7 +84,7 @@
   },
   "extra": {
     "installer-paths": {
-      "web/": ["type:drupal-core"],
+      "web/drupal": ["type:drupal-core"],
       "web/sites/all/modules/contrib/{$name}/": ["type:drupal-module"],
       "web/sites/all/themes/contrib/{$name}/": ["type:drupal-theme"],
       "web/sites/all/libraries/{$name}/": ["type:drupal-library"],
