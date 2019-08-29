@@ -1,0 +1,11 @@
+name: lando-pma
+services:
+  pma:
+    type: phpmyadmin
+    hosts:
+      - database
+      - database2
+  database:
+    type: mariadb
+  database2:
+    type: mariadb

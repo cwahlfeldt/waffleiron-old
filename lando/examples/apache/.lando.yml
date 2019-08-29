@@ -1,0 +1,19 @@
+name: lando-apache
+proxy:
+  override:
+    - landoapache.lndo.site
+services:
+  defaults:
+    type: apache
+  patch:
+    type: apache:2.4.39
+  custom:
+    type: apache
+    webroot: web
+    ssl: true
+    config:
+      server: config/httpd.conf
+      vhosts: config/custom.conf
+  override:
+    type: apache
+    webroot: web
