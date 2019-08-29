@@ -1,17 +1,36 @@
 #!/usr/bin/env bash
 
-# add iron to yo path
-export PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 ):$PATH"
-
+# get waffleiron directory location
 export WAFFLEIRON_DIR="$( \
   cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && \
   cd .. && pwd ; \
 )" ;
 
-export DOTENV=$( printf "$(grep "$1" $WAFFLEIRON_DIR/.env | cut -d '=' --complement -f 1)")
-# export SITE_PREFIX=$( cd $WAFFLEIRON_DIR && $DOTENV "SITE_PREFIX" ; ) ;
-# export SITE_NAME="$SITE_PREFIX-$( cd $WAFFLEIRON_DIR && $DOTENV "SITE_NAME" )"
-# export SITE_ENV=$( cd $WAFFLEIRON_DIR && $DOTENV "SITE_ENV" ; ) ;
+# cd into waffleiron dir
+cd $WAFFLEIRON_DIR
+
+_help () { 
+  echo
+  _art
+  echo
+  echo "   waffleiron directory:"
+  echo "     $WAFFLEIRON_DIR"
+  echo
+  echo "              CMD      ALIAS   ARGS"
+  echo " $ waffleiron help     h     "
+  echo "              init     in    [ --site|-s pantheon-site, --env|-e pantheon-env ]"
+  echo "              start    s     "
+  echo "              sync     sy    [ --env|-e pantheon-site.pantheon-env ]"
+  echo "              restart  r     "
+  echo "              build    b     "
+  echo "              deploy   d     [ --message|-m ]"
+  echo "              rebuild  rd"
+  echo "              composer c     [ *composer commands* ]"
+  echo "              npm      n     [ *npm commands* ]"
+  echo "              node     nd    [ *node commands* ]"
+  echo "              clean    cc"
+  echo 
+}
 
 _art () {
 cat << "EOF"
@@ -20,44 +39,6 @@ cat << "EOF"
   | |/ |/ / /_/ / __/__/ // ___/ / / / /_/ / / /
   |__/|__/\__,_/__/__///////__/ /_/  \____/ /_/
 EOF
-}
-
-# help me!
-_help () { 
-  cd $WAFFLEIRON_DIR
-  echo
-  echo
-  _art
-  echo
-  echo "  ENV ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-  echo
-  echo "      WAFFLEIRON_DIR : $WAFFLEIRON_DIR"
-  echo "         SITE_PREFIX : $SITE_PREFIX"
-  echo "           SITE_NAME : $SITE_NAME"
-  echo "            SITE_ENV : $SITE_ENV"
-  echo
-  echo "  USAGE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-  echo
-  echo "      $ waffleiron help           "
-  echo "                   init           "
-  echo "                   i|install      "
-  echo "                   restart        "
-  echo "                   cc             "
-  echo "                   rebuild        "
-  echo "                   clean          "
-  echo "                   push           "
-  echo "                   pull           "
-  echo "                   link           "
-  echo "                   deploy         "
-  echo "                   ls             "
-  echo 
-}
-
-# list waffleiron project dir
-_ls () {
-  cd $WAFFLEIRON_DIR
-  printf "\n path: $WAFFLEIRON_DIR \n\n"
-  ls -la
 }
 
 # list the apps path
