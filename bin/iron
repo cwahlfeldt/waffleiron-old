@@ -461,13 +461,22 @@ while [[ $# -gt 0 ]]
       shift
     ;;
 
-    composer|comp )
+    composer|c )
+      custom_composer_installer="$(env COMPOSER=base.composer.json php ~/Code/Web/waffleiron/lib/composer/composer.phar install --optimize-autoloader --no-dev)"
       if [[ -z $2 ]]; then
         shift
         lando ssh -c "composer $@"
+      elif [ "$2" -eq "base" ]; then
+        shift
+        lando ssh -c "env COMPOSER=base.composer.json php ~/Code/Web/waffleiron/lib/composer/composer.phar $@"
       else
         shift
-        _build-composer
+        lando ssh -c " \
+          cd /app && \
+          rm -rf vendor ; \
+          mkdir /app/vendor ; \
+          env COMPOSER=base.composer.json php ~/Code/Web/waffleiron/lib/composer/composer.phar install --no-dev --prefer-dist --no-interaction --optimize-autoloader
+        "       
       fi
 
       shift
