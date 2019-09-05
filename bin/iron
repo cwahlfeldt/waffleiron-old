@@ -28,6 +28,7 @@ _help () {
   echo "              npm      n      [ *npm commands* ]"
   echo "              node     nd     [ *node commands* ]"
   echo "              clean    cc     "
+  echo "              env      e    "
   echo 
 }
 
@@ -50,8 +51,6 @@ _env () {
   echo "  ENV ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
   echo
   echo "      WAFFLEIRON_DIR : $WAFFLEIRON_DIR"
-  echo "           SITE_NAME : $SITE_NAME"
-  echo "            SITE_ENV : $SITE_ENV"
   echo
   echo "  PANTHEON / LANDO ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
   echo
@@ -499,6 +498,13 @@ while [[ $# -gt 0 ]]
         shift
         printf "\nno node script append a script... like \`node index.js\`\n\n"
       fi
+
+      shift
+      shift
+    ;;
+
+    env|e )
+      _env $#
 
       shift
       shift
