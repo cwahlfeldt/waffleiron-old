@@ -461,12 +461,39 @@ while [[ $# -gt 0 ]]
       shift
     ;;
 
+    create )
+      case "$2" in
+        wordpress|wp|wafflepress )
+          git clone https://github.com/pantheon-systems/example-wordpress-composer.git wordpress && \ 
+            rm -rf wordpress/.git && \
+              cp -rf wordpress/* $WAFFLEIRON_DIR && rm -rf wordpress 
+        ;;
+        drupal7|drupal-7|drupal_7 )
+          git clone https://github.com/pantheon-systems/example-drops-7-composer.git drupal && \ 
+            rm -rf drupal/.git && \
+              cp -rf drupal/* $WAFFLEIRON_DIR
+        ;;
+        drupal|drupal8|drupal-8|drupal_8 )
+          git clone https://github.com/pantheon-systems/example-drops-7-composer.git drupal && \ 
+            rm -rf drupal/.git && \
+              cp -rf drupal/* $WAFFLEIRON_DIR
+        ;;
+        * )
+          echo "no flavor town?"
+        ;;
+      esac
+
+      shift
+      shift
+    ;;
+
     composer|c )
       custom_composer_installer="$(env COMPOSER=base.composer.json php ~/Code/Web/waffleiron/lib/composer/composer.phar install --optimize-autoloader --no-dev)"
       if [[ -z $2 ]]; then
         shift
         lando ssh -c "composer $@"
       elif [ "$2" -eq "base" ]; then
+        shift
         shift
         lando ssh -c "env COMPOSER=base.composer.json php ~/Code/Web/waffleiron/lib/composer/composer.phar $@"
       else
@@ -479,7 +506,6 @@ while [[ $# -gt 0 ]]
         "       
       fi
 
-      shift
       shift
     ;;
 
