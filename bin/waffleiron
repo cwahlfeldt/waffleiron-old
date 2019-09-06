@@ -275,6 +275,14 @@ _init () {
   _cc
 }
 
+manual-merge () {
+  git clone https://github.com/pantheon-systems/example-wordpress-composer.git wordpress && \
+  git checkout -b wordpress
+  rm -rf wordpress/.git && \
+  cp -rf wordpress/* $WAFFLEIRON_DIR && \
+  rm -rf wordpress;
+}
+
 if [ -z $1 ]; then
   _help
 else
@@ -465,14 +473,17 @@ while [[ $# -gt 0 ]]
       case "$2" in
         wordpress|wp|wafflepress )
           git clone https://github.com/pantheon-systems/example-wordpress-composer.git wordpress && \ 
-            rm -rf wordpress/.git && \
-              cp -rf wordpress/* $WAFFLEIRON_DIR && rm -rf wordpress 
+          rm -rf wordpress/.git && \
+          cp -rf wordpress/* $WAFFLEIRON_DIR && \
+          rm -rf wordpress;
         ;;
+
         drupal7|drupal-7|drupal_7 )
           git clone https://github.com/pantheon-systems/example-drops-7-composer.git drupal && \ 
             rm -rf drupal/.git && \
               cp -rf drupal/* $WAFFLEIRON_DIR
         ;;
+
         drupal|drupal8|drupal-8|drupal_8 )
           git clone https://github.com/pantheon-systems/example-drops-7-composer.git drupal && \ 
             rm -rf drupal/.git && \
