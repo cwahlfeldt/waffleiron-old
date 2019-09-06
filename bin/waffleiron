@@ -275,12 +275,14 @@ _init () {
   _cc
 }
 
+# manually merge the pantheon cms code with waffleiron 
 manual-merge () {
-  git clone https://github.com/pantheon-systems/example-wordpress-composer.git wordpress && \
-  git checkout -b wordpress
-  rm -rf wordpress/.git && \
-  cp -rf wordpress/* $WAFFLEIRON_DIR && \
-  rm -rf wordpress;
+  if [[ -z $1 ]]; then
+    git clone https://github.com/pantheon-systems/example-$1-composer.git $1 && \
+    rm -rf $1/.git && \
+    cp -rf $1/* $WAFFLEIRON_DIR && \
+    rm -rf $1;
+  fi
 }
 
 if [ -z $1 ]; then
@@ -472,25 +474,19 @@ while [[ $# -gt 0 ]]
     create )
       case "$2" in
         wordpress|wp|wafflepress )
-          git clone https://github.com/pantheon-systems/example-wordpress-composer.git wordpress && \ 
-          rm -rf wordpress/.git && \
-          cp -rf wordpress/* $WAFFLEIRON_DIR && \
-          rm -rf wordpress;
+          manual-merge wordpress
         ;;
 
         drupal7|drupal-7|drupal_7 )
-          git clone https://github.com/pantheon-systems/example-drops-7-composer.git drupal && \ 
-            rm -rf drupal/.git && \
-              cp -rf drupal/* $WAFFLEIRON_DIR
+          manual-merge drops-7
         ;;
 
         drupal|drupal8|drupal-8|drupal_8 )
-          git clone https://github.com/pantheon-systems/example-drops-7-composer.git drupal && \ 
-            rm -rf drupal/.git && \
-              cp -rf drupal/* $WAFFLEIRON_DIR
+          manual-merge drops-8
         ;;
+
         * )
-          echo "no flavor town?"
+          echo "choose yo flavor: \$ iron create <[drupal7, drupal8, wordpress]>"
         ;;
       esac
 
