@@ -278,7 +278,6 @@ _init () {
 # manually merge the pantheon cms code with waffleiron 
 manual-merge () {
   if [[ ! -z $1 ]]; then
-    echo "$1"
     git clone https://github.com/pantheon-systems/example-$1-composer.git $1 && \
     rm -rf $1/.git $1/composer.lock $1/web/index.php $1/pantheon.yml $1/.gitlab-ci.yml $1/bitbucket-pipelines.yml && \
     cp -rf $1/* $WAFFLEIRON_DIR && \
