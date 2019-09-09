@@ -111,7 +111,7 @@ _restart () {
   osascript -e \'quit app "Docker"\' && printf "\nstopping docker..." && \
     open -g -a Docker && printf "starting docker...\n" && \
       sleep 30 && \
-        lando start ;
+        lando start;
 }
 
 # pull yo mom
@@ -279,8 +279,11 @@ _init () {
 manual-merge () {
   if [[ -z $1 ]]; then
     git clone https://github.com/pantheon-systems/example-$1-composer.git $1 && \
-    rm -rf $1/.git && \
+    # remove some files you done need
+    rm -rf $1/.git $1/composer.lock $1/web/index.php $1/pantheon.yml $1/.gitlab-ci.yml $1/bitbucket-pipelines.yml && \
+    # then cp all files to the current waffleiron dir
     cp -rf $1/* $WAFFLEIRON_DIR && \
+    # and remove the dir. now its ready
     rm -rf $1;
   fi
 }
