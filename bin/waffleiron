@@ -282,12 +282,12 @@ _init () {
 
 # manually merge the pantheon cms code with waffleiron 
 manual-merge () {
-  if [[ -z $1 ]]; then
+  if [[ ! -z $1 ]]; then
     git clone https://github.com/pantheon-systems/example-$1-composer.git $1 && \
     # remove some files you done need
     rm -rf $1/.git $1/composer.lock $1/web/index.php $1/pantheon.yml $1/.gitlab-ci.yml $1/bitbucket-pipelines.yml && \
     # then cp all files to the current waffleiron dir
-    cp -rf $1/* ../ && \
+    cp -rf $1/* ./ && \
     # and remove the dir. now its ready
     rm -rf $1;
   fi
@@ -316,6 +316,12 @@ while [[ $# -gt 0 ]]
         --post_status="published" \
       && sleep 5 ;
 
+      shift
+      shift
+    ;;
+
+    mm )
+      manual-merge $2
       shift
       shift
     ;;
@@ -433,17 +439,17 @@ while [[ $# -gt 0 ]]
         type=${3:-wordpress}
         token="${4:-''}"
 
-        git clone --single-branch --branch dev git@github.com:cwahlfeldt/waffleiron.git $2 && \
-        cd $2 && \
+        git clone --single-branch --branch dev git@github.com:cwahlfeldt/waffleiron.git $site && \
+        cd $site && \
         rm -rf ./.git && \
         manual-merge $type && \
         lando init \
-          --source cwd \
+          --source "cwd" \
           --recipe pantheon \
-          --pantheon-site $site \
+          --pantheon-site "$site" \
           --full
       else
-        printf "/n must have site name/n use \`\$iron create\` to create a new site./n/n"
+        printf "\nmust have site name\nuse \`\$iron create\` to create a new site.\n\n"
       fi
 
       shift
