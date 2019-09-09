@@ -6,9 +6,6 @@ export WAFFLEIRON_DIR="$( \
   cd .. && pwd ; \
 )" ;
 
-# cd into waffleiron dir
-cd $WAFFLEIRON_DIR
-
 _help () { 
   echo
   _art
@@ -290,7 +287,7 @@ manual-merge () {
     # remove some files you done need
     rm -rf $1/.git $1/composer.lock $1/web/index.php $1/pantheon.yml $1/.gitlab-ci.yml $1/bitbucket-pipelines.yml && \
     # then cp all files to the current waffleiron dir
-    cp -rf $1/* $WAFFLEIRON_DIR && \
+    cp -rf $1/* ../ && \
     # and remove the dir. now its ready
     rm -rf $1;
   fi
@@ -298,7 +295,6 @@ manual-merge () {
 
 if [ -z $1 ]; then
   _help
-else
   # cd $WAFFLEIRON_DIR
 fi
 
@@ -444,7 +440,6 @@ while [[ $# -gt 0 ]]
         lando init \
           --source cwd \
           --recipe pantheon \
-          --pantheon-auth "$token" \
           --pantheon-site $site \
           --full
       else
