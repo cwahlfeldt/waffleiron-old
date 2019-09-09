@@ -299,7 +299,7 @@ manual-merge () {
 if [ -z $1 ]; then
   _help
 else
-  cd $WAFFLEIRON_DIR
+  # cd $WAFFLEIRON_DIR
 fi
 
 POSITIONAL=()
@@ -435,9 +435,9 @@ while [[ $# -gt 0 ]]
       if [[ ! -z $2 ]]; then
         site=${2:-''}
         type=${3:-wordpress}
-        token="${4:-${$( read_var PANTHEON_MACHINE_TOKEN )}}"
+        token="${4:-''}"
 
-        git clone git@github.com:cwahlfeldt/waffleiron.git $2 && \
+        git clone --single-branch --branch dev git@github.com:cwahlfeldt/waffleiron.git $2 && \
         cd $2 && \
         rm -rf ./.git && \
         manual-merge $type && \
