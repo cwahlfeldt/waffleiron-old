@@ -141,6 +141,14 @@ _push () {
   echo "push it reaaal good!" ;
 }
 
+read_var() {
+  local ENV_FILE="${2:-./.env}"
+  local VAR=$(grep $1 "$ENV_FILE" | xargs)
+
+  IFS="=" read -ra VAR <<< "$VAR"
+  echo ${VAR[1]}
+}
+
 # create-post-type yo mom
 _create-post-type () {
   name=${1:-"change-name"}
@@ -424,10 +432,24 @@ while [[ $# -gt 0 ]]
     ;;
 
     init|in )
-      lando init \
-        --source remote \
-        --remote-url git@github.com:cwahlfeldt/waffleiron.git \
-        --recipe pantheon \
+      if [[ ! -z $2 ]]; then
+        site=${2:-''}
+        type=${3:-wordpress}
+        token="${4:-${$( read_var PANTHEON_MACHINE_TOKEN )}}"
+
+        git clone git@github.com:cwahlfeldt/waffleiron.git $2 && \
+        cd $2 && \
+        rm -rf ./.git && \
+        manual-merge $type && \
+        lando init \
+          --source cwd \
+          --recipe pantheon \
+          --pantheon-auth "$token" \
+          --pantheon-site $site \
+          --full
+      else
+        printf "/n must have site name/n use \`\$iron create\` to create a new site./n/n"
+      fi
 
       shift
       shift
@@ -547,7 +569,7 @@ while [[ $# -gt 0 ]]
     ;;
 
     env|e )
-      _env $#
+      read_var $2
 
       shift
       shift
