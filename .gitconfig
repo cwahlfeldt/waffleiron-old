@@ -13,9 +13,6 @@
 	remote = origin
 	merge = refs/heads/master
 
-[branch "wordpress"]
-	remote = origin
-	merge = refs/heads/wordpress
 [remote "wordpress"]
 	url = git@github.com:pantheon-systems/example-wordpress-composer.git
 	fetch = +refs/heads/*:refs/remotes/wordpress/*
@@ -24,13 +21,6 @@
 	url = ssh://codeserver.dev.7836f8c1-01d0-4b59-8c57-6b71d4fca2c2@codeserver.dev.7836f8c1-01d0-4b59-8c57-6b71d4fca2c2.drush.in:2222/~/repository.git
 	fetch = +refs/heads/*:refs/remotes/iron-tm/*
 
-[branch "drupal"]
-	remote = origin
-	merge = refs/heads/drupal
-
-[branch "b2"]
-	remote = origin
-	merge = refs/heads/b2
 [remote "b2"]
 	url = ssh://codeserver.dev.7361b38c-e1dc-46f7-8945-e65cca0fdad3@codeserver.dev.7361b38c-e1dc-46f7-8945-e65cca0fdad3.drush.in:2222/~/repository.git
 	fetch = +refs/heads/*:refs/remotes/b2/*

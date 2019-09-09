@@ -111,6 +111,8 @@ Thumbs.db
 ######################
 *.un~
 
+.env
+
 # SASS #
 ##########
 .sass-cache
