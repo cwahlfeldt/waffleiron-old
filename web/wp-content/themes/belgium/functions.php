@@ -272,3 +272,11 @@ function add_async_attribute($tag, $handle) {
    return $tag;
 }
 add_filter('script_loader_tag', 'add_async_attribute', 10, 2);
+
+function add_role_to_body($classes) {
+    global $current_user;
+    $user_role = $current_user->roles;
+    $classes .= (string) $user_role[0];
+    return $classes;
+}
+add_filter('admin_body_class','add_role_to_body');

@@ -10,6 +10,7 @@
   @include('designs.banner', array(
     'variant' => true,
   ))
+
   @if (have_rows('designs'))
     @while (have_rows('designs')) @php(the_row())
 
@@ -34,7 +35,6 @@
       @endif
 
       @if (get_row_layout() === 'areas_of_practice')
-        {{-- {{ 'wtf' }} --}}
         @include('designs.areas-of-practice')
       @endif
 
@@ -44,10 +44,11 @@
 
     @endwhile
   @endif
-
 </section>
-  <div class="posts-controls">
-    <div class="next">{!! next_posts_link() !!}</div> 
-    <div class="previous">{!! previous_posts_link() !!}</div> 
-  </div>
+
+<div class="posts-controls">
+  <div class="next">{!! next_posts_link() !!}</div> 
+  <div class="previous">{!! previous_posts_link() !!}</div> 
+</div>
+
 @endsection

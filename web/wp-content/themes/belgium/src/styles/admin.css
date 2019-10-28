@@ -5,3 +5,20 @@
 .acf-relationship .list {
   height: 400px !important;
 }
+
+.editor .acf_flm_add_layout_section,
+.editor .menu-icon-af_form,
+.editor .toplevel_page_acf-options,
+.editor .acf-flm,
+.editor .menu-icon-tools,
+.editor .post-php a[data-layout="heading"],
+.editor .post-php a[data-layout="banner"],
+.editor .post-php a[data-layout="list"],
+.editor .post-php a[data-layout="areas_of_practice"],
+.editor .post-php a[data-layout="buttons"],
+.editor .post-php a[data-layout="testimonials"],
+.editor .post-php a[data-layout="testimonials"],
+.editor .post-php a[data-layout="contact"],
+.editor .post-php a[data-layout="call_to_action"] {
+  display: none !important;
+}
