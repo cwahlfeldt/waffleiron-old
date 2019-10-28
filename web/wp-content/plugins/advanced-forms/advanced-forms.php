@@ -2,7 +2,7 @@
 /*
 	Plugin Name: Advanced Forms
 	Description: Flexible and developer-friendly forms with the power of Advanced Custom Fields.
-	Version: 1.6.4
+	Version: 1.6.6
 	Author: Fabian Lindfors
 	Copyright: Fabian Lindfors
 	Text Domain: advanced-forms
@@ -18,7 +18,7 @@ class AF {
 	 *
 	 * @since 1.2.0
 	 */
-	public $version = '1.6.4';
+	public $version = '1.6.5';
 	
 	
 	/**
@@ -84,6 +84,7 @@ class AF {
 		include( $this->path . 'api/api-helpers.php' );
 		include( $this->path . 'api/api-forms.php' );
 		include( $this->path . 'api/api-entries.php' );
+		include( $this->path . 'api/api-import-export.php' );
 
 		// Core functionality
 		$this->classes['core_forms_rendering'] = include( $this->path . 'core/forms/forms-rendering.php' );
@@ -103,6 +104,7 @@ class AF {
 		$this->classes['admin_forms'] = include( $this->path . 'admin/admin-forms.php' );
 		$this->classes['admin_forms_preview'] = include( $this->path . 'admin/forms/forms-preview.php' );
 		$this->classes['admin_forms_export'] = include( $this->path . 'admin/forms/forms-export.php' );
+		$this->classes['admin_forms_import'] = include( $this->path . 'admin/forms/forms-import.php' );
 		$this->classes['admin_restrictions'] = include( $this->path . 'admin/admin-restrictions.php' );
 		$this->classes['admin_entries'] = include( $this->path . 'admin/admin-entries.php' );
 		$this->classes['admin_emails'] = include( $this->path . 'admin/admin-emails.php' );

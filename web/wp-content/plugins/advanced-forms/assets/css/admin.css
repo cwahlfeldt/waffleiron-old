@@ -32,6 +32,22 @@
 	margin-top: 0;
 }
 
+/**
+ * Form settings
+ */
+
+.acf-field-form-shortcode-message code {
+	/* Improve selection behaviour of shortcode */
+	-webkit-user-select: all;
+	user-select: all;
+	
+	padding: 5px;
+}
+
+.acf-field-form-shortcode-message p {
+	margin-bottom: 0;
+}
+
 
 /**
  * Make room for the field selector on the email fields
@@ -256,7 +272,6 @@
 /**
  * Information sidebar on forms page
  */
-.post-type-af_form .tablenav,
 .post-type-af_form .search-box {
 	display: none;
 }
@@ -278,10 +293,40 @@
 
 
 /**
+ * Form import
+ */
+.af-form-import .acf-fields {
+	border: #ebebeb solid 1px;
+	background: #fafafa;
+	border-radius: 3px;
+	padding: 15px 12px;
+}
+
+.af-form-import .acf-label {
+	font-weight: bold;
+	margin: 0 0 3px;
+}
+
+.af-form-import .button {
+	margin-top: 1em;
+}
+
+
+/**
  * Form export
  */
-.af-form-export .inside {
-	padding: 5px 20px;
+.af-form-export #poststuff .inside {
+	padding: 20px;
+	margin: 0;
+}
+
+.af-form-export .inside:first-child {
+	border-bottom: 1px solid #e5e5e5;
+}
+
+.af-form-export #poststuff .inside h2 {
+	padding: 0;
+	font-weight: 500;
 }
 
 .af-form-export pre {
