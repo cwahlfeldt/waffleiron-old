@@ -9,7 +9,7 @@
 }
 .njt-filebird-container .item{
     width: 100%;
-    webkit-align-items: center;
+    -webkit-align-items: center;
     align-items: center;
     display: -webkit-box;
     display: -moz-box;

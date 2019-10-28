@@ -48,7 +48,7 @@ button.swal2-cancel.btn-text.swal2-styled {
 }
 
 .swal2-container {
-  z-index: 999999 !important;
+  z-index: 999999999 !important;
 }
 
 .wp-admin.upload-php .update-nag,

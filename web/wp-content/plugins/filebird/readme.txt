@@ -119,6 +119,37 @@ If you have a large files and want to use more than 10 folders/categories, you c
 4. Bulk selectto move / delete files
 
 == Changelog ==
+
+= 2.5 =
+- Added: Option turn on/off load FileBird JS at front-end for page builders
+- Improved: Removed CDN for customScrollBar
+- Fixed: Small bug will Elementor
+- Fixed: Select option doesn’t not change in modal popup upload
+- Fixed: Only call move image when moving folder position
+
+= 2.4.2 =
+- Fixed: Go Pro version links
+
+= 2.4.1 =
+- Fixed: Security required
+
+= 2.4 =
+- Improved: Performance and Optimize Code
+- Improved: Optimize Code
+- Improved: Optimize Code
+- Fixed: Sorting error in list view
+- Fixed: Conflict with WordPress Customize Function
+- Fixed: Some small bugs
+- Fixed: "nt_wmc_folder" in Google Search Console results
+- Fixed: Error in full front end Divi Page Builder editor
+- Fixed: PHP notice on line 582 and 586
+- Fixed: Load JS script on front end
+- Fixed: Error "FileBird is loading" on Elementor builder
+- Fixed: Compatible with FooGallery and Final Tiles Grid Gallery
+- Fixed: Warning notice in WordPress
+- Fixed: Margin Overlay
+- Fixed: Other small bugs
+
 = 2.3 =
 Jul 24, 2019 - Version 2.3
 * Improved: Fast append treeview

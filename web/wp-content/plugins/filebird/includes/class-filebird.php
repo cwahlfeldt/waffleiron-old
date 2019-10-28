@@ -124,6 +124,11 @@ class FileBird
          */
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-filebird-admin.php';
 
+        /**
+         * The class responsible for defining all actions that occur in the setting area.
+         */
+        require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-filebird-setting.php';
+
         $this->loader = new FileBird_Loader();
 
     }
@@ -156,7 +161,10 @@ class FileBird
     {
 
         $plugin_admin = new FileBird_Admin($this->get_plugin_name(), $this->get_version());
+        $plugin_setting = new FileBird_Setting($this->get_plugin_name(), $this->get_version());
         $feedback = new FileBird_Feedback();
+
+        $this->loader->add_action('admin_menu', $plugin_setting, 'create_admin_sub_menu');
 
         $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
         $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
@@ -181,7 +189,6 @@ class FileBird
             add_action('elementor/editor/after_enqueue_scripts', function () {
                 global $pagenow;
 
-                $suffix = (defined('SCRIPT_DEBUG') && SCRIPT_DEBUG) ? '' : '';
                 $taxonomy = NJT_FILEBIRD_FOLDER;
                 $taxonomy = apply_filters('filebird_taxonomy', $taxonomy);
 
@@ -224,6 +231,7 @@ class FileBird
                 wp_register_script('njt-filebird-upload-localize', NJT_FILEBIRD_PLUGIN_URL . '/admin/js/filebird-util.js', array('jquery', 'jquery-ui-draggable', 'jquery-ui-droppable'), $this->version, false);
                 wp_localize_script('njt-filebird-upload-localize', 'filebird_translate', FileBird_JS_Translation::get_translation());
                 wp_localize_script('njt-filebird-upload-localize', 'njtFBV', NJT_FB_V);
+                wp_localize_script('njt-filebird-upload-localize', 'njt_fb_nonce', wp_create_nonce('ajax-nonce'));
                 wp_enqueue_script('njt-filebird-upload-localize');
                 wp_enqueue_script('filebird-admin-topbar', NJT_FILEBIRD_PLUGIN_URL . '/admin/js/filebird-admin-topbar.js', array('media-views'), $this->version, true);
                 wp_enqueue_script('filebird-droppable-elementor', NJT_FILEBIRD_PLUGIN_URL . '/admin/js/droppable.min.js', array('jquery'), $this->version, false);

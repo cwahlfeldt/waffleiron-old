@@ -29,12 +29,17 @@ class FileBird_Feedback
             ],
             'not_know_using' => [
                 'content' => __('I don\'t know how to use it', NJT_FILEBIRD_TEXT_DOMAIN),
+                'document' => __('Please read FileBird documentation <a href="https://filebird.gitbook.io">here</a> or <a href="https://ninjateam.org/support/">chat with us</a> if you need help', NJT_FILEBIRD_TEXT_DOMAIN)
             ],
             'temporary_deactivation' => [
                 'content' => __('This is temporary. I\'ll use it again soon.', NJT_FILEBIRD_TEXT_DOMAIN),
             ],
             'filebird_pro' => [
                 'content' => __('I have purchased FileBird Pro', NJT_FILEBIRD_TEXT_DOMAIN),
+            ],
+            'not_working' => [
+              'content' => __('It\'s not working on my website', NJT_FILEBIRD_TEXT_DOMAIN),
+              'support' => __('Need help? We are ready to answer your questions. <a href="https://ninjateam.org/support/">Contact Support</a>', NJT_FILEBIRD_TEXT_DOMAIN),
             ],
             'other' => [
                 'content' => __('Other', NJT_FILEBIRD_TEXT_DOMAIN),
@@ -43,7 +48,10 @@ class FileBird_Feedback
         ];
         ?>
         <div id="filebird-feedback-window" style="display:none;">
+        <div id="filebird-feedback-content">
+        <h2>Quick Feedback - FileBird</h2>
         <p class="filebird-feedback-title">Sadly that you are going to deactivate FileBird, can you please tell us why:</p>
+        <?php if(NJT_FB_V == '11') unset($reasons['filebird_pro']); ?>
         <?php foreach ($reasons as $key => $arrValue): ?>
             <p class="filebird-feedback-item">
                 <input
@@ -53,17 +61,22 @@ class FileBird_Feedback
                 >
                 <label for="<?php echo esc_attr($key) ?>"><?php echo esc_html($arrValue['content']); ?></label>
             </p>
+            <?php if ($key == 'not_working'): ?>
+                <p id="feedback-notwork" class="hidden"><?php echo ($reasons['not_working']['support']) ?></p>
+            <?php endif;?>
+            <?php if ($key == 'not_know_using'): ?>
+                <p id="feedback-document" class="hidden"><?php echo ($reasons['not_know_using']['document']) ?></p>
+            <?php endif;?>
             <?php if ($key == 'found_better_plugin'): ?>
                 <textarea id="feedback-suggest-plugin" rows="1" placeholder="<?php echo esc_attr($reasons['found_better_plugin']['placeholder']) ?>" class="hidden"></textarea>
             <?php endif;?>
         <?php endforeach;?>
-            <div>
-                <textarea id="feedback-description" rows="3" placeholder="<?php echo esc_attr($reasons['other']['placeholder']) ?>" class="hidden"></textarea>
-            </div>
+            <textarea id="feedback-description" rows="3" placeholder="<?php echo esc_attr($reasons['other']['placeholder']) ?>" class="hidden"></textarea>
             <div class="filebird-feedback-action">
                 <button class="button button-primary" id="feedback-submit"><?php echo __('Submit and Deactivate', NJT_FILEBIRD_TEXT_DOMAIN) ?></button>
                 <button id="feedback-skip"><?php _e('Skip and Deactivate', NJT_FILEBIRD_TEXT_DOMAIN)?></button>
             </div>
+          </div>
         </div>
     <?php
 }

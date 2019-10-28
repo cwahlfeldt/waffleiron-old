@@ -23,7 +23,7 @@ margin: 0;
 body.wp-admin.upload-php .wrap.appended{
 padding: 0 20px 0 10px;
   flex: 1 1 auto;
-  margin-top: -20px !important;
+  /* margin-top: -20px !important; */
 }
 body.wp-admin.upload-php .attachments{height: 0;}
 body.wp-admin.upload-php .wrap.appended .notice{display: none;}
@@ -349,7 +349,6 @@ content: "\f148";
   top: 7px;
   text-align: center;
   font: 400 20px/1 dashicons!important;
-  speak: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-transform: rotate(180deg);

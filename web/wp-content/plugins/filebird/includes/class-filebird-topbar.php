@@ -27,7 +27,6 @@ class FileBird_Topbar
     public $wpml_delete_process = null;
     public function __construct()
     {
-        call_user_func(array($this, 'filebird_filters_enqueue_scripts'));
         // load code that is only needed in the admin section
         if (is_admin()) {
             add_action('add_attachment', array($this, 'filebird_add_attachment_category'));
@@ -44,9 +43,9 @@ class FileBird_Topbar
 
     public function filebird_add_attachment_category($post_ID)
     {
-        $filebird_Folder = isset($_REQUEST["ntWMCFolder"]) ? $_REQUEST["ntWMCFolder"] : null;
+        $filebird_Folder = isset($_REQUEST["ntWMCFolder"]) ? sanitize_text_field($_REQUEST["ntWMCFolder"]) : null;
         if (is_null($filebird_Folder)) {
-            $filebird_Folder = isset($_REQUEST["njt_filebird_folder"]) ? $_REQUEST["njt_filebird_folder"] : null;
+            $filebird_Folder = isset($_REQUEST["njt_filebird_folder"]) ? sanitize_text_field($_REQUEST["njt_filebird_folder"]) : null;
         }
         if ($filebird_Folder !== null) {
             $filebird_Folder = (int) $filebird_Folder;
@@ -170,23 +169,24 @@ class FileBird_Topbar
         return $query;
     }
 
-    public function filebird_filters_enqueue_scripts()
+    public static function filebird_filters_enqueue_scripts()
     {
-        if (defined('FL_BUILDER_VERSION') || defined('ET_BUILDER_PLUGIN_VERSION')) {
-            add_action('wp_enqueue_scripts', array($this, 'filebird_enqueue_media_action'));
+        $filebird_option = get_option('filebird_setting');
+        $unloadFrontend = $filebird_option ? $filebird_option['unload-frontend'] : false;
+        if(!$unloadFrontend){
+            add_action('wp_enqueue_scripts', array('FileBird_Topbar','filebird_enqueue_media_action'));
         }
-        add_action('admin_enqueue_scripts', array($this, 'filebird_enqueue_media_action'));
+        add_action('admin_enqueue_scripts', array('FileBird_Topbar','filebird_enqueue_media_action'));
     }
 
     /**
      * Enqueue admin scripts and styles
      * @action admin_enqueue_scripts
      */
-    public function filebird_enqueue_media_action()
+    public static function filebird_enqueue_media_action()
     {
         global $pagenow;
 
-        $suffix = (defined('SCRIPT_DEBUG') && SCRIPT_DEBUG) ? '' : '';
         // Default taxonomy
         $taxonomy = NJT_FILEBIRD_FOLDER;
         // Add filter to change the default taxonomy
@@ -225,13 +225,25 @@ class FileBird_Topbar
         echo '/* ]]> */';
         echo '</script>';
 
-        wp_register_script('njt-filebird-upload-localize', plugins_url('admin/js/filebird-util.js', dirname(__FILE__)), array('jquery', 'jquery-ui-draggable', 'jquery-ui-droppable'), $this->plugin_version, false);
+        wp_register_script('njt-filebird-upload-localize', plugins_url('admin/js/filebird-util.js', dirname(__FILE__)), array('jquery', 'jquery-ui-draggable', 'jquery-ui-droppable'), NJT_FILEBIRD_VERSION, false);
         wp_localize_script('njt-filebird-upload-localize', 'filebird_translate', FileBird_JS_Translation::get_translation());
+        wp_localize_script('njt-filebird-upload-localize', 'njt_fb_nonce', wp_create_nonce('ajax-nonce'));
         wp_localize_script('njt-filebird-upload-localize', 'njtFBV', NJT_FB_V);
+        /**
+         * --DIVI BUILDER
+         * ET_CORE
+         * */ 
+        if(defined( 'ET_CORE' )){
+            wp_localize_script('njt-filebird-upload-localize', 'ajaxurl', admin_url('admin-ajax.php'));
+        }
         wp_enqueue_script('njt-filebird-upload-localize');
-        wp_enqueue_style('njt-filebird-treeview', plugins_url('admin/css/filebird-treeview.css', dirname(__FILE__)), array(), $this->plugin_version);
+        wp_enqueue_style('njt-filebird-treeview', plugins_url('admin/css/filebird-treeview.css', dirname(__FILE__)), array(), NJT_FILEBIRD_VERSION);
         wp_style_add_data('njt-filebird-treeview', 'rtl', 'replace');
-        wp_enqueue_script('filebird-admin-topbar', plugins_url('admin/js/filebird-admin-topbar' . $suffix . '.js', dirname(__FILE__)), array('media-views'), $this->plugin_version, true);
+        if(!defined('ELEMENTOR_VERSION')){
+            wp_enqueue_script('filebird-admin-topbar', plugins_url('admin/js/filebird-admin-topbar.js', dirname(__FILE__)), array('media-views'), NJT_FILEBIRD_VERSION, true);
+        } else {
+            wp_enqueue_script('filebird-admin-topbar', plugins_url('admin/js/filebird-admin-topbar.js', dirname(__FILE__)), array(), NJT_FILEBIRD_VERSION, true);
+        }
     }
 
     /**
@@ -290,17 +302,15 @@ class FileBird_Topbar
             //print_r($taxonomy);die;
             //=> folder
             if (isset($attachment_data[$taxonomy])) {
-
                 wp_set_object_terms($id, array_map('trim', preg_split('/,+/', $attachment_data[$taxonomy])), $taxonomy, false);
             } else if (isset($_REQUEST['tax_input']) && isset($_REQUEST['tax_input'][$taxonomy])) {
-
                 //add attachment into foder-term
                 wp_set_object_terms($id, $_REQUEST['tax_input'][$taxonomy], $taxonomy, false);
-            } else {
-                //remove all folder-terms out of attachment
-                wp_set_object_terms($id, '', $taxonomy, false);
-            }
-
+            } 
+            // else {
+            //     // remove all folder-terms out of attachment
+            //     wp_set_object_terms($id, '', $taxonomy, false);
+            // }
         }
 
         if (!$attachment = wp_prepare_attachment_for_js($id)) {
@@ -312,6 +322,11 @@ class FileBird_Topbar
 
     public function filebird_save_multi_attachments()
     {
+        $nonce = sanitize_text_field($_POST['nonce']);
+        if ( ! wp_verify_nonce( $nonce, 'ajax-nonce' ) ){
+            wp_send_json_error(array('status' => 'Nonce error'));
+            die();
+        }
 
         $ids = $_REQUEST['ids'];
 
@@ -351,6 +366,11 @@ class FileBird_Topbar
 
     public function filebird_save_attachment()
     {
+        $nonce = sanitize_text_field($_POST['nonce']);
+        if ( ! wp_verify_nonce( $nonce, 'ajax-nonce' ) ){
+            wp_send_json_error(array('status' => 'Nonce error'));
+            die();
+        }
 
         if (!isset($_REQUEST['id'])) {
             wp_send_json_error();
@@ -419,6 +439,12 @@ class FileBird_Topbar
 
     public function nt_wcm_get_terms_by_attachment()
     {
+        $nonce = sanitize_text_field($_POST['nonce']);
+        if ( ! wp_verify_nonce( $nonce, 'ajax-nonce' ) ){
+            wp_send_json_error(array('status' => 'Nonce error'));
+            die();
+        }
+
         if (!isset($_REQUEST['id'])) {
             wp_send_json_error();
         }

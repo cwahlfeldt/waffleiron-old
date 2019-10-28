@@ -1,5 +1,8 @@
 name        : iron-tm
 recipe      : pantheon
+excludes:
+  - vendor
+  - node_modules
 config      :
   framework : wordpress
   site      : iron-tm
