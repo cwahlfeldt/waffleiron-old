@@ -24,6 +24,7 @@
   $use_columns = get_sub_field('use_columns');
 @endphp
 {{-- {{$content}} --}}
+  
 <section class="content w-full relative py-3">
   <div class="container mx-auto" style="background-color: {{ $style_bg_color }};">
     <div class="container-sm mx-auto">
@@ -47,11 +48,11 @@
 
                 @if ($c['acf_fc_layout'] === 'copy')
                   @if ($use_columns)
-                    <div class="md:w-1/2 md:px-12 px-2 text-{{ $style_sizing }} font-serif leading-loose {{ $c[$loop->index++]['acf_fc_layout'] === 'link' ? 'font-amp' : '' }}" style="color: {{ $style_fg_color }};">
+                    <div class="copy md:w-1/2 md:px-12 px-2 text-{{ $style_sizing['value'] }} font-serif leading-loose {{ $c[$loop->index++]['acf_fc_layout'] === 'link' ? 'font-amp' : '' }}" style="color: {{ $style_fg_color }};">
                       {!! $c['copy'] !!}
                     </div>
                   @else
-                    <div class={{ preg_match_all("/[\w']+/", $c['copy']) <= 20 ? 'text-2xl' : '' }} "w-full mx-auto lg:px-32 md:px-24 px-2 copy font-serif leading-loose {{ $c[$loop->index++]['acf_fc_layout'] === 'link' ? 'font-amp' : '' }}" style="color: {{ $style_fg_color }};">
+                    <div class="{{ preg_match_all("/[\w']+/", $c['copy']) <= 20 ? 'text-2xl' : '' }}  text-{{ $style_sizing['value'] }} w-full mx-auto lg:px-32 md:px-24 px-2 copy font-serif leading-loose {{ $c[$loop->index++]['acf_fc_layout'] === 'link' ? 'font-amp' : '' }}" style="color: {{ $style_fg_color }};">
                       {!! $c['copy'] !!}
                     </div>								
                   @endif
