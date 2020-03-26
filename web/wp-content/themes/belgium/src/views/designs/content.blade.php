@@ -63,7 +63,7 @@
                 @endif
 
                 @if ($c['acf_fc_layout'] === 'image')
-                  <img class="py-8 mx-auto lg:px-24 md:px-24 {{ $use_columns ? 'w-1/2' : '' }}" src="{{ wp_get_attachment_image_url($c['image'], 'full') }}" alt="">
+                  <img class="py-8 mx-auto lg:px-24 md:px-24 {{ $use_columns ? 'md:w-1/2' : '' }}" src="{{ wp_get_attachment_image_url($c['image'], 'full') }}" alt="">
                 @endif
 
                 @if ($c['acf_fc_layout'] === 'link')
