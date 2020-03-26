@@ -2,11 +2,6 @@
  * All of the CSS for your admin-specific functionality should be
  * included in this file.
  */
-
-.media-frame select.attachment-filters {
-  max-width: 30% !important;
-}
-
 .njt-filebird-editcategory-filter {
   position: relative;
   z-index: 1;
@@ -121,6 +116,13 @@ p.filebird-feedback-title {
   opacity: 0.8;
   color: #555d66;
   border: none;
-  background: none;
+  background: none !important;
   cursor: pointer;
+  line-height: unset;
+  min-height: unset;
+  padding: 0;
+}
+
+.filebird-feedback-action #feedback-skip.button.updating-message:before {
+  margin: 0;
 }

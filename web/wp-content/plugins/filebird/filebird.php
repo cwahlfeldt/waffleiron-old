@@ -14,7 +14,7 @@
  * Plugin Name:       FileBird Lite
  * Plugin URI:        https://1.envato.market/FileBird
  * Description:       Organize thousands of WordPress media files into folders/ categories at ease.
- * Version:           2.5
+ * Version:           2.7.1
  * Author:            Ninja Team
  * Author URI:        https://ninjateam.org
  * Text Domain:       filebird
@@ -33,7 +33,7 @@ if (!defined('NJT_FILEBIRD_FOLDER')) {
 }
 
 if (!defined('NJT_FILEBIRD_VERSION')) {
-    define('NJT_FILEBIRD_VERSION', '2.5');
+    define('NJT_FILEBIRD_VERSION', '2.7.1');
 }
 $filebird_plugin_dir = plugin_dir_path(__FILE__);
 if (!defined('NJT_FILEBIRD_PLUGIN_PATH')) {
@@ -100,3 +100,7 @@ function filebird_run()
 }
 
 filebird_run();
+
+if ( function_exists( 'register_block_type' ) ) {
+    require plugin_dir_path(__FILE__) . 'blocks/filebird-gallery/src/init.php';
+}

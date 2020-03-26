@@ -64,31 +64,6 @@ class FileBird_Admin
         });
     }
 
-    public function wpml_register_duplicate_attachment()
-    { 
-        global $sitepress;
-        $is_wpml_active = $sitepress !== null && get_class($sitepress) === "SitePress";
-        
-        if ($is_wpml_active) {
-          $settings = $sitepress->get_setting('custom_posts_sync_option', array());
-          if($settings['attachment']){
-            add_action('wpml_media_create_duplicate_attachment', array($this, 'wpml_media_create_duplicate_attachment'), 10, 2);            
-          }
-        }
-    }
-
-    public function wpml_media_create_duplicate_attachment($post_id, $tr_id)
-    {
-        $filebird_Folder = isset($_REQUEST["ntWMCFolder"]) ? sanitize_text_field($_REQUEST["ntWMCFolder"]) : null;
-        if (is_null($filebird_Folder)) {
-            $filebird_Folder = isset($_REQUEST["njt_filebird_folder"]) ? sanitize_text_field($_REQUEST["njt_filebird_folder"]) : null;
-        }
-        if ($filebird_Folder !== null) {
-            $filebird_Folder = (int) $filebird_Folder;
-            wp_set_object_terms($tr_id, $filebird_Folder, NJT_FILEBIRD_FOLDER, false);
-        }
-    }
-
     public function go_pro_version($links)
     {
         if (NJT_FB_V == '0') {
@@ -120,11 +95,16 @@ class FileBird_Admin
             if (!empty($folder) != '') {
                 $folder = (int) $folder;
                 if ($folder > 0) {
-                    $clauses['where'] .= ' AND (' . $wpdb->prefix . 'term_relationships.term_taxonomy_id = ' . $folder . ')';
-                    $clauses['join'] .= ' LEFT JOIN ' . $wpdb->prefix . 'term_relationships ON (' . $wpdb->prefix . 'posts.ID = ' . $wpdb->prefix . 'term_relationships.object_id)';
+                    $term_taxonomy_id = get_term_by('id', $folder, NJT_FILEBIRD_FOLDER, OBJECT)->term_taxonomy_id;
+                    if (has_filter('njt_filebird_postsClauses')) {
+                        $clauses = apply_filters('njt_filebird_postsClauses', $clauses, $term_taxonomy_id);
+                    } else{
+                        $clauses['where'] .= ' AND (' . $wpdb->prefix . 'term_relationships.term_taxonomy_id = ' . $term_taxonomy_id . ')';
+                        $clauses['join'] .= ' LEFT JOIN ' . $wpdb->prefix . 'term_relationships ON (' . $wpdb->prefix . 'posts.ID = ' . $wpdb->prefix . 'term_relationships.object_id)';
+                    }
                 } else {
                     //to improve performance: set default folder for files when addnew
-                    $folders = get_terms(NJT_FILEBIRD_FOLDER, array(
+                    $folders = FileBird_Helpers::njtGetTerms(NJT_FILEBIRD_FOLDER, array(
                         'hide_empty' => false,
                     ));
                     $folder_ids = array();
@@ -199,10 +179,10 @@ class FileBird_Admin
         //Load Scripts And Styles for Media Upload
         wp_enqueue_style('njt-filebird-sweet-alert-styles', plugin_dir_url(__FILE__) . 'plugin/sweet-alert/sweetalert.css', array(), $this->version, 'all');
         wp_enqueue_style('njt-filebird-mcustomscrollbar-styles', plugin_dir_url(__FILE__) . 'plugin/mCustomScrollbar/jquery.mCustomScrollbar.min.css', array(), $this->version, 'all');
-        wp_enqueue_style('njt-filebird-vakata-jstree-styles', plugin_dir_url(__FILE__) . 'plugin/vakata-jstree/themes/default/style.css', array(), $this->version, 'all');
-
         wp_enqueue_style('njt-filebird-contextMenu' . $this->plugin_name, plugin_dir_url(__FILE__) . 'css/jquery.contextMenu.min.css', array(), $this->version, 'all');
-
+        if (function_exists('get_current_screen') && !is_null(get_current_screen()) && get_current_screen()->id == 'upload'){
+            wp_enqueue_style('njt-filebird-explorer' . $this->plugin_name, plugin_dir_url(__FILE__) . 'css/bootstrap.min.css', array(), $this->version, 'all');
+        }
         wp_enqueue_style('njt-filebird-main' . $this->plugin_name, plugin_dir_url(__FILE__) . 'css/main.css', array(), $this->version, 'all');
         wp_style_add_data('njt-filebird-main' . $this->plugin_name, 'rtl', 'replace');
 
@@ -210,8 +190,6 @@ class FileBird_Admin
         wp_style_add_data('njt-filebird-upload-styles', 'rtl', 'replace');
 
         wp_enqueue_style('njt-filebird-folder-container', plugin_dir_url(__FILE__) . 'css/folder-container.css', array(), $this->version, 'all');
-        wp_enqueue_script('njt-filebird-vakata-jstree-scripts', plugin_dir_url(__FILE__) . 'plugin/vakata-jstree/jstree.min.js', array('jquery'), $this->version, false);
-
         wp_enqueue_script('njt-filebird-jquery-resize', plugin_dir_url(__FILE__) . 'plugin/rick-strahl/jquery-resizable.js', array('jquery'), $this->version, false);
         wp_enqueue_script('njt-filebird-mcustomscrollbar-scripts', plugin_dir_url(__FILE__) . 'plugin/mCustomScrollbar/jquery.mCustomScrollbar.min.js', array('jquery'), $this->version, false);
         
@@ -224,7 +202,7 @@ class FileBird_Admin
         wp_enqueue_script('njt-filebird-folder-in-content', plugin_dir_url(__FILE__) . 'js/folder-in-content.js', array('jquery'), $this->version, false);
         wp_enqueue_script('njt-filebird-trigger', plugin_dir_url(__FILE__) . 'js/trigger-folder.js', array('jquery'), $this->version, false);
         wp_enqueue_script('njt-filebird-folder', plugin_dir_url(__FILE__) . 'js/folder.js', array('jquery'), $this->version, false);
-
+        wp_enqueue_script('njt-filebird-search-sort', plugin_dir_url(__FILE__) . 'js/filebird-search-sort.js', array('jquery'), $this->version, false);
         wp_enqueue_script('njt-filebird-upload-scripts', plugin_dir_url(__FILE__) . 'js/filebird-upload.js', array('jquery'), $this->version, false);
 
         wp_enqueue_script('njt-filebird-modal', plugin_dir_url(__FILE__) . 'js/filebird-modal.js', array('jquery'), $this->version, false);
@@ -287,16 +265,11 @@ class FileBird_Admin
         $tree = $this->filebird_term_tree_array(NJT_FILEBIRD_FOLDER, 0);
         $folders = $this->convert_tree_to_flat_array($tree);
         $sidebar_splitter_width = get_option('njt-filebird_splitter_width');
+        $style = $sidebar_splitter_width && !$isCallModal ? ' style="width: ' . esc_attr($sidebar_splitter_width) . 'px;"' : '';
         ?>
 		<div id="filebird_sidebar" style="display: none;">
-
-			<div class="filebird_sidebar panel-left"
-				<?php echo ($sidebar_splitter_width && !$isCallModal ? ' style="width: ' . esc_attr($sidebar_splitter_width) . 'px;"' : '') ?>
-			>
-				<div class="filebird_sidebar_fixed"
-					<?php echo ($sidebar_splitter_width && !$isCallModal ? ' style="width: ' . esc_attr($sidebar_splitter_width) . 'px;"' : '') ?>
-				>
-
+            <div class="filebird_sidebar">
+				<div class="filebird_sidebar_container panel-left" <?php echo $style ?>>
 					<input type="hidden" id="filebird_terms">
 					<h1 class="nt_main_title"><?php _e('Folders', 'filebird');?></h1>
 					<!-- .nt_main_title -->
@@ -308,45 +281,59 @@ class FileBird_Admin
 					<!-- .filebird_add_new_container -->
 					<div class="filebird_toolbar">
 						<button type="button" class="nt_main_button_icon js__nt_tipped js__nt_rename button media-button" data-title="<?php _e('Rename', NJT_FILEBIRD_TEXT_DOMAIN);?>">
-						<svg class="a-s-fa-Ha-pa" x="0px" y="0px" width="24px" height="24px" viewBox="0 0 24 24" focusable="false" fill="#8f8f8f"><path d="M0 0h24v24H0z" fill="none"></path><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM6 17v-2.47l7.88-7.88c.2-.2.51-.2.71 0l1.77 1.77c.2.2.2.51 0 .71L8.47 17H6zm12 0h-7.5l2-2H18v2z"></path></svg>
-						<span><?php _e('Rename', NJT_FILEBIRD_TEXT_DOMAIN);?></span><span class="opacity0"><?php _e('Rename', NJT_FILEBIRD_TEXT_DOMAIN);?></span></button>
-						<button type="button" class="nt_main_button_icon js__nt_tipped js__nt_delete button media-button"><svg width="24px" height="24px" viewBox="0 0 24 24" fill="#8f8f8f" focusable="false" class=""><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg><span><?php _e('Delete', NJT_FILEBIRD_TEXT_DOMAIN);?></span><span class="opacity0"><?php _e('Delete', NJT_FILEBIRD_TEXT_DOMAIN);?></span></button>
-
+                            <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                                <path fill="#8f8f8f" d="M3,4C1.89,4 1,4.89 1,6V18A2,2 0 0,0 3,20H11V18.11L21,8.11V8C21,6.89 20.1,6 19,6H11L9,4H3M21.04,11.13C20.9,11.13 20.76,11.19 20.65,11.3L19.65,12.3L21.7,14.35L22.7,13.35C22.92,13.14 22.92,12.79 22.7,12.58L21.42,11.3C21.31,11.19 21.18,11.13 21.04,11.13M19.07,12.88L13,18.94V21H15.06L21.12,14.93L19.07,12.88Z" />
+                            </svg>
+                            <span><?php _e('Rename', NJT_FILEBIRD_TEXT_DOMAIN);?></span><span class="opacity0"><?php _e('Rename', NJT_FILEBIRD_TEXT_DOMAIN);?></span>
+                        </button>
+						<button type="button" class="nt_main_button_icon js__nt_tipped js__nt_delete button media-button">
+                            <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                                <path fill="#8f8f8f" d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" />
+                            </svg>
+                            <span><?php _e('Delete', NJT_FILEBIRD_TEXT_DOMAIN);?></span><span class="opacity0"><?php _e('Delete', NJT_FILEBIRD_TEXT_DOMAIN);?></span>
+                        </button>
+                        <div class="njt-filebird-dropdown">
+                            <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                                <path fill="#8f8f8f" d="M12,16A2,2 0 0,1 14,18A2,2 0 0,1 12,20A2,2 0 0,1 10,18A2,2 0 0,1 12,16M12,10A2,2 0 0,1 14,12A2,2 0 0,1 12,14A2,2 0 0,1 10,12A2,2 0 0,1 12,10M12,4A2,2 0 0,1 14,6A2,2 0 0,1 12,8A2,2 0 0,1 10,6A2,2 0 0,1 12,4Z" />
+                            </svg>
+                        </div>
 					</div>
 					<div class="njt-filebird-loader"></div>
 					<!-- /.filebird_toolbar -->
-					<div id="njt-filebird-defaultTree" class="filebird_tree">
-						<ul>
-							<li id="menu-item-all" data-jstree='{"selected":true}' id="menu-item-all" data-id="all" data-number="<?php echo ($all_count ? esc_attr($all_count) : '') ?>" class="menu-item">
-								<svg
-								xmlns="http://www.w3.org/2000/svg"
-								xmlns:xlink="http://www.w3.org/1999/xlink"
-								width="13px" height="16px">
-								<path fill-rule="evenodd"  fill="#8f8f8f"
-								d="M1.625,-0.000 C0.731,-0.000 -0.000,0.720 -0.000,1.600 L-0.000,14.400 C-0.000,15.280 0.731,16.000 1.625,16.000 L11.375,16.000 C12.269,16.000 13.000,15.280 13.000,14.400 L13.000,4.800 L8.125,-0.000 L1.625,-0.000 ZM7.313,5.600 L7.313,1.200 L11.781,5.600 L7.313,5.600 Z"/>
-								</svg>
-								<span><?php _e('All files', NJT_FILEBIRD_TEXT_DOMAIN);?></span>
+					<div id="njt-filebird-defaultTree" class="filebird_tree jstree-default">
+                        <ul class="jstree-container-ul">
+							<li id="menu-item-all" id="menu-item-all" data-id="all" <?php echo $all_count ?> class="menu-item">
+								<a class="jstree-anchor" href="#">
+                                    <svg style="width:18px;height:18px" viewBox="0 0 24 24">
+                                        <path fill="#8f8f8f" d="M15,7H20.5L15,1.5V7M8,0H16L22,6V18A2,2 0 0,1 20,20H8C6.89,20 6,19.1 6,18V2A2,2 0 0,1 8,0M4,4V22H20V24H4A2,2 0 0,1 2,22V4H4Z" />
+                                    </svg>
+                                    <span><?php _e('All files', NJT_FILEBIRD_TEXT_DOMAIN);?></span>
+                                </a>
 							</li>
-							<li id="menu-item--1" data-jstree='{"icon":"icon-archive"}' id="menu-item--1" data-id="-1" <?php echo $uncatetory_count ? "data-number={$uncatetory_count}" : ''; ?> class="menu-item uncategory">
-							<svg
-							xmlns="http://www.w3.org/2000/svg"
-							xmlns:xlink="http://www.w3.org/1999/xlink"
-							width="16px" height="16px">
-							<path fill-rule="evenodd"  fill="rgb(143, 143, 143)"
-							d="M14.222,-0.000 L1.769,-0.000 C0.787,-0.000 0.009,0.796 0.009,1.778 L-0.000,14.222 C-0.000,15.204 0.787,16.000 1.769,16.000 L14.222,16.000 C15.204,16.000 16.000,15.204 16.000,14.222 L16.000,1.778 C16.000,0.796 15.204,-0.000 14.222,-0.000 ZM14.222,10.667 L10.667,10.667 C10.667,12.138 9.471,13.333 8.000,13.333 C6.529,13.333 5.333,12.138 5.333,10.667 L1.769,10.667 L1.769,1.778 L14.222,1.778 L14.222,10.667 Z"/>
-							</svg>
-								<span><?php _e('Uncategorized', NJT_FILEBIRD_TEXT_DOMAIN);?></span>
+							<li id="menu-item--1" id="menu-item--1" data-id="-1" <?php echo $uncatetory_count ?> class="menu-item uncategory">
+								<a class="jstree-anchor" href="#">
+                                    <svg style="width:20px;height:20px" viewBox="0 0 24 24">
+                                        <path fill="#8f8f8f" d="M21 11.1V8C21 6.9 20.1 6 19 6H11L9 4H3C1.9 4 1 4.9 1 6V18C1 19.1 1.9 20 3 20H10.3C11.6 21.9 13.8 23 16 23C19.9 23 23 19.9 23 16C23 14.2 22.3 12.4 21 11.1M16 21C13.2 21 11 18.8 11 16S13.2 11 16 11 21 13.2 21 16 18.8 21 16 21M17 20H15V15H17V20M17 14H15V12H17V14Z" />
+                                    </svg>
+                                    <span><?php _e('Uncategorized', NJT_FILEBIRD_TEXT_DOMAIN);?></span>
+                                </a>
 							</li>
-						</ul>
+                        </ul>
+                        <div class="njt-filebird-search">
+                            <input type="text"/>
+                            <svg style="width:20px;height:20px" viewBox="0 0 24 24">
+                                <path fill="#8f8f8f" d="M16.5,12C19,12 21,14 21,16.5C21,17.38 20.75,18.21 20.31,18.9L23.39,22L22,23.39L18.88,20.32C18.19,20.75 17.37,21 16.5,21C14,21 12,19 12,16.5C12,14 14,12 16.5,12M16.5,14A2.5,2.5 0 0,0 14,16.5A2.5,2.5 0 0,0 16.5,19A2.5,2.5 0 0,0 19,16.5A2.5,2.5 0 0,0 16.5,14M9,4L11,6H19A2,2 0 0,1 21,8V11.81C19.83,10.69 18.25,10 16.5,10A6.5,6.5 0 0,0 10,16.5C10,17.79 10.37,19 11,20H3C1.89,20 1,19.1 1,18V6C1,4.89 1.89,4 3,4H9Z" />
+                            </svg>
+                        </div>
 					</div>
 					<!-- /#njt-filebird-defaultTree -->
 					<div id="njt-filebird-folderTree" class="filebird_tree jstree-default">
 						<?php $this->build_folder($folders);?>
 					</div>
-				</div>
+                </div>
+			    <div class="njt-splitter"></div>
 				<!-- #njt-filebird-folderTree -->
 			</div>
-			<div class="njt-splitter"></div>
 			<!-- .filebird_sidebar -->
 		</div>
 	<?php
@@ -397,7 +384,7 @@ class FileBird_Admin
         }
     }
 
-    private function build_folder($folders)
+    public function build_folder($folders, $return_obj = false)
     {
         // print_r($folders);die;
         //sort
@@ -408,49 +395,48 @@ class FileBird_Admin
         }
         array_multisort($orders, SORT_ASC, $folders);
         //end sort
-        echo '<form action="javascript:void(0);" id="update-folders" enctype="multipart/form-data" method="POST"><ul id="folders-to-edit" class="menu">';
-        foreach ($folders as $k => $v) {$depth = $this->find_depth($v, $folders);?>
-	        <li id="menu-item-<?php echo esc_attr($v->term_id); ?>" data-id="<?php echo esc_attr($v->term_id); ?>" <?php echo $this->filebird_folder_counter($v->count, $v->term_id); ?> class="menu-item menu-item-depth-<?php echo esc_attr($depth); ?>">
-	        	<i class="dh-tree-icon"></i>
-	            <div class="menu-item-bar jstree-anchor">
-	                <div class="menu-item-handle">
-
-	                    <span class="item-title "><span class="menu-item-title"><?php echo esc_html($v->name); ?></span>
-	                </div>
-	            </div>
-	            <ul class="menu-item-transport"></ul>
-	            <input class="menu-item-data-db-id" type="hidden" name="menu-item-db-id[<?php echo esc_attr($v->term_id); ?>]" value="<?php echo esc_attr($v->term_id); ?>">
-	            <input class="menu-item-data-parent-id" type="hidden" name="menu-item-parent-id[<?php echo esc_attr($v->term_id); ?>]" value="<?php echo esc_attr($v->parent); ?>" />
-	        </li>
-	        <?php
-}
-        echo '</ul></form>';
+        if(!$return_obj) {
+            echo '<form action="javascript:void(0);" id="update-folders" enctype="multipart/form-data" method="POST"><ul id="folders-to-edit" class="menu">';
+            foreach ($folders as $k => $v) {$depth = $this->find_depth($v, $folders);?>
+                <li id="menu-item-<?php echo esc_attr($v->term_id); ?>" data-id="<?php echo esc_attr($v->term_id); ?>" <?php echo $this->filebird_folder_counter($v->count, $v->term_id); ?> class="menu-item menu-item-depth-<?php echo esc_attr($depth); ?>">
+                    <i class="dh-tree-icon"></i>
+                    <div class="menu-item-bar jstree-anchor">
+                        <div class="menu-item-handle">
+                            <span class="item-title "><span class="menu-item-title"><?php echo esc_html($v->name); ?></span>
+                        </div>
+                    </div>
+                    <ul class="menu-item-transport"></ul>
+                    <input class="menu-item-data-db-id" type="hidden" name="menu-item-db-id[<?php echo esc_attr($v->term_id); ?>]" value="<?php echo esc_attr($v->term_id); ?>">
+                    <input class="menu-item-data-parent-id" type="hidden" name="menu-item-parent-id[<?php echo esc_attr($v->term_id); ?>]" value="<?php echo esc_attr($v->parent); ?>" />
+                </li>
+                <?php
+            }
+            echo '</ul></form>';
+        } else {
+            foreach ($folders as $k => $v) {
+                $depth = $this->find_depth($v, $folders);
+                $folders[$k]->name = str_repeat('-', $depth) . $folders[$k]->name;
+            }
+            return $folders;
+        }
     }
 
     public function filebird_folder_counter($term_count, $term_id = null)
     {
-        global $sitepress, $wpdb;
-        $is_wpml_active = $sitepress !== null && get_class($sitepress) === "SitePress";
-        $media_translation = false;
-        if($is_wpml_active){
-          $settings = $sitepress->get_setting('custom_posts_sync_option', array());
-          if($settings['attachment']){
-            $media_translation = true;
-          }
-        }
-        
-        if ($is_wpml_active && $term_id !== null && $media_translation) {
-            $lang = $sitepress->get_current_language();
-            $table_name = $wpdb->prefix . 'icl_translations';
+        global $wpdb;
 
-            $counter = (int) $wpdb->get_var("SELECT COUNT(*)
-            FROM $table_name AS wpmlt
-            INNER JOIN $wpdb->term_relationships AS term_rela ON term_rela.object_id = wpmlt.element_id
-            WHERE wpmlt.element_type =  'post_attachment'
-            AND term_rela.term_taxonomy_id = $term_id
-            AND wpmlt.language_code =  '$lang'");
-            return $counter ? "data-number={$counter}" : '';
+        if (has_filter('njt_filebird_attachment_counter')) {
+            return apply_filters( 'njt_filebird_attachment_counter', $term_count, $term_id);
         } else {
+            $term_taxonomy_id = get_term_by('id', (int) $term_id, NJT_FILEBIRD_FOLDER, OBJECT)->term_taxonomy_id;
+
+            $term_count = (int) $wpdb->get_var("SELECT COUNT(*) 
+                FROM $wpdb->posts as posts
+                JOIN $wpdb->term_relationships as trs
+                ON posts.ID = trs.object_id
+                WHERE posts.post_type = 'attachment' AND trs.term_taxonomy_id IN ($term_taxonomy_id)
+                AND (posts.post_status = 'inherit' OR posts.post_status = 'private')
+            ");
             return $term_count ? "data-number={$term_count}" : '';
         }
     }
@@ -484,7 +470,7 @@ class FileBird_Admin
 
     public function filebird_ajax_get_folder_list_callback()
     {
-        $terms = get_terms(NJT_FILEBIRD_FOLDER, array(
+        $terms = FileBird_Helpers::njtGetTerms(NJT_FILEBIRD_FOLDER, array(
             'hide_empty' => false,
             'meta_key' => 'folder_position',
             'orderby' => 'meta_value',
@@ -528,6 +514,11 @@ class FileBird_Admin
         $current = sanitize_text_field($_POST["current"]);
         $count_attachments = 0;
 
+        if(apply_filters('njt_fb_can_delete_folder', true, $current) !== true) {
+          echo "error_permission";
+          exit;
+        }
+
         $current_term = get_term($current, NJT_FILEBIRD_FOLDER);
         $count_attachments = $current_term->count;
         $term = wp_delete_term($current, NJT_FILEBIRD_FOLDER);
@@ -546,7 +537,7 @@ class FileBird_Admin
 
         }
 
-        $terms = get_terms(NJT_FILEBIRD_FOLDER, array('parent' => $parent, 'hide_empty' => false));
+        $terms = FileBird_Helpers::njtGetTerms(NJT_FILEBIRD_FOLDER, array('parent' => $parent, 'hide_empty' => false));
 
         $check = true;
 
@@ -614,52 +605,54 @@ class FileBird_Admin
         $term_id = isset($_POST["term_id"]) ? sanitize_text_field($_POST["term_id"]) : '';
         switch ($type) {
             case 'new':
-
                 $name = self::nt_set_valid_term_name($new_name, $parent);
-
                 $term_new = wp_insert_term($name, NJT_FILEBIRD_FOLDER, array(
                     'name' => $name,
                     'parent' => $parent,
                 ));
                 if (is_wp_error($term_new)) {
-
-                    echo "error";
-
+                  echo "error";
                 } else {
-
                     add_term_meta($term_new["term_id"], 'folder_type', sanitize_text_field($_POST["folder_type"]));
-
                     add_term_meta($term_new["term_id"], 'folder_position', 10000);
-
+                    do_action('njt_fb_after_inserting_folfer', $term_new["term_id"]);
                     wp_send_json_success(array('term_id' => $term_new["term_id"], 'term_name' => $name));
                 }
 
                 break;
 
             case 'rename':
-                $check_error = wp_update_term($current, NJT_FILEBIRD_FOLDER, array(
-                    'name' => $new_name,
-                ));
-                if (is_wp_error($check_error)) {
-                    echo "error";
-                }
+              if(apply_filters('njt_fb_can_rename_folder', true, $current) !== true) {
+                echo "error_permission";
                 break;
+              }
+              $check_error = wp_update_term($current, NJT_FILEBIRD_FOLDER, array(
+                'name' => $new_name,
+              ));
+              if (is_wp_error($check_error)) {
+                  echo "error";
+              }
+              break;
             case 'move':
-                $check_error = wp_update_term($current, NJT_FILEBIRD_FOLDER, array(
-                    'parent' => $parent,
-                ));
-                if (is_wp_error($check_error)) {
-                    echo "error";
-                }
+              if(apply_filters('njt_fb_can_move_folder', true, $current) !== true) {
+                echo "error_permission";
                 break;
-
+              }
+              $check_error = wp_update_term($current, NJT_FILEBIRD_FOLDER, array(
+                  'parent' => $parent,
+              ));
+              if (is_wp_error($check_error)) {
+                  echo "error";
+              }
+              break;
             case 'new_edit_attachment':
-
+              if(apply_filters('njt_fb_can_new_edit_attachment_folder', true, $term_id) !== true) {
+                echo "error_permission";
+                break;
+              }
                 if (isset($term_id)) {
                     add_term_meta($term_id, 'folder_type', sanitize_text_field($_POST["folder_type"]));
-
                     add_term_meta($term_id, 'folder_position', 10000);
-
                     wp_send_json_success(array('term_id' => $term_id));
                 }
                 break;
@@ -680,7 +673,7 @@ class FileBird_Admin
         // if($term_id === 'all'){
         //     $term_id = 0;
         // }
-        $terms = get_terms(NJT_FILEBIRD_FOLDER, array(
+        $terms = FileBird_Helpers::njtGetTerms(NJT_FILEBIRD_FOLDER, array(
             'hide_empty' => false,
             'meta_key' => 'folder_position',
             'orderby' => 'meta_value',
@@ -745,10 +738,10 @@ class FileBird_Admin
     public function filebird_term_tree_array($taxonomy, $parent)
     {
 
-        $terms = get_terms($taxonomy, array(
+        $terms = FileBird_Helpers::njtGetTerms($taxonomy, array(
             'hide_empty' => false,
             'meta_key' => 'folder_position',
-            'orderby' => 'meta_value',
+            'orderby' => 'meta_value_num',
             'parent' => $parent,
         ));
         //var_dump($terms);

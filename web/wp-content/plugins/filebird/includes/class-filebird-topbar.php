@@ -24,14 +24,12 @@ class FileBird_Topbar
     /**
      * Initialize the hooks and filters
      */
-    public $wpml_delete_process = null;
     public function __construct()
     {
         // load code that is only needed in the admin section
         if (is_admin()) {
             add_action('add_attachment', array($this, 'filebird_add_attachment_category'));
             add_action('edit_attachment', array($this, 'filebird_set_attachment_category'));
-            add_action('delete_attachment', array($this, 'filebird_delete_attachment_category'));
             add_filter('ajax_query_attachments_args', array($this, 'filebird_ajax_query_attachments_args'));
             add_action('wp_ajax_save-attachment-compat', array($this, 'filebird_save_attachment_compat'), 0);
             add_action('wp_ajax_filebird_save_attachment', array($this, 'filebird_save_attachment'), 0);
@@ -51,26 +49,6 @@ class FileBird_Topbar
             $filebird_Folder = (int) $filebird_Folder;
             if ($filebird_Folder > 0) {
                 wp_set_object_terms($post_ID, $filebird_Folder, NJT_FILEBIRD_FOLDER, false);
-            }
-        }
-    }
-
-    public function filebird_delete_attachment_category($post_ID)
-    {
-        global $sitepress, $wpdb;
-        $is_wpml_active = $sitepress !== null && get_class($sitepress) === "SitePress";
-        if ($is_wpml_active && $post_ID != $this->wpml_delete_process) {
-            $settings = $sitepress->get_setting('custom_posts_sync_option', array());
-            if ($settings['attachment']) {
-                $query = "SELECT element_id from {$wpdb->prefix}icl_translations
-            WHERE trid = (SELECT trid from {$wpdb->prefix}icl_translations WHERE element_id = $post_ID)
-            AND element_id <> $post_ID";
-                $lists = $wpdb->get_results($query);
-
-                foreach ($lists as $list) {
-                    $this->wpml_delete_process = $list->element_id;
-                    wp_delete_attachment(intval($list->element_id));
-                }
             }
         }
     }
@@ -106,7 +84,7 @@ class FileBird_Topbar
     {
 
         // Get media taxonomy
-        $media_terms = get_terms(NJT_FILEBIRD_FOLDER, array(
+        $media_terms = FileBird_Helpers::njtGetTerms(NJT_FILEBIRD_FOLDER, array(
             'hide_empty' => 0,
             'fields' => 'id=>slug',
         ));
@@ -142,26 +120,39 @@ class FileBird_Topbar
         $query['tax_query'] = array('relation' => 'AND');
 
         foreach ($taxonomies as $taxonomy) {
-            if (isset($query[$taxonomy]) && is_numeric($query[$taxonomy])) {
-                if ($query[$taxonomy] > 0) {
-                    // $query['post_status'] = 'inherit,private';
-                    array_push($query['tax_query'], array(
-                        'taxonomy' => $taxonomy,
-                        'field' => 'id',
-                        'terms' => $query[$taxonomy],
-                        'include_children' => false,
-                    ));
-                    //$query['include_children'] = false;
-                } else {
-                    $all_terms_ids = self::filebird_get_terms_values('ids');
-                    array_push($query['tax_query'], array(
-                        'taxonomy' => $taxonomy,
-                        'field' => 'id',
-                        'terms' => $all_terms_ids,
-                        'operator' => 'NOT IN',
-                    ));
+            if (isset($query[$taxonomy])) {
+                if (is_numeric($query[$taxonomy])) {
+                    if ($query[$taxonomy] > 0) {
+                        // $query['post_status'] = 'inherit,private';
+                        array_push($query['tax_query'], array(
+                            'taxonomy' => $taxonomy,
+                            'field' => 'id',
+                            'terms' => $query[$taxonomy],
+                            'include_children' => false,
+                        ));
+                        //$query['include_children'] = false;
+                    } else {
+                        $all_terms_ids = self::filebird_get_terms_values('ids');
+                        array_push($query['tax_query'], array(
+                            'taxonomy' => $taxonomy,
+                            'field' => 'id',
+                            'terms' => $all_terms_ids,
+                            'operator' => 'NOT IN',
+                        ));
+                    }
+                } elseif (is_array($query[$taxonomy]) && $taxonomy == 'nt_wmc_folder') {
+                    $query['tax_query']['relation'] = 'OR';
+                    foreach ($query[$taxonomy] as $k => $v) {
+                        if (is_numeric($v)) {
+                            array_push($query['tax_query'], array(
+                                'taxonomy' => $taxonomy,
+                                'field' => 'id',
+                                'terms' => $v,
+                                'include_children' => false,
+                            ));
+                        }
+                    }
                 }
-
             }
             unset($query[$taxonomy]);
         }
@@ -173,10 +164,10 @@ class FileBird_Topbar
     {
         $filebird_option = get_option('filebird_setting');
         $unloadFrontend = $filebird_option ? $filebird_option['unload-frontend'] : false;
-        if(!$unloadFrontend){
-            add_action('wp_enqueue_scripts', array('FileBird_Topbar','filebird_enqueue_media_action'));
+        if (!$unloadFrontend) {
+            add_action('wp_enqueue_scripts', array('FileBird_Topbar', 'filebird_enqueue_media_action'));
         }
-        add_action('admin_enqueue_scripts', array('FileBird_Topbar','filebird_enqueue_media_action'));
+        add_action('admin_enqueue_scripts', array('FileBird_Topbar', 'filebird_enqueue_media_action'));
     }
 
     /**
@@ -192,54 +183,46 @@ class FileBird_Topbar
         // Add filter to change the default taxonomy
         $taxonomy = apply_filters('filebird_taxonomy', $taxonomy);
 
-        if ($taxonomy != NJT_FILEBIRD_FOLDER) {
-            $dropdown_options = array(
-                'taxonomy' => $taxonomy,
-                'hide_empty' => false,
-                'hierarchical' => true,
-                'orderby' => 'name',
-                'show_count' => true,
-                'walker' => new filebird_walker_category_mediagridfilter(),
-                'value' => 'id',
-                'echo' => false,
-            );
-        } else {
-            $dropdown_options = array(
-                'taxonomy' => $taxonomy,
-                'hide_empty' => false,
-                'hierarchical' => true,
-                'orderby' => 'name',
-                'show_count' => true,
-                'walker' => new filebird_walker_category_mediagridfilter(),
-                'value' => 'id',
-                'echo' => false,
-            );
-        }
+        $dropdown_options = array(
+          'taxonomy' => $taxonomy,
+          'hide_empty' => false,
+          'hierarchical' => true,
+          'orderby' => 'name',
+          'show_count' => true,
+          'walker' => new filebird_walker_category_mediagridfilter(),
+          'value' => 'id',
+          'echo' => false,
+        );
         $attachment_terms = wp_dropdown_categories($dropdown_options);
         $attachment_terms = preg_replace(array("/<select([^>]*)>/", "/<\/select>/"), "", $attachment_terms);
 
-        echo '<script type="text/javascript">';
-        echo '/* <![CDATA[ */';
-        echo 'var filebird_folder = "' . NJT_FILEBIRD_FOLDER . '";';
-        echo 'var filebird_taxonomies = {"folder":{"list_title":"' . html_entity_decode(__('All categories', NJT_FILEBIRD_TEXT_DOMAIN), ENT_QUOTES, 'UTF-8') . '","term_list":[{"term_id":"-1","term_name":"' . __('Uncategorized', NJT_FILEBIRD_TEXT_DOMAIN) . '"},' . substr($attachment_terms, 2) . ']}};';
-        echo '/* ]]> */';
-        echo '</script>';
+        // echo '<script type="text/javascript">';
+        // echo '/* <![CDATA[ */';
+        // echo 'var filebird_folder = "' . NJT_FILEBIRD_FOLDER . '";';
+        // echo 'var filebird_taxonomies = {"folder":{"list_title":"' . html_entity_decode(__('All categories', NJT_FILEBIRD_TEXT_DOMAIN), ENT_QUOTES, 'UTF-8') . '","term_list":[{"term_id":"-1","term_name":"' . __('Uncategorized', NJT_FILEBIRD_TEXT_DOMAIN) . '"},' . substr($attachment_terms, 2) . ']}};';
+        // echo '/* ]]> */';
+        // echo '</script>';
+
+        $term_list = json_decode('[' . substr($attachment_terms, 2) . ']', true);
+        array_unshift($term_list, array('term_id' => '-1', 'term_name' => __('Uncategorized', NJT_FILEBIRD_TEXT_DOMAIN)));
 
         wp_register_script('njt-filebird-upload-localize', plugins_url('admin/js/filebird-util.js', dirname(__FILE__)), array('jquery', 'jquery-ui-draggable', 'jquery-ui-droppable'), NJT_FILEBIRD_VERSION, false);
+        wp_localize_script('njt-filebird-upload-localize', 'filebird_folder', NJT_FILEBIRD_FOLDER);
+        wp_localize_script('njt-filebird-upload-localize', 'filebird_taxonomies', array('folder' => array('list_title' => __('All categories', NJT_FILEBIRD_TEXT_DOMAIN), 'term_list' => $term_list)));
         wp_localize_script('njt-filebird-upload-localize', 'filebird_translate', FileBird_JS_Translation::get_translation());
         wp_localize_script('njt-filebird-upload-localize', 'njt_fb_nonce', wp_create_nonce('ajax-nonce'));
         wp_localize_script('njt-filebird-upload-localize', 'njtFBV', NJT_FB_V);
         /**
          * --DIVI BUILDER
          * ET_CORE
-         * */ 
-        if(defined( 'ET_CORE' )){
+         * */
+        if (defined('ET_CORE')) {
             wp_localize_script('njt-filebird-upload-localize', 'ajaxurl', admin_url('admin-ajax.php'));
         }
         wp_enqueue_script('njt-filebird-upload-localize');
         wp_enqueue_style('njt-filebird-treeview', plugins_url('admin/css/filebird-treeview.css', dirname(__FILE__)), array(), NJT_FILEBIRD_VERSION);
         wp_style_add_data('njt-filebird-treeview', 'rtl', 'replace');
-        if(!defined('ELEMENTOR_VERSION')){
+        if (!defined('ELEMENTOR_VERSION') || is_admin()) {
             wp_enqueue_script('filebird-admin-topbar', plugins_url('admin/js/filebird-admin-topbar.js', dirname(__FILE__)), array('media-views'), NJT_FILEBIRD_VERSION, true);
         } else {
             wp_enqueue_script('filebird-admin-topbar', plugins_url('admin/js/filebird-admin-topbar.js', dirname(__FILE__)), array(), NJT_FILEBIRD_VERSION, true);
@@ -306,7 +289,7 @@ class FileBird_Topbar
             } else if (isset($_REQUEST['tax_input']) && isset($_REQUEST['tax_input'][$taxonomy])) {
                 //add attachment into foder-term
                 wp_set_object_terms($id, $_REQUEST['tax_input'][$taxonomy], $taxonomy, false);
-            } 
+            }
             // else {
             //     // remove all folder-terms out of attachment
             //     wp_set_object_terms($id, '', $taxonomy, false);
@@ -323,7 +306,7 @@ class FileBird_Topbar
     public function filebird_save_multi_attachments()
     {
         $nonce = sanitize_text_field($_POST['nonce']);
-        if ( ! wp_verify_nonce( $nonce, 'ajax-nonce' ) ){
+        if (!wp_verify_nonce($nonce, 'ajax-nonce')) {
             wp_send_json_error(array('status' => 'Nonce error'));
             die();
         }
@@ -348,15 +331,10 @@ class FileBird_Topbar
 
             $result[] = $obj;
 
-            wp_set_object_terms($id, intval($_REQUEST['folder_id']), NJT_FILEBIRD_FOLDER, false);
+            FileBird_Helpers::njtMoveImage($id, $_REQUEST['folder_id']);
 
-            global $sitepress;
-            $is_wpml_active = $sitepress !== null && get_class($sitepress) === "SitePress";
-            if ($is_wpml_active) {
-                $settings = $sitepress->get_setting('custom_posts_sync_option', array());
-                if ($settings['attachment']) {
-                    $this->wpml_filebird_save_attachment($id, intval($_REQUEST['folder_id']));
-                }
+            if(has_action('njt_filebird_save_attachment')){
+                do_action('njt_filebird_save_attachment', $id, intval($_REQUEST['folder_id']));
             }
         }
 
@@ -367,7 +345,7 @@ class FileBird_Topbar
     public function filebird_save_attachment()
     {
         $nonce = sanitize_text_field($_POST['nonce']);
-        if ( ! wp_verify_nonce( $nonce, 'ajax-nonce' ) ){
+        if (!wp_verify_nonce($nonce, 'ajax-nonce')) {
             wp_send_json_error(array('status' => 'Nonce error'));
             die();
         }
@@ -379,6 +357,16 @@ class FileBird_Topbar
         if (!$id = absint($_REQUEST['id'])) {
             wp_send_json_error();
         }
+
+        if(!isset($_REQUEST['folder_id'])) {
+          wp_send_json_error();
+        }
+        $folder_id = intval($_REQUEST['folder_id']);
+
+        if(apply_filters('njt_fb_can_save_attachment', true, $folder_id) !== true) {
+          wp_send_json_error();
+        }
+
 
         if (empty($_REQUEST['attachments']) || empty($_REQUEST['attachments'][$id])) {
             wp_send_json_error();
@@ -406,41 +394,25 @@ class FileBird_Topbar
         }
 
         wp_update_post($post);
-
+        
         //add attachment into foder-term
-        wp_set_object_terms($id, intval($_REQUEST['folder_id']), NJT_FILEBIRD_FOLDER, false);
+        FileBird_Helpers::njtMoveImage($id, $folder_id);
         if (!$attachment = wp_prepare_attachment_for_js($id)) {
             //echo 1;die;
             wp_send_json_error();
         }
 
-        global $sitepress;
-        $is_wpml_active = $sitepress !== null && get_class($sitepress) === "SitePress";
-        if ($is_wpml_active) {
-            $settings = $sitepress->get_setting('custom_posts_sync_option', array());
-            if ($settings['attachment']) {
-                $this->wpml_filebird_save_attachment($id, intval($_REQUEST['folder_id']));
-            }
+        if(has_action('njt_filebird_save_attachment')){
+            do_action('njt_filebird_save_attachment', $id, $folder_id);
         }
-        wp_send_json_success($attachment);
-    }
 
-    public function wpml_filebird_save_attachment($id, $folder_id)
-    {
-        global $wpdb;
-        $query = "SELECT element_id from {$wpdb->prefix}icl_translations
-        WHERE trid = (SELECT trid from {$wpdb->prefix}icl_translations WHERE element_id = $id)
-        AND element_id <> $id";
-        $lists = $wpdb->get_results($query);
-        foreach ($lists as $list) {
-            wp_set_object_terms(intval($list->element_id), intval($_REQUEST['folder_id']), NJT_FILEBIRD_FOLDER, false);
-        }
+        wp_send_json_success($attachment);
     }
 
     public function nt_wcm_get_terms_by_attachment()
     {
         $nonce = sanitize_text_field($_POST['nonce']);
-        if ( ! wp_verify_nonce( $nonce, 'ajax-nonce' ) ){
+        if (!wp_verify_nonce($nonce, 'ajax-nonce')) {
             wp_send_json_error(array('status' => 'Nonce error'));
             die();
         }
@@ -497,61 +469,25 @@ class FileBird_Topbar
         return $form_fields;
     }
 
-    public static function wpml_get_uncategories_attachment()
-    {
-        global $wpdb, $sitepress;
-        $lang = $sitepress->get_current_language();
-        $table_name = $wpdb->prefix . 'icl_translations';
-        $term_relationships = $wpdb->prefix . 'term_relationships';
-        $term_taxonomy = $wpdb->prefix . 'term_taxonomy';
-
-        $total = (int) $wpdb->get_var("SELECT COUNT(*)
-          FROM $table_name AS wpmlt
-          INNER JOIN $wpdb->posts AS p ON p.id = wpmlt.element_id
-          WHERE wpmlt.element_type =  'post_attachment'
-          AND wpmlt.language_code =  '$lang'");
-
-        $fileInFolder = (int) $wpdb->get_var("SELECT COUNT(*)
-        FROM (SELECT * FROM $table_name as wpmlt
-        INNER JOIN $wpdb->posts as p on p.id = wpmlt.element_id
-        WHERE wpmlt.element_type = 'post_attachment'
-        and wpmlt.language_code = '$lang') as tmp_table
-        JOIN $term_relationships as term_relationships on tmp_table.element_id = term_relationships.object_id
-        JOIN $term_taxonomy as term_taxonomy on term_relationships.term_taxonomy_id = term_taxonomy.term_taxonomy_id where taxonomy = 'nt_wmc_folder'");
-        return $total - $fileInFolder;
-    }
-
     public static function count_all_categories_attachment()
     {
-        global $sitepress;
-        $is_wpml_active = $sitepress !== null && get_class($sitepress) === "SitePress";
-        if ($is_wpml_active) {
-            $settings = $sitepress->get_setting('custom_posts_sync_option', array());
-            if ($settings['attachment']) {
-                global $wpdb;
-                $lang = $sitepress->get_current_language();
-                $table_name = $wpdb->prefix . 'icl_translations';
-                $all_count = (int) $wpdb->get_var("SELECT COUNT(*)
-          FROM $table_name AS wpmlt
-          INNER JOIN $wpdb->posts AS p ON p.id = wpmlt.element_id
-          WHERE wpmlt.element_type =  'post_attachment'
-          AND wpmlt.language_code =  '$lang'");
-                return $all_count;
-            }
+        if (has_filter('njt_filebird_all_categorized_counter')) {
+            return apply_filters('njt_filebird_all_categorized_counter', '');
+        }else{
+            $count = wp_count_posts('attachment')->inherit;
+            return $count ? "data-number={$count}" : '';
         }
-        return wp_count_posts('attachment')->inherit;
     }
 
     public static function get_uncategories_attachment()
     {
-        global $sitepress;
-        $is_wpml_active = $sitepress !== null && get_class($sitepress) === "SitePress";
-        if ($is_wpml_active) {
-            $settings = $sitepress->get_setting('custom_posts_sync_option', array());
-            if ($settings['attachment']) {
-                return self::wpml_get_uncategories_attachment();
-            }
+        if (has_filter('njt_filebird_uncategorized_counter')) {
+            return apply_filters('njt_filebird_uncategorized_counter', '');
+        } else {
+          $result = FileBird_Helpers::getUncategorizedAttachmentCount();
+            return $result ? "data-number={$result}" : '';
         }
+
         // $args = array(
         //     'post_type' => 'attachment',
         //     'post_status' => 'inherit,private',
@@ -572,18 +508,6 @@ class FileBird_Topbar
         // );
         // $result = get_posts($args); //don't use WP_query in backend
         // return count($result);
-        global $wpdb;
-        $wp_posts = $wpdb->prefix . "posts";
-        $term_relationships = $wpdb->prefix . 'term_relationships';
-        $term_taxonomy = $wpdb->prefix . 'term_taxonomy';
-        $result = $wpdb->get_var("SELECT COUNT(*)
-          FROM $wp_posts AS posts
-          WHERE 1=1 AND (posts.ID NOT IN
-          (SELECT object_id FROM $term_relationships WHERE term_taxonomy_id IN(
-            SELECT term_id from $term_taxonomy where taxonomy = 'nt_wmc_folder'))
-          ) AND posts.post_type = 'attachment' AND ((posts.post_status = 'inherit' OR posts.post_status = 'private'))");
-        return $result;
     }
-
 }
 $filebird_topbar = new FileBird_Topbar();

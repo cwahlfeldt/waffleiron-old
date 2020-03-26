@@ -32,7 +32,16 @@ class FileBird_Activator
      */
     public static function activate()
     {
-
+        self::checkReviewStatus();
     }
 
+    public static function checkReviewStatus()
+    {
+        $option = get_option('njt_FileBird_review');
+        if ($option){
+            update_option('njt_FileBird_review', 'show'); //Show now
+        }else{
+            update_option('njt_FileBird_review', time() + 2*60*60*24); //After 2 days show
+        }
+    }
 }

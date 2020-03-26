@@ -29,7 +29,7 @@ class FileBird_Feedback
             ],
             'not_know_using' => [
                 'content' => __('I don\'t know how to use it', NJT_FILEBIRD_TEXT_DOMAIN),
-                'document' => __('Please read FileBird documentation <a href="https://filebird.gitbook.io">here</a> or <a href="https://ninjateam.org/support/">chat with us</a> if you need help', NJT_FILEBIRD_TEXT_DOMAIN)
+                'document' => __('Please read FileBird documentation <a target="_blank" href="https://ninjateam.gitbook.io/filebird/">here</a> or <a target="_blank" href="https://ninjateam.org/support/">chat with us</a> if you need help', NJT_FILEBIRD_TEXT_DOMAIN)
             ],
             'temporary_deactivation' => [
                 'content' => __('This is temporary. I\'ll use it again soon.', NJT_FILEBIRD_TEXT_DOMAIN),
@@ -39,7 +39,7 @@ class FileBird_Feedback
             ],
             'not_working' => [
               'content' => __('It\'s not working on my website', NJT_FILEBIRD_TEXT_DOMAIN),
-              'support' => __('Need help? We are ready to answer your questions. <a href="https://ninjateam.org/support/">Contact Support</a>', NJT_FILEBIRD_TEXT_DOMAIN),
+              'support' => __('Need help? We are ready to answer your questions. <a target="_blank" href="https://ninjateam.org/support/">Contact Support</a>', NJT_FILEBIRD_TEXT_DOMAIN),
             ],
             'other' => [
                 'content' => __('Other', NJT_FILEBIRD_TEXT_DOMAIN),

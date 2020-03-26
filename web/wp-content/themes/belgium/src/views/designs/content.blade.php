@@ -25,15 +25,15 @@
 @endphp
 {{-- {{$content}} --}}
   
-<section class="content w-full relative py-3">
+<section class="relative w-full py-3 content">
   <div class="container mx-auto" style="background-color: {{ $style_bg_color }};">
-    <div class="container-sm mx-auto">
+    <div class="mx-auto container-sm">
       @if ($title)
         {{-- <h2 class="md:text-center {{$style_sizing['value']}} text-center mt-5 lg:px-32 md:px-24 sm:px-0 font-sans tracking-widest font-xl uppercase" style="color: {{ $style_title_color }};"> --}}
-        <h2 class="text-center pt-4 lg:px-32 md:px-24 px-2 font-sans tracking-widest font-xl uppercase" style="color: {{ $style_title_color }};">
+        <h2 class="px-2 pt-4 font-sans tracking-widest text-center uppercase lg:px-32 md:px-24 font-xl" style="color: {{ $style_title_color }};">
           {{ $title }}
           @if ($style_line_color)
-            <hr style="border-color: {{ $style_line_color }}; text-align: {{$style_sizing['value']}};" class="w-10 my-2 border border-solid border-1 mt-6 mx-auto">
+            <hr style="border-color: {{ $style_line_color }}; text-align: {{$style_sizing['value']}};" class="w-10 mx-auto my-2 mt-6 border border-solid border-1">
           @endif
         </h2>
       @endif
@@ -41,7 +41,7 @@
       @if ( $content )
         <div class="the-content w-full h-full mx-auto {{ !$title && $style_bg_color !== "#ffffff" ? '' : 'py-3' }}">
 
-					  @if ($use_columns) <div class="flex flex-auto flex-wrap"> @endif
+					  @if ($use_columns) <div class="flex flex-wrap flex-auto"> @endif
             @foreach ($content as $c)
 
               @if ($c) {{-- if array val is false then default to ?html --}}
@@ -63,12 +63,12 @@
                 @endif
 
                 @if ($c['acf_fc_layout'] === 'image')
-                  <img class="lg:px-24 md:px-24 mx-auto py-8" src="{{ $c['image']['sizes']['1440'] }}" alt="">
+                  <img class="py-8 mx-auto lg:px-24 md:px-24 {{ $use_columns ? 'w-1/2' : '' }}" src="{{ wp_get_attachment_image_url($c['image'], 'full') }}" alt="">
                 @endif
 
                 @if ($c['acf_fc_layout'] === 'link')
                   <div class="pt-5 pb-8" style="text-align: {{ $style_sizing['value'] }};">
-                    <a class="link px-5 py-2 font-sans tracking-widest font-amp font-thin uppercase text-orange hover:text-tan border border-solid border-orange hover:bg-orange" href="{{ $c['link'] }}">
+                    <a class="px-5 py-2 font-sans font-thin tracking-widest uppercase border border-solid link font-amp text-orange hover:text-tan border-orange hover:bg-orange" href="{{ $c['link'] }}">
                       {{ $c['label'] }}
                     </a>
                   </div> 
@@ -76,11 +76,11 @@
 
               {{-- @else --}}
 
-              {{--   <div class="false container-sm mx-auto py-20 bg-blue"> --}}
+              {{--   <div class="py-20 mx-auto false container-sm bg-blue"> --}}
               {{--     <p class="text-2xl font-slab text-orange"> --}}
               {{--       No layout ?. --}}
               {{--     </p> --}}
-              {{--     <a href="{{ get_edit_post_link($post->ID) }}" class="text-lg font-sans text-tan"> --}}
+              {{--     <a href="{{ get_edit_post_link($post->ID) }}" class="font-sans text-lg text-tan"> --}}
               {{--       dope --}}
               {{--     </a> --}}
               {{--   </div> --}}

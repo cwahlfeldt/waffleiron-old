@@ -76,8 +76,6 @@ class FileBird
         $this->load_dependencies();
         $this->set_locale();
         $this->define_admin_hooks();
-        $this->notice_first_use();
-
     }
 
     /**
@@ -114,11 +112,21 @@ class FileBird
         require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-filebird-feedback.php';
 
         /**
+         * The class create notification.
+         */
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-filebird-notification.php';
+
+        /**
          * The class responsible for defining internationalization functionality
          * of the plugin.
          */
         require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-filebird-i18n.php';
 
+        //user permission
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-filebird-user-folder.php';
+        //helpers
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-filebird-helpers.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-filebird-convert.php';
         /**
          * The class responsible for defining all actions that occur in the admin area.
          */
@@ -129,8 +137,13 @@ class FileBird
          */
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-filebird-setting.php';
 
-        $this->loader = new FileBird_Loader();
+        /**
+         * The class support Multi Language.
+         */
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-filebird-WPML.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-filebird-PolyLang.php';
 
+        $this->loader = new FileBird_Loader();
     }
 
     /**
@@ -164,6 +177,10 @@ class FileBird
         $plugin_setting = new FileBird_Setting($this->get_plugin_name(), $this->get_version());
         $feedback = new FileBird_Feedback();
 
+        $user_folder = new FileBird_User_Folder();
+        new FileBird_Convert();
+        new FileBird_Notification($this->get_plugin_name(), $this->get_version());
+
         $this->loader->add_action('admin_menu', $plugin_setting, 'create_admin_sub_menu');
 
         $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
@@ -172,7 +189,6 @@ class FileBird
 
         $this->loader->add_action('init', $plugin_admin, 'filebird_add_folder_to_attachments');
 
-        $this->loader->add_action('init', $plugin_admin, 'wpml_register_duplicate_attachment', 9);
         $this->loader->add_action('admin_footer-upload.php', $plugin_admin, 'filebird_add_init_media_manager');
         $this->loader->add_action('wp_ajax_filebird_ajax_get_folder_list', $plugin_admin, 'filebird_ajax_get_folder_list_callback');
         $this->loader->add_action('wp_ajax_filebird_ajax_update_folder_list', $plugin_admin, 'filebird_ajax_update_folder_list_callback');
@@ -184,6 +200,14 @@ class FileBird
         $this->loader->add_action('wp_ajax_filebird_ajax_treeview_folder', $plugin_admin, 'filebird_add_init_media_manager');
         $this->loader->add_filter('pre-upload-ui', $plugin_admin, 'filebird_pre_upload_ui');
 
+        //Support for WPML
+        $wpml = new NJT_FB_WPML($this->get_plugin_name(), $this->get_version());
+        $this->loader->add_action('init', $wpml, 'init', 9);
+
+        //Support for PolyLang
+        $PolyLang = new NJT_FB_PolyLang($this->get_plugin_name(), $this->get_version());
+        $this->loader->add_action('init', $PolyLang, 'init');
+
         //Support Elementor
         if (defined('ELEMENTOR_VERSION')) {
             add_action('elementor/editor/after_enqueue_scripts', function () {
@@ -192,33 +216,19 @@ class FileBird
                 $taxonomy = NJT_FILEBIRD_FOLDER;
                 $taxonomy = apply_filters('filebird_taxonomy', $taxonomy);
 
-                if ($taxonomy != NJT_FILEBIRD_FOLDER) {
-                    $dropdown_options = array(
-                        'taxonomy' => $taxonomy,
-                        'hide_empty' => false,
-                        'hierarchical' => true,
-                        'orderby' => 'name',
-                        'show_count' => true,
-                        'walker' => new filebird_walker_category_mediagridfilter(),
-                        'value' => 'id',
-                        'echo' => false,
-                    );
-                } else {
-                    $dropdown_options = array(
-                        'taxonomy' => $taxonomy,
-                        'hide_empty' => false,
-                        'hierarchical' => true,
-                        'orderby' => 'name',
-                        'show_count' => true,
-                        'walker' => new filebird_walker_category_mediagridfilter(),
-                        'value' => 'id',
-                        'echo' => false,
-                    );
-                }
+                $dropdown_options = array(
+                  'taxonomy' => $taxonomy,
+                  'hide_empty' => false,
+                  'hierarchical' => true,
+                  'orderby' => 'name',
+                  'show_count' => true,
+                  'walker' => new filebird_walker_category_mediagridfilter(),
+                  'value' => 'id',
+                  'echo' => false,
+                );
                 $attachment_terms = wp_dropdown_categories($dropdown_options);
                 $attachment_terms = preg_replace(array("/<select([^>]*)>/", "/<\/select>/"), "", $attachment_terms);
                 $all_count = wp_count_posts('attachment')->inherit;
-                $uncatetory_count = FileBird_Topbar::get_uncategories_attachment();
 
                 echo '<script type="text/javascript">';
                 echo '/* <![CDATA[ */';
@@ -285,27 +295,5 @@ class FileBird
     public function get_version()
     {
         return $this->version;
-    }
-
-    private function notice_first_use()
-    {
-        global $wpdb;
-        $query = 'SELECT count(*) as "count" from ' . $wpdb->prefix . "term_taxonomy" . ' WHERE taxonomy="' . NJT_FILEBIRD_FOLDER . '"';
-        $result = $wpdb->get_results($query);
-        if (intval($result[0]->count) > 0) {
-            return;
-        }
-        add_action('admin_notices', function () {
-            ?>
-			<div class="notice notice-info is-dismissible">
-				<p>
-					<?php _e('Create your first folder for media library now.', NJT_FILEBIRD_TEXT_DOMAIN)?>
-					<a href="<?php echo esc_url(admin_url('/upload.php')) ?>">
-						<strong><?php _e('Get Started', NJT_FILEBIRD_TEXT_DOMAIN)?></strong>
-					</a>
-				</p>
-			</div>
-			<?php
-});
     }
 }

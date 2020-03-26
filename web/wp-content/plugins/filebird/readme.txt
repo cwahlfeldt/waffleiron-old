@@ -2,7 +2,7 @@
 Contributors: ninjateam
 Tags: wordpress media library folders, wp media folder, wordpress media folder, wordpress media folders, wordpress media library, wordpress media library plugin, wordpress file manager, wordpress media manager
 Requires at least: 3.0
-Tested up to: 5.2.2
+Tested up to: 5.3.2
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -15,10 +15,10 @@ Organize thousands of WordPress media files into folders/ categories at ease.
 WordPress media library folders.
 Organize thousands of WordPress media files into folders/ categories at ease.
 
-[TEST DRIVE](https://media-folder.ninjateam.org/create/) | [DOCUMENTATION](https://filebird.gitbook.io/) 
+[TEST DRIVE](https://media-folder.ninjateam.org/create/) | [DOCUMENTATION](https://ninjateam.gitbook.io/filebird/) 
 
 Video Demo:
-[youtube https://www.youtube.com/watch?v=z0-nC-gVNIA]
+[youtube https://www.youtube.com/watch?v=iqT8z6n05CY]
 
 == FEATURES ==
 
@@ -106,6 +106,15 @@ Yes, they do.
 = When I move an image to another folder, does this action affect the image appearance on my frontend? =
 No, it does not. The image is still displayed correctly on the site frontend.
 
+= If I create a folder or category, does this override the default WordPress path "wp-content/uploads"? =
+No, it does not. The plugin helps organize files into folders visually. The file default path still remains.
+
+= Is there anything happen on my site if I uninstall FileBird? =
+No worries, your website will be safe. All your media files can be found in the library as before you install FileBird.
+
+= Where can I find the Documentation for this plugin? =
+You can find it here [https://ninjateam.gitbook.io/filebird/](https://ninjateam.gitbook.io/filebird/)
+
 = Is FileBird free? =
 Yes, FileBird is free to use with 10 folders/categories
 
@@ -119,6 +128,40 @@ If you have a large files and want to use more than 10 folders/categories, you c
 4. Bulk selectto move / delete files
 
 == Changelog ==
+
+= 2.7 =
+- Added: New FileBird layout
+- Added: New icon
+- Added: Separate Folder(s) for different user
+- Added: Import files from 2 media library plugins (Enhanced Media Library by webbistro and WordPress Media Library Folders by Max Foundry)
+- Added: Folder sort, folder search
+- Fixed: Support PolyLang
+- Fixed: Count
+- Fixed: Splitter
+- Fixed: Rename folder in list view mode
+- Fixed: Some bugs in right to left screen
+- Fixed: Move large folders
+- Fixed: Filter is hidden when using Smush plugin
+- Removed: Unused css
+- Removed: Unused libraries
+
+= 2.6 =
+- Added: FileBird Gallery Block
+- Improved: Optimize FileBird Modal
+- Fixed: Can't edit Image in media setting
+- Fixed: CSS corrupts site menu
+- Fixed: Conflict with Menubar icon plugin
+- Fixed: Uncategorised view the following error message
+- Fixed: Some small bugs
+
+= 2.5.1 =
+- Improved: Remove unuse CSS
+- Fixed: Elementor
+- Fixed: List view don't load images
+- Fixed: ACF plugin CSS conflict
+- Fixed: Remove trigger which conflict with Divi builder
+- Fixed: Conflict with Gridd Theme
+- Fixed: Count uncategories items
 
 = 2.5 =
 - Added: Option turn on/off load FileBird JS at front-end for page builders

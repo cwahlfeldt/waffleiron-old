@@ -3,7 +3,7 @@ Contributors: sudar
 Tags: bulk, mass, move, post, category
 Requires PHP: 5.2  
 Requires at least: 3.8  
-Tested up to: 5.1  
+Tested up to: 5.3  
 Stable tag: 1.3.0  
 
 Move or remove posts in bulk from one category, tag or custom taxonomy to another.
