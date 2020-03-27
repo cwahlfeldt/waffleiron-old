@@ -74,27 +74,27 @@ add_filter( 'site_transient_update_plugins', function( $value ) {
 });
 
 //add SVG to allowed file uploads
-/* add_action('upload_mimes', function($file_types) { */
-/*   $new_filetypes = array(); */
+add_action('upload_mimes', function($file_types) {
+  $new_filetypes = array();
 
-/*   $new_filetypes [ 'svg'  ] = 'image/svg+xml'; */
-/*   $new_filetypes [ 'svgz '] = 'image/svg+xml'; */
-/*   $new_filetypes [ 'webp' ] = 'image/webp'; */
-/*   $new_filetypes [ 'weba' ] = 'audio/weba'; */
-/*   $new_filetypes [ 'webm' ] = 'video/webm'; */
-/*   $new_filetypes [ 'obj'  ] = 'text/plain'; */
-/*   $new_filetypes [ 'vcf'  ] = 'text/vcard'; */
-/*   $new_filetypes [ 'glb'  ] = 'text/plain'; */
-/*   $new_filetypes [ 'mjs'  ] = 'text/javascript'; */
-/*   $new_filetypes [ 'pdf'  ] = 'text/pdf'; */
-/*   $new_filetypes [ 'doc'  ] = 'text/doc'; */
-/*   $new_filetypes [ 'docx'  ] = 'text/docx'; */
-/*   $new_filetypes [ 'sh'   ] = 'application/x-sh'; */
+  $new_filetypes [ 'svg'  ] = 'image/svg+xml';
+  $new_filetypes [ 'svgz '] = 'image/svg+xml';
+  $new_filetypes [ 'webp' ] = 'image/webp';
+  $new_filetypes [ 'weba' ] = 'audio/weba';
+  $new_filetypes [ 'webm' ] = 'video/webm';
+  $new_filetypes [ 'obj'  ] = 'text/plain';
+  $new_filetypes [ 'vcf'  ] = 'text/vcard';
+  $new_filetypes [ 'glb'  ] = 'text/plain';
+  $new_filetypes [ 'mjs'  ] = 'text/javascript';
+  $new_filetypes [ 'pdf'  ] = 'text/pdf';
+  $new_filetypes [ 'doc'  ] = 'text/doc';
+  $new_filetypes [ 'docx'  ] = 'text/docx';
+  $new_filetypes [ 'sh'   ] = 'application/x-sh';
 
-/*   $file_types = array_merge($file_types, $new_filetypes); */
+  $file_types = array_merge($file_types, $new_filetypes);
 
-/*   return $file_types; */
-/* }); */
+  return $file_types;
+});
 
 // allowed_block_types has 1 arg: $allowed_blocks
 add_filter('allowed_block_types', function() {
