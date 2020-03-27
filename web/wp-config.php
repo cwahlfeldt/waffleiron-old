@@ -187,6 +187,7 @@ $table_prefix = getenv( 'DB_PREFIX' ) !== false ? getenv( 'DB_PREFIX' ) : 'wp_';
 if ( ! defined( 'ABSPATH' ) ) {
 	define( 'ABSPATH', dirname( __FILE__ ) . '/' );
 }
+define('ALLOW_UNFILTERED_UPLOADS', true);
 /** Sets up WordPress vars and included files. */
 require_once( ABSPATH . 'wp-settings.php' );
 
@@ -209,3 +210,4 @@ function force_ssl() {
     }
   }
 }
+
