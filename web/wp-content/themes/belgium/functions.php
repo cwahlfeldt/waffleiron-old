@@ -280,3 +280,12 @@ function add_role_to_body($classes) {
     return $classes;
 }
 add_filter('admin_body_class','add_role_to_body');
+function my_custom_upload_mimes($mimes = array()) {
+
+	// Add a key and value for the CSV file type
+	$mimes['pdf'] = "text/pdf";
+
+	return $mimes;
+}
+
+add_action('upload_mimes', 'my_custom_upload_mimes');
