@@ -890,3 +890,7 @@ p > b {
   margin-top: 22px;
   font-size: 1.4rem;
 }
+
+.the-content .flex img {
+  align-self: center;
+}
