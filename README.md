@@ -9,7 +9,6 @@ waffleiron announcement
 
 
 The new Thomas Mamer website is currently using a custom “framework" codenamed waffleiron. waffleiron is basically a wrapper for a Wordpress site on pantheon but with a ton of cool features to help automate every site that uses the framework. Old sites that we host on pantheon (and elsewhere) can be ported over as well (currently only Wordpress but def Drupal in the future).  
-
 Im creating waffleiron as a way to allow myself to maintain and create websites much faster than how I or past developers have done things. I get that we are a small company and this will make our lives easier by speeding up development time and allowing updates and site maintenance to happen under one umbrella.  
 
 With that said heres a list of features to better describe the framework and then ill dive into TM which uses the framework and rundown the custom post types and their fields.
