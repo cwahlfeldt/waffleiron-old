@@ -3,7 +3,7 @@
  * WordPress Coding Standard.
  *
  * @package WPCS\WordPressCodingStandards
- * @link    https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards
+ * @link    https://github.com/WordPress/WordPress-Coding-Standards
  * @license https://opensource.org/licenses/MIT MIT
  */
 
@@ -390,8 +390,16 @@ class I18nSniff extends AbstractFunctionRestrictionsSniff {
 			$this->check_argument_tokens( $argument_assertion_context );
 		}
 
-		// For _n*() calls, compare the singular and plural strings.
-		if ( false !== strpos( $this->i18n_functions[ $matched_content ], 'number' ) ) {
+		/*
+		 * For _n*() calls, compare the singular and plural strings.
+		 * If either of the arguments is missing, empty or has more than 1 token, skip out.
+		 * An error for that will already have been reported via the `check_argument_tokens()` method.
+		 */
+		if ( false !== strpos( $this->i18n_functions[ $matched_content ], 'number' )
+			&& isset( $argument_assertions[0]['tokens'], $argument_assertions[1]['tokens'] )
+			&& count( $argument_assertions[0]['tokens'] ) === 1
+			&& count( $argument_assertions[1]['tokens'] ) === 1
+		) {
 			$single_context = $argument_assertions[0];
 			$plural_context = $argument_assertions[1];
 
@@ -633,8 +641,8 @@ class I18nSniff extends AbstractFunctionRestrictionsSniff {
 	/**
 	 * Check for the presence of a translators comment if one of the text strings contains a placeholder.
 	 *
-	 * @param int   $stack_ptr  The position of the gettext call token in the stack.
-	 * @param array $args       The function arguments.
+	 * @param int   $stack_ptr The position of the gettext call token in the stack.
+	 * @param array $args      The function arguments.
 	 * @return void
 	 */
 	protected function check_for_translator_comment( $stack_ptr, $args ) {

@@ -133,9 +133,12 @@ abstract class AbstractRecursivePass implements CompilerPassInterface
             list($class, $method) = $factory;
             if ($class instanceof Reference) {
                 $class = $this->container->findDefinition((string) $class)->getClass();
+            } elseif ($class instanceof Definition) {
+                $class = $class->getClass();
             } elseif (null === $class) {
                 $class = $definition->getClass();
             }
+
             if ('__construct' === $method) {
                 throw new RuntimeException(sprintf('Invalid service "%s": "__construct()" cannot be used as a factory method.', $this->currentId));
             }
@@ -211,7 +214,7 @@ abstract class AbstractRecursivePass implements CompilerPassInterface
                     $arg = $this->processValue(new Reference($id));
                     $this->inExpression = false;
                     if (!$arg instanceof Reference) {
-                        throw new RuntimeException(sprintf('"%s::processValue()" must return a Reference when processing an expression, %s returned for service("%s").', \get_class($this), \is_object($arg) ? \get_class($arg) : \gettype($arg), $id));
+                        throw new RuntimeException(sprintf('"%s::processValue()" must return a Reference when processing an expression, "%s" returned for service("%s").', static::class, \is_object($arg) ? \get_class($arg) : \gettype($arg), $id));
                     }
                     $arg = sprintf('"%s"', $arg);
                 }

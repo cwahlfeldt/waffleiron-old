@@ -1434,7 +1434,31 @@ $query = Model::query()
         static $b = '';
    });
 
+$result = array_map(
+    static fn(int $number) : int => $number + 1,
+    $numbers
+);
+
+$a = $a === true ? [
+    'a' => 1,
+    ] : [
+    'a' => 100,
+];
+
+return [
+    Url::make('View Song', fn($song) => $song->url())
+        ->onlyOnDetail(),
+
+    new Panel('Information', [
+        Text::make('Title')
+    ]),
+];
+
 ?>
+
+     <?php if (true) : ?>
+         <span></span>
+     <?php endif ?>
 
 <?php
     if (true) {

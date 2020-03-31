@@ -8,16 +8,16 @@ BladeOne is a standalone version of Blade Template Engine that uses a single PHP
 [![Build Status](https://travis-ci.org/EFTEC/BladeOne.svg?branch=master)](https://travis-ci.org/EFTEC/BladeOne)
 [![Packagist](https://img.shields.io/packagist/v/eftec/bladeone.svg)](https://packagist.org/packages/eftec/bladeone)
 [![Total Downloads](https://poser.pugx.org/eftec/bladeone/downloads)](https://packagist.org/packages/eftec/bladeone)
-[![Maintenance](https://img.shields.io/maintenance/yes/2019.svg)]()
+[![Maintenance](https://img.shields.io/maintenance/yes/2020.svg)]()
 [![composer](https://img.shields.io/badge/composer-%3E1.6-blue.svg)]()
 [![php](https://img.shields.io/badge/php->5.6-green.svg)]()
 [![php](https://img.shields.io/badge/php-7.x-green.svg)]()
 [![CocoaPods](https://img.shields.io/badge/docs-70%25-yellow.svg)]()
 
 
-NOTE: So far it's apparently the only one project that it's updated with the latest version of **Blade 5.8 (March 2019)**. It misses some commands [missing](#missing) but nothing more.
+NOTE: So far it's apparently the only one project that it's updated with the latest version of **Blade 7 (March 2020)**. It misses some commands [missing](#missing) but nothing more.
 
-Примечание: до сих пор это, видимо, только один проект, который обновляется с последней версией ** Blade 5,8 (2019 Марта) **. Он пропускает некоторые команды [отсутствует](#missing), но ничего больше.
+Примечание: до сих пор это, видимо, только один проект, который обновляется с последней версией ** Blade 7 (2020 Марта) **. Он пропускает некоторые команды [отсутствует](#missing), но ничего больше.
 
 
 ## NOTE about questions, reports, doubts or suggestings:
@@ -34,70 +34,83 @@ I will try to answer all and every one of the question (in my limited time).
  
 
 
-
-
-
-
-
-
-
 ## Index
-  
 
 - [BladeOne Blade Template Engine](#bladeone-blade-template-engine)
-  * [laravel blade tutorial](#laravel-blade-tutorial)
+  * [NOTE about questions, reports, doubts or suggestings:](#note-about-questions--reports--doubts-or-suggestings-)
+  * [Some example](#some-example)
+  * [Index](#index)
+  * [Laravel blade tutorial](#laravel-blade-tutorial)
   * [About this version](#about-this-version)
-  * [Why to use it instead of native PHP?](#why-to-use-it-instead-of-native-php)
+  * [Why to use it instead of native PHP?](#why-to-use-it-instead-of-native-php-)
     + [Separation of concerns](#separation-of-concerns)
   * [Security](#security)
   * [Easy to use](#easy-to-use)
     + [Performance](#performance)
     + [Scalable](#scalable)
-  * [Install (pick one of the next one)](#install-pick-one-of-the-next-one)
+  * [Install (pick one of the next one)](#install--pick-one-of-the-next-one-)
   * [Usage](#usage)
-  * [Security (optional)](#security-optional)
-  * [Business Logic/Controller methods](#business-logiccontroller-methods)
+    + [Without composer's autoload.php](#without-composer-s-autoloadphp)
+    + [Without namespace nor composer](#without-namespace-nor-composer)
+    + [With composer's autoload.php](#with-composer-s-autoloadphp)
+  * [Security (optional)](#security--optional-)
+  * [Business Logic/Controller methods](#business-logic-controller-methods)
     + [constructor](#constructor)
     + [run](#run)
+    + [share](#share)
+    + [setOptimize(bool=false)](#setoptimize-bool-false-)
+    + [setIsCompiled(bool=false)](#setiscompiled-bool-false-)
     + [setMode](#setmode)
-    + [setFileExtension($ext), getFileExtension](#setfileextensionext-getfileextension)
-    + [setCompiledExtension($ext), getCompiledExtension](#setcompiledextensionext-getcompiledextension)
+    + [setFileExtension($ext), getFileExtension](#setfileextension--ext---getfileextension)
+    + [setCompiledExtension($ext), getCompiledExtension](#setcompiledextension--ext---getcompiledextension)
     + [runString](#runstring)
     + [directive](#directive)
     + [directiveRT](#directivert)
-    + [BLADEONE_MODE (global constant) (optional)](#bladeone_mode-global-constant-optional)
-    + [setErrorFunction](#seterrorfunction)    
+    + [BLADEONE_MODE (global constant) (optional)](#bladeone-mode--global-constant---optional-)
+    + [setErrorFunction](#seterrorfunction)
     + [setCanFunction and setAnyFunction](#setcanfunction-and-setanyfunction)
+      - [Quick permission validation](#quick-permission-validation)
   * [Template tags](#template-tags)
     + [Template Inheritance](#template-inheritance)
-    + [In the master page (layout)](#in-the-master-page-layout)
-    + [Using the master page (using the layout)](#using-the-master-page-using-the-layout)
+    + [In the master page (layout)](#in-the-master-page--layout-)
+    + [Using the master page (using the layout)](#using-the-master-page--using-the-layout-)
     + [variables](#variables)
     + [logic](#logic)
     + [loop](#loop)
-      - [@for($variable;$condition;$increment) / @endfor](#forvariableconditionincrement--endfor)
-      - [@inject('variable name', 'namespace')](#injectvariable-name-namespace)
-      - [@foreach($array as $alias) / @endforeach](#foreacharray-as-alias--endforeach)
-      - [@forelse($array as $alias) / @empty / @endforelse](#forelsearray-as-alias--empty--endforelse)
-      - [@while($condition) / @endwhile](#whilecondition--endwhile)
-      - [@splitforeach($nElem,$textbetween,$textend="")  inside @foreach](#splitforeachnelemtextbetweentextend--inside-foreach)
-      - [@continue / @break](#continue--break)
-    + [switch / case](#switch--case)
-    + [Sub Views](#sub-views)
+      - [@for($variable;$condition;$increment) / @endfor](#-for--variable--condition--increment-----endfor)
+      - [@inject('variable name', 'namespace')](#-inject--variable-name----namespace--)
+      - [@foreach($array as $alias) / @endforeach](#-foreach--array-as--alias-----endforeach)
+      - [@forelse($array as $alias) / @empty / @endforelse](#-forelse--array-as--alias-----empty----endforelse)
+      - [@while($condition) / @endwhile](#-while--condition-----endwhile)
+      - [@splitforeach($nElem,$textbetween,$textend="")  inside @foreach](#-splitforeach--nelem--textbetween--textend------inside--foreach)
+      - [@continue / @break](#-continue----break)
+    + [switch / case](#switch---case)
+  * [Template](#template)
+    + [@compilestamp($format='')](#-compilestamp--format----)
+    + [@viewname($type='')](#-viewname--type----)
+  * [Sub Views](#sub-views)
+    + [@include](#-include)
+    + [@includeif](#-includeif)
+    + [@includefast](#-includefast)
+    + [aliasing include](#aliasing-include)
   * [Comments](#comments)
     + [Stacks](#stacks)
-  * [@set (new for 1.5)](#set-new-for-15)
+  * [@set](#-set)
     + [Service Inject](#service-inject)
   * [Asset Management](#asset-management)
-    + [@asset](#asset)
-    + [@resource](#resource)
-    + [setBaseUrl($url)](#setbaseurlurl)
-    + [getBaseUrl()](#getbaseurl)
-    + [addAssetDict()](#addassetdictnameurl)
-  * [Extensions Libraries (optional)](#extensions-libraries-optional)
+    + [@asset](#-asset)
+    + [@use(namespace)](#-use-namespace-)
+    + [@resource](#-resource)
+    + [setBaseUrl($url)](#setbaseurl--url-)
+    + [getBaseUrl()](#getbaseurl--)
+    + [addAssetDict($name,$url)](#addassetdict--name--url-)
+  * [Extensions Libraries (optional)](#extensions-libraries--optional-)
+  * [Calling a static methods inside the template.](#calling-a-static-methods-inside-the-template)
+    + [Method 1 PHP Style](#method-1-php-style)
+    + [Method 2 Alias](#method-2-alias)
   * [Definition of Blade Template](#definition-of-blade-template)
   * [Differences between Blade and BladeOne](#differences-between-blade-and-bladeone)
-  * [Differences between Blade+Laravel and BladeOne+BladeOneHTML](#differences-between-bladelaravel-and-bladeonebladeonehtml)
+  * [Differences between Blade+Laravel and BladeOne+BladeOneHTML](#differences-between-blade-laravel-and-bladeone-bladeonehtml)
   * [Version](#version)
     + [Changes between 2.x and 3.0](#changes-between-2x-and-30)
   * [todo](#todo)
@@ -106,6 +119,7 @@ I will try to answer all and every one of the question (in my limited time).
   * [Future](#future)
   * [Missing](#missing)
   * [License](#license)
+
 
 
 ## Laravel blade tutorial
@@ -755,7 +769,27 @@ _Example:(the indentation is not required)_
 - `@break` Break the case
 - `@endswitch` End the switch.
 
-### Sub Views
+## Template
+
+### @compilestamp($format='')
+It shows the current date of the compiled template
+
+```html
+@compileStamp() // returns the current date and time as "Y-m-d H:i:s"
+@compileStamp('d') // returns the current date AND TIME AS "d" (day)
+```
+
+### @viewname($type='') 
+
+It shows the name of the template
+
+```html
+@viewname('compiled') // the full filename of the compiled file
+@viewname('template') // the full filename of the template
+@viewname('') // the name of the filename
+```
+
+## Sub Views
 |Tag|Note|
 |---|---|
 |@include('folder.template')|Include a template|
@@ -763,7 +797,7 @@ _Example:(the indentation is not required)_
 |@each('view.name', $array, 'variable')|Includes a template for each element of the array|
 Note: Templates called folder.template is equals to folder/template
 
-## @include
+### @include
 It includes a template
 
 You could include a template as follow:
@@ -881,7 +915,8 @@ script1
 
 
 
-## @set (new for 1.5)
+
+## @set
 ```
 @set($variable=[value])
 ```
@@ -969,6 +1004,13 @@ $obj->setBaseUrl("https://www.example.com/urlbase/"); // with or without trail s
 ```
 > Security: Don't use the variables $SERVER['HTTP_HOST'] or $SERVER['SERVER_NAME'] unless the url is protected or the address is sanitized.
 
+### @use(namespace)
+It works exactly like the command "use" of PHP.  
+
+```
+@use(\namespace1\namespace2)
+```
+
 ### @resource
 
 It's similar to `@asset`. However, it uses a relative path.
@@ -990,6 +1032,7 @@ It sets the base url.
 $obj=new BladeOne();
 $obj->setBaseUrl("https://www.example.com/urlbase/"); // with or without trail slash
 ```
+
 
 
 ### getBaseUrl()
@@ -1016,8 +1059,67 @@ $url=$obj->addAssetDict('css/style.css','http://....');
 
 [BladeOneLang Documentation](BladeOneLang.md)
 
+## Calling a static methods inside the template.
+
+Since **3.34**, BladeOne allows to call a static method inside a class.
+
+Let's say we have a class with namespace \namespace1\namespace2
+
+```php
+namespace namespace1\namespace2 {
+    class SomeClass {
+        public static function Method($arg='') {
+            return "hi world";
+        }
+    }
+}
+```
+
+### Method 1 PHP Style
+
+We could add a "use" in the template.  Example:
+
+Add the next line to the template
+```html
+@use(\namespace1\namespace2)
+```
+
+and the next lines to the template (different methods)
+
+```html
+{{SomeClass::Method()}}
+{!! SomeClass::Method() !!}
+@SomeClass::Method()
+```
+
+> All those methods are executed at runtime
+
+
+### Method 2 Alias
+Or we could define alias for each classes.
+
+php code:
+```php
+    $blade = new BladeOne();
+    // with the method addAliasClasses
+    $blade->addAliasClasses('SomeClass', '\namespace1\namespace2\SomeClass');
+    // with the setter setAliasClasses
+    $blade->setAliasClasses(['SomeClass'=>'\namespace1\namespace2\SomeClass']);
+    // or directly in the field
+    $blade->aliasClasses=['SomeClass'=>'\namespace1\namespace2\SomeClass'];
+```
+
+Template:
+```html
+{{SomeClass::Method()}}
+{!! SomeClass::Method() !!}
+@SomeClass::Method()
+```
+
+> We won't need alias or use for global classes.
+
 ## Definition of Blade Template
-https://laravel.com/docs/5.6/blade
+https://laravel.com/docs/7/blade
 
 ## Differences between Blade and BladeOne
 
@@ -1034,6 +1136,8 @@ Instead of use the Laravel functions, for example Form::select
 {{Form::select('countryID', $arrayCountries,$countrySelected)}}
 ```
 
+> Note: Since 3.34 this method is also allowed.
+
 We have native tags as @select,@item,@items and @endselect
 ```html
 @select('countryID')
@@ -1048,7 +1152,39 @@ Also, BladeOneHTML adds multiple select, fixed values (without array), grouped s
 
 
 ## Version
-
+- 2020-03-10 3.37
+    * new tag @compilestamp() shows the date and time where the template was compiled.
+    * new tag @viewname() shows the current view template, compile filename or template filename
+    
+- 2020-02-28 3.36.2
+    * @splitforeach fixed. Now, it works as base zero.
+- 2020.02-28 3.36.1
+    * @method returned and fixed.
+    * BladeOneHtml2 still in WIP
+- 2020-02-19 3.36
+    * removed compileExpression() // it was never used
+    * solved csrfIsValid() when it is compile with mode BladeOne::MODE_FAST	
+    * @csrf tag it has a new argument (name of the token)
+        * @csrf('_mytag')
+    * method csrfIsValid has a new argument (name of the token)
+        * $blade->csrfIsValid(true,'_mytag');
+- 2020-02-15 3.35
+    * Added a new argument optional for csrfIsValid()
+- 2020-01-17 3.34
+    * It allows to calls a static method inside a class
+    * See section **Calling a static methods inside the template**.
+    * new field $aliasClasses
+    * new method getAliasClasses()
+    * new method setAliasClasses()
+    * new method addAliasClasses()
+    * new method compileUse()
+    * new method compileStatementClass()
+    * new method fixNamespaceClass()
+- 2019-12-21 3.33
+    *  For #99  Fixed missingTranslation(). Also some cleanups.
+- 2019-12-21 3.32 
+    * For #96 added $loop->even and $loop->odd and $loop->iteration
+    * Also, **$loop->index now starts with 0 instead of 1**
 - 2019-08-09 3.31 The operations _e(), _n() and _ef() used for language are now integrated on BladeOne. 
  So we don't need BladeOneLang anymore.
 - 2019-06-14 3.30 Here it goes again.Returned cause psr-2 (but it breaks phpstorm so I added exceptions)
@@ -1210,15 +1346,13 @@ Some features are missing because they are new, or they lack documentation or th
 - ~~@csrf. Pending~~ DONE
 - ~~@dd. Done. Ugly but it is done too.~~ DONE
 - ~~@method. Pending~~ DONE
-
-
-
-
-
+- Comment with the name of the template folder. It is not done because it could break functionality.
+ BladeOne allows to write and work even with non-html templates.
+ 
 
 
 ## License
 MIT License.
-BladeOne (c) 2016-2019 Jorge Patricio Castro Castillo
+BladeOne (c) 2016-2020 Jorge Patricio Castro Castillo
 Blade (c) 2012 Laravel Team (This code is based and inspired in the work of the team of Laravel, however BladeOne is mostly a original work)
 

@@ -316,10 +316,10 @@ class BrowserKitDriver extends CoreDriver
 
         // BC layer for Symfony < 4.3
         if (!method_exists($response, 'getStatusCode')) {
-            return $this->getResponse()->getStatus();
+            return $response->getStatus();
         }
 
-        return $this->getResponse()->getStatusCode();
+        return $response->getStatusCode();
     }
 
     /**
@@ -358,7 +358,8 @@ class BrowserKitDriver extends CoreDriver
      */
     public function getText($xpath)
     {
-        $text = $this->getFilteredCrawler($xpath)->text();
+        $text = $this->getFilteredCrawler($xpath)->text(null, true);
+        // TODO drop our own normalization once supporting only dom-crawler 4.4+ as it already does it.
         $text = str_replace("\n", ' ', $text);
         $text = preg_replace('/ {2,}/', ' ', $text);
 
@@ -370,8 +371,7 @@ class BrowserKitDriver extends CoreDriver
      */
     public function getHtml($xpath)
     {
-        // cut the tag itself (making innerHTML out of outerHTML)
-        return preg_replace('/^\<[^\>]+\>|\<[^\>]+\>$/', '', $this->getOuterHtml($xpath));
+        return $this->getFilteredCrawler($xpath)->html();
     }
 
     /**
@@ -379,7 +379,13 @@ class BrowserKitDriver extends CoreDriver
      */
     public function getOuterHtml($xpath)
     {
-        $node = $this->getCrawlerNode($this->getFilteredCrawler($xpath));
+        $crawler = $this->getFilteredCrawler($xpath);
+
+        if (method_exists($crawler, 'outerHtml')) {
+            return $crawler->outerHtml();
+        }
+
+        $node = $this->getCrawlerNode($crawler);
 
         return $node->ownerDocument->saveHTML($node);
     }
@@ -419,7 +425,15 @@ class BrowserKitDriver extends CoreDriver
             return $this->getAttribute($xpath, 'value');
         }
 
-        return $field->getValue();
+        $value = $field->getValue();
+
+        if ('select' === $node->tagName && null === $value) {
+            // symfony/dom-crawler returns null as value for a non-multiple select without
+            // options but we want an empty string to match browsers.
+            $value = '';
+        }
+
+        return $value;
     }
 
     /**
@@ -716,7 +730,7 @@ class BrowserKitDriver extends CoreDriver
             }
         }
 
-        $this->client->submit($form);
+        $this->client->submit($form, array(), $this->serverParameters);
 
         $this->forms = array();
     }

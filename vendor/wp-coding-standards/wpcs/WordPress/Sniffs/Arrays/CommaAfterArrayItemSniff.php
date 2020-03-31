@@ -3,7 +3,7 @@
  * WordPress Coding Standard.
  *
  * @package WPCS\WordPressCodingStandards
- * @link    https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards
+ * @link    https://github.com/WordPress/WordPress-Coding-Standards
  * @license https://opensource.org/licenses/MIT MIT
  */
 
@@ -51,6 +51,14 @@ class CommaAfterArrayItemSniff extends Sniff {
 	 * @return void
 	 */
 	public function process_token( $stackPtr ) {
+
+		if ( \T_OPEN_SHORT_ARRAY === $this->tokens[ $stackPtr ]['code']
+			&& $this->is_short_list( $stackPtr )
+		) {
+			// Short list, not short array.
+			return;
+		}
+
 		/*
 		 * Determine the array opener & closer.
 		 */
@@ -94,6 +102,12 @@ class CommaAfterArrayItemSniff extends Sniff {
 			 * Check if this is a comma at the end of the last item in a single line array.
 			 */
 			if ( true === $single_line && $item_index === $array_item_count ) {
+
+				$this->phpcsFile->recordMetric(
+					$stackPtr,
+					'Single line array - comma after last item',
+					( true === $is_comma ? 'yes' : 'no' )
+				);
 
 				if ( true === $is_comma ) {
 					$fix = $this->phpcsFile->addFixableError(
@@ -143,6 +157,14 @@ class CommaAfterArrayItemSniff extends Sniff {
 				if ( true === $fix ) {
 					$this->phpcsFile->fixer->addContent( $last_content, ',' );
 				}
+			}
+
+			if ( false === $single_line && $item_index === $array_item_count ) {
+				$this->phpcsFile->recordMetric(
+					$stackPtr,
+					'Multi-line array - comma after last item',
+					( true === $is_comma ? 'yes' : 'no' )
+				);
 			}
 
 			if ( false === $is_comma ) {
