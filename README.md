@@ -34,7 +34,7 @@ With that said heres a list of features to better describe the framework and the
     $ iron pull     # pull from any environment on pantheon     # using the &lt;site-name&gt;.&lt;dev, test, or live&gt;  
     $ iron pull windsor-west.dev     $ iron pull thomas-mamer.live          # PUSH up to pantheon     $ iron push     # or to any environment  
     $ iron push windsor-west.dev     # or push to multiple environments with filters     # good for mass updating a bunch of sites     $ iron push --all "custom-upstream-name"      # ... more cool stuff ...  
-     # create a new site under the mckenziewagner organzation and deploy to pantheon.     # this will also install all the default waffleiron plugins, files and database.     # Your site will be available at https://dev-waffleiron-new-waffleiron-site.pantheonsite.org     $ iron create-site 'New Waffleiron Site'          # create a new post type from the command line and set it up     $ iron create-post-type          # see all commands     $ iron help      # ... documentation is hosted on the site as well :)  
+    # create a new site under the mckenziewagner organzation and deploy to pantheon.     # this will also install all the default waffleiron plugins, files and database.     # Your site will be available at https://dev-waffleiron-new-waffleiron-site.pantheonsite.org     $ iron create-site 'New Waffleiron Site'          # create a new post type from the command line and set it up     $ iron create-post-type          # see all commands     $ iron help      # ... documentation is hosted on the site as well :)  
       
      waffleiron Fields :   
   
