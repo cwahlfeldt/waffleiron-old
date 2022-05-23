@@ -564,13 +564,13 @@ a:hover p {
 
 .profile div.flex,
 .profile img {
-  max-width: 220px;
+  max-width: 300px;
 }
 
 .profile {
   position: absolute;
   top: 30px;
-  right: -11vw;
+  right: -14vw;
 }
 
 .the-content > *  {
