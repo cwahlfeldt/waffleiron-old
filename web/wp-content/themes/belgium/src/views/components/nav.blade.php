@@ -53,7 +53,7 @@
     }
   }
 
-  usort($partners, $lastNameSort);
+  // usort($partners, $lastNameSort);
   usort($associates, $lastNameSort);
   usort($of_counsel, $lastNameSort);
 
