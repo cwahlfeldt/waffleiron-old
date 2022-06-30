@@ -52,15 +52,7 @@
       array_unshift($partners, $a);
     }
   }
-  echo "Partners BEFORE sorting";
-  print "<pre>";
-  print_r($partners);
-  print "</pre>";
-  usort($partners, $lastNameSort);
-  echo "Partners AFTER sorting";
-  print "<pre>";
-  print_r($partners);
-  print "</pre>";
+  // usort($partners, $lastNameSort);
   usort($associates, $lastNameSort);
   usort($of_counsel, $lastNameSort);
 
