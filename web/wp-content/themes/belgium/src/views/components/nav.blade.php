@@ -53,10 +53,10 @@
     }
   }
   echo "Partners BEFORE sorting";
-  printr($partners);
+  print_r($partners);
   usort($partners, $lastNameSort);
   echo "Partners AFTER sorting";
-  printr($partners);
+  print_r($partners);
   usort($associates, $lastNameSort);
   usort($of_counsel, $lastNameSort);
 
