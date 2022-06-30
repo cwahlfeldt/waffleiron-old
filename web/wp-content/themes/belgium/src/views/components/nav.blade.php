@@ -52,8 +52,11 @@
       array_unshift($partners, $a);
     }
   }
-
-  // usort($partners, $lastNameSort);
+  echo "Partners BEFORE sorting";
+  printr($partners);
+  usort($partners, $lastNameSort);
+  echo "Partners AFTER sorting";
+  printr($partners);
   usort($associates, $lastNameSort);
   usort($of_counsel, $lastNameSort);
 
