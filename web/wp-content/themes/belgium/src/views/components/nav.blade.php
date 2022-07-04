@@ -29,7 +29,7 @@
     $aLast = end(explode(' ', $aa));
     $bLast = end(explode(' ', $bb));
 
-    if ($aLast == 'Warren') {
+    if ($aLast == 'Reifsteck') {
       return false;
     }
 
@@ -49,9 +49,6 @@
       $of_counsel[] = $a;
     } 
     if ($type == 'Managing Partner') {
-      $t = get_field('title', $a->ID);
-      echo "printing title";
-      print_r($t);
       array_unshift($partners, $a);
     }
   }
