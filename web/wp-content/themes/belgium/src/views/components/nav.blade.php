@@ -29,7 +29,7 @@
     $aLast = end(explode(' ', $aa));
     $bLast = end(explode(' ', $bb));
 
-    if ($aLast == 'Reifsteck') {
+    if ($aLast == 'Warren') {
       return false;
     }
 
@@ -52,7 +52,15 @@
       array_unshift($partners, $a);
     }
   }
+  echo "Partners BEFORE sorting";
+  print "<pre>";
+  print_r($partners);
+  print "</pre>";
   usort($partners, $lastNameSort);
+  echo "Partners AFTER sorting";
+  print "<pre>";
+  print_r($partners);
+  print "</pre>";
   usort($associates, $lastNameSort);
   usort($of_counsel, $lastNameSort);
 
