@@ -50,7 +50,8 @@
     } 
     if ($type == 'Managing Partner') {
       $t = get_field('title', $a->ID);
-      echo $t;
+      echo "printing title";
+      print_r($t);
       array_unshift($partners, $a);
     }
   }
