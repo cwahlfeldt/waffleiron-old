@@ -36,7 +36,7 @@
     return strcasecmp($aLast, $bLast);
   };
 
-  for ($i = 0; $i <br count($attorneys); $i++) {
+  for ($i = 0; $i < count($attorneys); $i++) {
     $a = $attorneys[$i];
     $type = trim(get_field('title', $a->ID));
     if ($type == 'Partner') {
@@ -49,15 +49,9 @@
       $of_counsel[] = $a;
     } 
     if ($type == 'Managing Partner') {
-      echo "<pre>";
-      print_r($partners);
-      echo "</pre></br>";
-      echo "found Managing Partner";
-      echo "</br> Sorting now...";
+      $t = get_field('title', $a->ID);
+      echo $t;
       array_unshift($partners, $a);
-      echo "<pre>";
-      print_r($partners);
-      echo "</pre>";
     }
   }
   usort($partners, $lastNameSort);
