@@ -49,18 +49,11 @@
       $of_counsel[] = $a;
     } 
     if ($type == 'Managing Partner') {
+      echo "found Managing Partner";
       array_unshift($partners, $a);
     }
   }
-  echo "Partners BEFORE sorting";
-  print "<pre>";
-  print_r($partners['post_title']);
-  print "</pre>";
   usort($partners, $lastNameSort);
-  echo "Partners AFTER sorting";
-  print "<pre>";
-    print_r($partners['post_title']);
-  print "</pre>";
   usort($associates, $lastNameSort);
   usort($of_counsel, $lastNameSort);
 
